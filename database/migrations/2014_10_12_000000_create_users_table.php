@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('username');
             $table->string('password');
             $table->enum('role', ['admin', 'guru']);
+            $table->rememberToken();
             $table->timestamps();
         });
     }

@@ -33,7 +33,7 @@
                                 <div class="info-box">
                                     <div class="info-box-content">
                                         <p class="info-box-title">Email Kami</p>
-                                        <p class="info-box-subtitle">bbgpsulsel@kemdikbud.go.id </p>
+                                        <p class="info-box-subtitle">rpphsulsel@kemdikbud.go.id </p>
                                     </div>
                                 </div>
                             </li>

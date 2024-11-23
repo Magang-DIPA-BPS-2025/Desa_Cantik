@@ -6,7 +6,7 @@
     <!-- Basic Page Needs
 ================================================== -->
     <meta charset="utf-8">
-    <title>BBGP Provinsi Sulawesi Selatan - Rumah Belajar Insan Pendidikan</title>
+    <title>RPPH Provinsi Sulawesi Selatan - Rumah Belajar Insan Pendidikan</title>
 
     <!-- Mobile Specific Metas
 ================================================== -->

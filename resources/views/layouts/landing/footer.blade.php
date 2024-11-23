@@ -6,7 +6,7 @@
                     <h3 class="widget-title">Tentang Kami</h3>
                     <img loading="lazy" width="200px" class="footer-logo"
                         src="{{ asset('landing/images/footer/footer-img.png') }}" alt="Constra">
-                    <p>BBGP Provinsi Sulawesi Selatan - Kementerian Pendidikan, Kebudayaan, Riset dan Teknologi</p>
+                    <p>RPPH Provinsi Sulawesi Selatan - Kementerian Pendidikan, Kebudayaan, Riset dan Teknologi</p>
                     <div class="footer-social">
                         <ul>
                             <li><a href="https://www.facebook.com/bbgpsulsel/" aria-label="Facebook"><i
@@ -25,10 +25,10 @@
                     <div class="working-hours">
                         <ul class="list-arrow">
                             <li>
-                                Jl. Adiyaksa No.2, Pandang, Kec. Panakkukang, Kota Makassar, Sulawesi Selatan
+                                Jl. PelitaTaeng No.2, Pandang, Kec. Panakkukang, Kota Makassar, Sulawesi Selatan
                             </li>
-                            <li>(0411) 440065, 421460 </li>
-                            <li>bbgpsulsel@kemdikbud.go.id </li>
+                            <li>08898988988 </li>
+                            <li>rpphsulsel@kemdikbud.go.id </li>
                         </ul>
                     </div>
                 </div><!-- Col end -->
@@ -69,7 +69,7 @@
                         <span style="color:#fff">Copyright &copy;
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script>, BBGP Provinsi Sulawesi Selatan
+                            </script>, RPPH Provinsi Sulawesi Selatan
                         </span>
                     </div>
                 </div>

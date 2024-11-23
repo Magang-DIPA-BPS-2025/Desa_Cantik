@@ -47,20 +47,7 @@ class AuthController extends Controller
             Session::put('name', $user->name);
             Session::put('username', $user->username);
             Session::put('role', $user->role);
-            // Session::put('role', $user->role);
             Session::put('cek', true);
-
-            // if($user->role == 'pegawai') {
-            //     return redirect()->route('pegawai.show', $user->no_ktp)->with('message', 'sukses login');
-
-            // }
-
-
-            // if($user->role == 'tenaga pendidik' || $user->role == 'tenaga kependidikan' || $user->role == 'stakeholder') {
-            //     return redirect()->route('guru.show', $user->no_ktp)->with('message', 'sukses login');
-
-            // }
-
 
 
             return redirect()->route('dashboard')->with('message', 'sukses login');
