@@ -30,13 +30,6 @@
                                     <div class="row">
                                         <div class="col-md">
                                             <div class="form-group">
-                                                <label>NIK</label>
-                                                <input {{ session('role') == 'admin' || session('role') == 'superadmin' ? '' : 'readonly' }} value="{{ $datas->no_ktp }}" name="no_ktp" required
-                                                    placeholder="Masukkan Nomor KTP" type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md">
-                                            <div class="form-group">
                                                 <label>Nama</label>
                                                 <input value="{{ $datas->name }}" name="name" required
                                                     placeholder="Masukkan Nama Akun" type="text" class="form-control">
@@ -65,24 +58,10 @@
                                                 <select name="role" required placeholder="Masukkan Akun"
                                                     class="form-control">
                                                     <option value="">-- Pilih Role Akun --</option>
-                                                    <option {{ $datas->role == 'kepala' ? 'selected' : '' }} value="kepala">
-                                                        Kepala Balai</option>
-                                                    <option {{ $datas->role == 'kepegawaian' ? 'selected' : '' }} value="kepegawaian">
-                                                        Kepegawaian</option>
-                                                    <option {{ $datas->role == 'keuangan' ? 'selected' : '' }} value="keuangan">
-                                                        Keuangan</option>
-                                                    <option {{ $datas->role == 'kegiatan' ? 'selected' : '' }} value="kegiatan">
-                                                        Kegiatan</option>
-                                                    <option {{ $datas->role == 'tenaga pendidik' ? 'selected' : '' }}
-                                                        value="tenaga pendidik">tenaga pendidik</option>
-                                                    <option {{ $datas->role == 'tenaga kependidikan' ? 'selected' : '' }}
-                                                        value="tenaga kependidikan">tenaga kependidikan</option>
-                                                    <option {{ $datas->role == 'stakeholder' ? 'selected' : '' }}
-                                                        value="stakeholder">stakeholder</option>
-                                                    <option {{ $datas->role == 'pegawai' ? 'selected' : '' }}
-                                                        value="pegawai">Pegawai BBGP</option>
-                                                    <option {{ $datas->role == 'superadmin' ? 'selected' : '' }}
-                                                        value="superadmin">superadmin</option>
+                                                    <option {{ $datas->role == 'guru' ? 'selected' : '' }}
+                                                        value="guru">Guru</option>
+                                                    <option {{ $datas->role == 'admin' ? 'selected' : '' }}
+                                                        value="admin">Admin</option>
                                                 </select>
                                             </div>
                                         </div>

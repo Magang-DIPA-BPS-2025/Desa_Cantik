@@ -10,7 +10,7 @@ class Agenda extends Model
     use HasFactory;
     protected $fillable = [
         'thumbnail',
-        'nm_kegiatan',
+        'judul',
         'tempat_kegiatan',
         'tgl_kegiatan',
         'tgl_selesai',

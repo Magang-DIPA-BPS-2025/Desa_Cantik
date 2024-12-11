@@ -20,13 +20,7 @@ return new class extends Migration
             $table->string('tempat_lahir');
             $table->date('tgl_lahir');
             $table->enum('gender', ['Laki-laki', 'Perempuan']);
-            $table->string('jabatan');
-            $table->enum('status', ['Kawin', 'Belum Kawin']);
-            $table->string('status_kepegawaian');
             $table->enum('agama', ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Budha', 'Konghucu']);
-            $table->string('pendidikan');
-            $table->string('kabupaten');
-            $table->string('satuan_pendidikan');
             $table->string('alamat_rumah');
             $table->string('no_hp');
             $table->string('pas_foto');

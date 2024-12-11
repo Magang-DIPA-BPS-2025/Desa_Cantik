@@ -12,7 +12,77 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//  User
+Route::group(
+    ['prefix' => '', 'namespace' => 'App\Http\Controllers\User'],
+    function () {
+        Route::redirect('/', '/');
+        // Dashboard
 
+        //         Route::get(
+        //             '/',
+        //             function () {
+        //                 return view('pages.landing.index');
+        //             }
+        //         )->name('user.index');
+
+        // Route::get(
+        //     '/',
+        //     function () {
+        //         return view('pages.landing.index');
+        //     }
+        // )->name('user.index');
+
+        Route::get('/', 'UserController@index')->name('user.index');
+        Route::get('/kontak', 'UserController@kontak')->name('user.kontak');
+        Route::get('/eksternal', 'UserController@guru')->name('user.guru');
+
+        Route::get('/detail/{jenis}/{id}', 'UserController@detail')->name('user.detail.post');
+
+
+        Route::get('/pegawai', 'UserController@pegawai')->name('user.pegawai');
+        Route::get('/pegawai/form', 'UserController@form_pegawai')->name('user.form_pegawai');
+        Route::post('/pegawai/daftar', 'UserController@daftar_pegawai')->name('user.daftar_pegawai');
+        Route::get('/pegawai/all', 'UserController@getPenugasanAll')->name('user.pegawai.all');
+        Route::get('/pegawai/detail', 'UserController@getPenugasanDetail')->name('user.pegawai.detail');
+        Route::get('/pegawai/detailLoka', 'UserController@getPenugasanDetailLoka')->name('user.pegawai.detail.loka');
+        Route::get('/pegawai/detailEksternal', 'UserController@getPenugasanDetailEksternal')->name('user.pegawai.detail.eksternal');
+        
+        Route::get('/statistik', 'UserController@statistik')->name('user.statistik');
+        Route::get('/api/statistics/month/{month}', 'UserController@getMonthStatistics')->name('user.statistik.month');
+        Route::get('/api/statistics/activities/{month}', 'UserController@getActivitiesByMonth')->name('user.statistik.month');
+        Route::get('/api/statistics/activity/{activityId}/{participantType}', 'UserController@getActivityStatistics')->name('user.statistik.activity');
+
+        Route::get('/eksternal', 'UserController@guru')->name('user.guru');
+        Route::get('/eksternal/form/{jenis}', 'UserController@form_guru')->name('user.form_guru');
+        Route::post('/eksternal/daftar', 'UserController@daftar_guru')->name('user.daftar_guru');
+
+        Route::get('/kegiatan', 'KegiatanController@index')->name('user.kegiatan');
+        Route::get('/kegiatan/cari', 'KegiatanController@cari')->name('user.cari');
+
+        Route::get('/kegiatan/registrasi', 'KegiatanController@regist')->name('user.kegiatan_regist');
+        Route::post('/kegiatan/store', 'KegiatanController@store')->name('user.kegiatan_store');
+
+        // response json
+        Route::get('/kegiatan/getStatus', 'KegiatanController@getStatus')->name('user.kegiatan.getStatus');
+        Route::get('/kegiatan/cariPeserta', 'KegiatanController@cariPeserta')->name('user.kegiatan.cariPeserta');
+        Route::get('/kegiatan/peserta', 'KegiatanController@getPesertaByKegiatan')->name('user.kegiatan.peserta');
+        Route::get('/peserta/detail', 'KegiatanController@getPesertaDetail')->name('user.peserta.detail');
+
+        // trace pesrta dari kegiatan sebelum nya
+        Route::get('/peserta/cekData', 'KegiatanController@cekDataPeserta')->name('user.peserta.cekData');
+
+        Route::get('/print/absensi-peserta', 'KegiatanController@printAbsensiPeserta')->name('print.absensi.peserta');
+        Route::get('/print/registrasi-peserta', 'KegiatanController@printRegistrasiPeserta')->name('print.registrasi.peserta');
+        Route::get('/print/absensi-panitia', 'KegiatanController@printAbsensiPanitia')->name('print.absensi.panitia');
+        Route::get('/print/absensi-narasumber', 'KegiatanController@printAbsensiNarasumber')->name('print.absensi.narasumber');
+        
+        Route::get('/print/absensi-tp', 'KegiatanController@printAbsensiTp')->name('print.absensi.tp');
+        Route::get('/print/absensi-tkp', 'KegiatanController@printAbsensiTkp')->name('print.absensi.tkp');
+        Route::get('/print/absensi-stk', 'KegiatanController@printAbsensiStk')->name('print.absensi.stk');
+        Route::get('/print/absensi-pgw', 'KegiatanController@printAbsensiPgw')->name('print.absensi.pgw');
+    }
+);
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -62,15 +132,15 @@ Route::group(
             });
 
             // Pegawai
-            Route::prefix('pegawai')->group(function () {
-                Route::get('/', 'PegawaiController@index')->name('pegawai.index');
-                Route::get('/create', 'PegawaiController@create')->name('pegawai.create');
-                Route::post('/store', 'PegawaiController@store')->name('pegawai.store');
-                Route::post('/verifikasi/{id}', 'PegawaiController@verifikasi')->name('pegawai.verifikasi');
-                Route::get('/show', 'PegawaiController@showPegawai')->name('admin.pegawai.detail');
-                Route::get('/edit/{id}', 'PegawaiController@edit')->name('pegawai.edit');
-                Route::put('/update', 'PegawaiController@update')->name('pegawai.update');
-                Route::post('/hapus/{id}', 'PegawaiController@destroy')->name('pegawai.hapus');
+            Route::prefix('guru')->group(function () {
+                Route::get('/', 'guruController@index')->name('guru.index');
+                Route::get('/create', 'guruController@create')->name('guru.create');
+                Route::post('/store', 'guruController@store')->name('guru.store');
+                Route::post('/verifikasi/{id}', 'guruController@verifikasi')->name('guru.verifikasi');
+                Route::get('/show', 'guruController@showguru')->name('admin.guru.detail');
+                Route::get('/edit/{id}', 'guruController@edit')->name('guru.edit');
+                Route::put('/update', 'guruController@update')->name('guru.update');
+                Route::post('/hapus/{id}', 'guruController@destroy')->name('guru.hapus');
 
                 // untuk login pegawai by user
                 Route::get('/{id}', 'PegawaiController@show')->name('pegawai.show');

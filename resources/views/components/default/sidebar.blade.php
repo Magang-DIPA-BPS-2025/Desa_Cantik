@@ -16,15 +16,15 @@
                         class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
 
-            @if (session('role') == 'admin' || session('role') == 'superadmin' || session('role') == 'kepala')
-                <li class="nav-item dropdown {{ $menu == 'pegawai' ? 'active' : '' }}">
+            @if (session('role') == 'admin')
+                <li class="nav-item dropdown {{ $menu == 'guru' ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-sitemap"></i>
                         <span>Master Data</span></a>
                     <ul class="dropdown-menu">
 
-                        <li class="{{ $menu == 'pegawai' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('pegawai.index') }}">
-                                Data Pegawai BBPG
+                        <li class="{{ $menu == 'guru' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('guru.index') }}">
+                                Data Guru RPPH
                             </a>
                         </li>
 
@@ -37,11 +37,7 @@
                     </a>
                 </li>
 
-                <li class="{{ $menu == 'guru' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('guru.index') }}">
-                        <i class="fas fa-chalkboard-teacher"></i> <span>Data Eksternal</span>
-                    </a>
-                </li>
+                
 
 
                 <li class="nav-item dropdown {{ $menu == 'kegiatan' || $menu == 'peserta' ? 'active' : '' }}">
@@ -133,11 +129,7 @@
                     </a>
                 </li>
 
-                <li class="{{ $menu == 'guru' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('guru.index') }}">
-                        <i class="fas fa-chalkboard-teacher"></i> <span>Data Eksternal</span>
-                    </a>
-                </li>
+               
 
                 <li class="nav-item dropdown {{ $menu == 'honor' ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i>
@@ -176,9 +168,9 @@
                         <span>Master Data</span></a>
                     <ul class="dropdown-menu">
 
-                        <li class="{{ $menu == 'pegawai' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('pegawai.index') }}">
-                                Data Pegawai BBPG
+                    <li class="{{ $menu == 'guru' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('guru.index') }}">
+                                Data Guru RPPH
                             </a>
                         </li>
 
@@ -191,11 +183,7 @@
                     </a>
                 </li>
 
-                <li class="{{ $menu == 'guru' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('guru.index') }}">
-                        <i class="fas fa-chalkboard-teacher"></i> <span>Data Eksternal</span>
-                    </a>
-                </li>
+                
             @endif
 
             @if (session('role') == 'kegiatan')
@@ -205,11 +193,7 @@
                     </a>
                 </li>
 
-                <li class="{{ $menu == 'guru' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('guru.index') }}">
-                        <i class="fas fa-chalkboard-teacher"></i> <span>Data Eksternal</span>
-                    </a>
-                </li>
+                
 
                 <li class="nav-item dropdown {{ $menu == 'kegiatan' || $menu == 'peserta' ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-calendar-week"></i>

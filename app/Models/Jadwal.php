@@ -9,7 +9,7 @@ class Jadwal extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'siswa_id',
+        'guru_id',
         'kelas_id',
         'tema_id',
         'modul_id',
@@ -20,10 +20,6 @@ class Jadwal extends Model
     ];
 
     // Relasi dengan siswa
-    public function siswa()
-    {
-        return $this->belongsTo(siswa::class,'id', 'siswa_id');
-    }
 
     // Relasi dengan kelas
     public function kelas()
@@ -42,4 +38,9 @@ class Jadwal extends Model
     {
         return $this->belongsTo(modul::class,'id','modul_id');
     }
+    public function guru()
+    {
+        return $this->belongsTo(Guru::class,'id','guru_id');
+    }
+        
 }

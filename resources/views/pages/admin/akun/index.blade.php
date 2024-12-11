@@ -29,15 +29,7 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label>Nomor KTP</label>
-                                                                <input name="no_ktp" required
-                                                                    placeholder="Masukkan nomor ktp" type="number"
-                                                                    class="form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label>Nama</label>
                                                                 <input name="name" required
@@ -45,7 +37,7 @@
                                                                     class="form-control">
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label>Username</label>
                                                                 <input name="username" required

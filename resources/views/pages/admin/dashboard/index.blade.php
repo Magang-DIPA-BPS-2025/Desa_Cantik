@@ -299,78 +299,7 @@
                             });
                         });
 
-                        $("#jadwal").fullCalendar({
-                            locale: 'id',
-                            height: 'auto',
-                            header: {
-                                left: 'prev,next today',
-                                center: 'title',
-                                right: 'month,agendaWeek,agendaDay,listWeek'
-                            },
-                            editable: true,
-                            events: data,
-                            eventClick: function(event, jsEvent, view) {
-                                $("#eventTitle").text(event.title);
 
-                                // Mengatur isi modal untuk setiap jenis penugasan
-                                let penugasanContent = '';
-                                // console.log(typeof(event.penugasan_pegawai))
-                                // console.log(typeof(event.penugasan_ppnpn))
-
-                                // Validasi dan penanganan penugasan pegawai
-                                if (Array.isArray(event.penugasan_pegawai)) {
-                                    if (event.penugasan_pegawai.length > 0) {
-                                        penugasanContent +=
-                                            `<p><strong>Penugasan Pegawai:</strong></p><ul>`;
-                                        event.penugasan_pegawai.forEach(name => {
-                                            penugasanContent += `<li>${name}</li>`;
-                                        });
-                                        penugasanContent += `</ul>`;
-                                    }
-                                } else if (typeof event.penugasan_pegawai === 'object' && event
-                                    .penugasan_pegawai !== null) {
-                                    penugasanContent +=
-                                        `<p><strong>Penugasan Pegawai:</strong></p><ul>`;
-                                    for (let key in event.penugasan_pegawai) {
-                                        penugasanContent +=
-                                            `<li>${event.penugasan_pegawai[key]}</li>`;
-                                    }
-                                    penugasanContent += `</ul>`;
-                                }
-
-                                // Validasi dan penanganan penugasan PPNPN
-                                if (Array.isArray(event.penugasan_ppnpn)) {
-                                    if (event.penugasan_ppnpn.length > 0) {
-                                        penugasanContent +=
-                                            `<p><strong>Penugasan PPNPN:</strong></p><ul>`;
-                                        event.penugasan_ppnpn.forEach(name => {
-                                            penugasanContent += `<li>${name}</li>`;
-                                        });
-                                        penugasanContent += `</ul>`;
-                                    }
-                                } else if (typeof event.penugasan_ppnpn === 'object' && event
-                                    .penugasan_ppnpn !== null) {
-                                    penugasanContent +=
-                                        `<p><strong>Penugasan PPNPN:</strong></p><ul>`;
-                                    for (let key in event.penugasan_ppnpn) {
-                                        penugasanContent +=
-                                            `<li>${event.penugasan_ppnpn[key]}</li>`;
-                                    }
-                                    penugasanContent += `</ul>`;
-                                }
-                                $("#eventNama").html(penugasanContent);
-                                $("#eventStart").text(event.tgl); // Format in Indonesian
-                                $("#eventDescription").text(event.description ? stripHtml(event
-                                    .description) : "Tidak ada deskripsi");
-
-                                $("#eventModal").modal('show');
-                            }
-                        });
-                    },
-                    error: function(error) {
-                        console.error("AJAX Error:", error);
-                        swal("Error", "Ajax Error.", "error");
-                    },
                 });
 
 
@@ -412,42 +341,7 @@
                             });
                         });
 
-                        $("#jadwal-pegawai").fullCalendar({
-                            locale: 'id',
-                            height: 'auto',
-                            header: {
-                                left: 'prev,next today',
-                                center: 'title',
-                                right: 'month,agendaWeek,agendaDay,listWeek'
-                            },
-                            editable: true,
-                            events: data,
-                            eventClick: function(event, jsEvent, view) {
-                                console.log(event);
 
-                                // Set the information in the modal
-                                $("#eventTitle").text(event.title == '' || event.title ==
-                                    undefined ? event.jenis : event
-                                    .title);
-                                $("#eventType").text(event.jenis);
-                                $("#eventNama").text(event.nama);
-                                $("#eventStart").text(event.tgl); // Format in Indonesian
-                                $("#eventTime").text(event.jam ? event.jam :
-                                    "N/A"); // Format in Indonesian
-                                $("#eventDescription").text(event.description ? stripHtml(event
-                                    .description) : "Tidak ada deskripsi");
-
-                                // Show the modal
-                                $("#eventModal").modal('show');
-                            }
-
-                        });
-                    },
-                    error: function(error) {
-                        console.error("AJAX Error:", error);
-                        swal("Error", "Ajax Error.", "error");
-                    },
-                });
 
                 function stripHtml(html) {
                     var temporalDivElement = document.createElement("div");
