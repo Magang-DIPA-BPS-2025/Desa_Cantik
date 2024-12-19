@@ -33,7 +33,7 @@
                     <div class="row align-items-center h-100">
                         <div class="col-md-12">
                             <h2 class="slide-title-box" data-animation-in="slideInDown">Siap Melayani Anda</h2>
-                            <h3 class="slide-title" data-animation-in="fadeIn">Dedikasi Kami untuk Guru</h3>
+                            <h3 class="slide-title" data-animation-in="fadeIn">Dedikasi Kami untuk Anda</h3>
                             <h3 class="slide-sub-title" data-animation-in="slideInLeft">RPPH Provinsi Sulawesi Selatan</h3>
                             <p data-animation-in="slideInRight">
                                 {{-- <a href="services.html" class="slider btn btn-primary border">Pelayanan Kami</a> --}}
@@ -50,7 +50,7 @@
                 <div class="container h-100">
                     <div class="row align-items-center h-100">
                         <div class="col-md-12">
-                            <h2 class="slide-title" data-animation-in="slideInDown">Temui Para Penggerak Kami</h2>
+                            <h2 class="slide-title" data-animation-in="slideInDown">Temui Layanan Kami</h2>
                             <h3 class="slide-sub-title" data-animation-in="fadeIn">Keberlanjutan dalam Pendidikan</h3>
                             <p class="slider-description lead" data-animation-in="slideInRight">
                                 Kami akan mendukung Anda
@@ -100,7 +100,7 @@
                         </div>
                         <div class="info-my-content">
                             <a href="">
-                                <p>Reformasi Birokrasi</p>
+                                <p>Lorem Ipsum is simply </p>
                             </a>
                         </div>
                     </li>
@@ -110,7 +110,7 @@
                         </div>
                         <div class="info-my-content">
                             <a href="">
-                                <p class="multi-line">Akuntabilitas Kinerja Instansi Pemerintah (AKIP)</p>
+                                <p class="multi-line">Lorem Ipsum is simply dummy text of the printing </p>
                             </a>
                         </div>
                     </li>
@@ -193,10 +193,11 @@
                         <h2 class="into-title">Tentang Kami</h2>
                         <h3 class="into-sub-title">RPPH Sulawesi Selatan</h3>
                         <p class="my-sub-content">
-                            RPPH Provinsi Sulawesi Selatan adalah Unit Pelaksana Teknis Direktorat Jenderal Guru dan Tenaga
-                            Kependidikan Kemendikbudristek dalam Bidang Pengembangan dan Pemberdayaan Guru, Pendidik
-                            lainnya, Tenaga Kependidikan, Calon Kepala Sekolah, Kepala Sekolah, Calon Pengawas Sekolah, dan
-                            Pengawas Sekolah di Provinsi Sulawesi Selatan.
+                        Lorem Ipsum is simply dummy text of the printing and typesetting
+                        industry. Lorem Ipsum has been the industry's standard dummy text
+                        ever since the 1500ss, when an unknown printer took a galley of type
+                        and scrambled it to make a type specimen book. It has survived not o
+                        
                         </p>
                     </div><!-- Intro box end -->
 
@@ -274,7 +275,7 @@
                         <div class="text-center">
                             <div class="ts-service-info">
                                 <h3 class="service-box-title"><a
-                                        href="https://sites.google.com/instruktur.belajar.id/ult-RPPHsulsel">PPID</a></h3>
+                                        href="https://sites.google.com/instruktur.belajar.id/ult-RPPHsulsel">LOREM</a></h3>
 
                             </div>
                         </div>
@@ -290,7 +291,7 @@
                         </div>
                         <div class="text-center">
                             <div class="ts-service-info">
-                                <h3 class="service-box-title"><a href="#">SIM RPPH Sul-Sel</a></h3>
+                                <h3 class="service-box-title"><a href="#">RPPH Sul-Sel</a></h3>
 
                             </div>
                         </div>

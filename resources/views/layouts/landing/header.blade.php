@@ -5,7 +5,7 @@
                 <ul class="top-info text-center text-md-left">
                     <li>
                       <i class="fas fa-map-marker-alt"></i>
-                        <p class="info-text">90231 Jl. Adiyaksa No.2, Pandang, Kec. Panakkukang, Kota Makassar, Sulawesi
+                        <p class="info-text">90231 Jl. Adiyaksa No.2, Pandang, Kec. Tamalanrea, Kota Makassar, Sulawesi
                             Selatan</p>
                     </li>
                 </ul>

@@ -31,11 +31,11 @@
                     </ul>
                 </li>
 
-                <li class="{{ $menu == 'internal' ? 'active' : '' }}">
+                <!-- <li class="{{ $menu == 'internal' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('internal.index') }}">
                         <i class="fas fa-sign-out-alt"></i> <span>Data Internal</span>
                     </a>
-                </li>
+                </li> -->
 
                 
 
@@ -60,7 +60,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item dropdown {{ $menu == 'honor' ? 'active' : '' }}">
+                <!-- <li class="nav-item dropdown {{ $menu == 'honor' ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i>
                         <span>Data Keuangan</span></a>
                     <ul class="dropdown-menu">
@@ -88,7 +88,7 @@
                         </li>
 
                     </ul>
-                </li>
+                </li> -->
 
                 {{-- <li class="{{ $menu == 'peserta' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('kegiatan.index') }}">
@@ -122,12 +122,12 @@
                 </li>
             @endif
 
-            @if (session('role') == 'keuangan')
+            <!-- @if (session('role') == 'keuangan')
                 <li class="{{ $menu == 'internal' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('internal.index') }}">
                         <i class="fas fa-sign-out-alt"></i> <span>Data Internal</span>
                     </a>
-                </li>
+                </li> -->
 
                
 
@@ -177,21 +177,21 @@
                     </ul>
                 </li>
 
-                <li class="{{ $menu == 'internal' ? 'active' : '' }}">
+                <!-- <li class="{{ $menu == 'internal' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('internal.index') }}">
                         <i class="fas fa-sign-out-alt"></i> <span>Data Internal</span>
                     </a>
-                </li>
+                </li> -->
 
                 
             @endif
 
-            @if (session('role') == 'kegiatan')
+            <!-- @if (session('role') == 'kegiatan')
                 <li class="{{ $menu == 'internal' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('internal.index') }}">
                         <i class="fas fa-sign-out-alt"></i> <span>Data Internal</span>
                     </a>
-                </li>
+                </li> -->
 
                 
 
@@ -216,13 +216,13 @@
                 </li>
             @endif
 
-            @if (Session('role') == 'pegawai')
+            <!-- @if (Session('role') == 'pegawai')
                 <li class="{{ $menu == 'pegawai' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('pegawai.show', session('no_ktp')) }}">
                         <i class="fas fa-sign-out-alt"></i> <span>Data Internal</span>
                     </a>
                 </li>
-            @endif
+            @endif -->
 
             @if (Session('role') == 'tenaga pendidik' ||
                     Session('role') == 'tenaga kependidikan' ||

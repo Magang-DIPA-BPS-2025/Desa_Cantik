@@ -7,7 +7,7 @@
                     <div class="logo col-lg-3 text-center text-lg-left mb-3 mb-md-5 mb-lg-0">
                         <a class="d-block" href="/">
                             <img style="width:auto; height:80px" 
-                                src="{{ asset('landing/images/header/icon.png') }}" alt="BBGP SulSel">
+                                src="{{ asset('landing/images/footer/rpph.jpg') }}" alt="BBGP SulSel">
                         </a>
                     </div><!-- logo end -->
 
@@ -17,7 +17,7 @@
                                 <div class="info-box">
                                     <div class="info-box-content">
                                         <p class="info-box-title">Hubungi Kami</p>
-                                        <p class="info-box-subtitle">(0411) 440065, 421460 </p>
+                                        <p class="info-box-subtitle">(0411) 0889 0992 009 </p>
                                     </div>
                                 </div>
                             </li>
@@ -25,7 +25,7 @@
                                 <div class="info-box last">
                                     <div class="info-box-content">
                                         <p class="info-box-title">Fax</p>
-                                        <p class="info-box-subtitle">0411-421460</p>
+                                        <p class="info-box-subtitle">0411-8890098</p>
                                     </div>
                                 </div>
                             </li>
@@ -64,20 +64,20 @@
                             <ul class="nav navbar-nav mr-auto">
                                 <li class="nav-item {{ $menu == 'profil' ? 'active' : '' }}"><a class="nav-link" href="/">Profil</a></li>
 
-                                <li class="nav-item {{ $menu == 'data' ? 'active' : '' }} dropdown">
+                                <!-- <li class="nav-item {{ $menu == 'data' ? 'active' : '' }} dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Data <i
                                             class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="{{ route('user.pegawai') }}">Data Internal</a></li>
                                         <li><a href="{{ route('user.guru') }}">Data Eksternal</a></li>
                                     </ul>
-                                </li>
+                                </li> -->
 
                                 <li class="nav-item {{ $menu == 'kontak' ? 'active' : '' }}"><a class="nav-link" href="{{ route('user.kontak') }} ">Kontak</a></li>
 
-                                <li class="nav-item {{ $menu == 'kegiatan' ? 'active' : '' }}"><a class="nav-link" href="{{ route('user.kegiatan') }}">Kegiatan</a></li>
+                                <!-- <li class="nav-item {{ $menu == 'kegiatan' ? 'active' : '' }}"><a class="nav-link" href="{{ route('user.kegiatan') }}">Kegiatan</a></li> -->
                                 
-                                <li class="nav-item {{ $menu == 'statistik' ? 'active' : '' }}"><a class="nav-link" href="{{ route('user.statistik') }}">Statistik</a></li>
+                                <!-- <li class="nav-item {{ $menu == 'statistik' ? 'active' : '' }}"><a class="nav-link" href="{{ route('user.statistik') }}">Statistik</a></li> -->
                                 
                                 <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
 

@@ -39,7 +39,7 @@
                         </span>
                         <div class="ts-service-box-content">
                             <h4>Kunjungi Kantor Kami</h4>
-                            <p>90231 Jl. Adiyaksa No.2, Pandang, Kec. Panakkukang, Kota Makassar, Sulawesi
+                            <p> Jl. Pacerakkang No.2, Pandang, Kec. Tamalanrea, Kota Makassar, Sulawesi
                               Selatan</p>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                         </span>
                         <div class="ts-service-box-content">
                             <h4>Email Kami</h4>
-                            <p>bbgpsulsel@kemdikbud.go.id </p>
+                            <p>rpph@gmail.com </p>
                         </div>
                     </div>
                 </div><!-- Col 2 end -->
@@ -64,7 +64,7 @@
                         </span>
                         <div class="ts-service-box-content">
                             <h4>Hubungi Kami</h4>
-                            <p>(0411) 440065, 421460 </p>
+                            <p>(0411) 8898099, 998970 </p>
                         </div>
                     </div>
                 </div><!-- Col 3 end -->

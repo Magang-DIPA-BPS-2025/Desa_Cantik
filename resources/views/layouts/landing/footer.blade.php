@@ -5,16 +5,16 @@
                 <div class="col-lg-4 col-md-6 footer-widget footer-about">
                     <h3 class="widget-title">Tentang Kami</h3>
                     <img loading="lazy" width="200px" class="footer-logo"
-                        src="{{ asset('landing/images/footer/footer-img.png') }}" alt="Constra">
+                        src="{{ asset('landing/images/footer/rpph.jpg') }}" alt="Constra">
                     <p>RPPH Provinsi Sulawesi Selatan - Kementerian Pendidikan, Kebudayaan, Riset dan Teknologi</p>
                     <div class="footer-social">
                         <ul>
-                            <li><a href="https://www.facebook.com/bbgpsulsel/" aria-label="Facebook"><i
+                            <li><a href="https://www.facebook.com/" aria-label="Facebook"><i
                                         class="fab fa-facebook-f"></i></a></li>
                             {{-- <li><a href="https://twitter.com/themefisher" aria-label="Twitter"><i
                                         class="fab fa-twitter"></i></a>
                             </li> --}}
-                            <li><a href="https://www.instagram.com/bbgpsulsel/" aria-label="Instagram"><i
+                            <li><a href="https://www.instagram.com/" aria-label="Instagram"><i
                                         class="fab fa-instagram"></i></a></li>
                         </ul>
                     </div><!-- Footer social end -->
@@ -25,10 +25,10 @@
                     <div class="working-hours">
                         <ul class="list-arrow">
                             <li>
-                                Jl. PelitaTaeng No.2, Pandang, Kec. Panakkukang, Kota Makassar, Sulawesi Selatan
+                                Jl. PelitaTaeng No.2, Pandang, Kec. Tamalanrea, Kota Makassar, Sulawesi Selatan
                             </li>
                             <li>08898988988 </li>
-                            <li>rpphsulsel@kemdikbud.go.id </li>
+                            <li>rpphsulsel@gmail.com </li>
                         </ul>
                     </div>
                 </div><!-- Col end -->
