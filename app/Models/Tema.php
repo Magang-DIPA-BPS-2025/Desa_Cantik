@@ -11,5 +11,7 @@ class Tema extends Model
     protected $fillable = [
         'nama',
         'deskripsi',
+        'gambar',
+        'status',
     ];
 }

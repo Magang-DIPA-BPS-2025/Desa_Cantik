@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Data Tema'])
+@extends('layouts.app', ['title' => 'Data Agenda'])
 @section('content')
     @push('styles')
         <link rel="stylesheet" href="{{ asset('library/summernote/dist/summernote-bs4.css') }}">

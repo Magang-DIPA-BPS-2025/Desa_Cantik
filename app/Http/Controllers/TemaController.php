@@ -2,22 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\guru;
 use Illuminate\Http\Request;
+use App\Models\Tema;
 
-class GuruController extends Controller
+class TemaController extends Controller
 {
-    
-    private $menu = 'guru';
+    private $menu = 'tema';
 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $datas = Guru::get();
+        $datas = Tema::get();
         $menu = $this->menu;
-        return view('pages.admin.guru.index', compact('menu', 'datas'));
+        return view('pages.admin.tema.index', compact('menu', 'datas'));
     }
 
     /**
@@ -26,7 +25,7 @@ class GuruController extends Controller
     public function create()
     {
         $menu = $this->menu;
-        return view('pages.admin.guru.create', compact('menu'));
+        return view('pages.admin.tema.create', compact('menu'));
     }
 
     /**
@@ -36,36 +35,36 @@ class GuruController extends Controller
     {
         $r = $request->all();
 
-        $file = $request->file('pas_foto');
+        $file = $request->file('gambar');
 
         // dd($file->getSize() / 1024);
         // if ($file->getSize() / 1024 >= 512) {
-        //     return redirect()->route('guru.create')->with('message', 'size gambar');
+        //     return redirect()->route('agenda.create')->with('message', 'size gambar');
         // }
 
-        $foto = $request->file('pas_foto');
+        $foto = $request->file('gambar');
         $ext = $foto->getClientOriginalExtension();
         // $r['pas_foto'] = $request->file('pas_foto');
 
         $nameFoto = date('Y-m-d_H-i-s_') . "." . $ext;
-        $destinationPath = public_path('upload/pas_foto');
+        $destinationPath = public_path('upload/tema');
 
         $foto->move($destinationPath, $nameFoto);
 
-        $fileUrl = asset('upload/pas_foto/' . $nameFoto);
+        $fileUrl = asset('upload/tema/' . $nameFoto);
         // dd($destinationPath);
-        $r['pas_foto'] = $nameFoto;
+        $r['gambar'] = $nameFoto;
         // dd($r);
-        Guru::create($r);
+        Tema::create($r);
 
 
-        return redirect()->route('guru.index')->with('message', 'store');
+        return redirect()->route('tema.index')->with('message', 'store');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Guru $guru)
+    public function show(Tema $agenda)
     {
         //
     }
@@ -75,10 +74,10 @@ class GuruController extends Controller
      */
     public function edit($id)
     {
-        $datas = Guru::find($id);
+        $data = Tema::find($id);
         $menu = $this->menu;
 
-        return view('pages.admin.guru.edit', compact('datas', 'menu'));
+        return view('pages.admin.tema.edit', compact('data', 'menu'));
     }
 
     /**
@@ -87,32 +86,34 @@ class GuruController extends Controller
     public function update(Request $request)
     {
         $r = $request->all();
-        $data = Guru::find($r['id']);
+        $data = Tema::find($r['id']);
 
-        $foto = $request->file('pas_foto');
+        $foto = $request->file('gambar');
 
 
 
-        if ($request->hasFile('pas_foto')) {
+        if ($request->hasFile('gambar')) {
             if ($foto->getSize() / 1024 >= 512) {
-                return redirect()->route('guru.edit', $r['id'])->with('message', 'size gambar');
+                return redirect()->route('tema.edit', $r['id'])->with('message', 'size gambar');
             }
             $ext = $foto->getClientOriginalExtension();
             $nameFoto = date('Y-m-d_H-i-s_') . "." . $ext;
-            $destinationPath = public_path('upload/pas_foto');
+            $destinationPath = public_path('upload/tema');
 
             $foto->move($destinationPath, $nameFoto);
 
-            $fileUrl = asset('upload/pas_foto/' . $nameFoto);
-            $r['pas_foto'] = $nameFoto;
+            $fileUrl = asset('upload/tema/' . $nameFoto);
+            $r['gambar'] = $nameFoto;
         } else {
-            $r['pas_foto'] = $request->thumbnail_old;
+            $r['gambar'] = $request->thumbnail_old;
         }
+
+        $r['nama_tema'] = $r['nama'];
 
         // dd($r);
         $data->update($r);
 
-        return redirect()->route('guru.index')->with('message', 'update');
+        return redirect()->route('tema.index')->with('message', 'update');
 
 
     }
@@ -122,7 +123,7 @@ class GuruController extends Controller
      */
     public function destroy($id)
     {
-        $data = Guru::find($id);
+        $data = Tema::find($id);
         $data->delete();
         return response()->json($data);
     }

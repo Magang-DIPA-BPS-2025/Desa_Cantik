@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\guru;
 use Illuminate\Http\Request;
+use App\Models\Siswa;
+use App\Models\Kelas;
+use App\Models\Guru;
 
-class GuruController extends Controller
+class SiswaController extends Controller
 {
-    
-    private $menu = 'guru';
+    private $menu = 'siswa';
 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $datas = Guru::get();
+        $datas = Siswa::with(['kelas', 'guru'])->get(); 
         $menu = $this->menu;
-        return view('pages.admin.guru.index', compact('menu', 'datas'));
+        return view('pages.admin.siswa.index', compact('menu', 'datas'));
     }
 
     /**
@@ -26,7 +27,9 @@ class GuruController extends Controller
     public function create()
     {
         $menu = $this->menu;
-        return view('pages.admin.guru.create', compact('menu'));
+        $kelas = Kelas::all(); 
+        $guru = Guru::all(); 
+        return view('pages.admin.siswa.create', compact('menu', 'kelas', 'guru'));
     }
 
     /**
@@ -34,6 +37,7 @@ class GuruController extends Controller
      */
     public function store(Request $request)
     {
+        
         $r = $request->all();
 
         $file = $request->file('pas_foto');
@@ -48,43 +52,39 @@ class GuruController extends Controller
         // $r['pas_foto'] = $request->file('pas_foto');
 
         $nameFoto = date('Y-m-d_H-i-s_') . "." . $ext;
-        $destinationPath = public_path('upload/pas_foto');
+        $destinationPath = public_path('upload/siswa');
 
         $foto->move($destinationPath, $nameFoto);
 
-        $fileUrl = asset('upload/pas_foto/' . $nameFoto);
+        $fileUrl = asset('upload/siswa/' . $nameFoto);
         // dd($destinationPath);
         $r['pas_foto'] = $nameFoto;
         // dd($r);
+
+        // Menyimpan data guru
         Guru::create($r);
 
-
-        return redirect()->route('guru.index')->with('message', 'store');
+        return redirect()->route('siswa.index')->with('message', 'Data guru berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Guru $guru)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit($id)
     {
-        $datas = Guru::find($id);
+        $data = Siswa::findOrFail($id); 
+        $kelas = Kelas::all();
+        $guru = Guru::all();
         $menu = $this->menu;
 
-        return view('pages.admin.guru.edit', compact('datas', 'menu'));
+        return view('pages.admin.siswa.edit', compact('data', 'kelas', 'guru', 'menu'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request )
     {
         $r = $request->all();
         $data = Guru::find($r['id']);
@@ -95,35 +95,36 @@ class GuruController extends Controller
 
         if ($request->hasFile('pas_foto')) {
             if ($foto->getSize() / 1024 >= 512) {
-                return redirect()->route('guru.edit', $r['id'])->with('message', 'size gambar');
+                return redirect()->route('siswa.edit', $r['id'])->with('message', 'size gambar');
             }
             $ext = $foto->getClientOriginalExtension();
             $nameFoto = date('Y-m-d_H-i-s_') . "." . $ext;
-            $destinationPath = public_path('upload/pas_foto');
+            $destinationPath = public_path('upload/siswa');
 
             $foto->move($destinationPath, $nameFoto);
 
-            $fileUrl = asset('upload/pas_foto/' . $nameFoto);
+            $fileUrl = asset('upload/siswa/' . $nameFoto);
             $r['pas_foto'] = $nameFoto;
         } else {
             $r['pas_foto'] = $request->thumbnail_old;
         }
 
+
         // dd($r);
         $data->update($r);
 
-        return redirect()->route('guru.index')->with('message', 'update');
-
-
+        return redirect()->route('siswa.index')->with('message', 'Data guru berhasil diperbarui.');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)
     {
-        $data = Guru::find($id);
+        $data = Siswa::findOrFail($id);
         $data->delete();
-        return response()->json($data);
+
+        return response()->json(['message' => 'Data siswa berhasil dihapus.']);
     }
 }

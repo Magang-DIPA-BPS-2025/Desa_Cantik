@@ -109,29 +109,7 @@ Route::group(
 
             Route::get('/fetch-sekolah', ['GuruController@index', 'fetchSekolah'])->name('fetchSekolah');
 
-
-            // Guru / Eksternal
-            Route::prefix('eksternal')->group(function () {
-                Route::get('/', 'GuruController@index')->name('guru.index');
-                Route::get('/create', 'GuruController@create')->name('guru.create');
-                Route::post('/store', 'GuruController@store')->name('guru.store');
-                Route::post('/verifikasi/{id}', 'GuruController@verifikasi')->name('guru.verifikasi');
-                Route::get('/edit/{id}', 'GuruController@edit')->name('guru.edit');
-                Route::put('/update', 'GuruController@update')->name('guru.update');
-                Route::post('/hapus/{id}', 'GuruController@destroy')->name('guru.hapus');
-
-
-                Route::get('/export', 'GuruController@export')->name('guru.export');
-                Route::get('/export/{id}', 'GuruController@exportByUser')->name('guru.export.user');
-
-                // untuk login ekternal by user
-                Route::get('/detail', 'GuruController@getDetail')->name('admin.eksternal.detail');
-                Route::get('/show/{id}', 'GuruController@show')->name('guru.show');
-                Route::get('/editByUser/{id}', 'GuruController@editByUser')->name('guru.edit.user');
-                Route::put('/updateByUser', 'GuruController@updateByUser')->name('guru.update.user');
-            });
-
-            // Pegawai
+            // Guru
             Route::prefix('guru')->group(function () {
                 Route::get('/', 'guruController@index')->name('guru.index');
                 Route::get('/create', 'guruController@create')->name('guru.create');
@@ -142,109 +120,16 @@ Route::group(
                 Route::put('/update', 'guruController@update')->name('guru.update');
                 Route::post('/hapus/{id}', 'guruController@destroy')->name('guru.hapus');
 
-                // untuk login pegawai by user
-                Route::get('/{id}', 'PegawaiController@show')->name('pegawai.show');
-                Route::get('/lokakarya/show', 'PegawaiController@showDetailLokakarya')->name('pegawai.show.lokakarya');
-                Route::post('/lokakarya', 'InternalController@storeLokakaryaPegawai')->name('pegawai.lokakarya');
-
-                Route::get('/editUser/{id}', 'PegawaiController@editUser')->name('pegawai.edit.user');
-                Route::put('/updateUser', 'PegawaiController@updateUser')->name('pegawai.update.user');
-                Route::get('/detailUser', 'PegawaiController@detailUser')->name('pegawai.detail.user');
-
-                Route::get('/penugasan/{id}', 'PegawaiController@editPenugasan')->name('pegawai.editPenugasan');
-                Route::get('/pendamping/{id}', 'PegawaiController@editPendamping')->name('pegawai.editPendamping');
             });
 
-            // Kepegawaian
-            Route::prefix('kepegawaian')->group(function () {
-                Route::get('/', 'KepegawaianController@index')->name('kepegawaian.index');
-                Route::get('/create', 'KepegawaianController@create')->name('kepegawaian.create');
-                Route::post('/store', 'KepegawaianController@store')->name('kepegawaian.store');
-                Route::get('/edit/{id}', 'KepegawaianController@edit')->name('kepegawaian.edit');
-                Route::put('/update', 'KepegawaianController@update')->name('kepegawaian.update');
-                Route::post('/hapus/{id}', 'KepegawaianController@destroy')->name('kepegawaian.hapus');
-            });
-
-            // Kepegawaian
-            Route::prefix('kependidikan')->group(function () {
-                Route::get('/', 'KependidikanController@index')->name('kependidikan.index');
-                Route::get('/create', 'KependidikanController@create')->name('kependidikan.create');
-                Route::post('/store', 'KependidikanController@store')->name('kependidikan.store');
-                Route::get('/edit/{id}', 'KependidikanController@edit')->name('kependidikan.edit');
-                Route::put('/update', 'KependidikanController@update')->name('kependidikan.update');
-                Route::post('/hapus/{id}', 'KependidikanController@destroy')->name('kependidikan.hapus');
-            });
-
-            // Internal
-            Route::prefix('internal')->group(function () {
-                Route::get('/', 'InternalController@index')->name('internal.index');
-
-                Route::get('/calendar', 'InternalController@calendar')->name('internal.calendar');
-                Route::get('/getCalendar', 'InternalController@getCalendarData')->name('internal.getCalendarData');
-
-                // untuk tampil berdasar dari id pegawai
-                Route::get('/{id_pegawai}', 'InternalController@show')->name('internal.show');
-
-                Route::get('/tabel/{jenis}', 'InternalController@get_tabel')->name('internal.tabel');
-                // Route::get('/tabel/ppnpn', 'InternalController@get_tabel')->name('internal.tabel.ppnpn');
-                // Route::get('/tabel/lokakarya', 'InternalController@get_tabel')->name('internal.tabel.lokakarya');
-                Route::post('/verifikasi/{id}', 'InternalController@verifikasi')->name('internal.verifikasi');
-
-                // Khusus Loka karya
-                Route::get('/indexLokakarya/{nik}', 'InternalController@indexLokakarya')->name('internal.index.lokakarya');
-                Route::get('/createLokakarya/{id}', 'InternalController@createLokakarya')->name('internal.create.lokakarya');
-                Route::post('/storeLokakarya', 'InternalController@storeLokakarya')->name('internal.store.lokakarya');
-                Route::get('/editLokakarya/{id}', 'InternalController@editLokakarya')->name('internal.edit.lokakarya');
-                Route::post('/updateLokakarya', 'InternalController@updateLokakarya')->name('internal.update.lokakarya');
-                Route::post('/updateLokakaryaJS', 'InternalController@updateLokakaryaJS')->name('internal.update.lokakaryaJS');
-                Route::get('/jadwalLokakarya/{id}', 'InternalController@jadwalLokakarya')->name('internal.jadwal.lokakarya');
-                Route::post('/cariLokakarya', 'InternalController@cariLokakarya')->name('internal.cari.lokakarya');
-                
-                Route::post('/hapusLoka/{id}', 'InternalController@hapusLoka')->name('internal.hapus.loka');
-
-                // Penugasan PEgawai BBGP
-                Route::get('/indexPegawai/{nik}', 'InternalController@indexPegawai')->name('internal.index.pegawai');
-                Route::get('/createPegawai/{id}', 'InternalController@createPegawai')->name('internal.create.pegawai');
-                Route::post('/storePegawai', 'InternalController@storePegawai')->name('internal.store.pegawai');
-                Route::get('/editPegawai/{id}', 'InternalController@editPegawai')->name('internal.edit.pegawai');
-                Route::post('/updatePegawai', 'InternalController@updatePegawai')->name('internal.update.pegawai');
-                Route::post('/updatePegawaiAll', 'InternalController@updatePegawaiAll')->name('updateAllEmployees');
-
-
-                Route::post('/hapusPegawai/{id}', 'InternalController@hapusPenugasan')->name('internal.hapus.penugasan');
-
-
-                // Penugasan PPNPN
-                Route::get('/indexPpnpn/{id}', 'InternalController@indexPpnpn')->name('internal.index.ppnpn');
-                Route::get('/createPpnp/{id}', 'InternalController@createPpnpn')->name('internal.create.ppnpn');
-                Route::post('/storePpnp', 'InternalController@storePpnpn')->name('internal.store.ppnpn');
-                Route::get('/editPpnp/{id}', 'InternalController@editPpnpn')->name('internal.edit.ppnpn');
-                Route::post('/updatePpnp', 'InternalController@updatePpnpn')->name('internal.update.ppnpn');
-
-                Route::post('/hapusPpnpn/{id}', 'InternalController@hapusPpnpn')->name('internal.hapus.ppnpn');
-
-
-                Route::post('/store', 'InternalController@store')->name('internal.store');
-                Route::get('/edit/{id}', 'InternalController@edit')->name('internal.edit');
-                Route::put('/update', 'InternalController@update')->name('internal.update');
-                Route::post('/hapus/{id}', 'InternalController@destroy')->name('internal.hapus');
-
-                Route::put('/updatePegawai', 'InternalController@updatePegawai')->name('internal.update.pegawai');
-            });
-
-            // Pendamping
-            Route::prefix('pendamping')->group(function () {
-                Route::get('/', 'PendampingController@index')->name('pendamping.index');
-
-                Route::get('/tabel', 'PendampingController@tabel')->name('pendamping.tabel');
-                Route::get('/create', 'PendampingController@create')->name('pendamping.create');
-                Route::post('/store', 'PendampingController@store')->name('pendamping.store');
-                Route::get('/edit/{id}', 'PendampingController@edit')->name('pendamping.edit');
-                Route::put('/update', 'PendampingController@update')->name('pendamping.update');
-                Route::post('/hapus/{id}', 'PendampingController@destroy')->name('pendamping.hapus');
-
-
-                Route::put('/updatePendamping', 'PendampingController@updatePendamping')->name('pendamping.update.user');
+            // Siswa
+            Route::prefix('siswa')->group(function () {
+                Route::get('/', 'SiswaController@index')->name('siswa.index');
+                Route::get('/create', 'SiswaController@create')->name('siswa.create');
+                Route::post('/store', 'SiswaController@store')->name('siswa.store');
+                Route::get('/edit/{id}', 'SiswaController@edit')->name('siswa.edit');
+                Route::put('/update', 'SiswaController@update')->name('siswa.update');
+                Route::post('/hapus/{id}', 'SiswaController@destroy')->name('siswa.hapus');
             });
 
 
@@ -284,92 +169,6 @@ Route::group(
 
             });
 
-            // Honor
-            Route::prefix('honor')->group(function () {
-                Route::get('/', 'HonorController@index')->name('honor.index');
-                Route::get('/create', 'HonorController@create')->name('honor.create');
-                Route::post('/store', 'HonorController@store')->name('honor.store');
-                Route::get('/edit/{id}', 'HonorController@edit')->name('honor.edit');
-                Route::put('/update', 'HonorController@update')->name('honor.update');
-                Route::post('/hapus/{id}', 'HonorController@destroy')->name('honor.hapus');
-                Route::get('/cetak/{jabatan}', 'HonorController@cetak')->name('honor.cetak');
-                Route::get('/cetak/{jabatan}', 'HonorController@cetak')->name('honor.cetak');
-
-                // Route::get('/cetakExcelPanitia/{kegiatan}', 'HonorController@honorPanitia')->name('honor.cetakExcelPanitia');
-                // Route::get('/cetakExcelNarasumber/{kegiatan}', 'HonorController@honorNarasumber')->name('honor.cetakExcelNarasumber');
-
-                Route::get('/cetakExcelPanitia/{id_kegiatan}/{jabatan}', 'HonorController@cetakExcelPanitia')->name('honor.cetakExcelPanitia');
-                Route::get('/cetakExcelNarasumber/{id_kegiatan}/{jabatan}', 'HonorController@cetakExcelNarasumber')->name('honor.cetakExcelNarasumber');
-                Route::get('/cetakExcelPeserta/{id_kegiatan}/{jabatan}', 'HonorController@cetakExcelPeserta')->name('honor.cetakExcelPeserta');
-                Route::get('/storeNomor', 'HonorController@storeNomor')->name('honor.storeNomor');
-
-
-                Route::get('honor/cetakExcelFiltered/{kegiatan}/{jabatan}', 'HonorController@cetakExcelFiltered')->name('honor.cetakExcelFiltered');
-
-                Route::get('/getPeserta', 'HonorController@getPeserta')->name('honor.getPeserta');
-
-                Route::get('/penomoran', 'HonorController@Penomoran')->name('honor.penomoran');
-            });
-
-
-            //kuitansi
-            Route::prefix('kuitansi')->group(function () {
-                Route::get('/', 'KuitansiController@index')->name('kuitansi.index');
-                Route::get('/create', 'KuitansiController@create')->name('kuitansi.create');
-                Route::post('/store', 'KuitansiController@store')->name('kuitansi.store');
-                Route::get('/edit/{id}', 'KuitansiController@edit')->name('kuitansi.edit');
-                Route::put('/update', 'KuitansiController@update')->name('kuitansi.update');
-                Route::post('/hapus/{id}', 'KuitansiController@destroy')->name('kuitansi.hapus');
-                Route::get('/show/{id}', 'KuitansiController@show')->name('kuitansi.show');
-                Route::get('/getPeserta', 'KuitansiController@getPeserta')->name('kuitansi.getPeserta');
-
-                Route::get('/cetakAll', 'KuitansiController@cetakAll')->name('kuitansi.cetakAll');
-                Route::get('/cetakRillAll', 'KuitansiController@cetakRillAll')->name('kuitansi.cetakRillAll');
-                Route::get('/cetakPJmutlakAll', 'KuitansiController@cetakPJmutlakAll')->name('kuitansi.cetakPJmutlakAll');
-                Route::get('/cetakAmplopAll', 'KuitansiController@cetakAmplopAll')->name('kuitansi.cetakAmplopAll');
-
-                Route::get('/cetak/{id}', 'KuitansiController@cetak')->name('kuitansi.cetak');
-                Route::get('/cetakRill/{id}', 'KuitansiController@cetakRill')->name('kuitansi.cetakRill');
-                Route::get('/cetakPJmutlak/{id}', 'KuitansiController@cetakPJmutlak')->name('kuitansi.cetakPJmutlak');
-                Route::get('/cetakPJmutlak/{id}', 'KuitansiController@cetakPJmutlak')->name('kuitansi.cetakPJmutlak');
-                Route::get('/cetakAmplop/{id}', 'KuitansiController@cetakAmplop')->name('kuitansi.cetakAmplop');
-                Route::get('/cetakPermintaan', 'KuitansiController@cetakPermintaan')->name('kuitansi.cetakPermintaan');
-                Route::get('/cetakLampiran', 'KuitansiController@cetakLampiran')->name('kuitansi.cetakLampiran');
-                Route::get('/cetakExcel/{id_kegiatan}', 'KuitansiController@cetakExcel')->name('kuitansi.cetakexcel');
-
-                Route::get('/storeNomor', 'KuitansiController@storeNomor')->name('kuitansi.storeNomor');
-                Route::get('/penomoran', 'KuitansiController@Penomoran')->name('honor.penomoran');
-                Route::get('kuitansi/kegiatan/{id_kegiatan}', 'KuitansiController@kuitansiKegiatan')->name('kuitansi.kegiatan');
-            });
-
-             //kuitansiLoka
-            Route::prefix('kuitansiLoka')->group(function () {
-                Route::get('/', 'KuitansiLokaController@index')->name('kuitansiLoka.index');
-                Route::get('/create', 'KuitansiLokaController@create')->name('kuitansiLoka.create');
-                Route::post('/store', 'KuitansiLokaController@store')->name('kuitansiLoka.store');
-                Route::get('/edit/{id}', 'KuitansiLokaController@edit')->name('kuitansiLoka.edit');
-                Route::put('/update/{id}', 'KuitansiLokaController@update')->name('kuitansiLoka.update');
-                Route::post('/hapus/{id}', 'KuitansiLokaController@destroy')->name('kuitansiLoka.hapus');
-                Route::get('/show/{id}', 'KuitansiLokaController@show')->name('kuitansiLoka.show');
-                Route::get('/getPeserta', 'KuitansiLokaController@getPeserta')->name('kuitansiLoka.getPeserta');
-
-                Route::get('/cetakAll', 'KuitansiLokaController@cetakAll')->name('kuitansiLoka.cetakAll');
-                Route::get('/cetakRillAll', 'KuitansiLokaController@cetakRillAll')->name('kuitansiLoka.cetakRillAll');
-                Route::get('/cetakPJmutlakAll', 'KuitansiLokaController@cetakPJmutlakAll')->name('kuitansiLoka.cetakPJmutlakAll');
-                Route::get('/cetakAmplopAll', 'KuitansiLokaController@cetakAmplopAll')->name('kuitansiLoka.cetakAmplopAll');
-
-                Route::get('/cetak/{id}', 'KuitansiLokaController@cetak')->name('kuitansiLoka.cetak');
-                Route::get('/cetakRill/{id}', 'KuitansiLokaController@cetakRill')->name('kuitansiLoka.cetakRill');
-                Route::get('/cetakPJmutlak/{id}', 'KuitansiLokaController@cetakPJmutlak')->name('kuitansiLoka.cetakPJmutlak');
-                Route::get('/cetakAmplop/{id}', 'KuitansiLokaController@cetakAmplop')->name('kuitansiLoka.cetakAmplop');
-                Route::get('/cetakPermintaan', 'KuitansiLokaController@cetakPermintaan')->name('kuitansiLoka.cetakPermintaan');
-                Route::get('/cetakLampiran', 'KuitansiLokaController@cetakLampiran')->name('kuitansiLoka.cetakLampiran');
-                Route::get('/cetakExcel/{id_kegiatan}', 'KuitansiLokaController@cetakExcel')->name('kuitansiLoka.cetakexcel');
-
-                Route::get('/storeNomor', 'KuitansiLokaController@storeNomor')->name('kuitansiLoka.storeNomor');
-            });
-
-
 
             // Master Jabatan Pegawai BBGP
             Route::prefix('kependudukan')->group(function () {
@@ -382,25 +181,6 @@ Route::group(
                 Route::get('/cetak/{id}', 'KependudukanController@cetak')->name('kependudukan.cetak');
             });
 
-            // Route::prefix('kependudukan')->group(function () {
-            //     Route::get('/', 'KependudukanController@index')->name('kependudukan.index');
-            //     Route::get('/create', 'KependudukanController@create')->name('kependudukan.create');
-            //     Route::post('/store', 'KependudukanController@store')->name('kependudukan.store');
-            //     Route::get('/edit/{id}', 'KependudukanController@edit')->name('kependudukan.edit');
-            //     Route::put('/update', 'KependudukanController@update')->name('kependudukan.update');
-            //     Route::post('/hapus/{id}', 'KependudukanController@hapus')->name('kependudukan.hapus');
-            //     Route::get('/cetak/{id}', 'KependudukanController@cetak')->name('kependudukan.cetak');
-            // });
-
-            // Route::prefix('kependudukan')->group(function () {
-            //     Route::get('/', 'KependudukanController@index')->name('kependudukan.index');
-            //     Route::get('/create', 'KependudukanController@create')->name('kependudukan.create');
-            //     Route::post('/store', 'KependudukanController@store')->name('kependudukan.store');
-            //     Route::get('/edit/{id}', 'KependudukanController@edit')->name('kependudukan.edit');
-            //     Route::put('/update', 'KependudukanController@update')->name('kependudukan.update');
-            //     Route::post('/hapus/{id}', 'KependudukanController@hapus')->name('kependudukan.hapus');
-            //     Route::get('/cetak/{id}', 'KependudukanController@cetak')->name('kependudukan.cetak');
-            // });
 
             // Agenda
             Route::prefix('agenda')->group(function () {
@@ -412,14 +192,14 @@ Route::group(
                 Route::post('/hapus/{id}', 'AgendaController@destroy')->name('agenda.hapus');
             });
 
-            // Berita
-            Route::prefix('berita')->group(function () {
-                Route::get('/', 'BeritaController@index')->name('berita.index');
-                Route::get('/create', 'BeritaController@create')->name('berita.create');
-                Route::post('/store', 'BeritaController@store')->name('berita.store');
-                Route::get('/edit/{id}', 'BeritaController@edit')->name('berita.edit');
-                Route::put('/update', 'BeritaController@update')->name('berita.update');
-                Route::post('/hapus/{id}', 'BeritaController@destroy')->name('berita.hapus');
+            // Tema
+            Route::prefix('tema')->group(function () {
+                Route::get('/', 'TemaController@index')->name('tema.index');
+                Route::get('/create', 'TemaController@create')->name('tema.create');
+                Route::post('/store', 'TemaController@store')->name('tema.store');
+                Route::get('/edit/{id}', 'TemaController@edit')->name('tema.edit');
+                Route::put('/update', 'TemaController@update')->name('tema.update');
+                Route::post('/hapus/{id}', 'TemaController@destroy')->name('tema.hapus');
             });
 
             // Artikel

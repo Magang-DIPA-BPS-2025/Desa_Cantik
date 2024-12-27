@@ -188,7 +188,7 @@
             <div class="row">
 
 
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="ts-intro">
                         <h2 class="into-title">Tentang Kami</h2>
                         <h3 class="into-sub-title">RPPH Sulawesi Selatan</h3>
@@ -205,17 +205,17 @@
 
                 </div><!-- Col end -->
 
-                <div class="col-lg-6 mt-4 mt-lg-4 justify-content-center">
+                <!-- <div class="col-lg-6 mt-4 mt-lg-4 justify-content-center">
                     <h3 class="into-sub-title"> </h3>
-                    <div class="box-video">
+                    <div class="box-video"> -->
 
                         <!--<iframe width="420" height="315" title="Program Pengembangan keprofesian Guru. Pendidikan Jasmani, olahraga dan kesehatan" src="https://www.youtube.com/embed/gJ3g7xX9O-s"-->
                         <!--    allowfullscreen>-->
                         <!--</iframe>-->
-                        <div class="video-placeholder" data-src="https://www.youtube.com/embed/gJ3g7xX9O-s"
+                        <!-- <div class="video-placeholder" data-src="https://www.youtube.com"
                             onclick="loadVideo(this)">
                             <div class="video-title">Rencana Pelaksanaan Pembelajaran</div>
-                        </div>
+                        </div> -->
                         <!--<div class="video-title">Balai Besar Guru Penggerak</div>-->
                     </div>
                     <!--/ Accordion end -->
@@ -513,7 +513,7 @@
                     });
 
                     lazyVideos.forEach(function(video) {
-                        lazyVideoObserver.observe(video);
+                        lazyVideoObserv er.observe(video);
                     });
                 } else {
                     // Fallback for older browsers

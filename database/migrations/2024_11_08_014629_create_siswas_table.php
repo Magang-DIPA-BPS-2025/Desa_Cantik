@@ -15,9 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('kelas_id');
+            $table->string('guru_id');
+            $table->string('gender');
+            $table->string('agama');
             $table->date('tgl_lahir');
             $table->string('alamat');
-            $table->string('Wali');
+            $table->string('wali'); //orangtua/wali
+            $table->string('no_hp_wali'); //nomor hp orangtua/wali
+            $table->string('pas_foto');
             $table->timestamps();
         });
     }

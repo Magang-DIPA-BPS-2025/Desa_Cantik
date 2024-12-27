@@ -52,7 +52,7 @@
                                                     
                                                 </td>
                                                 <td>
-                                                    @if (session('role') == 'admin' || session('role') == 'superadmin')
+                                                    @if (session('role') == 'admin')
                                                         @if ($guru->is_verif != 'sudah')
                                                             <button class="btn btn-primary mb-2"
                                                                 onclick="verifikasi({{ $guru->id }}, 'guru')">

@@ -22,6 +22,10 @@ class Guru extends Model
         'pas_foto',
         'is_verif',
     ];
-
+    
+    public function siswa()
+    {
+        return $this->hasMany(Siswa::class, 'kelas_id', 'id');
+    }
 
 }
