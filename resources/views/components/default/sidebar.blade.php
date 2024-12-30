@@ -17,7 +17,7 @@
             </li>
 
             @if (session('role') == 'admin')
-                <li class="nav-item dropdown {{ $menu == 'guru' ? 'active' : '' }}">
+                <li class="nav-item dropdown {{ $menu == 'guru' || 'siswa' || 'jadwal' ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-sitemap"></i>
                         <span>Master Data</span></a>
                     <ul class="dropdown-menu">
@@ -30,6 +30,11 @@
                         <li class="{{ $menu == 'siswa' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('siswa.index') }}">
                                 Data Siswa RPPH
+                            </a>
+                        </li>
+                        <li class="{{ $menu == 'jadwal' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('siswa.index') }}">
+                                Data jadwal RPPH
                             </a>
                         </li>
 
@@ -76,7 +81,7 @@
                 </li>
                 <li class="nav-item  {{ $menu == 'artikel' ? 'active' : '' }}">
                     <a href="{{ route('artikel.index') }}" class="nav-link "><i class="fas fa-window-maximize"></i>
-                        <span>Data Artikel</span>
+                        <span>Modul Pembelajaran</span>
                     </a>
                 </li>
             @endif
@@ -135,7 +140,7 @@
                 </li>
                 <li class="nav-item  {{ $menu == 'artikel' ? 'active' : '' }}">
                     <a href="{{ route('artikel.index') }}" class="nav-link "><i class="fas fa-window-maximize"></i>
-                        <span>Data Artikel</span>
+                        <span>Modul Pembelajaran</span>
                     </a>
                 </li>
             @endif

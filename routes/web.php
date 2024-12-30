@@ -114,7 +114,6 @@ Route::group(
                 Route::get('/', 'guruController@index')->name('guru.index');
                 Route::get('/create', 'guruController@create')->name('guru.create');
                 Route::post('/store', 'guruController@store')->name('guru.store');
-                Route::post('/verifikasi/{id}', 'guruController@verifikasi')->name('guru.verifikasi');
                 Route::get('/show', 'guruController@showguru')->name('admin.guru.detail');
                 Route::get('/edit/{id}', 'guruController@edit')->name('guru.edit');
                 Route::put('/update', 'guruController@update')->name('guru.update');

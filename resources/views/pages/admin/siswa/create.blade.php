@@ -24,31 +24,63 @@
                                 <h4>Form Tambah Siswa</h4>
                             </div>
                             <div class="card-body">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-3">Nama Lengkap</label>
                                     <div class="col-md-7">
-                                        <input required type="text" name="nama_lengkap" class="form-control">
+                                        <input required type="text" name="nama" class="form-control"
+                                            value="{{ old('nama') }}">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-3">Kelas</label>
                                     <div class="col-md-7">
-                                        <input required type="text" name="kelas" class="form-control">
+                                        <select class="form-control selectric" name="kelas_id" required>
+                                            <option value="">--- Pilih Kelas ---</option>
+                                            @foreach ($kelas as $item)
+                                                <option value="{{ $item->id }}" {{ old('kelas_id') == $item->id ? 'selected' : '' }}>
+                                                    {{ $item->nm_kelas }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                <label class="col-form-label col-md-3">Guru</label>
+                                <div class="col-md-7">
+                                    <select name="guru_id" class="form-control" required>
+                                        <option value="">--- Pilih Guru ---</option>
+                                        @foreach ($guru as $item)
+                                            <option value="{{ $item->id }}">{{ $item->nama_lengkap }}</option>
+                                        @endforeach
+                                    </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-3">Tempat Lahir</label>
                                     <div class="col-md-7">
-                                        <input required type="text" name="tempat_lahir" class="form-control">
+                                        <input required type="text" name="tempat_lahir" class="form-control"
+                                            value="{{ old('tempat_lahir') }}">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-3">Tanggal Lahir</label>
                                     <div class="col-md-7">
-                                        <input required type="date" name="tgl_lahir" class="form-control">
+                                        <input required type="date" name="tgl_lahir" class="form-control"
+                                            value="{{ old('tgl_lahir') }}">
                                     </div>
                                 </div>
 
@@ -56,9 +88,9 @@
                                     <label class="col-form-label col-md-3">Gender</label>
                                     <div class="col-md-7">
                                         <select class="form-control selectric" name="gender" required>
-                                            <option value="#">---Pilih Gender---</option>
-                                            <option value="Laki-laki">Laki-laki</option>
-                                            <option value="Perempuan">Perempuan</option>
+                                            <option value="">--- Pilih Gender ---</option>
+                                            <option value="Laki-laki" {{ old('gender') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                                            <option value="Perempuan" {{ old('gender') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                                         </select>
                                     </div>
                                 </div>
@@ -67,12 +99,17 @@
                                     <label class="col-form-label col-md-3">Agama</label>
                                     <div class="col-md-7">
                                         <select class="form-control selectric" name="agama" required>
-                                            <option value="#">---Pilih Agama---</option>
-                                            <option value="Islam">Islam</option>
-                                            <option value="Kristen">Kristen</option>
-                                            <option value="Katolik">Katolik</option>
-                                            <option value="Hindu">Hindu</option>
-                                            <option value="Budha">Budha</option>
+                                            <option value="">--- Pilih Agama ---</option>
+                                            <option value="Islam" {{ old('agama') == 'Islam' ? 'selected' : '' }}>Islam
+                                            </option>
+                                            <option value="Kristen" {{ old('agama') == 'Kristen' ? 'selected' : '' }}>
+                                                Kristen</option>
+                                            <option value="Katolik" {{ old('agama') == 'Katolik' ? 'selected' : '' }}>
+                                                Katolik</option>
+                                            <option value="Hindu" {{ old('agama') == 'Hindu' ? 'selected' : '' }}>Hindu
+                                            </option>
+                                            <option value="Budha" {{ old('agama') == 'Budha' ? 'selected' : '' }}>Budha
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -80,24 +117,24 @@
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-3">Alamat</label>
                                     <div class="col-md-7">
-                                        <textarea required name="alamat_rumah" class="form-control"></textarea>
+                                        <textarea required name="alamat"
+                                            class="form-control">{{ old('alamat') }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-3">Nama Orang tua/ wali</label>
+                                    <div class="col-md-7">
+                                        <textarea required name="wali"
+                                            class="form-control">{{ old('wali') }}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-3">Nomor Handphone</label>
                                     <div class="col-md-7">
-                                        <input required type="text" name="no_hp" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-form-label col-md-3">Foto</label>
-                                    <div class="col-md-7">
-                                        <div id="image-preview" class="image-preview">
-                                            <label for="image-upload" id="image-label">Pilih Foto</label>
-                                            <input required type="file" name="pas_foto" id="image-upload">
-                                        </div>
+                                        <input required type="text" name="no_hp_wali" class="form-control"
+                                            value="{{ old('no_hp_wali') }}">
                                     </div>
                                 </div>
 

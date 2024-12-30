@@ -24,7 +24,6 @@ return new class extends Migration
             $table->string('alamat_rumah');
             $table->string('no_hp');
             $table->string('pas_foto');
-            $table->enum('is_verif', ['sudah', 'belum']);
             $table->timestamps();
         });
     }

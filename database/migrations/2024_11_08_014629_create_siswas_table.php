@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('alamat');
             $table->string('wali'); //orangtua/wali
             $table->string('no_hp_wali'); //nomor hp orangtua/wali
-            $table->string('pas_foto');
             $table->timestamps();
         });
     }

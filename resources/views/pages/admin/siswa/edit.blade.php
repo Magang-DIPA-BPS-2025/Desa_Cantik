@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Edit Data Guru RPPH'])
+@extends('layouts.app', ['title' => 'Edit Data Siswa'])
 
 @section('content')
     @push('styles')
@@ -9,97 +9,89 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Edit Data Guru</h1>
+                <h1>Edit Data Siswa</h1>
             </div>
 
             <div class="section-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form action="{{ route('guru.update', $pegawai->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('siswa.update', $data->id) }}" method="POST">
                             @csrf
                             @method('PUT')
-                            <input type="hidden" name="id" value="{{ $pegawai->id }}">
+                            <input type="hidden" name="id" value="{{ $data->id }}">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="nama_lengkap">Nama Lengkap</label>
-                                                <input name="nama_lengkap" value="{{ old('nama_lengkap', $pegawai->nama_lengkap) }}" type="text" class="form-control @error('nama_lengkap') is-invalid @enderror" id="nama_lengkap">
-                                                @error('nama_lengkap')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="nip">NIP</label>
-                                                <input name="nip" value="{{ old('nip', $pegawai->nip) }}" type="text" class="form-control @error('nip') is-invalid @enderror" id="nip">
-                                                @error('nip')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="no_ktp">Nomor KTP</label>
-                                                <input name="no_ktp" value="{{ old('no_ktp', $pegawai->no_ktp) }}" type="number" class="form-control @error('no_ktp') is-invalid @enderror" id="no_ktp">
-                                                @error('no_ktp')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="jenis_pegawai">Status Kepegawaian</label>
-                                                <select name="jenis_pegawai" class="form-control selectric @error('jenis_pegawai') is-invalid @enderror" id="jenis_pegawai">
-                                                    <option value="">-- Pilih status kepegawaian --</option>
-                                                    <option value="BBGP" {{ old('jenis_pegawai', $pegawai->jenis_pegawai) == 'BBGP' ? 'selected' : '' }}>Pegawai BBGP</option>
-                                                    <option value="PPNPN" {{ old('jenis_pegawai', $pegawai->jenis_pegawai) == 'PPNPN' ? 'selected' : '' }}>Pegawai PPNPN</option>
-                                                </select>
-                                                @error('jenis_pegawai')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="nama">Nama Lengkap</label>
+                                        <input type="text" name="nama" id="nama" 
+                                            value="{{ old('nama', $data->nama) }}"
+                                            class="form-control @error('nama') is-invalid @enderror">
+                                        @error('nama')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="golongan">Golongan</label>
-                                                <select name="golongan" class="form-control select2 @error('golongan') is-invalid @enderror" id="golongan">
-                                                    <option value="">-- Pilih Golongan --</option>
-                                                    @foreach ($datas['golongan'] as $v)
-                                                        <option value="{{ $v->name }}" {{ old('golongan', $pegawai->golongan) == $v->name ? 'selected' : '' }}>{{ $v->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                @error('golongan')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="kelas_id">Kelas</label>
+                                        <select name="kelas_id" id="kelas_id"
+                                            class="form-control select2 @error('kelas_id') is-invalid @enderror">
+                                            <option value="">-- Pilih Kelas --</option>
+                                            @foreach ($kelas as $k)
+                                                <option value="{{ $k->id }}" 
+                                                    {{ old('kelas_id', $data->kelas_id) == $k->id ? 'selected' : '' }}>
+                                                    {{ $k->nm_kelas }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('kelas_id')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="jabatan">Jabatan</label>
-                                                <select name="jabatan" class="form-control select2 @error('jabatan') is-invalid @enderror" id="jabatan">
-                                                    <option value="">-- Pilih Jabatan --</option>
-                                                    @foreach ($datas['jabatan'] as $v)
-                                                        <option value="{{ $v->name }}" {{ old('jabatan', $pegawai->jabatan) == $v->name ? 'selected' : '' }}>{{ $v->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                @error('jabatan')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="tgl_lahir">Tanggal Lahir</label>
+                                        <input type="date" name="tgl_lahir" id="tgl_lahir" 
+                                            value="{{ old('tgl_lahir', $data->tgl_lahir) }}"
+                                            class="form-control @error('tgl_lahir') is-invalid @enderror">
+                                        @error('tgl_lahir')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="alamat">Alamat</label>
+                                        <textarea name="alamat" id="alamat" 
+                                            class="form-control @error('alamat') is-invalid @enderror"
+                                            rows="3">{{ old('alamat', $data->alamat) }}</textarea>
+                                        @error('alamat')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="wali">Wali</label>
+                                        <input type="text" name="wali" id="wali" 
+                                            value="{{ old('wali', $data->wali) }}"
+                                            class="form-control @error('wali') is-invalid @enderror">
+                                        @error('wali')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="no_hp_wali">No. HP Wali</label>
+                                        <input type="text" name="no_hp_wali" id="no_hp_wali" 
+                                            value="{{ old('no_hp_wali', $data->no_hp_wali) }}"
+                                            class="form-control @error('no_hp_wali') is-invalid @enderror">
+                                        @error('no_hp_wali')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="card-footer text-right">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                    <button type="reset" class="btn btn-secondary mx-1">Reset</button>
-                                    <a href="{{ session('role') == 'pegawai' ? route('pegawai.show', session('no_ktp')) : route('pegawai.index') }}" class="btn btn-warning">Kembali</a>
+                                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                    <a href="{{ route('siswa.index') }}" class="btn btn-secondary">Kembali</a>
                                 </div>
                             </div>
                         </form>

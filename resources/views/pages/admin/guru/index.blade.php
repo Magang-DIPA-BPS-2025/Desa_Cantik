@@ -52,14 +52,6 @@
                                                     
                                                 </td>
                                                 <td>
-                                                    @if (session('role') == 'admin')
-                                                        @if ($guru->is_verif != 'sudah')
-                                                            <button class="btn btn-primary mb-2"
-                                                                onclick="verifikasi({{ $guru->id }}, 'guru')">
-                                                                Verifikasi
-                                                            </button>
-                                                        @endif
-                                                    @endif
                                                     <a href="{{ route('guru.edit', $guru->id) }}"
                                                         class="btn btn-warning my-2">
                                                         <i class="fas fa-edit"></i>

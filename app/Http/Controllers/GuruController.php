@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\guru;
+use App\Models\kelas;
 use Illuminate\Http\Request;
 
 class GuruController extends Controller
@@ -75,10 +76,11 @@ class GuruController extends Controller
      */
     public function edit($id)
     {
-        $datas = Guru::find($id);
+        $data = Guru::find($id);
+        $kelas = Kelas::all();
         $menu = $this->menu;
 
-        return view('pages.admin.guru.edit', compact('datas', 'menu'));
+        return view('pages.admin.guru.edit', compact('data', 'menu','kelas'));
     }
 
     /**

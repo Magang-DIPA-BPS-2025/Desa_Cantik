@@ -41,18 +41,21 @@
                                             <tr>
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>{{ $siswa->nama }}</td>
-                                                <td>{{ $siswa->kelas->nama_kelas ?? '-' }}</td>
-                                                <td>{{ $siswa->tgl_lahir }}</td>
+                                                <td>{{ $siswa->kelas->nm_kelas ?? '-' }}</td>
+                                                <td>{{ $siswa->guru->nama_lengkap ?? '-' }}</td>
+                                                <td>{{ $siswa->gender ?? '-' }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($siswa->tgl_lahir)->format('d-m-Y') }}</td>
                                                 <td>{{ $siswa->alamat }}</td>
                                                 <td>{{ $siswa->wali }}</td>
-                                                <td>
-                                                    <a href="{{ route('siswa.edit', $siswa->id) }}"
-                                                        class="btn btn-warning my-2">
-                                                        <i class="fas fa-edit"></i> Edit
+                                                <td>{{ $siswa->no_hp_wali ?? '-' }}</td>
+                                                <td class="d-flex">
+                                                    <a href="{{ route('siswa.edit', $siswa->id) }}" 
+                                                    class="btn btn-warning btn-sm mr-2">
+                                                        <i class="fas fa-edit"></i> 
                                                     </a>
                                                     <button onclick="deleteData({{ $siswa->id }}, 'siswa')"
-                                                        class="btn btn-danger">
-                                                        <i class="fas fa-trash-alt"></i> Hapus
+                                                            class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-trash-alt"></i> 
                                                     </button>
                                                 </td>
                                             </tr>

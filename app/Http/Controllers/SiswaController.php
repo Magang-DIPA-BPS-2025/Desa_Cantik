@@ -16,7 +16,7 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        $datas = Siswa::with(['kelas', 'guru'])->get(); 
+        $datas = Siswa::with(['kelas', 'guru'])->get();
         $menu = $this->menu;
         return view('pages.admin.siswa.index', compact('menu', 'datas'));
     }
@@ -27,8 +27,8 @@ class SiswaController extends Controller
     public function create()
     {
         $menu = $this->menu;
-        $kelas = Kelas::all(); 
-        $guru = Guru::all(); 
+        $kelas = Kelas::all();
+        $guru = Guru::all();
         return view('pages.admin.siswa.create', compact('menu', 'kelas', 'guru'));
     }
 
@@ -39,30 +39,10 @@ class SiswaController extends Controller
     {
         
         $r = $request->all();
-
-        $file = $request->file('pas_foto');
-
-        // dd($file->getSize() / 1024);
-        // if ($file->getSize() / 1024 >= 512) {
-        //     return redirect()->route('guru.create')->with('message', 'size gambar');
-        // }
-
-        $foto = $request->file('pas_foto');
-        $ext = $foto->getClientOriginalExtension();
-        // $r['pas_foto'] = $request->file('pas_foto');
-
-        $nameFoto = date('Y-m-d_H-i-s_') . "." . $ext;
-        $destinationPath = public_path('upload/siswa');
-
-        $foto->move($destinationPath, $nameFoto);
-
-        $fileUrl = asset('upload/siswa/' . $nameFoto);
-        // dd($destinationPath);
-        $r['pas_foto'] = $nameFoto;
         // dd($r);
 
         // Menyimpan data guru
-        Guru::create($r);
+        Siswa::create($r);
 
         return redirect()->route('siswa.index')->with('message', 'Data guru berhasil ditambahkan.');
     }
@@ -87,28 +67,7 @@ class SiswaController extends Controller
     public function update(Request $request )
     {
         $r = $request->all();
-        $data = Guru::find($r['id']);
-
-        $foto = $request->file('pas_foto');
-
-
-
-        if ($request->hasFile('pas_foto')) {
-            if ($foto->getSize() / 1024 >= 512) {
-                return redirect()->route('siswa.edit', $r['id'])->with('message', 'size gambar');
-            }
-            $ext = $foto->getClientOriginalExtension();
-            $nameFoto = date('Y-m-d_H-i-s_') . "." . $ext;
-            $destinationPath = public_path('upload/siswa');
-
-            $foto->move($destinationPath, $nameFoto);
-
-            $fileUrl = asset('upload/siswa/' . $nameFoto);
-            $r['pas_foto'] = $nameFoto;
-        } else {
-            $r['pas_foto'] = $request->thumbnail_old;
-        }
-
+        $data = Siswa::find($r['id']);
 
         // dd($r);
         $data->update($r);

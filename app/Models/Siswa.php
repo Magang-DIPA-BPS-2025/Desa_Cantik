@@ -18,15 +18,14 @@ class Siswa extends Model
         'alamat',
         'wali',
         'no_hp_wali',
-        'pas_foto',
     ];
     public function kelas()
     {
-        return $this->belongsTo(Kelas::class,'id','kelas_id');
+        return $this->belongsTo(Kelas::class,'kelas_id','id');
     }
 
     public function guru()
     {
-        return $this->belongsTo(Guru::class,'id','guru_id');
+        return $this->belongsTo(Guru::class,'guru_id','id');
     }
 }
