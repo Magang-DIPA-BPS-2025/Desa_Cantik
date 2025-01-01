@@ -10,8 +10,14 @@ class Tema extends Model
     use HasFactory;
     protected $fillable = [
         'nama',
+        'modul_id',
         'deskripsi',
         'gambar',
         'status',
     ];
+
+    public function modul()
+    {
+        return $this->hasMany(modul::class,'id', 'modul_id');
+    }
 }

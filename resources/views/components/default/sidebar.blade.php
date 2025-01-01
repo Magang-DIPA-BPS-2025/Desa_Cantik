@@ -87,7 +87,7 @@
             @endif
 
             @if (session('role') == 'guru')
-                <li class="nav-item dropdown {{ $menu == 'guru' ? 'active' : '' }}">
+                <li class="nav-item dropdown {{ $menu == 'guru' || 'jadwal' || 'siswa' ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-sitemap"></i>
                         <span>Master Data</span></a>
                     <ul class="dropdown-menu">
@@ -95,6 +95,11 @@
                         <li class="{{ $menu == 'guru' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('guru.index') }}">
                                 Data Guru RPPH
+                            </a>
+                        </li>
+                        <li class="{{ $menu == 'siswa' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('jadwal.index') }}">
+                                Data jadwal RPPH
                             </a>
                         </li>
                         <li class="{{ $menu == 'jadwal' ? 'active' : '' }}">

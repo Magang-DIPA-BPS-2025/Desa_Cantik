@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('tema_id');
             $table->string('judul');
             $table->text('deskripsi')->nullable();
+            $table->string('sampul');
             $table->timestamps();
         });
     }

@@ -12,7 +12,9 @@ class Modul extends Model
         'tema_id',
         'judul',
         'deskripsi',
+        'sampul',
     ];
+
     public function tema()
     {
         return $this->belongsTo(Tema::class,'id','tema_id');

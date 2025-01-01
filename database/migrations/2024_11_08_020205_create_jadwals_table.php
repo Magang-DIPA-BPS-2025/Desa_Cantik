@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('kelas_id');
             $table->string('tema_id');
             $table->string('modul_id');
-            $table->date('tgl_jadwal');
+            $table->string('hari');
             $table->time('jam_mulai');
             $table->time('jam_selesai');
             $table->timestamps();

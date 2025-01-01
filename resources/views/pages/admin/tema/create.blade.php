@@ -11,7 +11,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Tambah Agenda</h1>
+                <h1>Tambah Data Tema</h1>
             </div>
 
             <div class="section-body">

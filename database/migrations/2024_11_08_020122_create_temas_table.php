@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('temas', function (Blueprint $table) {
             $table->id();
+            $table->string('modul_id');
             $table->string('nama');
             $table->text('deskripsi')->nullable();
             $table->string('gambar');

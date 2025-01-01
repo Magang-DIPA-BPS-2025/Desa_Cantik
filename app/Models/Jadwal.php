@@ -13,8 +13,7 @@ class Jadwal extends Model
         'kelas_id',
         'tema_id',
         'modul_id',
-        'tgl_jadwal',
-        'modul_id',
+        'hari',
         'jam_mulai',
         'jam_selesai',
     ];

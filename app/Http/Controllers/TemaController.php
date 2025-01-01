@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tema;
+use App\Models\Modul;
+
 
 class TemaController extends Controller
 {
@@ -14,7 +16,8 @@ class TemaController extends Controller
      */
     public function index()
     {
-        $datas = Tema::get();
+        $datas = Tema::with(['modul'])->get();
+
         $menu = $this->menu;
         return view('pages.admin.tema.index', compact('menu', 'datas'));
     }
@@ -25,7 +28,8 @@ class TemaController extends Controller
     public function create()
     {
         $menu = $this->menu;
-        return view('pages.admin.tema.create', compact('menu'));
+        $modul = Modul::all();
+        return view('pages.admin.tema.create', compact('menu', 'modul'));
     }
 
     /**
@@ -75,9 +79,10 @@ class TemaController extends Controller
     public function edit($id)
     {
         $data = Tema::find($id);
+        $modul = Modul::all();
         $menu = $this->menu;
 
-        return view('pages.admin.tema.edit', compact('data', 'menu'));
+        return view('pages.admin.tema.edit', compact('data', 'menu', 'modul'));
     }
 
     /**
