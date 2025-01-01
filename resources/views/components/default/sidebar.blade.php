@@ -33,7 +33,7 @@
                             </a>
                         </li>
                         <li class="{{ $menu == 'jadwal' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('siswa.index') }}">
+                            <a class="nav-link" href="{{ route('jadwal.index') }}">
                                 Data jadwal RPPH
                             </a>
                         </li>
@@ -95,6 +95,11 @@
                         <li class="{{ $menu == 'guru' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('guru.index') }}">
                                 Data Guru RPPH
+                            </a>
+                        </li>
+                        <li class="{{ $menu == 'jadwal' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('jadwal.index') }}">
+                                Data jadwal RPPH
                             </a>
                         </li>
 

@@ -144,14 +144,24 @@ Route::group(
             });
 
 
+            // jadwal
+            Route::prefix('jadwal')->group(function () {
+                Route::get('/', 'JadwalController@index')->name('jadwal.index');
+                Route::get('/create', 'JadwalController@create')->name('jadwal.create');
+                Route::post('/store', 'JadwalController@store')->name('jadwal.store');
+                Route::get('/edit/{id}', 'JadwalController@edit')->name('jadwal.edit');
+                Route::put('/update', 'JadwalController@update')->name('jadwal.update');
+                Route::post('/hapus/{id}', 'JadwalController@destroy')->name('jadwal.hapus');
+            });
+
             // Kegiatan
             Route::prefix('kegiatan')->group(function () {
-                Route::get('/', 'KegiatanController@index')->name('kegiatan.index');
-                Route::get('/create', 'KegiatanController@create')->name('kegiatan.create');
-                Route::post('/store', 'KegiatanController@store')->name('kegiatan.store');
-                Route::get('/edit/{id}', 'KegiatanController@edit')->name('kegiatan.edit');
-                Route::put('/update', 'KegiatanController@update')->name('kegiatan.update');
-                Route::post('/hapus/{id}', 'KegiatanController@destroy')->name('kegiatan.hapus');
+                Route::get('/', 'kegiatanController@index')->name('kegiatan.index');
+                Route::get('/create', 'kegiatanController@create')->name('kegiatan.create');
+                Route::post('/store', 'kegiatanController@store')->name('kegiatan.store');
+                Route::get('/edit/{id}', 'kegiatanController@edit')->name('kegiatan.edit');
+                Route::put('/update', 'kegiatanController@update')->name('kegiatan.update');
+                Route::post('/hapus/{id}', 'kegiatanController@destroy')->name('kegiatan.hapus');
             });
 
             // Peserta Kegiatan
