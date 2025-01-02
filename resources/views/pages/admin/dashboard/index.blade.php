@@ -253,7 +253,7 @@
         <script src="{{ asset('library/summernote/dist/summernote-bs4.js') }}"></script>
         <script src="{{ asset('library/fullcalendar/dist/fullcalendar.min.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/locale/id.min.js"></script>
-        {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+        {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}} 
         <script src="{{ asset('library/chart.js/dist/Chart.min.js') }}"></script>
 
 

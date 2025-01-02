@@ -61,7 +61,7 @@
                                                         <span class="text-muted">Belum ada modul</span>
                                                     @endif
                                                 </td>
-                                                <td>{{ Str::limit($data->deskripsi, 50, '...') }}</td>
+                                                <td>{!! $data->deskripsi ?? '' !!}</td>
                                                 <td>
                                                     @if ($data->status == 'publish')
                                                         <span class="badge badge-success">Publish</span>

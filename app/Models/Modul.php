@@ -17,7 +17,7 @@ class Modul extends Model
 
     public function tema()
     {
-        return $this->belongsTo(Tema::class,'id','tema_id');
+        return $this->belongsTo(Tema::class,'tema_id','id');
     }
-    
+
 }

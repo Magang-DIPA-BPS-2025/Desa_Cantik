@@ -31,7 +31,7 @@
                                         <select name="modul_id" class="form-control select2" >
                                             <option value="" disabled>Pilih Modul</option>
                                             @foreach($modul as $md)
-                                                <option value="{{ $md->id }}" {{ $md->id == $tema->modul_id ? 'selected' : '' }}>{{ $md->nama }}</option>
+                                                <option value="{{ $md->id }}" {{ $md->id == $md->modul_id ? 'selected' : '' }}>{{ $md->judul }}</option>
                                             @endforeach
                                         </select>
                                     </div>

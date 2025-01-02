@@ -35,11 +35,28 @@
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-3">Nama Tema</label>
                                     <div class="col-md-7">
-                                        <select class="form-control select2 @error('pelajaran_id') is-invalid @enderror" name="pelajaran_id" required>
+                                        <select class="form-control select2 @error('tema_id') is-invalid @enderror" name="tema_id" required>
                                             <option value="">--- Pilih Tema ---</option>
                                             @foreach ($tema as $item)
-                                                <option value="{{ $item->id }}" {{ old('pelajaran_id') == $item->id ? 'selected' : '' }}>
+                                                <option value="{{ $item->id }}" {{ old('tema_id') == $item->id ? 'selected' : '' }}>
                                                     {{ $item->nama }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('pelajaran_id')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-3">Nama Modul</label>
+                                    <div class="col-md-7">
+                                        <select class="form-control select2 @error('modul_id') is-invalid @enderror" name="modul_id" required>
+                                            <option value="">--- Pilih Tema ---</option>
+                                            @foreach ($modul as $item)
+                                                <option value="{{ $item->id }}" {{ old('modul_id') == $item->id ? 'selected' : '' }}>
+                                                    {{ $item->judul }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -103,8 +120,8 @@
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-3">Waktu Mulai</label>
                                     <div class="col-md-7">
-                                        <input type="time" name="waktu_mulai" class="form-control @error('waktu_mulai') is-invalid @enderror" required value="{{ old('waktu_mulai') }}">
-                                        @error('waktu_mulai')
+                                        <input type="time" name="jam_mulai" class="form-control @error('jam_mulai') is-invalid @enderror" required value="{{ old('jam_mulai') }}">
+                                        @error('jam_mulai')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -113,22 +130,13 @@
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-3">Waktu Selesai</label>
                                     <div class="col-md-7">
-                                        <input type="time" name="waktu_selesai" class="form-control @error('waktu_selesai') is-invalid @enderror" required value="{{ old('waktu_selesai') }}">
-                                        @error('waktu_selesai')
+                                        <input type="time" name="jam_selesai" class="form-control @error('jam_selesai') is-invalid @enderror" required value="{{ old('jam_selesai') }}">
+                                        @error('jam_selesai')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
-                                    <label class="col-form-label col-md-3">Keterangan</label>
-                                    <div class="col-md-7">
-                                        <textarea name="keterangan" class="form-control @error('keterangan') is-invalid @enderror">{{ old('keterangan') }}</textarea>
-                                        @error('keterangan')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
 
                                 <div class="form-group row">
                                     <div class="col-md-7 offset-md-3">

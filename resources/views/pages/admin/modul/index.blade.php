@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Data Jadwal'])
+@extends('layouts.app', ['title' => 'Data Modul'])
 
 @section('content')
 @push('styles')
@@ -9,7 +9,7 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Data Jadwal</h1>
+            <h1>Data Modul</h1>
         </div>
 
         <div class="section-body">
@@ -17,40 +17,42 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <a href="{{ route('jadwal.create') }}" class="btn btn-primary my-4">
-                                <i class="fas fa-plus"></i> Tambah Data Jadwal
-                            </a>
+                            <!-- Button to Create New Modul -->
+                            <a href="{{ route('modul.create') }}" class="btn btn-primary text-white my-3">+ Tambah
+                                Modul</a>
+
+                            <!-- Data Table -->
                             <div class="table-responsive">
-                                <table class="table table-striped" id="table-jadwal">
+                                <table class="table table-striped" id="table-modul">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Kelas</th>
-                                            <th>Guru</th>
+                                            <th class="text-center">#</th>
+                                            <th>Sampul</th>
+                                            <th>Judul Modul</th>
                                             <th>Tema</th>
-                                            <th>Modul</th>
-                                            <th>Hari</th>
-                                            <th>Jam</th>
+                                            <th>Deskripsi</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($datas as $index => $jadwal)
+                                        @foreach ($datas as $i => $data)
                                             <tr>
-                                                <td>{{ $index + 1 }}</td>
-                                                <td>{{ $jadwal->kelas->nm_kelas ?? '-' }}</td>
-                                                <td>{{ $jadwal->guru->nama_lengkap ?? '-' }}</td>
-                                                <td>{{ $jadwal->tema->nama ?? '-' }}</td>
-                                                <td>{{ $jadwal->modul->judul ?? '-' }}</td>
-                                                <td>{{ $jadwal->hari }}</td>
-                                                <td>{{ $jadwal->jam_mulai }} - {{ $jadwal->jam_selesai }} WITA </td>x
-                                                <td class="d-flex">
-                                                    <a href="{{ route('jadwal.edit', $jadwal->id) }}"
-                                                        class="btn btn-warning btn-sm mr-2">
+                                                <td>{{ ++$i }}</td>
+                                                <td>
+                                                    <img class="img img-fluid" width="100"
+                                                        src="{{ asset('upload/modul/' . $data->sampul) }}"
+                                                        alt="Sampul Modul">
+                                                </td>
+                                                <td>{{ $data->judul }}</td>
+                                                <td>{{ $data->tema->nama ?? 'Tidak ada tema' }}</td>
+                                                <td>{!! $data->deskripsi ?? '' !!}</td>
+                                                <td>
+                                                    <a href="{{ route('modul.edit', $data->id) }}"
+                                                        class="btn btn-warning my-2">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <button onclick="deleteData({{ $jadwal->id }}, 'jadwal')"
-                                                        class="btn btn-danger btn-sm">
+                                                    <button onclick="deleteData({{ $data->id }}, 'modul')"
+                                                        class="btn btn-danger">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </td>
@@ -71,25 +73,30 @@
     <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('library/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('library/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
-    <script>
+    <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
+
+    <script type="text/javascript">
         $(document).ready(function () {
-            $('#table-jadwal').DataTable();
+            $('#table-modul').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/2.1.0/i18n/id.json',
+                },
+            });
         });
 
-        function deleteData(id, endpoint) {
+        function deleteData(id, route) {
             if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
                 $.ajax({
-                    url: `/${endpoint}/${id}`,
+                    url: `/${route}/${id}`,
                     type: 'DELETE',
                     data: {
-                        _token: '{{ csrf_token() }}'
+                        _token: '{{ csrf_token() }}',
                     },
                     success: function (response) {
-                        alert('Data berhasil dihapus.');
                         location.reload();
                     },
-                    error: function (error) {
-                        alert('Terjadi kesalahan saat menghapus data.');
+                    error: function (err) {
+                        alert('Terjadi kesalahan, coba lagi.');
                     }
                 });
             }

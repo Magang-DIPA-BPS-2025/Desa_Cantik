@@ -3,20 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Modul;
+use App\Models\Tema;
+
 
 class ModulController extends Controller
 {
 
-    private $menu = 'agenda';
+    private $menu = 'modul';
 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $datas = Agenda::get();
+        $datas = Modul::with(['tema'])->get();
         $menu = $this->menu;
-        return view('pages.admin.agenda.index', compact('menu', 'datas'));
+        return view('pages.admin.modul.index', compact('menu', 'datas'));
     }
 
     /**
@@ -25,7 +28,8 @@ class ModulController extends Controller
     public function create()
     {
         $menu = $this->menu;
-        return view('pages.admin.agenda.create', compact('menu'));
+        $tema = Tema::all();
+        return view('pages.admin.modul.create', compact('menu', 'tema'));
     }
 
     /**
@@ -35,37 +39,36 @@ class ModulController extends Controller
     {
         $r = $request->all();
 
-        $file = $request->file('thumbnail');
+        $file = $request->file('sampul');
 
         // dd($file->getSize() / 1024);
         // if ($file->getSize() / 1024 >= 512) {
-        //     return redirect()->route('agenda.create')->with('message', 'size gambar');
+        //     return redirect()->route('modul.create')->with('message', 'size gambar');
         // }
 
-        $foto = $request->file('thumbnail');
+        $foto = $request->file('sampul');
         $ext = $foto->getClientOriginalExtension();
         // $r['pas_foto'] = $request->file('pas_foto');
 
         $nameFoto = date('Y-m-d_H-i-s_') . "." . $ext;
-        $destinationPath = public_path('upload/agenda');
+        $destinationPath = public_path('upload/modul');
 
         $foto->move($destinationPath, $nameFoto);
 
-        $fileUrl = asset('upload/agenda/' . $nameFoto);
+        $fileUrl = asset('upload/modul/' . $nameFoto);
         // dd($destinationPath);
-        $r['thumbnail'] = $nameFoto;
-        $r['tempat_kegiatan'] = $r['lokasi_kegiatan'];
+        $r['sampul'] = $nameFoto;
         // dd($r);
-        Agenda::create($r);
+        Modul::create($r);
 
 
-        return redirect()->route('agenda.index')->with('message', 'store');
+        return redirect()->route('modul.index')->with('message', 'store');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Agenda $agenda)
+    public function show(Modul $modul)
     {
         //
     }
@@ -75,10 +78,11 @@ class ModulController extends Controller
      */
     public function edit($id)
     {
-        $data = Agenda::find($id);
+        $data = Modul::find($id);
+        $tema = Tema::all();
         $menu = $this->menu;
 
-        return view('pages.admin.agenda.edit', compact('data', 'menu'));
+        return view('pages.admin.modul.edit', compact('data', 'menu', 'tema'));
     }
 
     /**
@@ -87,35 +91,34 @@ class ModulController extends Controller
     public function update(Request $request)
     {
         $r = $request->all();
-        $data = Agenda::find($r['id']);
+        $data = Modul::find($r['id']);
 
-        $foto = $request->file('thumbnail');
+        $foto = $request->file('sampul');
 
 
 
-        if ($request->hasFile('thumbnail')) {
+        if ($request->hasFile('sampul')) {
             if ($foto->getSize() / 1024 >= 512) {
-                return redirect()->route('agenda.edit', $r['id'])->with('message', 'size gambar');
+                return redirect()->route('modul.edit', $r['id'])->with('message', 'size gambar');
             }
             $ext = $foto->getClientOriginalExtension();
             $nameFoto = date('Y-m-d_H-i-s_') . "." . $ext;
-            $destinationPath = public_path('upload/agenda');
+            $destinationPath = public_path('upload/modul');
 
             $foto->move($destinationPath, $nameFoto);
 
-            $fileUrl = asset('upload/agenda/' . $nameFoto);
-            $r['thumbnail'] = $nameFoto;
+            $fileUrl = asset('upload/modul/' . $nameFoto);
+            $r['sampul'] = $nameFoto;
         } else {
-            $r['thumbnail'] = $request->thumbnail_old;
+            $r['sampul'] = $request->sampul_old;
         }
 
         $r['nama_kegiatan'] = $r['judul'];
-        $r['tempat_kegiatan'] = $r['lokasi_kegiatan'];
 
         // dd($r);
         $data->update($r);
 
-        return redirect()->route('agenda.index')->with('message', 'update');
+        return redirect()->route('modul.index')->with('message', 'update');
 
 
     }
@@ -125,7 +128,7 @@ class ModulController extends Controller
      */
     public function destroy($id)
     {
-        $data = Agenda::find($id);
+        $data = Modul::find($id);
         $data->delete();
         return response()->json($data);
     }

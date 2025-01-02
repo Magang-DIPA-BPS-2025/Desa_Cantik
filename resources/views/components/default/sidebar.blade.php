@@ -1,10 +1,10 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="/">RPPH Sulsel</a>
+            <a href="{{route('dashboard') }}">RPPH Makassar</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="/">RPPH</a>
+            <a href="{{route('dashboard') }}">RPPH</a>
         </div>
 
         <ul class="sidebar-menu">
@@ -79,8 +79,8 @@
                         <span>Data Tema</span>
                     </a>
                 </li>
-                <li class="nav-item  {{ $menu == 'artikel' ? 'active' : '' }}">
-                    <a href="{{ route('artikel.index') }}" class="nav-link "><i class="fas fa-window-maximize"></i>
+                <li class="nav-item  {{ $menu == 'modul' ? 'active' : '' }}">
+                    <a href="{{ route('modul.index') }}" class="nav-link "><i class="fas fa-window-maximize"></i>
                         <span>Modul Pembelajaran</span>
                     </a>
                 </li>
@@ -148,8 +148,8 @@
                         <span>Data Berita</span>
                     </a>
                 </li>
-                <li class="nav-item  {{ $menu == 'artikel' ? 'active' : '' }}">
-                    <a href="{{ route('artikel.index') }}" class="nav-link "><i class="fas fa-window-maximize"></i>
+                <li class="nav-item  {{ $menu == 'modul' ? 'active' : '' }}">
+                    <a href="{{ route('modul.index') }}" class="nav-link "><i class="fas fa-window-maximize"></i>
                         <span>Modul Pembelajaran</span>
                     </a>
                 </li>

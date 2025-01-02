@@ -211,14 +211,14 @@ Route::group(
                 Route::post('/hapus/{id}', 'TemaController@destroy')->name('tema.hapus');
             });
 
-            // Artikel
-            Route::prefix('artikel')->group(function () {
-                Route::get('/', 'ArtikelController@index')->name('artikel.index');
-                Route::get('/create', 'ArtikelController@create')->name('artikel.create');
-                Route::post('/store', 'ArtikelController@store')->name('artikel.store');
-                Route::get('/edit/{id}', 'ArtikelController@edit')->name('artikel.edit');
-                Route::put('/update', 'ArtikelController@update')->name('artikel.update');
-                Route::post('/hapus/{id}', 'ArtikelController@destroy')->name('artikel.hapus');
+            // Modul
+            Route::prefix('modul')->group(function () {
+                Route::get('/', 'ModulController@index')->name('modul.index');
+                Route::get('/create', 'ModulController@create')->name('modul.create');
+                Route::post('/store', 'ModulController@store')->name('modul.store');
+                Route::get('/edit/{id}', 'ModulController@edit')->name('modul.edit');
+                Route::put('/update', 'ModulController@update')->name('modul.update');
+                Route::post('/hapus/{id}', 'ModulController@destroy')->name('modul.hapus');
             });
 
         });

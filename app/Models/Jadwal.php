@@ -23,23 +23,23 @@ class Jadwal extends Model
     // Relasi dengan kelas
     public function kelas()
     {
-        return $this->belongsTo(kelas::class,'id','kelas_id');
+        return $this->belongsTo(kelas::class,'kelas_id','id');
     }
 
     // Relasi dengan tema
     public function tema()
     {
-        return $this->belongsTo(Tema::class,'id','tema_id');
+        return $this->belongsTo(Tema::class,'kelas_id','id');
     }
 
     // Relasi dengan modul pembelajaran
     public function modul()
     {
-        return $this->belongsTo(modul::class,'id','modul_id');
+        return $this->belongsTo(modul::class,'modul_id','id');
     }
     public function guru()
     {
-        return $this->belongsTo(Guru::class,'id','guru_id');
+        return $this->belongsTo(Guru::class,'guru_id','id');
     }
         
 }
