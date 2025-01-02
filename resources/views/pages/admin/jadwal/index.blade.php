@@ -30,6 +30,7 @@
                                             <th>Tema</th>
                                             <th>Modul</th>
                                             <th>Hari</th>
+                                            <th>Ruangan</th>
                                             <th>Jam</th>
                                             <th>Action</th>
                                         </tr>
@@ -43,7 +44,8 @@
                                                 <td>{{ $jadwal->tema->nama ?? '-' }}</td>
                                                 <td>{{ $jadwal->modul->judul ?? '-' }}</td>
                                                 <td>{{ $jadwal->hari }}</td>
-                                                <td>{{ $jadwal->jam_mulai }} - {{ $jadwal->jam_selesai }} WITA </td>x
+                                                <td>{{ $jadwal->kelas->ruangan ?? '-' }}</td>
+                                                <td>{{ $jadwal->jam_mulai }} - {{ $jadwal->jam_selesai }} WITA </td>
                                                 <td class="d-flex">
                                                     <a href="{{ route('jadwal.edit', $jadwal->id) }}"
                                                         class="btn btn-warning btn-sm mr-2">

@@ -29,7 +29,7 @@ class Jadwal extends Model
     // Relasi dengan tema
     public function tema()
     {
-        return $this->belongsTo(Tema::class,'kelas_id','id');
+        return $this->belongsTo(Tema::class,'tema_id','id');
     }
 
     // Relasi dengan modul pembelajaran

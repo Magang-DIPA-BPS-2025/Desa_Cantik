@@ -66,7 +66,7 @@ class JadwalController extends Controller
         $modul = Modul::all();
         $menu = $this->menu;
 
-        return view('pages.admin.siswa.edit', compact('data', 'kelas', 'guru','tema','modul', 'menu'));
+        return view('pages.admin.jadwal.edit', compact('data', 'kelas', 'guru','tema','modul', 'menu'));
     }
 
     /**
@@ -80,7 +80,7 @@ class JadwalController extends Controller
         // dd($r);
         $data->update($r);
 
-        return redirect()->route('siswa.index')->with('message', 'Data Jadwal berhasil diperbarui.');
+        return redirect()->route('jadwal.index')->with('message', 'Data Jadwal berhasil diperbarui.');
     }
 
 

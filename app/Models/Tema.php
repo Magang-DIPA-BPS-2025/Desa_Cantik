@@ -9,8 +9,8 @@ class Tema extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nama',
         'modul_id',
+        'nama',
         'deskripsi',
         'gambar',
         'status',
