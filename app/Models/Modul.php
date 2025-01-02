@@ -19,4 +19,5 @@ class Modul extends Model
     {
         return $this->belongsTo(Tema::class,'id','tema_id');
     }
+    
 }

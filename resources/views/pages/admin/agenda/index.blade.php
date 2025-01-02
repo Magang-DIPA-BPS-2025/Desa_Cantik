@@ -57,7 +57,7 @@
                                                 <tr>
                                                     <td>{{ ++$i }}</td>
                                                     <td>
-                                                        <img class="img img-fluid" width="200"
+                                                        <img class="img img-fluid" width="100"
                                                             src="{{ asset('upload/agenda/' . $data->thumbnail) }}"
                                                             alt="Thumbnail Agenda">
                                                     </td>

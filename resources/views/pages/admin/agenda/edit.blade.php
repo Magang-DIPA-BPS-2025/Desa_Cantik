@@ -31,7 +31,7 @@
                                     <div class="form-group row mb-4">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Judul</label>
                                         <div class="col-sm-12 col-md-7">
-                                            <input value="{{ $data->nama_kegiatan }}" required type="text" name="judul"
+                                            <input value="{{ $data->judul }}" required type="text" name="judul"
                                                 class="form-control">
                                         </div>
                                     </div>
@@ -131,9 +131,7 @@
                                     </div>
 
                                     <div class="form-group row mb-4">
-
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status</label>
-
                                         <div class="col-sm-6 col-md-4">
                                             <select class="form-control selectric" name="status" required>
                                                 <option {{ $data->status == 'publish' ? 'selected' : '' }}
