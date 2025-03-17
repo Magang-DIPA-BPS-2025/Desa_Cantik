@@ -18,21 +18,21 @@ Route::group(
     function () {
         Route::redirect('/', '/');
         // Dashboard
-
+    
         //         Route::get(
         //             '/',
         //             function () {
         //                 return view('pages.landing.index');
         //             }
         //         )->name('user.index');
-
+    
         // Route::get(
         //     '/',
         //     function () {
         //         return view('pages.landing.index');
         //     }
         // )->name('user.index');
-
+    
         Route::get('/', 'UserController@index')->name('user.index');
         Route::get('/kontak', 'UserController@kontak')->name('user.kontak');
         Route::get('/eksternal', 'UserController@guru')->name('user.guru');
@@ -47,7 +47,7 @@ Route::group(
         Route::get('/pegawai/detail', 'UserController@getPenugasanDetail')->name('user.pegawai.detail');
         Route::get('/pegawai/detailLoka', 'UserController@getPenugasanDetailLoka')->name('user.pegawai.detail.loka');
         Route::get('/pegawai/detailEksternal', 'UserController@getPenugasanDetailEksternal')->name('user.pegawai.detail.eksternal');
-        
+
         Route::get('/statistik', 'UserController@statistik')->name('user.statistik');
         Route::get('/api/statistics/month/{month}', 'UserController@getMonthStatistics')->name('user.statistik.month');
         Route::get('/api/statistics/activities/{month}', 'UserController@getActivitiesByMonth')->name('user.statistik.month');
@@ -76,7 +76,7 @@ Route::group(
         Route::get('/print/registrasi-peserta', 'KegiatanController@fprintRegistrasiPeserta')->name('print.registrasi.peserta');
         Route::get('/print/absensi-panitia', 'KegiatanController@printAbsensiPanitia')->name('print.absensi.panitia');
         Route::get('/print/absensi-narasumber', 'KegiatanController@printAbsensiNarasumber')->name('print.absensi.narasumber');
-        
+
         Route::get('/print/absensi-tp', 'KegiatanController@printAbsensiTp')->name('print.absensi.tp');
         Route::get('/print/absensi-tkp', 'KegiatanController@printAbsensiTkp')->name('print.absensi.tkp');
         Route::get('/print/absensi-stk', 'KegiatanController@printAbsensiStk')->name('print.absensi.stk');
@@ -99,7 +99,7 @@ Route::group(
             Route::get('/', 'AdminController@index')->name('dashboard');
             Route::get('/jadwalKegiatan', 'AdminController@jadwal')->name('dashboard.jadwal');
             Route::get('/jadwalKegiatan/{nik}', 'AdminController@getJadwalByPegawai')->name('dashboard.jadwal.getByPegawai');
-            
+
             Route::get('/getByKegiatan', 'AdminController@getByKegiatan')->name('dashboard.jadwal.getByKegiatan')->withoutMiddleware(['ValidasiUser']);
             Route::get('/getByKegiatanUser', 'AdminController@getByKegiatanUser')->name('dashboard.jadwal.getByKegiatanUser')->withoutMiddleware(['ValidasiUser']);
 
@@ -179,7 +179,7 @@ Route::group(
             });
 
 
-            // Master Jabatan Pegawai BBGP
+            // Master Jabatan Pegawai 
             Route::prefix('kependudukan')->group(function () {
                 Route::get('/', 'KependudukanController@index')->name('kependudukan.index');
                 Route::get('/create', 'KependudukanController@create')->name('kependudukan.create');

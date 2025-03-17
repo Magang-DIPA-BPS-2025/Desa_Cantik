@@ -43,23 +43,23 @@
 
 
                 <!-- <li class="nav-item dropdown {{ $menu == 'kegiatan' || $menu == 'peserta' ? 'active' : '' }}">
-                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-calendar-week"></i>
-                        <span>Data Kegiatan</span></a>
-                    <ul class="dropdown-menu">
+                            <a href="#" class="nav-link has-dropdown"><i class="fas fa-calendar-week"></i>
+                                <span>Data Kegiatan</span></a>
+                            <ul class="dropdown-menu">
 
-                        <li class="{{ $menu == 'kegiatan' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('kegiatan.index') }}">
-                                Kegiatan</span>
-                            </a>
-                        </li>
+                                <li class="{{ $menu == 'kegiatan' ? 'active' : '' }}">
+                                    <a class="nav-link" href="{{ route('kegiatan.index') }}">
+                                        Kegiatan</span>
+                                    </a>
+                                </li>
 
-                        <li class="{{ $menu == 'peserta' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('peserta.index') }}">
-                                Peserta Kegiatan
-                            </a>
-                        </li>
-                    </ul>
-                </li> -->
+                                <li class="{{ $menu == 'peserta' ? 'active' : '' }}">
+                                    <a class="nav-link" href="{{ route('peserta.index') }}">
+                                        Peserta Kegiatan
+                                    </a>
+                                </li>
+                            </ul>
+                        </li> -->
 
 
                 <li class="{{ $menu == 'akun' ? 'active' : '' }}">
@@ -67,7 +67,7 @@
                         <i class="fas fa-user"></i> <span>Data Akun</span>
                     </a>
                 </li>
-                
+
                 <li class="menu-header">Landing Page</li>
                 <li class="nav-item  {{ $menu == 'agenda' ? 'active' : '' }}">
                     <a href="{{ route('agenda.index') }}" class="nav-link "><i class="fas fa-thumbtack"></i>
@@ -99,7 +99,7 @@
                         </li>
                         <li class="{{ $menu == 'siswa' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('jadwal.index') }}">
-                                Data jadwal RPPH
+                                Data Siswa RPPH
                             </a>
                         </li>
                         <li class="{{ $menu == 'jadwal' ? 'active' : '' }}">
@@ -136,7 +136,7 @@
                         <i class="fas fa-user"></i> <span>Data Akun</span>
                     </a>
                 </li>
-                
+
                 <li class="menu-header">Landing Page</li>
                 <li class="nav-item  {{ $menu == 'agenda' ? 'active' : '' }}">
                     <a href="{{ route('agenda.index') }}" class="nav-link "><i class="fas fa-thumbtack"></i>
