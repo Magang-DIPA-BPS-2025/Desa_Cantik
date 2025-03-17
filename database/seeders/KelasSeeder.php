@@ -12,7 +12,7 @@ class KelasSeeder extends Seeder
      */
     public function run(): void
     {
-        Kelas::insert([
+            Kelas::insert([
             [
                 'nm_kelas' => 'Kelas 1A',
                 'siswa_id' => 1,

@@ -8,7 +8,7 @@
         </style>
     @endpush
     <div class="banner-carousel banner-carousel-1 mb-0">
-        <div class="banner-carousel-item" style="background-image:url({{ asset('landing/images/slider-main/slide1.png') }})">
+        <div class="banner-carousel-item" style="background-image:url({{ asset('landing/images/slider-main/bg1.jpg') }})">
             <div class="slider-content">
                 <div class="container h-100">
                     <div class="row align-items-center h-100">
@@ -26,8 +26,7 @@
             </div>
         </div>
 
-        <div class="banner-carousel-item"
-            style="background-image:url({{ asset('landing/images/slider-main/slide2.png') }})">
+        <div class="banner-carousel-item" style="background-image:url({{ asset('landing/images/slider-main/bg2.jpg') }})">
             <div class="slider-content text-left">
                 <div class="container h-100">
                     <div class="row align-items-center h-100">
@@ -44,8 +43,7 @@
             </div>
         </div>
 
-        <div class="banner-carousel-item"
-            style="background-image:url({{ asset('landing/images/slider-main/slide4.png') }})">
+        <div class="banner-carousel-item" style="background-image:url({{ asset('landing/images/slider-main/bg3.jpg') }})">
             <div class="slider-content text-right">
                 <div class="container h-100">
                     <div class="row align-items-center h-100">
@@ -193,11 +191,11 @@
                         <h2 class="into-title">Tentang Kami</h2>
                         <h3 class="into-sub-title">RPPH Sulawesi Selatan</h3>
                         <p class="my-sub-content">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting
-                        industry. Lorem Ipsum has been the industry's standard dummy text
-                        ever since the 1500ss, when an unknown printer took a galley of type
-                        and scrambled it to make a type specimen book. It has survived not o
-                        
+                            Lorem Ipsum is simply dummy text of the printing and typesetting
+                            industry. Lorem Ipsum has been the industry's standard dummy text
+                            ever since the 1500ss, when an unknown printer took a galley of type
+                            and scrambled it to make a type specimen book. It has survived not o
+
                         </p>
                     </div><!-- Intro box end -->
 
@@ -206,25 +204,25 @@
                 </div><!-- Col end -->
 
                 <!-- <div class="col-lg-6 mt-4 mt-lg-4 justify-content-center">
-                    <h3 class="into-sub-title"> </h3>
-                    <div class="box-video"> -->
+                        <h3 class="into-sub-title"> </h3>
+                        <div class="box-video"> -->
 
-                        <!--<iframe width="420" height="315" title="Program Pengembangan keprofesian Guru. Pendidikan Jasmani, olahraga dan kesehatan" src="https://www.youtube.com/embed/gJ3g7xX9O-s"-->
-                        <!--    allowfullscreen>-->
-                        <!--</iframe>-->
-                        <!-- <div class="video-placeholder" data-src="https://www.youtube.com"
-                            onclick="loadVideo(this)">
-                            <div class="video-title">Rencana Pelaksanaan Pembelajaran</div>
-                        </div> -->
-                        <!--<div class="video-title">Balai Besar Guru Penggerak</div>-->
-                    </div>
-                    <!--/ Accordion end -->
-                </div><!-- Col end -->
-
-
+                <!--<iframe width="420" height="315" title="Program Pengembangan keprofesian Guru. Pendidikan Jasmani, olahraga dan kesehatan" src="https://www.youtube.com/embed/gJ3g7xX9O-s"-->
+                <!--    allowfullscreen>-->
+                <!--</iframe>-->
+                <!-- <div class="video-placeholder" data-src="https://www.youtube.com"
+                                onclick="loadVideo(this)">
+                                <div class="video-title">Rencana Pelaksanaan Pembelajaran</div>
+                            </div> -->
+                <!--<div class="video-title">Balai Besar Guru Penggerak</div>-->
+            </div>
+            <!--/ Accordion end -->
+        </div><!-- Col end -->
 
 
-            </div><!-- Row end -->
+
+
+        </div><!-- Row end -->
         </div><!-- Container end -->
     </section><!-- Feature are end -->
 
@@ -443,34 +441,33 @@
 
             <div class="row my-posts-slider">
                 @foreach ($datas['agenda'] as $v)
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="latest-post">
-                            <div class="latest-post-media">
-                                <a href="{{ route('user.detail.post', ['jenis' => 'agenda', 'id' => $v->id]) }}"
-                                    class="latest-post-img">
-                                    <img loading="lazy" class="img-fluid"
-                                        src="{{ asset('upload/agenda/' . $v->thumbnail) }}" alt="thumbnail agenda"
-                                        title="{{ $v->thumbnail }}">
-                                </a>
-                            </div>
-                            <div class="post-body">
-                                <h4 class="post-title">
-                                    <a href="{{ route('user.detail.post', ['jenis' => 'agenda', 'id' => $v->id]) }}"
-                                        class="d-inline-block">{{ $v->nama_kegiatan }}</a>
-                                </h4>
-                                <div class="latest-post-meta">
-                                    <span class="post-item-date">
-                                        <?php
-                                        setlocale(LC_ALL, 'IND');
-                                        
-                                        $tgl_kegiatan = strftime('%d %B %Y', strtotime($v->tgl_kegiatan));
-                                        ?>
-                                        <i class="fa fa-clock-o"></i> {{ $tgl_kegiatan }}
-                                    </span>
-                                </div>
-                            </div>
-                        </div><!-- Latest post end -->
-                    </div><!-- 1st post col end -->
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="latest-post">
+                                    <div class="latest-post-media">
+                                        <a href="{{ route('user.detail.post', ['jenis' => 'agenda', 'id' => $v->id]) }}"
+                                            class="latest-post-img">
+                                            <img loading="lazy" class="img-fluid" src="{{ asset('upload/agenda/' . $v->thumbnail) }}"
+                                                alt="thumbnail agenda" title="{{ $v->thumbnail }}">
+                                        </a>
+                                    </div>
+                                    <div class="post-body">
+                                        <h4 class="post-title">
+                                            <a href="{{ route('user.detail.post', ['jenis' => 'agenda', 'id' => $v->id]) }}"
+                                                class="d-inline-block">{{ $v->nama_kegiatan }}</a>
+                                        </h4>
+                                        <div class="latest-post-meta">
+                                            <span class="post-item-date">
+                                                <?php
+                    setlocale(LC_ALL, 'IND');
+
+                    $tgl_kegiatan = strftime('%d %B %Y', strtotime($v->tgl_kegiatan));
+                                                        ?>
+                                                <i class="fa fa-clock-o"></i> {{ $tgl_kegiatan }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div><!-- Latest post end -->
+                            </div><!-- 1st post col end -->
                 @endforeach
 
 
@@ -499,12 +496,12 @@
             }
 
             // Optionally, you can use Intersection Observer to load video only when in viewport
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', function () {
                 var lazyVideos = [].slice.call(document.querySelectorAll('.video-placeholder'));
 
                 if ('IntersectionObserver' in window) {
-                    var lazyVideoObserver = new IntersectionObserver(function(entries, observer) {
-                        entries.forEach(function(video) {
+                    var lazyVideoObserver = new IntersectionObserver(function (entries, observer) {
+                        entries.forEach(function (video) {
                             if (video.isIntersecting) {
                                 loadVideo(video.target);
                                 lazyVideoObserver.unobserve(video.target);
@@ -512,12 +509,12 @@
                         });
                     });
 
-                    lazyVideos.forEach(function(video) {
-                        lazyVideoObserv er.observe(video);
+                    lazyVideos.forEach(function (video) {
+                                lazyVideoObserv er.observe(video);
                     });
                 } else {
                     // Fallback for older browsers
-                    lazyVideos.forEach(function(video) {
+                    lazyVideos.forEach(function (video) {
                         loadVideo(video);
                     });
                 }

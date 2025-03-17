@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Agenda;
 use App\Models\LatarJabatan;
 use Illuminate\Database\Seeder;
 
@@ -24,5 +25,8 @@ class DatabaseSeeder extends Seeder
         $this->call(KelasSeeder::class);
         $this->call(SiswaSeeder::class);
         $this->call(GuruSeeder::class);
+        $this->call(AgendaSeeder::class);
+        $this->call(BeritaSeeder::class);
+        $this->call(ModulSeeder::class);
     }
 }
