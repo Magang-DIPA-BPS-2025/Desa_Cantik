@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agenda;
 use App\Models\Guru;
 use App\Models\InternalPpnpn;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use App\Models\Internal;
 use App\Models\Kegiatan;
 use App\Models\PesertaKegiatan;
 use App\Models\User;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -18,10 +20,47 @@ class AdminController extends Controller
      */
     public function index()
     {
+        // Total Users
+        $totalUsers = User::count();
 
+        // Total Teachers (asumsi role guru disimpan di kolom 'role' pada tabel users)
+        $totalTeachers = User::where('role', 'guru')->count();
+
+        // Total Staff (asumsi role staff disimpan di kolom 'role' pada tabel users)
+        $totalAdmin = User::where('role', 'admin')->count();
+
+        // Upcoming Events (event yang tanggalnya lebih besar atau sama dengan hari ini)
+        $upcomingEvents = Agenda::where('tgl_kegiatan', '>=', Carbon::today())->count();
+
+        // Recent Activities (aktivitas terbaru, misalnya 10 aktivitas terakhir)
+        // $recentActivities = Agenda::with('causer')->latest()->take(10)->get();
+
+        // Events untuk calendar (format yang sesuai dengan FullCalendar)
+        $events = Agenda::all()->map(function ($event) {
+            return [
+                'judul' => $event->title,
+                'tgl_kegiatan' => $event->start_date,
+                'tgl_selesai' => $event->end_date,
+                'deskripsi_kegiatan' => $event->description,
+            ];
+        });
+
+        // Data Guru
         $datas = Guru::orderByDesc('id')->get();
 
-        return view('pages.admin.dashboard.index', ['menu' => 'dashboard', 'datas' => $datas] );
+        // Menggabungkan semua data ke dalam satu array
+        $data = [
+            'menu' => 'dashboard',
+            'datas' => $datas,
+            'totalUsers' => $totalUsers,
+            'totalTeachers' => $totalTeachers,
+            'totalAdmin' => $totalAdmin,
+            'upcomingEvents' => $upcomingEvents,
+            // 'recentActivities' => $recentActivities,
+            'events' => $events,
+        ];
+
+        return view('pages.admin.dashboard.index', $data);
     }
 
     public function getByKegiatan(Request $r)
