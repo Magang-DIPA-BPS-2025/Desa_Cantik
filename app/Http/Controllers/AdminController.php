@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agenda;
 use App\Models\Guru;
+use App\Models\Siswa;
 use App\Models\InternalPpnpn;
 use Illuminate\Http\Request;
 use App\Models\Admin;
@@ -22,20 +23,17 @@ class AdminController extends Controller
     {
         // Total Users
         $totalUsers = User::count();
+        $siswa = Siswa::count();
 
-        // Total Teachers (asumsi role guru disimpan di kolom 'role' pada tabel users)
         $totalTeachers = User::where('role', 'guru')->count();
 
-        // Total Staff (asumsi role staff disimpan di kolom 'role' pada tabel users)
         $totalAdmin = User::where('role', 'admin')->count();
 
-        // Upcoming Events (event yang tanggalnya lebih besar atau sama dengan hari ini)
         $upcomingEvents = Agenda::where('tgl_kegiatan', '>=', Carbon::today())->count();
 
         // Recent Activities (aktivitas terbaru, misalnya 10 aktivitas terakhir)
         // $recentActivities = Agenda::with('causer')->latest()->take(10)->get();
 
-        // Events untuk calendar (format yang sesuai dengan FullCalendar)
         $events = Agenda::all()->map(function ($event) {
             return [
                 'judul' => $event->title,
@@ -57,6 +55,7 @@ class AdminController extends Controller
             'totalAdmin' => $totalAdmin,
             'upcomingEvents' => $upcomingEvents,
             // 'recentActivities' => $recentActivities,
+            'siswa' => $siswa,
             'events' => $events,
         ];
 

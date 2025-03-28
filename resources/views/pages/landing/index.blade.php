@@ -14,7 +14,7 @@
                     <div class="row align-items-center h-100">
                         <div class="col-md-12 text-center">
                             <h2 class="slide-title" data-animation-in="slideInLeft">Selamat Datang di</h2>
-                            <h3 class="slide-sub-title" data-animation-in="slideInRight">RPPH Provinsi <br> Sulawesi Selatan
+                            <h3 class="slide-sub-title" data-animation-in="slideInRight">Rencana Pelaksanaan <br> Pembelajaran Harian
                             </h3>
                             <p data-animation-in="slideInLeft" data-duration-in="1.2">
                                 {{-- <a href="services.html" class="slider btn btn-primary">Our Services</a>
@@ -33,7 +33,7 @@
                         <div class="col-md-12">
                             <h2 class="slide-title-box" data-animation-in="slideInDown">Siap Melayani Anda</h2>
                             <h3 class="slide-title" data-animation-in="fadeIn">Dedikasi Kami untuk Anda</h3>
-                            <h3 class="slide-sub-title" data-animation-in="slideInLeft">RPPH Provinsi Sulawesi Selatan</h3>
+                            <h3 class="slide-sub-title" data-animation-in="slideInLeft">Rencana Pelaksanaan Pembelajaran Harian</h3>
                             <p data-animation-in="slideInRight">
                                 {{-- <a href="services.html" class="slider btn btn-primary border">Pelayanan Kami</a> --}}
                             </p>

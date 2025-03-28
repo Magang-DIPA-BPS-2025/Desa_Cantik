@@ -69,7 +69,7 @@
                     </div>
                 </div><!-- Col 3 end -->
 
-            </div><!-- 1st row end -->
+            </div>1st row end
 
             <div class="gap-60"></div>
 
