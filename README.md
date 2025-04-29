@@ -46,7 +46,7 @@
 
 Several quick start options are available:
 
--   Clone the repo: `https://github.com/kholilullahhhh/sistemPengajuanPKH-laravel.git`
+-   Clone the repo: `https://github.com/kholilullahhhh/rpph-aplikasi.git`
 directory
 -   Run `composer install` command
 -   Run `npm install` command
