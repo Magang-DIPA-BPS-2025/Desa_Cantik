@@ -126,17 +126,18 @@
                         <div class="card-body">
                             <div class="activities">
                                 @foreach($recentActivities as $activity)
-                                <div class="activity">
-                                    <div class="activity-icon bg-primary text-white shadow-primary">
-                                        <i class="fas fa-bell"></i>
-                                    </div>
-                                    <div class="activity-detail">
-                                        <div class="mb-2">
-                                            <span class="text-job text-primary">{{ $activity->created_at->diffForHumans() }}</span>
+                                    <div class="activity">
+                                        <div class="activity-icon bg-primary text-white shadow-primary">
+                                            <i class="fas fa-bell"></i>
                                         </div>
-                                        <p>{{ $activity->description }}</p>
+                                        <div class="activity-detail">
+                                            <div class="mb-2">
+                                                <span
+                                                    class="text-job text-primary">{{ $activity->created_at->diffForHumans() }}</span>
+                                            </div>
+                                            <p>{{ $activity->description }}</p>
+                                        </div>
                                     </div>
-                                </div>
                                 @endforeach
                             </div>
                         </div>
@@ -150,20 +151,20 @@
                         <div class="card-body">
                             <ul class="list-unstyled list-unstyled-border">
                                 @foreach($upcomingEventList as $event)
-                                <li class="media">
-                                    <div class="media-icon bg-primary text-white">
-                                        <i class="far fa-calendar-alt"></i>
-                                    </div>
-                                    <div class="media-body">
-                                        <div class="media-title">{{ $event->title }}</div>
-                                        <span class="text-small text-muted">
-                                            {{ \Carbon\Carbon::parse($event->start_date)->format('M d, Y') }}
-                                            @if($event->end_date)
-                                            - {{ \Carbon\Carbon::parse($event->end_date)->format('M d, Y') }}
-                                            @endif
-                                        </span>
-                                    </div>
-                                </li>
+                                    <li class="media">
+                                        <div class="media-icon bg-primary text-white">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="media-title">{{ $event->title }}</div>
+                                            <span class="text-small text-muted">
+                                                {{ \Carbon\Carbon::parse($event->start_date)->format('M d, Y') }}
+                                                @if($event->end_date)
+                                                    - {{ \Carbon\Carbon::parse($event->end_date)->format('M d, Y') }}
+                                                @endif
+                                            </span>
+                                        </div>
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>
@@ -238,48 +239,48 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/locale/id.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        
+
         <script>
-var ctx2 = document.getElementById('userDistributionChart').getContext('2d');
-var userDistributionChart = new Chart(ctx2, {
-    type: 'doughnut',
-    data: {
-        labels: ['Guru', 'Siswa', 'Admin'],
-        datasets: [{
-            data: [{{ $totalTeachers }}, {{ $siswa }}, {{ $totalUsers - $totalTeachers - $siswa }}],
-            backgroundColor: ['#fc544b', '#ffa426', '#63ed7a'],
-        }]
-    },
-    options: {
-        responsive: true,
-        legend: {
-            position: 'bottom'
-        }
-    }
-});
+            var ctx2 = document.getElementById('userDistributionChart').getContext('2d');
+            var userDistributionChart = new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Guru', 'Siswa', 'Admin'],
+                    datasets: [{
+                        data: [{{ $totalTeachers }}, {{ $siswa }}, {{ $totalUsers - $totalTeachers - $siswa }}],
+                        backgroundColor: ['#fc544b', '#ffa426', '#63ed7a'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            });
 
-$('#calendar').fullCalendar({
-    locale: 'id',
-    events: @json($events), // pastikan variabel ini disiapkan di controller
-    header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month,agendaWeek,agendaDay'
-    },
-    eventClick: function(event) {
-        Swal.fire({
-            title: event.title,
-            text: event.description ?? 'No Description',
-            icon: 'info',
-        });
-    }
-});
-
-
+            $('#calendar').fullCalendar({
+                locale: 'id',
+                events: @json($events), // pastikan variabel ini disiapkan di controller
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                eventClick: function (event) {
+                    Swal.fire({
+                        title: event.title,
+                        text: event.description ?? 'No Description',
+                        icon: 'info',
+                    });
+                }
+            });
 
 
 
-            $(document).ready(function() {
+
+
+            $(document).ready(function () {
                 // User Statistics Chart
                 var ctx = document.getElementById('userChart').getContext('2d');
                 var userChart = new Chart(ctx, {
@@ -361,7 +362,7 @@ $('#calendar').fullCalendar({
                     selectable: true,
                     eventLimit: true,
                     events: {!! json_encode($events) !!},
-                    eventRender: function(info) {
+                    eventRender: function (info) {
                         $(info.el).tooltip({
                             title: info.event.extendedProps.description,
                             placement: 'top',
@@ -369,19 +370,19 @@ $('#calendar').fullCalendar({
                             container: 'body'
                         });
                     },
-                    eventClick: function(info) {
+                    eventClick: function (info) {
                         Swal.fire({
                             title: info.event.title,
                             html: `
-                                <p><strong>Start:</strong> ${moment(info.event.start).format('LLLL')}</p>
-                                ${info.event.end ? `<p><strong>End:</strong> ${moment(info.event.end).format('LLLL')}</p>` : ''}
-                                <p><strong>Description:</strong> ${info.event.extendedProps.description || 'No description'}</p>
-                            `,
+                                        <p><strong>Start:</strong> ${moment(info.event.start).format('LLLL')}</p>
+                                        ${info.event.end ? `<p><strong>End:</strong> ${moment(info.event.end).format('LLLL')}</p>` : ''}
+                                        <p><strong>Description:</strong> ${info.event.extendedProps.description || 'No description'}</p>
+                                    `,
                             icon: 'info',
                             confirmButtonText: 'Close'
                         });
                     },
-                    dateClick: function(info) {
+                    dateClick: function (info) {
                         $('#eventModal').modal('show');
                         $('input[name="start_date"]').val(info.dateStr + 'T00:00');
                     }
@@ -389,21 +390,21 @@ $('#calendar').fullCalendar({
                 calendar.render();
 
                 // Add Event Button
-                $('#addEventBtn').click(function() {
+                $('#addEventBtn').click(function () {
                     $('#eventModal').modal('show');
                 });
 
                 // Form submission
-                $('#eventForm').submit(function(e) {
+                $('#eventForm').submit(function (e) {
                     e.preventDefault();
                     var form = $(this);
                     var url = form.attr('action');
-                    
+
                     $.ajax({
                         type: "POST",
                         url: url,
                         data: form.serialize(),
-                        success: function(response) {
+                        success: function (response) {
                             $('#eventModal').modal('hide');
                             Swal.fire({
                                 title: 'Success!',
@@ -413,7 +414,7 @@ $('#calendar').fullCalendar({
                                 calendar.refetchEvents();
                             });
                         },
-                        error: function(xhr) {
+                        error: function (xhr) {
                             var errors = xhr.responseJSON.errors;
                             var errorMessages = [];
                             for (var key in errors) {
