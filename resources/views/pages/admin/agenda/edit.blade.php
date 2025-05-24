@@ -72,8 +72,8 @@
                                                 <label for="image-upload" id="image-label">Choose File</label>
                                                 <input type="file" name="thumbnail" id="image-upload" />
                                             </div>
-                                            <input type="hidden" name="thumbnail_old" value="{{ $data->thumbnail }}"
-                                                id="" />
+                                            <!-- <input type="hidden" name="thumbnail_old" value="{{ $data->thumbnail }}"
+                                                id="" /> -->
                                         </div>
                                         <div class="col-sm-6 col-md-4 mt-3">
 
