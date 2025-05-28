@@ -48,8 +48,8 @@ class AdminController extends Controller
             ->get();
 
         // Recent activities (using Spatie Activitylog if available)
-        $recentActivities = Activity::latest()
-            ->with('causer')
+        $recentActivities = Agenda::where('tgl_selesai', '>=', Carbon::today())
+            ->orderBy('tgl_selesai', 'asc')
             ->take(5)
             ->get();
 

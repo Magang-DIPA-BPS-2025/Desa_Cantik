@@ -95,6 +95,22 @@
             </div>
 
             <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Calendar of Events</h4>
+                            <div class="card-header-action">
+                                <button class="btn btn-primary" id="addEventBtn">Add Event</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="calendar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">
@@ -132,10 +148,11 @@
                                         </div>
                                         <div class="activity-detail">
                                             <div class="mb-2">
-                                                <span
-                                                    class="text-job text-primary">{{ $activity->created_at->diffForHumans() }}</span>
+                                                <span class="text-small text-muted">
+                                                    - {{ \Carbon\Carbon::parse($activity->tgl_selesai)->format('M d, Y') }}
+                                                </span>
                                             </div>
-                                            <p>{{ $activity->description }}</p>
+                                            <p>{{ $activity->deskripsi_kegiatan }}</p>
                                         </div>
                                     </div>
                                 @endforeach
@@ -158,9 +175,9 @@
                                         <div class="media-body">
                                             <div class="media-title">{{ $event->title }}</div>
                                             <span class="text-small text-muted">
-                                                {{ \Carbon\Carbon::parse($event->start_date)->format('M d, Y') }}
+                                                {{ \Carbon\Carbon::parse($event->tgl_kegiatan)->format('M d, Y') }}
                                                 @if($event->end_date)
-                                                    - {{ \Carbon\Carbon::parse($event->end_date)->format('M d, Y') }}
+                                                    - {{ \Carbon\Carbon::parse($event->tgl_selesai)->format('M d, Y') }}
                                                 @endif
                                             </span>
                                         </div>
@@ -172,21 +189,7 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Calendar of Events</h4>
-                            <div class="card-header-action">
-                                <button class="btn btn-primary" id="addEventBtn">Add Event</button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div id="calendar"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
         </section>
     </div>
@@ -272,7 +275,7 @@
                         title: event.title,
                         text: event.description ?? 'No Description',
                         icon: 'info',
-                    });'#'
+                    }); '#'
                 }
             });
 
@@ -374,10 +377,10 @@
                         Swal.fire({
                             title: info.event.title,
                             html: `
-                                        <p><strong>Start:</strong> ${moment(info.event.start).format('LLLL')}</p>
-                                        ${info.event.end ? `<p><strong>End:</strong> ${moment(info.event.end).format('LLLL')}</p>` : ''}
-                                        <p><strong>Description:</strong> ${info.event.extendedProps.description || 'No description'}</p>
-                                    `,
+                                                                        <p><strong>Start:</strong> ${moment(info.event.start).format('LLLL')}</p>
+                                                                        ${info.event.end ? `<p><strong>End:</strong> ${moment(info.event.end).format('LLLL')}</p>` : ''}
+                                                                        <p><strong>Description:</strong> ${info.event.extendedProps.description || 'No description'}</p>
+                                                                    `,
                             icon: 'info',
                             confirmButtonText: 'Close'
                         });
