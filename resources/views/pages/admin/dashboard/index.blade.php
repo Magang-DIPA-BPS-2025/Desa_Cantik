@@ -272,7 +272,7 @@
                         title: event.title,
                         text: event.description ?? 'No Description',
                         icon: 'info',
-                    });
+                    });'#'
                 }
             });
 
