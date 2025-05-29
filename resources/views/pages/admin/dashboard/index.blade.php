@@ -391,46 +391,6 @@
                     }
                 });
                 calendar.render();
-
-                // Add Event Button
-                $('#addEventBtn').click(function () {
-                    $('#eventModal').modal('show');
-                });
-
-                // Form submission
-                $('#eventForm').submit(function (e) {
-                    e.preventDefault();
-                    var form = $(this);
-                    var url = form.attr('action');
-
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        data: form.serialize(),
-                        success: function (response) {
-                            $('#eventModal').modal('hide');
-                            Swal.fire({
-                                title: 'Success!',
-                                text: 'Event has been added.',
-                                icon: 'success'
-                            }).then(() => {
-                                calendar.refetchEvents();
-                            });
-                        },
-                        error: function (xhr) {
-                            var errors = xhr.responseJSON.errors;
-                            var errorMessages = [];
-                            for (var key in errors) {
-                                errorMessages.push(errors[key][0]);
-                            }
-                            Swal.fire({
-                                title: 'Error!',
-                                html: errorMessages.join('<br>'),
-                                icon: 'error'
-                            });
-                        }
-                    });
-                });
             });
         </script>
     @endpush
