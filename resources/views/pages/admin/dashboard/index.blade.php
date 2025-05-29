@@ -377,10 +377,10 @@
                         Swal.fire({
                             title: info.event.title,
                             html: `
-                                                                        <p><strong>Start:</strong> ${moment(info.event.start).format('LLLL')}</p>
-                                                                        ${info.event.end ? `<p><strong>End:</strong> ${moment(info.event.end).format('LLLL')}</p>` : ''}
-                                                                        <p><strong>Description:</strong> ${info.event.extendedProps.description || 'No description'}</p>
-                                                                    `,
+                                    <p><strong>Start:</strong> ${moment(info.event.start).format('LLLL')}</p>
+                                    ${info.event.end ? `<p><strong>End:</strong> ${moment(info.event.end).format('LLLL')}</p>` : ''}
+                                    <p><strong>Description:</strong> ${info.event.extendedProps.description || 'No description'}</p>
+                                `,
                             icon: 'info',
                             confirmButtonText: 'Close'
                         });
