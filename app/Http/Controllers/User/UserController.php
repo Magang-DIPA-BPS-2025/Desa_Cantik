@@ -4,6 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Agenda;
+use App\Models\Modul;
+use App\Models\Tema;
 use App\Models\Artikel;
 use App\Models\Berita;
 
@@ -18,6 +20,8 @@ class UserController extends Controller
         $datas = array(
             'berita' => Berita::orderByDesc('id')->skip(0)->take(10)->get(),
             'agenda' => Agenda::orderByDesc('id')->skip(0)->take(10)->get(),
+            'tema' => tema::orderByDesc('id')->skip(0)->take(10)->get(),
+            'modul' => Modul::orderByDesc('id')->skip(0)->take(10)->get(),
             'artikel' => Artikel::orderByDesc('id')->skip(0)->take(10)->get(),
         );
 
@@ -36,12 +40,12 @@ class UserController extends Controller
     public function detail($jenis, $id)
     {
         // dd($jenis);
-        if ($jenis == 'berita') {
-            $data = Berita::find($id);
-            $latest_post = Berita::orderByDesc('id')->skip(0)->take(5)->get();
-        } else if ($jenis == 'artikel') {
-            $data = Artikel::find($id);
-            $latest_post = Artikel::orderByDesc('id')->skip(0)->take(5)->get();
+        if ($jenis == 'modul') {
+            $data = modul::find($id);
+            $latest_post = modul::orderByDesc('id')->skip(0)->take(5)->get();
+        } else if ($jenis == 'tema') {
+            $data = tema::find($id);
+            $latest_post = tema::orderByDesc('id')->skip(0)->take(5)->get();
         } else if ($jenis == 'agenda') {
             $data = Agenda::find($id);
             $latest_post = Agenda::orderByDesc('id')->skip(0)->take(5)->get();

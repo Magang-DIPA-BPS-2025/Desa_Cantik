@@ -8,7 +8,7 @@
         </style>
     @endpush
     <div class="banner-carousel banner-carousel-1 mb-0">
-        <div class="banner-carousel-item" style="background-image:url({{ asset('landing/images/slider-main/bg1.jpg') }})">
+        <div class="banner-carousel-item" style="background-image:url({{ asset('landing/images/slider-main/paud3.jpeg') }})">
             <div class="slider-content">
                 <div class="container h-100">
                     <div class="row align-items-center h-100">
@@ -24,9 +24,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>  
 
-        <div class="banner-carousel-item" style="background-image:url({{ asset('landing/images/slider-main/bg2.jpg') }})">
+        <div class="banner-carousel-item" style="background-image:url({{ asset('landing/images/slider-main/paud3.jpeg') }})">
             <div class="slider-content text-left">
                 <div class="container h-100">
                     <div class="row align-items-center h-100">
@@ -43,7 +43,7 @@
             </div>
         </div>
 
-        <div class="banner-carousel-item" style="background-image:url({{ asset('landing/images/slider-main/bg3.jpg') }})">
+        <div class="banner-carousel-item" style="background-image:url({{ asset('landing/images/slider-main/paud3.jpeg') }})">
             <div class="slider-content text-right">
                 <div class="container h-100">
                     <div class="row align-items-center h-100">
@@ -341,7 +341,7 @@
             <div class="row text-center">
                 <div class="col-12">
                     <h2 class="section-title">RPPH Sul-Sel</h2>
-                    <h3 class="section-sub-title">Berita Terkini</h3>
+                    <h3 class="section-sub-title">Modul Terkini</h3>
                 </div>
             </div>
             <!--/ Title row end -->
@@ -349,24 +349,24 @@
                 use Illuminate\Support\Str;
             @endphp
             <div class="row my-posts-slider">
-                @foreach ($datas['berita'] as $v)
+                @foreach ($datas['modul'] as $v)
                     <div class="col-lg-4 col-md-6 mb-5">
                         <div class="ts-service-box">
                             <div class="ts-service-image-wrapper">
-                                <img loading="lazy" class="w-100" src="{{ asset('upload/berita/' . $v->thumbnail) }}"
-                                    alt="thumbnail berita" title="{{ $v->thumbnail }}">
+                                <img loading="lazy" class="w-100" src="{{ asset('upload/modul/' . $v->sampul) }}"
+                                    alt="thumbnail modul" title="{{ $v->sampul }}">
                             </div>
                             <div class="d-flex">
                                 <div class="ts-service-info">
                                     <h3 class="service-box-title"><a
-                                            href="{{ route('user.detail.post', ['jenis' => 'berita', 'id' => $v->id]) }}">{{ $v->judul }}</a>
+                                            href="{{ route('user.detail.post', ['jenis' => 'modul', 'id' => $v->id]) }}">{{ $v->judul }}</a>
                                     </h3>
                                     <p>
                                         {{ Str::limit(strip_tags($v->isi), 120, '...') }}
                                         {{-- {!! Str::limit($v->isi, 150, '...') !!} --}}
                                     </p>
                                     <a class="learn-more d-inline-block"
-                                        href="{{ route('user.detail.post', ['jenis' => 'berita', 'id' => $v->id]) }}"
+                                        href="{{ route('user.detail.post', ['jenis' => 'modul', 'id' => $v->id]) }}"
                                         aria-label="service-details"><i class="fa fa-caret-right"></i> Detail...</a>
                                 </div>
                             </div>
@@ -389,29 +389,29 @@
             <div class="row text-center">
                 <div class="col-12">
                     <h2 class="section-title">RPPH Sul-Sel</h2>
-                    <h3 class="section-sub-title">Artikel Terkini</h3>
+                    <h3 class="section-sub-title">Tema Terkini</h3>
                 </div>
             </div>
             <!--/ Title row end -->
 
             <div class="row my-artikel-slider">
-                @foreach ($datas['artikel'] as $v)
+                @foreach ($datas['tema'] as $v)
                     <div class="col-lg-4 col-md-6 mb-5">
                         <div class="ts-service-box">
                             <div class="ts-service-image-wrapper">
-                                <img loading="lazy" class="w-100" src="{{ asset('upload/artikel/' . $v->thumbnail) }}"
-                                    alt="thumbnail artikel" title="{{ $v->thumbnail }}">
+                                <img loading="lazy" class="w-100" src="{{ asset('upload/tema/' . $v->gambar) }}"
+                                    alt="thumbnail tema" title="{{ $v->gamabr }}">
                             </div>
                             <div class="d-flex">
                                 <div class="ts-service-info">
                                     <h3 class="service-box-title"><a
-                                            href="{{ route('user.detail.post', ['jenis' => 'artikel', 'id' => $v->id]) }}">{{ $v->judul }}</a>
+                                            href="{{ route('user.detail.post', ['jenis' => 'tema', 'id' => $v->id]) }}">{{ $v->nama }}</a>
                                     </h3>
                                     <p>
                                         {{ Str::limit(strip_tags($v->isi), 120, '...') }}
                                     </p>
                                     <a class="learn-more d-inline-block"
-                                        href="{{ route('user.detail.post', ['jenis' => 'artikel', 'id' => $v->id]) }}"
+                                        href="{{ route('user.detail.post', ['jenis' => 'tema', 'id' => $v->id]) }}"
                                         aria-label="service-details"><i class="fa fa-caret-right"></i> Learn more</a>
                                 </div>
                             </div>
