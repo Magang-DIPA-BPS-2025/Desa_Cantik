@@ -17,7 +17,8 @@
             </li>
 
             @if (session('role') == 'admin')
-                <li class="nav-item dropdown {{ $menu == 'guru' || 'siswa' || 'jadwal' ? 'active' : '' }}">
+                <li
+                    class="nav-item dropdown {{ $menu == 'guru' || $menu == 'siswa' || $menu == 'jadwal' ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-sitemap"></i>
                         <span>Master Data</span></a>
                     <ul class="dropdown-menu">
@@ -43,23 +44,23 @@
 
 
                 <!-- <li class="nav-item dropdown {{ $menu == 'kegiatan' || $menu == 'peserta' ? 'active' : '' }}">
-                            <a href="#" class="nav-link has-dropdown"><i class="fas fa-calendar-week"></i>
-                                <span>Data Kegiatan</span></a>
-                            <ul class="dropdown-menu">
+                                <a href="#" class="nav-link has-dropdown"><i class="fas fa-calendar-week"></i>
+                                    <span>Data Kegiatan</span></a>
+                                <ul class="dropdown-menu">
 
-                                <li class="{{ $menu == 'kegiatan' ? 'active' : '' }}">
-                                    <a class="nav-link" href="{{ route('kegiatan.index') }}">
-                                        Kegiatan</span>
-                                    </a>
-                                </li>
+                                    <li class="{{ $menu == 'kegiatan' ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('kegiatan.index') }}">
+                                            Kegiatan</span>
+                                        </a>
+                                    </li>
 
-                                <li class="{{ $menu == 'peserta' ? 'active' : '' }}">
-                                    <a class="nav-link" href="{{ route('peserta.index') }}">
-                                        Peserta Kegiatan
-                                    </a>
-                                </li>
-                            </ul>
-                        </li> -->
+                                    <li class="{{ $menu == 'peserta' ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('peserta.index') }}">
+                                            Peserta Kegiatan
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li> -->
 
 
                 <li class="{{ $menu == 'akun' ? 'active' : '' }}">

@@ -75,51 +75,27 @@
 </div>
 
 @push('scripts')
-    <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('library/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('library/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
-    <script>
-        $(document).ready(function () {
-            $('#table-guru').DataTable();
-        });
+        <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('library/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+        <script src="{{ asset('library/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
+        <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
 
-        function deleteData(id, endpoint) {
-            if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
-                $.ajax({
-                    url: `/${endpoint}/${id}`,
-                    type: 'DELETE',
-                    data: {
-                        _token: '{{ csrf_token() }}'
+        <script type="text/javascript">
+            $(document).ready(function() {
+                // Existing DataTable initialization
+                var language = {
+                    "sSearch": "Pencarian Data Kegiatan RPPH : ",
+                };
+                var tableKegiatan = $('#table-agenda').DataTable({
+                    paging: true,
+                    searching: true,
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/2.1.0/i18n/id.json',
                     },
-                    success: function (response) {
-                        alert('Data berhasil dihapus.');
-                        location.reload();
-                    },
-                    error: function (error) {
-                        alert('Terjadi kesalahan saat menghapus data.');
-                    }
                 });
-            }
-        }
 
-        function verifikasi(id, endpoint) {
-            if (confirm('Apakah Anda yakin ingin memverifikasi data ini?')) {
-                $.ajax({
-                    url: `/${endpoint}/verifikasi/${id}`,
-                    type: 'PUT',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function (response) {
-                        alert('Data berhasil diverifikasi.');
-                        location.reload();
-                    },
-                    error: function (error) {
-                        alert('Terjadi kesalahan saat memverifikasi data.');
-                    }
-                });
-            }
-        }
-    </script>
-@endpush
+
+            });
+        </script>
+    @endpush
 @endsection
