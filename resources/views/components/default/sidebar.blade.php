@@ -23,11 +23,11 @@
                         <span>Master Data</span></a>
                     <ul class="dropdown-menu">
 
-                        <li class="{{ $menu == 'guru' ? 'active' : '' }}">
+                        <!-- <li class="{{ $menu == 'guru' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('guru.index') }}">
                                 Data Guru RPPH
                             </a>
-                        </li>
+                        </li> -->
                         <li class="{{ $menu == 'siswa' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('siswa.index') }}">
                                 Data Siswa RPPH

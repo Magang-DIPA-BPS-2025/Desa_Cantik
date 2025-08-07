@@ -37,7 +37,7 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $r = $request->all();
         // dd($r);
 
@@ -53,7 +53,7 @@ class SiswaController extends Controller
      */
     public function edit($id)
     {
-        $data = Siswa::findOrFail($id); 
+        $data = Siswa::findOrFail($id);
         $kelas = Kelas::all();
         $guru = Guru::all();
         $menu = $this->menu;
@@ -64,7 +64,7 @@ class SiswaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request )
+    public function update(Request $request)
     {
         $r = $request->all();
         $data = Siswa::find($r['id']);
@@ -81,9 +81,8 @@ class SiswaController extends Controller
      */
     public function destroy($id)
     {
-        $data = Siswa::findOrFail($id);
+        $data = Siswa::find($id);
         $data->delete();
-
-        return response()->json(['message' => 'Data siswa berhasil dihapus.']);
+        return response()->json($data);
     }
 }
