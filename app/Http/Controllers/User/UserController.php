@@ -19,10 +19,7 @@ class UserController extends Controller
     {
         $datas = array(
             'berita' => Berita::orderByDesc('id')->skip(0)->take(10)->get(),
-            'agenda' => Agenda::orderByDesc('id')->skip(0)->take(10)->get(),
-            'tema' => tema::orderByDesc('id')->skip(0)->take(10)->get(),
-            'modul' => Modul::orderByDesc('id')->skip(0)->take(10)->get(),
-            'artikel' => Artikel::orderByDesc('id')->skip(0)->take(10)->get(),
+            'agenda' => Agenda::orderByDesc('id')->skip(0)->take(10)->get()
         );
 
         // dd($datas);
@@ -39,14 +36,8 @@ class UserController extends Controller
 
     public function detail($jenis, $id)
     {
-        // dd($jenis);
-        if ($jenis == 'modul') {
-            $data = modul::find($id);
-            $latest_post = modul::orderByDesc('id')->skip(0)->take(5)->get();
-        } else if ($jenis == 'tema') {
-            $data = tema::find($id);
-            $latest_post = tema::orderByDesc('id')->skip(0)->take(5)->get();
-        } else if ($jenis == 'agenda') {
+        // dd($jenis)
+         if ($jenis == 'agenda') {
             $data = Agenda::find($id);
             $latest_post = Agenda::orderByDesc('id')->skip(0)->take(5)->get();
             return view('pages.landing.detail-agenda', [
@@ -55,7 +46,7 @@ class UserController extends Controller
                 'jenis' => $jenis,
                 'latest_post' => $latest_post
             ]);
-        }
+
 
         return view('pages.landing.detail-post', [
             'menu' => 'detail post',
@@ -66,4 +57,5 @@ class UserController extends Controller
         // return view('pages.user.kontak', ['menu' => 'kontak']);
     }
 
+}
 }

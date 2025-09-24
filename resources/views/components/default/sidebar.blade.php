@@ -1,165 +1,89 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="{{route('dashboard') }}">RPPH Makassar</a>
+            <a href="{{ route('dashboard') }}">DESA CANTIK</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="{{route('dashboard') }}">RPPH</a>
+            <a href="{{ route('dashboard') }}">DESA</a>
         </div>
 
         <ul class="sidebar-menu">
-
             <li class="menu-header">Dashboard</li>
 
-            <li class="nav-item  {{ $menu == 'dashboard' ? 'active' : '' }}">
-                <a href="{{ route('dashboard') }}" class="nav-link "><i
-                        class="fas fa-fire"></i><span>Dashboard</span></a>
+            {{-- Dashboard --}}
+            <li class="nav-item {{ $menu == 'dashboard' ? 'active' : '' }}">
+                <a href="{{ route('dashboard') }}" class="nav-link">
+                    <i class="fas fa-fire"></i><span>Dashboard</span>
+                </a>
             </li>
 
             @if (session('role') == 'admin')
-                <li
-                    class="nav-item dropdown {{ $menu == 'guru' || $menu == 'siswa' || $menu == 'jadwal' ? 'active' : '' }}">
-                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-sitemap"></i>
-                        <span>Master Data</span></a>
+
+                {{-- Data Penduduk (tetap sesuai route aslinya) --}}
+                <li class="{{ $menu == 'dataPenduduk' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('dataPenduduk.index') }}">
+                        <i class="fas fa-user"></i> <span>Data Penduduk</span>
+                    </a>
+                </li>
+
+                {{-- Data Profil Desa --}}
+                <li class="nav-item dropdown {{ $menu == 'galeriDesa' || $menu == 'jadwal' ? 'active' : '' }}">
+                    <a href="{{ route('dashboard') }}" class="nav-link has-dropdown">
+                        <i class="fas fa-sitemap"></i>
+                        <span>Data Profil Desa</span>
+                    </a>
                     <ul class="dropdown-menu">
-
-                        <!-- <li class="{{ $menu == 'guru' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('guru.index') }}">
-                                Data Guru RPPH
-                            </a>
-                        </li> -->
-                        <li class="{{ $menu == 'siswa' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('siswa.index') }}">
-                                Data Siswa RPPH
-                            </a>
-                        </li>
-                        <li class="{{ $menu == 'jadwal' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('jadwal.index') }}">
-                                Data jadwal RPPH
-                            </a>
-                        </li>
-
+                        <li><a class="nav-link" href="{{ route('galeriDesa.index') }}">Galeri Desa</a></li>
+                        <li><a class="nav-link" href="{{ route('sejarahDesa.index') }}">Sejarah</a></li>
+                        <li><a class="nav-link" href="{{ route('pemerintah-desa.index') }}">Pemerintah Desa</a></li>
                     </ul>
                 </li>
 
-
-                <!-- <li class="nav-item dropdown {{ $menu == 'kegiatan' || $menu == 'peserta' ? 'active' : '' }}">
-                                <a href="#" class="nav-link has-dropdown"><i class="fas fa-calendar-week"></i>
-                                    <span>Data Kegiatan</span></a>
-                                <ul class="dropdown-menu">
-
-                                    <li class="{{ $menu == 'kegiatan' ? 'active' : '' }}">
-                                        <a class="nav-link" href="{{ route('kegiatan.index') }}">
-                                            Kegiatan</span>
-                                        </a>
-                                    </li>
-
-                                    <li class="{{ $menu == 'peserta' ? 'active' : '' }}">
-                                        <a class="nav-link" href="{{ route('peserta.index') }}">
-                                            Peserta Kegiatan
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li> -->
-
-
-                <li class="{{ $menu == 'akun' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('akun.index') }}">
-                        <i class="fas fa-user"></i> <span>Data Akun</span>
-                    </a>
-                </li>
-
-                <li class="menu-header">Landing Page</li>
-                <li class="nav-item  {{ $menu == 'agenda' ? 'active' : '' }}">
-                    <a href="{{ route('agenda.index') }}" class="nav-link "><i class="fas fa-thumbtack"></i>
-                        <span>Data Agenda</span>
-                    </a>
-                </li>
-                <li class="nav-item  {{ $menu == 'tema' ? 'active' : '' }}">
-                    <a href="{{ route('tema.index') }}" class="nav-link "><i class="fas fa-newspaper"></i>
-                        <span>Data Tema</span>
-                    </a>
-                </li>
-                <li class="nav-item  {{ $menu == 'modul' ? 'active' : '' }}">
-                    <a href="{{ route('modul.index') }}" class="nav-link "><i class="fas fa-window-maximize"></i>
-                        <span>Modul Pembelajaran</span>
-                    </a>
-                </li>
-            @endif
-
-            @if (session('role') == 'guru')
-                <li class="nav-item dropdown {{ $menu == 'guru' || 'jadwal' || 'siswa' ? 'active' : '' }}">
-                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-sitemap"></i>
-                        <span>Master Data</span></a>
-                    <ul class="dropdown-menu">
-
-                        <li class="{{ $menu == 'guru' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('guru.index') }}">
-                                Data Guru RPPH
-                            </a>
-                        </li>
-                        <li class="{{ $menu == 'siswa' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('jadwal.index') }}">
-                                Data Siswa RPPH
-                            </a>
-                        </li>
-                        <li class="{{ $menu == 'jadwal' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('jadwal.index') }}">
-                                Data jadwal RPPH
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
-
+                {{-- Data Agenda --}}
                 <li class="nav-item dropdown {{ $menu == 'kegiatan' || $menu == 'peserta' ? 'active' : '' }}">
-                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-calendar-week"></i>
-                        <span>Data Kegiatan</span></a>
+                    <a href="#" class="nav-link has-dropdown">
+                        <i class="fas fa-calendar-week"></i>
+                        <span>Data Agenda</span>
+                    </a>
                     <ul class="dropdown-menu">
-
-                        <li class="{{ $menu == 'kegiatan' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('kegiatan.index') }}">
-                                Kegiatan</span>
-                            </a>
-                        </li>
-
-                        <li class="{{ $menu == 'peserta' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('peserta.index') }}">
-                                Peserta Kegiatan
-                            </a>
-                        </li>
+                        <li><a class="nav-link" href="{{ route('AgendaDesa.index') }}">Agenda Desa</a></li>
+                        <li><a class="nav-link" href="{{ route('berita.index') }}">Berita Desa</a></li>
+                        <li><a class="nav-link" href="{{ route('kategori.index') }}">Kategori Berita</a></li>
                     </ul>
                 </li>
 
+                {{-- Data Persuratan --}}
+                <li class="nav-item dropdown {{ $menu == 'persuratan' ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown">
+                        <i class="fas fa-envelope"></i>
+                        <span>Data Persuratan</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="nav-link" href="{{ route('dashboard') }}">Data Surat</a></li>
+                        <li><a class="nav-link" href="{{ route('dashboard') }}">Data Jadwal RPPH</a></li>
+                    </ul>
+                </li>
 
+                {{-- Data Pengaduan --}}
+                <li class="nav-item dropdown {{ $menu == 'pengaduan' ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown">
+                        <i class="fas fa-comments"></i>
+                        <span>Data Pengaduan</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="nav-link" href="{{ route('dashboard') }}">Data Pengaduan</a></li>
+                        <li><a class="nav-link" href="{{ route('dashboard') }}">Jadwal Tindak Lanjut</a></li>
+                    </ul>
+                </li>
+
+                {{-- Data Akun --}}
                 <li class="{{ $menu == 'akun' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('akun.index') }}">
+                    <a class="nav-link" href="{{ route('dashboard') }}">
                         <i class="fas fa-user"></i> <span>Data Akun</span>
                     </a>
                 </li>
 
-                <li class="menu-header">Landing Page</li>
-                <li class="nav-item  {{ $menu == 'agenda' ? 'active' : '' }}">
-                    <a href="{{ route('agenda.index') }}" class="nav-link "><i class="fas fa-thumbtack"></i>
-                        <span>Data Agenda</span>
-                    </a>
-                </li>
-                <li class="nav-item  {{ $menu == 'tema' ? 'active' : '' }}">
-                    <a href="{{ route('tema.index') }}" class="nav-link "><i class="fas fa-newspaper"></i>
-                        <span>Data Berita</span>
-                    </a>
-                </li>
-                <li class="nav-item  {{ $menu == 'modul' ? 'active' : '' }}">
-                    <a href="{{ route('modul.index') }}" class="nav-link "><i class="fas fa-window-maximize"></i>
-                        <span>Modul Pembelajaran</span>
-                    </a>
-                </li>
             @endif
-
-
-
-
-
         </ul>
 
         <div class="mt-4 mb-4 p-3 hide-sidebar-mini">

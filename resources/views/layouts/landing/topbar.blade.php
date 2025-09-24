@@ -1,156 +1,335 @@
-<!-- Header start -->
-<header id="header" class="header-one">
-    <div class="bg-white">
-        <div class="container">
-            <div style="padding:10px" class="logo-area">
-                <div class="row align-items-center">
-                    <div class="logo col-lg-3 text-center text-lg-left mb-3 mb-md-5 mb-lg-0">
-                        <a class="d-block" href="/">
-                            <img style="width:auto; height:80px" 
-                                src="{{ asset('landing/images/footer/rpph.jpg') }}" alt="BBGP SulSel">
-                        </a>
-                    </div><!-- logo end -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Desa Cantik - Website Resmi</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-                    <div class="col-lg-9 ">
-                        <ul class="top-info-box">
-                            <li>
-                                <div class="info-box">
-                                    <div class="info-box-content">
-                                        <p class="info-box-title">Hubungi Kami</p>
-                                        <p class="info-box-subtitle">(0411) 0889 0992 009 </p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="last">
-                                <div class="info-box last">
-                                    <div class="info-box-content">
-                                        <p class="info-box-title">Fax</p>
-                                        <p class="info-box-subtitle">0411-8890098</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="info-box">
-                                    <div class="info-box-content">
-                                        <p class="info-box-title">Email Kami</p>
-                                        <p class="info-box-subtitle">rpphsulsel@kemdikbud.go.id </p>
-                                    </div>
-                                </div>
-                            </li>
+    body {
+      font-family: Arial, sans-serif;
+    }
 
-                            <li class="header-get-a-quote">
-                                <a class="btn btn-primary" href="{{ route('user.kontak') }}">Kontak</a>
-                            </li>
-                        </ul><!-- Ul end -->
-                    </div><!-- header right end -->
-                </div><!-- logo area end -->
+    header {
+      background-color: white;
+      border-bottom: 1px solid #ddd;
+      width: 100%;
+      position: relative;
+      z-index: 999;
+    }
 
-            </div><!-- Row end -->
-        </div><!-- Container end -->
+    .navbar-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-area img {
+      height: 40px;
+      margin-right: 6px;
+    }
+
+    .nav-toggle {
+      display: none;
+      font-size: 28px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .nav-item {
+      list-style: none;
+      position: relative;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      padding: 12px 15px;
+      display: block;
+      white-space: nowrap;
+    }
+
+    .nav-link:hover {
+      color: orange;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      display: none;
+      flex-direction: column;
+      min-width: 200px;
+      z-index: 1000;
+    }
+
+    .dropdown-menu a {
+      padding: 10px 15px;
+      color: #333;
+      text-decoration: none;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #f2f2f2;
+    }
+
+    .nav-item:hover .dropdown-menu {
+      display: flex;
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 991px) {
+      .navbar-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .logo-area {
+        order: 1;
+        width: 100%;
+        justify-content: flex-start;
+        padding: 10px 20px;
+      }
+
+      .nav-toggle {
+        order: 2;
+        align-self: flex-end;
+        margin: 10px 10px 0 0;
+        display: block;
+      }
+
+      .nav-menu {
+        order: 3;
+        width: 100%;
+        flex-direction: column;
+        display: none;
+        border-top: 1px solid #ddd;
+        margin-top: 0;
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      .nav-item {
+        width: 100%;
+      }
+
+      .nav-link {
+        padding: 12px 20px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .dropdown-menu {
+        position: relative;
+        display: none;
+        width: 100%;
+        border: none;
+        box-shadow: none;
+      }
+
+      .dropdown-menu.active {
+        display: flex !important;
+      }
+
+      .nav-item:hover .dropdown-menu {
+        display: none;
+      }
+
+      .nav-item.has-dropdown > .nav-link::after {
+        content: " ▼";
+        font-size: 12px;
+        float: right;
+      }
+
+      .nav-item.has-dropdown.active > .nav-link::after {
+        content: " ▲";
+      }
+    }
+
+    /* Tanda panah dropdown di desktop */
+    .nav-item.has-dropdown > .nav-link::after {
+      content: " ▼";
+      font-size: 12px;
+      float: right;
+    }
+
+    .nav-item.has-dropdown.active > .nav-link::after {
+      content: " ▲";
+    }
+
+    .hero-banner img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="navbar-container">
+      <!-- Logo -->
+      <div class="logo-area">
+        <img src="{{ asset('landing/images/footer/logobps.png') }}" alt="Logo BPS" />
+        <img src="{{ asset('landing/images/footer/desaCanti.png') }}" alt="Logo Desa Cantik" />
+        <span class="brand-text">DESA CANTIK</span>
+      </div>
+
+      <!-- Toggle Button -->
+      <button class="nav-toggle" id="nav-toggle">☰</button>
+
+      <!-- Menu -->
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item"><a href="/" class="nav-link">BERANDA</a></li>
+
+        <li class="nav-item has-dropdown">
+          <a href="#" class="nav-link">PROFIL DESA</a>
+          <div class="dropdown-menu">
+            <a href="{{ route('galeri.user.index') }}">Galeri Desa</a>
+            <a href="{{ route('sejarah') }}">Sejarah Desa</a>
+            <a href="{{ route('pemerintah') }}">Pemerintah Desa</a>
+          </div>
+        </li>
+
+        <li class="nav-item has-dropdown">
+          <a href="#" class="nav-link">BERITA & AGENDA</a>
+          <div class="dropdown-menu">
+            <a href="{{ route('berita') }}">Berita Desa</a>
+            <a href="{{ route('agenda') }}">Agenda Desa</a>
+          </div>
+        </li>
+
+        <li class="nav-item has-dropdown">
+          <a href="#" class="nav-link">DATA STATISTIK DESA</a>
+          <div class="dropdown-menu">
+            <a href="{{ route('statistik.penduduk') }}">Jumlah Penduduk</a>
+            <a href="{{ route('pendidikan') }}">Data Pendidikan</a>
+            <a href="{{ route('pekerjaan') }}">Data Pekerjaan</a>
+            <a href="{{ route('agama') }}">Data Agama</a>
+          </div>
+        </li>
+
+        <li class="nav-item has-dropdown">
+          <a href="#" class="nav-link">LAYANAN ONLINE</a>
+          <div class="dropdown-menu">
+            <a href="{{ route('pengantar') }}">Surat Pengantar</a>
+            <a href="{{ route('status') }}">Status Pengantar</a>
+            <a href="{{ route('pengaduan') }}">Pengaduan</a>
+            <a href="{{ route('statuspengaduan') }}">Status Pengaduan</a>
+            <a href="{{ route('penyandang') }}">Penyandang Disabilitas</a>
+          </div>
+        </li>
+      </ul>
     </div>
+  </header>
 
-    <div class="site-navigation">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <nav class="navbar navbar-expand-lg navbar-dark p-0">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target=".navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
+{{-- Hero Banner tampil jika bukan halaman beranda --}}
+@if (!request()->is('/'))
+  <style>
+    .hero-banner {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
 
-                        <div id="navbar-collapse" class="collapse navbar-collapse">
-                            <ul class="nav navbar-nav mr-auto">
-                                <li class="nav-item {{ $menu == 'profil' ? 'active' : '' }}"><a class="nav-link" href="/">Profil</a></li>
+    .hero-banner img {
+      width: 100%;       /* full lebar layar */
+      height: auto;      /* proporsional */
+      max-height: 300px; /* batasi tinggi biar tidak terlalu tinggi */
+      object-fit: cover; /* potong gambar biar tetap rapi */
+      display: block;
+    }
+  </style>
 
-                                <!-- <li class="nav-item {{ $menu == 'data' ? 'active' : '' }} dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Data <i
-                                            class="fa fa-angle-down"></i></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="{{ route('user.pegawai') }}">Data Internal</a></li>
-                                        <li><a href="{{ route('user.guru') }}">Data Eksternal</a></li>
-                                    </ul>
-                                </li> -->
-
-                                <li class="nav-item {{ $menu == 'kontak' ? 'active' : '' }}"><a class="nav-link" href="{{ route('user.kontak') }} ">Kontak</a></li>
-
-                                <!-- <li class="nav-item {{ $menu == 'kegiatan' ? 'active' : '' }}"><a class="nav-link" href="{{ route('user.kegiatan') }}">Kegiatan</a></li> -->
-                                
-                                <!-- <li class="nav-item {{ $menu == 'statistik' ? 'active' : '' }}"><a class="nav-link" href="{{ route('user.statistik') }}">Statistik</a></li> -->
-                                
-                                <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+  <div class="hero-banner">
+    <img src="{{ asset('landing/images/banner/navbar.jpg') }}" alt="Banner Desa">
+  </div>
+@endif
 
 
-                                {{-- <li class="nav-item dropdown">
-                                  <a href="#" class="nav-link dropdown-toggle"
-                                      data-toggle="dropdown">Projects <i class="fa fa-angle-down"></i></a>
-                                  <ul class="dropdown-menu" role="menu">
-                                      <li><a href="projects.html">Projects All</a></li>
-                                      <li><a href="projects-single.html">Projects Single</a></li>
-                                  </ul>
-                              </li>
 
-                              <li class="nav-item dropdown">
-                                  <a href="#" class="nav-link dropdown-toggle"
-                                      data-toggle="dropdown">Services <i class="fa fa-angle-down"></i></a>
-                                  <ul class="dropdown-menu" role="menu">
-                                      <li><a href="services.html">Services All</a></li>
-                                      <li><a href="service-single.html">Services Single</a></li>
-                                  </ul>
-                              </li>
+  <!-- SCRIPT -->
+  <script>
+    const toggle = document.getElementById("nav-toggle");
+    const menu = document.getElementById("nav-menu");
+    const dropdownItems = document.querySelectorAll(".nav-item.has-dropdown");
 
-                              <li class="nav-item dropdown">
-                                  <a href="#" class="nav-link dropdown-toggle"
-                                      data-toggle="dropdown">Features <i class="fa fa-angle-down"></i></a>
-                                  <ul class="dropdown-menu" role="menu">
-                                      <li><a href="typography.html">Typography</a></li>
-                                      <li><a href="404.html">404</a></li>
-                                      <li class="dropdown-submenu">
-                                          <a href="#!" class="dropdown-toggle"
-                                              data-toggle="dropdown">Parent Menu</a>
-                                          <ul class="dropdown-menu">
-                                              <li><a href="#!">Child Menu 1</a></li>
-                                              <li><a href="#!">Child Menu 2</a></li>
-                                              <li><a href="#!">Child Menu 3</a></li>
-                                          </ul>
-                                      </li>
-                                  </ul>
-                              </li>
+    // Toggle menu (mobile)
+    toggle.addEventListener("click", () => {
+      menu.classList.toggle("active");
+    });
 
-                              <li class="nav-item dropdown">
-                                  <a href="#" class="nav-link dropdown-toggle"
-                                      data-toggle="dropdown">News <i class="fa fa-angle-down"></i></a>
-                                  <ul class="dropdown-menu" role="menu">
-                                      <li><a href="news-left-sidebar.html">News Left Sidebar</a></li>
-                                      <li><a href="news-right-sidebar.html">News Right Sidebar</a></li>
-                                      <li><a href="news-single.html">News Single</a></li>
-                                  </ul>
-                              </li> --}}
+    // Mobile dropdown logic
+    function isMobile() {
+      return window.innerWidth <= 991;
+    }
 
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
-                <!--/ Col end -->
-            </div>
-            <!--/ Row end -->
+    dropdownItems.forEach((item) => {
+      const link = item.querySelector(".nav-link");
+      const dropdown = item.querySelector(".dropdown-menu");
 
-            <div class="nav-search">
-                <span id="search"><i class="fa fa-search"></i></span>
-            </div><!-- Search end -->
+      link.addEventListener("click", function (e) {
+        if (isMobile()) {
+          e.preventDefault();
+          const isActive = dropdown.classList.contains("active");
 
-            <div class="search-block" style="display: none;">
-                <label for="search-field" class="w-100 mb-0">
-                    <input type="text" class="form-control" id="search-field"
-                        placeholder="Type what you want and enter">
-                </label>
-                <span class="search-close">&times;</span>
-            </div><!-- Site search end -->
-        </div>
-        <!--/ Container end -->
+          // Close all dropdowns
+          document.querySelectorAll(".dropdown-menu").forEach((d) => d.classList.remove("active"));
+          document.querySelectorAll(".nav-item.has-dropdown").forEach((i) => i.classList.remove("active"));
 
-    </div>
-    <!--/ Navigation end -->
-</header>
-<!--/ Header end -->
+          // Open clicked one
+          if (!isActive) {
+            dropdown.classList.add("active");
+            item.classList.add("active");
+          }
+        }
+      });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener("click", function (e) {
+      if (isMobile()) {
+        if (!e.target.closest(".nav-item.has-dropdown")) {
+          document.querySelectorAll(".dropdown-menu").forEach((d) => d.classList.remove("active"));
+          document.querySelectorAll(".nav-item.has-dropdown").forEach((i) => i.classList.remove("active"));
+        }
+      }
+    });
+
+    // On resize, reset dropdown state
+    window.addEventListener("resize", () => {
+      if (!isMobile()) {
+        document.querySelectorAll(".dropdown-menu").forEach((d) => d.classList.remove("active"));
+        document.querySelectorAll(".nav-item.has-dropdown").forEach((i) => i.classList.remove("active"));
+      }
+    });
+  </script>
+</body>
+</html>
