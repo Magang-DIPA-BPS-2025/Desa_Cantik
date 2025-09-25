@@ -8,50 +8,79 @@
 
 <style>
   body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif;
     margin: 0;
-    background-color: #cfe2b8;
+    background-color: #f5f7fa;
+    color: #333;
   }
 
   .row {
     align-items: stretch;
   }
 
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  }
+
+  .card h6 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #222;
+    border-left: 5px solid #3B82F6;
+    padding-left: 10px;
+  }
+
   .data-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: white;
+    font-size: 14px;
+    border-radius: 12px;
+    overflow: hidden;
   }
 
-  .data-table th,
-  .data-table td {
-    border: 1px solid #ccc;
-    padding: 10px;
+  .data-table th, .data-table td {
+    padding: 12px;
     text-align: center;
+    border-bottom: 1px solid #e0e0e0;
   }
 
   .data-table thead {
-    background-color: #f1f1f1;
+    background: linear-gradient(90deg, #3B82F6, #31C48D);
+    color: #fff;
+  }
+
+  .data-table tbody tr:hover {
+    background-color: #f0f9ff;
+    transition: background 0.3s;
   }
 
   .filter-toggle {
     display: block;
-    background-color: #007BFF;
+    background-color: #3B82F6;
     color: white;
     text-align: center;
-    padding: 8px;
+    padding: 10px;
     cursor: pointer;
-    border-radius: 4px;
-    margin-bottom: 8px;
+    border-radius: 8px;
     font-size: 14px;
+    margin-bottom: 12px;
+    font-weight: 600;
   }
 
   .filter-content {
     display: none;
-    margin-top: 8px;
-    max-height: 100%;
+    max-height: 400px;
     overflow-y: auto;
-    padding-right: 5px;
   }
 
   .filter-content.active {
@@ -59,90 +88,85 @@
   }
 
   .dusun-card {
-    background-color: white;
-    border-radius: 4px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
-    padding: 6px 8px;
-    margin-bottom: 30px;
-    transition: background 0.2s;
+    background: #f0f9f0;
+    border-radius: 10px;
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    transition: background 0.3s;
   }
 
   .dusun-card:hover {
-    background-color: #f8f9fa;
+    background: #d6efd6;
   }
 
   .dusun-card h4 {
-    margin: 0 0 3px 0;
-    font-size: 13px;
+    margin: 0 0 5px 0;
+    font-size: 15px;
     font-weight: 600;
+    color: #222;
   }
 
   .dusun-card small {
-    font-size: 11px;
-    color: #666;
+    font-size: 12px;
+    color: #555;
   }
 
   .search-box {
     width: 100%;
-    padding: 6px;
-    margin-top: 6px;
-    margin-bottom: 10px;
+    padding: 8px 10px;
+    margin-bottom: 12px;
+    border-radius: 8px;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 13px;
+    font-size: 14px;
   }
 
-  .main-content > .card + .card {
-    margin-top: 20px;
+  @media (max-width: 992px) {
+    .row {
+      flex-direction: column;
+    }
   }
 </style>
 
 <div class="container py-4">
   <div class="row g-3">
     <!-- Main Content -->
-    <div class="col-md-9 d-flex flex-column main-content">
-
-      <!-- Card Chart -->
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <h6 class="card-title">Statistik Agama Penduduk</h6>
-          <div id="pie-chart"></div>
-        </div>
+    <div class="col-md-9 d-flex flex-column gap-3">
+      <!-- Chart Card -->
+      <div class="card">
+        <h6>Statistik Agama Penduduk</h6>
+        <div id="pie-chart"></div>
       </div>
 
-      <!-- Card Table -->
-      <div class="card shadow-sm flex-fill">
-        <div class="card-body">
-          <h6 class="card-title">Tabel Data Agama</h6>
-          <table class="data-table mt-2">
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Agama</th>
-                <th>Jumlah</th>
-                <th>Presentase</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>1</td><td>Islam</td><td>70</td><td>70%</td></tr>
-              <tr><td>2</td><td>Kristen</td><td>10</td><td>10%</td></tr>
-              <tr><td>3</td><td>Katolik</td><td>5</td><td>5%</td></tr>
-              <tr><td>4</td><td>Hindu</td><td>5</td><td>5%</td></tr>
-              <tr><td>5</td><td>Buddha</td><td>3</td><td>3%</td></tr>
-              <tr><td>6</td><td>Khonghucu</td><td>2</td><td>2%</td></tr>
-              <tr><td colspan="2"><strong>Total</strong></td><td><strong>100</strong></td><td><strong>100%</strong></td></tr>
-            </tbody>
-          </table>
-        </div>
+      <!-- Table Card -->
+      <div class="card">
+        <h6>Tabel Data Agama</h6>
+        <table class="data-table mt-2">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Agama</th>
+              <th>Jumlah</th>
+              <th>Presentase</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Islam</td><td>70</td><td>70%</td></tr>
+            <tr><td>2</td><td>Kristen</td><td>10</td><td>10%</td></tr>
+            <tr><td>3</td><td>Katolik</td><td>5</td><td>5%</td></tr>
+            <tr><td>4</td><td>Hindu</td><td>5</td><td>5%</td></tr>
+            <tr><td>5</td><td>Buddha</td><td>3</td><td>3%</td></tr>
+            <tr><td>6</td><td>Khonghucu</td><td>2</td><td>2%</td></tr>
+            <tr class="fw-bold"><td colspan="2">Total</td><td>100</td><td>100%</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
     <!-- Sidebar Filter -->
     <div class="col-md-3 d-flex">
-      <div class="card flex-fill shadow-sm">
+      <div class="card flex-fill">
         <div class="card-body">
           <div class="filter-toggle" onclick="toggleFilter()">☰ Filter Dusun</div>
-
           <div class="filter-content" id="filterContent">
             <input type="search" placeholder="Cari Dusun..." class="search-box" id="searchBox" />
 
@@ -179,36 +203,20 @@
   </div>
 </div>
 
-<!-- Chart Script -->
 <script>
   const getChartOptions = () => {
     return {
-      series: [70, 10, 5, 5, 3, 2, 5],
+      series: [70, 10, 5, 5, 3, 2],
       colors: ["#C0D09D", "#A4BC92", "#95A78D", "#BCC5A8", "#8C9C74", "#708B75"],
-      chart: {
-        height: 420,
-        width: "100%",
-        type: "pie",
-      },
-      stroke: {
-        colors: ["white"],
-      },
+      chart: { height: 420, width: "100%", type: "pie" },
+      stroke: { colors: ["white"] },
       labels: ["Islam", "Kristen", "Katolik", "Hindu", "Buddha", "Khonghucu"],
       dataLabels: {
         enabled: true,
-        style: {
-          fontFamily: "Arial, sans-serif",
-          fontSize: "13px"
-        },
-        formatter: function (val, opts) {
-          return val.toFixed(1) + '%';
-        }
+        style: { fontFamily: "Arial, sans-serif", fontSize: "13px" },
+        formatter: function (val) { return val.toFixed(1) + '%'; }
       },
-      legend: {
-        position: "bottom",
-        fontFamily: "Arial, sans-serif",
-        fontSize: "13px"
-      },
+      legend: { position: "bottom", fontFamily: "Arial, sans-serif", fontSize: "13px" },
     }
   }
 
@@ -218,16 +226,13 @@
   }
 
   function toggleFilter() {
-    const filter = document.getElementById('filterContent');
-    filter.classList.toggle('active');
+    document.getElementById('filterContent').classList.toggle('active');
   }
 
   document.getElementById('searchBox').addEventListener('keyup', function () {
     let query = this.value.toLowerCase();
-    let cards = document.querySelectorAll('.dusun-card');
-    cards.forEach(card => {
-      let text = card.innerText.toLowerCase();
-      card.style.display = text.includes(query) ? 'block' : 'none';
+    document.querySelectorAll('.dusun-card').forEach(card => {
+      card.style.display = card.innerText.toLowerCase().includes(query) ? 'block' : 'none';
     });
   });
 </script>

@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Desa Cantik - Website Resmi</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
     /* Reset */
     * {
@@ -13,50 +17,55 @@
     }
 
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Poppins', sans-serif;
+      background: #f9fafb;
+      color: #333;
     }
 
     header {
-      background-color: white;
-      border-bottom: 1px solid #ddd;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
       width: 100%;
-      position: relative;
+      position: sticky;
+      top: 0;
       z-index: 999;
+      transition: all 0.3s ease;
     }
 
     .navbar-container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 10px 20px;
+      padding: 12px 20px;
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
     }
 
+    /* Logo */
     .logo-area {
       display: flex;
       align-items: center;
+      gap: 8px;
     }
 
     .logo-area img {
-      height: 40px;
-      margin-right: 6px;
+      height: 38px;
     }
 
-    .nav-toggle {
-      display: none;
-      font-size: 28px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #333;
+    .brand-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: #2e7d32;
+      letter-spacing: 1px;
     }
 
+    /* Menu */
     .nav-menu {
       display: flex;
-      gap: 10px;
+      gap: 20px;
       align-items: center;
+      transition: all 0.3s ease;
     }
 
     .nav-item {
@@ -67,74 +76,109 @@
     .nav-link {
       text-decoration: none;
       color: #333;
-      font-weight: bold;
-      padding: 12px 15px;
-      display: block;
-      white-space: nowrap;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 8px 10px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #4CAF50, #FFA500);
+      transition: width 0.3s ease;
     }
 
     .nav-link:hover {
-      color: orange;
+      color: #4CAF50;
     }
 
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Dropdown */
     .dropdown-menu {
       position: absolute;
-      top: 100%;
+      top: 120%;
       left: 0;
-      background-color: #fff;
-      border: 1px solid #ccc;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      padding: 10px 0;
       display: none;
       flex-direction: column;
       min-width: 200px;
-      z-index: 1000;
+      animation: fadeIn 0.3s ease;
     }
 
     .dropdown-menu a {
-      padding: 10px 15px;
+      padding: 10px 18px;
       color: #333;
       text-decoration: none;
+      font-size: 14px;
+      transition: background 0.2s ease;
     }
 
     .dropdown-menu a:hover {
-      background-color: #f2f2f2;
+      background: #f5f5f5;
+      color: #4CAF50;
     }
 
     .nav-item:hover .dropdown-menu {
       display: flex;
     }
 
-    /* Mobile Styles */
+    /* Toggle button */
+    .nav-toggle {
+      display: none;
+      font-size: 26px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #333;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-toggle.active {
+      transform: rotate(90deg);
+    }
+
+    /* Hero Banner */
+    .hero-banner img {
+      width: 100%;
+      max-height: 320px;
+      object-fit: cover;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    /* Mobile */
     @media (max-width: 991px) {
-      .navbar-container {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .logo-area {
-        order: 1;
-        width: 100%;
-        justify-content: flex-start;
-        padding: 10px 20px;
-      }
-
       .nav-toggle {
-        order: 2;
-        align-self: flex-end;
-        margin: 10px 10px 0 0;
         display: block;
       }
 
       .nav-menu {
-        order: 3;
+        position: absolute;
+        top: 100%;
+        left: 0;
         width: 100%;
         flex-direction: column;
+        background: #fff;
+        border-top: 1px solid #eee;
         display: none;
-        border-top: 1px solid #ddd;
-        margin-top: 0;
       }
 
       .nav-menu.active {
         display: flex;
+        animation: fadeInDown 0.3s ease;
       }
 
       .nav-item {
@@ -142,53 +186,36 @@
       }
 
       .nav-link {
-        padding: 12px 20px;
-        border-bottom: 1px solid #eee;
+        padding: 15px 20px;
+        border-bottom: 1px solid #f0f0f0;
       }
 
       .dropdown-menu {
         position: relative;
-        display: none;
-        width: 100%;
-        border: none;
+        top: 0;
+        left: 0;
         box-shadow: none;
-      }
-
-      .dropdown-menu.active {
-        display: flex !important;
+        border-radius: 0;
       }
 
       .nav-item:hover .dropdown-menu {
         display: none;
       }
 
-      .nav-item.has-dropdown > .nav-link::after {
-        content: " ▼";
-        font-size: 12px;
-        float: right;
-      }
-
-      .nav-item.has-dropdown.active > .nav-link::after {
-        content: " ▲";
+      .nav-item.active .dropdown-menu {
+        display: flex;
       }
     }
 
-    /* Tanda panah dropdown di desktop */
-    .nav-item.has-dropdown > .nav-link::after {
-      content: " ▼";
-      font-size: 12px;
-      float: right;
+    /* Animations */
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
     }
 
-    .nav-item.has-dropdown.active > .nav-link::after {
-      content: " ▲";
-    }
-
-    .hero-banner img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 0 auto;
+    @keyframes fadeInDown {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
     }
   </style>
 </head>
@@ -202,13 +229,12 @@
         <span class="brand-text">DESA CANTIK</span>
       </div>
 
-      <!-- Toggle Button -->
+      <!-- Toggle -->
       <button class="nav-toggle" id="nav-toggle">☰</button>
 
       <!-- Menu -->
       <ul class="nav-menu" id="nav-menu">
         <li class="nav-item"><a href="/" class="nav-link">BERANDA</a></li>
-
         <li class="nav-item has-dropdown">
           <a href="#" class="nav-link">PROFIL DESA</a>
           <div class="dropdown-menu">
@@ -217,7 +243,6 @@
             <a href="{{ route('pemerintah') }}">Pemerintah Desa</a>
           </div>
         </li>
-
         <li class="nav-item has-dropdown">
           <a href="#" class="nav-link">BERITA & AGENDA</a>
           <div class="dropdown-menu">
@@ -225,7 +250,6 @@
             <a href="{{ route('agenda') }}">Agenda Desa</a>
           </div>
         </li>
-
         <li class="nav-item has-dropdown">
           <a href="#" class="nav-link">DATA STATISTIK DESA</a>
           <div class="dropdown-menu">
@@ -235,7 +259,6 @@
             <a href="{{ route('agama') }}">Data Agama</a>
           </div>
         </li>
-
         <li class="nav-item has-dropdown">
           <a href="#" class="nav-link">LAYANAN ONLINE</a>
           <div class="dropdown-menu">
@@ -250,43 +273,24 @@
     </div>
   </header>
 
-{{-- Hero Banner tampil jika bukan halaman beranda --}}
-@if (!request()->is('/'))
-  <style>
-    .hero-banner {
-      width: 100%;
-      margin: 0;
-      padding: 0;
-    }
-
-    .hero-banner img {
-      width: 100%;       /* full lebar layar */
-      height: auto;      /* proporsional */
-      max-height: 300px; /* batasi tinggi biar tidak terlalu tinggi */
-      object-fit: cover; /* potong gambar biar tetap rapi */
-      display: block;
-    }
-  </style>
-
+  {{-- Hero Banner tampil jika bukan halaman beranda --}}
+  @if (!request()->is('/'))
   <div class="hero-banner">
     <img src="{{ asset('landing/images/banner/navbar.jpg') }}" alt="Banner Desa">
   </div>
-@endif
+  @endif
 
-
-
-  <!-- SCRIPT -->
+  <!-- Script -->
   <script>
     const toggle = document.getElementById("nav-toggle");
     const menu = document.getElementById("nav-menu");
     const dropdownItems = document.querySelectorAll(".nav-item.has-dropdown");
 
-    // Toggle menu (mobile)
     toggle.addEventListener("click", () => {
       menu.classList.toggle("active");
+      toggle.classList.toggle("active");
     });
 
-    // Mobile dropdown logic
     function isMobile() {
       return window.innerWidth <= 991;
     }
@@ -298,37 +302,9 @@
       link.addEventListener("click", function (e) {
         if (isMobile()) {
           e.preventDefault();
-          const isActive = dropdown.classList.contains("active");
-
-          // Close all dropdowns
-          document.querySelectorAll(".dropdown-menu").forEach((d) => d.classList.remove("active"));
-          document.querySelectorAll(".nav-item.has-dropdown").forEach((i) => i.classList.remove("active"));
-
-          // Open clicked one
-          if (!isActive) {
-            dropdown.classList.add("active");
-            item.classList.add("active");
-          }
+          item.classList.toggle("active");
         }
       });
-    });
-
-    // Close dropdowns when clicking outside
-    document.addEventListener("click", function (e) {
-      if (isMobile()) {
-        if (!e.target.closest(".nav-item.has-dropdown")) {
-          document.querySelectorAll(".dropdown-menu").forEach((d) => d.classList.remove("active"));
-          document.querySelectorAll(".nav-item.has-dropdown").forEach((i) => i.classList.remove("active"));
-        }
-      }
-    });
-
-    // On resize, reset dropdown state
-    window.addEventListener("resize", () => {
-      if (!isMobile()) {
-        document.querySelectorAll(".dropdown-menu").forEach((d) => d.classList.remove("active"));
-        document.querySelectorAll(".nav-item.has-dropdown").forEach((i) => i.classList.remove("active"));
-      }
     });
   </script>
 </body>

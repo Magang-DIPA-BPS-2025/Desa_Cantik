@@ -1,68 +1,54 @@
 @extends('layouts.landing.app')
+
 @section('content')
 <div class="container mt-4">
 
     {{-- Judul --}}
-    <h2 class="mb-3" style="text-align: left;">Form Permohonan & Keberatan Informasi Disabilitas</h2>
-    <p>Masyarakat difabel dapat mengakses layanan ini secara online maupun dengan bantuan petugas PPID.</p>
+     <h2 class="mb-3" style="text-align: left;">Status Surat Pengantar Online Warga Desa</h2>
 
-    {{-- Tabel Layanan --}}
+    {{-- Form Search --}}
+    <form action="{{ route('dataPenduduk.index') }}" method="GET" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="keyword" class="form-control" placeholder="Cari NIK / Nama..."
+                   value="{{ request('keyword') }}">
+            <button class="btn btn-primary" type="submit">Cari</button>
+        </div>
+    </form>
+
+    {{-- Tabel Data Surat --}}
     <table class="table table-bordered table-striped">
-        <thead class="table-dark">
+        <thead style="background: linear-gradient(90deg, #3B82F6, #31C48D); color: white;">
             <tr>
-                <th>Jenis Layanan</th>
-                <th>Deskripsi</th>
-                <th>Aksi</th>
+                <th>No</th>
+                <th>Nama</th>
+                <th>NIK</th>
+                <th>Waktu Masuk Surat</th>
+                <th>Status</th>
+                <th>Tindakan</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Permohonan Informasi</td>
-                <td>Pengajuan permintaan informasi publik oleh penyandang disabilitas.</td>
-                <td>
-                    <span class="btn btn-link p-0" onclick="showForm('formPermohonan')">
-                        Isi Form Permohonan
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Pernyataan Keberatan</td>
-                <td>Pengajuan keberatan jika permohonan informasi ditolak atau tidak sesuai ketentuan.</td>
-                <td>
-                    <span class="btn btn-link p-0" onclick="showForm('formKeberatan')">
-                        Isi Form Keberatan
-                    </span>
-                </td>
-            </tr>
+            @if(isset($dataPenduduk) && $dataPenduduk->count() > 0)
+                @foreach($dataPenduduk as $index => $data)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $data->nama }}</td>
+                        <td>{{ $data->nik }}</td>
+                        <td>{{ $data->waktu_masuk }}</td>
+                        <td>{{ $data->status }}</td>
+                        <td>
+                            <button class="btn btn-sm btn-info">Detail</button>
+                            <button class="btn btn-sm btn-danger">Hapus</button>
+                        </td>
+                    </tr>
+                @endforeach
+            @else
+                <tr>
+                    <td colspan="6" class="text-center">Belum ada data.</td>
+                </tr>
+            @endif
         </tbody>
     </table>
-
-    {{-- Form Permohonan --}}
-    <div id="formPermohonan" class="card p-4 mt-4 d-none">
-        <h4>Form Permohonan Informasi</h4>
-        <form>
-            <input type="text" class="form-control mb-2" placeholder="Nama">
-            <input type="text" class="form-control mb-2" placeholder="Alamat">
-            <input type="text" class="form-control mb-2" placeholder="Pekerjaan">
-            <input type="text" class="form-control mb-2" placeholder="Nomor Telepon">
-            <textarea class="form-control mb-2" placeholder="Rincian Informasi yang Dibutuhkan"></textarea>
-            <input type="text" class="form-control mb-2" placeholder="Tujuan Penggunaan">
-            <button type="submit" class="btn btn-success">Kirim</button>
-        </form>
-    </div>
-
-    {{-- Form Keberatan --}}
-    <div id="formKeberatan" class="card p-4 mt-4 d-none">
-        <h4>Form Pernyataan Keberatan</h4>
-        <form>
-            <input type="text" class="form-control mb-2" placeholder="Nama">
-            <input type="text" class="form-control mb-2" placeholder="Alamat">
-            <input type="text" class="form-control mb-2" placeholder="Pekerjaan">
-            <input type="text" class="form-control mb-2" placeholder="Nomor Telepon">
-            <textarea class="form-control mb-2" placeholder="Kasus Posisi"></textarea>
-            <button type="submit" class="btn btn-danger">Kirim</button>
-        </form>
-    </div>
 
 </div>
 @endsection

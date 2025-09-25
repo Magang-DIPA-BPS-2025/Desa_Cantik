@@ -1,7 +1,7 @@
 @extends('layouts.landing.app')
 
 @section('content')
-<div class="container-fluid py-4" style="background-color: #C0D09D; min-height: 100vh; display: flex; flex-direction: column;">
+<div class="container-fluid py-4" style="background-color: #ffffff; min-height: 100vh; display: flex; flex-direction: column;">
   <div class="container my-5 text-center flex-grow-1">
     <h2 class="mb-4">SUSUNAN ORGANISASI PEMERINTAH DESA</h2>
     <p class="fw-bold">KECAMATAN SOMBA OPU KABUPATEN GOWA</p>

@@ -2,13 +2,15 @@
 
 @section('content')
 <title>Layanan Administrasi Online</title>
+
 <style>
   body {
-    font-family: Arial, sans-serif;
-    background-color: #c5d6a5;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f0f4f8;
     margin: 0;
     padding: 0;
-    line-height: 1.5;
+    line-height: 1.6;
+    color: #333;
   }
 
   .container {
@@ -22,59 +24,71 @@
   .content-header {
     max-width: 1000px;
     margin: 30px auto 20px;
+    text-align: left;
   }
 
   .content-header h1 {
-    font-size: 28px;
+    font-size: 32px;
     margin-bottom: 10px;
-    font-weight: bold;
-    text-align: left;
+    font-weight: 700;
+    color: #2c3e50;
   }
 
   .content-header p {
     font-size: 16px;
     margin-bottom: 20px;
-    text-align: left;
+    color: #555;
   }
 
   .content-header h2 {
-    font-size: 22px;
+    font-size: 24px;
     margin-bottom: 25px;
-    font-weight: bold;
-    text-align: left;
+    font-weight: 700;
+    color: #34495e;
   }
 
   .form-box {
     background: #fff;
-    padding: 20px 25px;
-    border-radius: 10px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    padding: 25px 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     flex: 1;
     min-width: 350px;
     max-width: 600px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .form-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
   }
 
   .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 18px;
   }
 
   .form-group label {
     display: block;
-    font-weight: bold;
-    margin-bottom: 6px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #2c3e50;
   }
 
   .form-group input,
   .form-group select {
     width: 100%;
-    padding: 10px;
-    border-radius: 6px;
+    padding: 10px 12px;
+    border-radius: 10px;
     border: 1px solid #ccc;
     font-size: 14px;
+    transition: border-color 0.3s, box-shadow 0.3s;
   }
 
-  .form-group input[type="file"] {
-    padding: 5px;
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: #3B82F6;
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+    outline: none;
   }
 
   .checkbox-group {
@@ -86,30 +100,46 @@
     align-items: center;
     gap: 8px;
     font-size: 14px;
+    cursor: pointer;
   }
 
   .btn-submit {
-    background: #6b8e23;
+    background: linear-gradient(90deg, #3B82F6, #31C48D);
     color: #fff;
     border: none;
     padding: 12px 20px;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 16px;
     cursor: pointer;
-    margin-top: 15px;
+    margin-top: 20px;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.2s;
   }
 
   .btn-submit:hover {
-    background: #557a1f;
+    background: linear-gradient(90deg, #2c6ed5, #28a172);
+    transform: translateY(-2px);
+  }
+
+  input[type="file"] {
+    padding: 5px;
+    border-radius: 8px;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 992px) {
+    .container {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 </style>
 
 <div class="content-header">
   <h1>Layanan Online</h1>
   <p>
-    Pelayanan online merupakan fitur layanan administrasi di Desa ------
-    yang dapat mempermudah masyarakat dalam pengurusan surat secara online
-    dimanapun dan kapanpun.
+    Pelayanan online merupakan fitur administrasi di Desa ------
+    yang mempermudah masyarakat dalam pengurusan surat secara online dimanapun dan kapanpun.
   </p>
   <h2>Formulir Layanan Administrasi</h2>
 </div>

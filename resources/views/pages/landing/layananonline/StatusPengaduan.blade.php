@@ -4,7 +4,7 @@
 <div class="container mt-4">
 
     {{-- Judul --}}
-     <h2 class="mb-3" style="text-align: left;">Status Pengaduan Online Warga Desa</h2>
+    <h2 class="mb-3" style="text-align: left;">Status Pengaduan Online Warga Desa</h2>
 
     {{-- Form Search --}}
     <form action="{{ route('dataPenduduk.index') }}" method="GET" class="mb-3">
@@ -17,7 +17,7 @@
 
     {{-- Tabel Data Surat --}}
     <table class="table table-bordered table-striped">
-        <thead class="table-dark">
+        <thead style="background: linear-gradient(90deg, #3B82F6, #31C48D); color: white;">
             <tr>
                 <th>No</th>
                 <th>Nama</th>
