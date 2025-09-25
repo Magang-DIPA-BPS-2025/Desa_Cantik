@@ -3,111 +3,89 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengaduan;
-use App\Models\Kategori;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class PengaduanController extends Controller
 {
+    /**
+     * Tampilkan semua pengaduan (untuk admin).
+     */
     public function index()
     {
-        $pengaduans = Pengaduan::with(['kategori', 'user'])->latest()->paginate(10);
-        return view('pengaduan.index', compact('pengaduans'));
+        $datas = Pengaduan::latest()->get();
+
+        return view('pages.admin.pengaduan.index', [
+            'datas' => $datas,
+            'menu'  => 'Pengaduan',
+            'title' => 'Data Pengaduan'
+        ]);
     }
 
-    public function create()
-    {
-        $kategoris = Kategori::all();
-        return view('pengaduan.create', compact('kategoris'));
-    }
-
+    /**
+     * Simpan pengaduan dari form user.
+     */
     public function store(Request $request)
     {
         $request->validate([
-            'kategori_id' => 'required',
-            'judul' => 'required',
-            'deskripsi' => 'required',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
-            'anonymous' => 'boolean',
+            'nama'      => 'required|string|max:255',
+            'email'     => 'required|email',
+            'telepon'   => 'required|string|max:20',
+            'alamat'    => 'required|string',
+            'judul'     => 'required|string|max:255',
+            'uraian'    => 'required|string',
+            'lampiran'  => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
         ]);
 
-        $data = $request->all();
-        $data['user_id'] = Auth::id();
-        $data['status'] = 'pending';
-
-        if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request->file('gambar')->store('pengaduan/gambar', 'public');
+        // upload lampiran jika ada
+        $lampiran = null;
+        if ($request->hasFile('lampiran')) {
+            $lampiran = $request->file('lampiran')->store('pengaduan_files', 'public');
         }
 
-        if ($request->hasFile('file')) {
-            $data['file'] = $request->file('file')->store('pengaduan/file', 'public');
-        }
+        // simpan ke database
+        Pengaduan::create([
+            'nama'      => $request->nama,
+            'email'     => $request->email,
+            'telepon'   => $request->telepon,
+            'alamat'    => $request->alamat,
+            'judul'     => $request->judul,
+            'deskripsi' => $request->uraian, // simpan uraian ke kolom deskripsi
+            'file'      => $lampiran,
+            'status'    => 'baru',
+            'anonymous' => false,
+        ]);
 
-        Pengaduan::create($data);
-
-        return redirect()->route('pengaduan.index')
-            ->with('success', 'Pengaduan berhasil dikirim');
+        return redirect()->back()->with('success', 'Pengaduan berhasil dikirim.');
     }
 
-    public function show(Pengaduan $pengaduan)
-    {
-        return view('pengaduan.show', compact('pengaduan'));
-    }
-
-    public function edit(Pengaduan $pengaduan)
-    {
-        $kategoris = Kategori::all();
-        return view('pengaduan.edit', compact('pengaduan', 'kategoris'));
-    }
-
-    public function update(Request $request, Pengaduan $pengaduan)
+    /**
+     * Update status pengaduan (untuk admin).
+     */
+    public function updateStatus(Request $request, $id)
     {
         $request->validate([
-            'kategori_id' => 'required',
-            'judul' => 'required',
-            'deskripsi' => 'required',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
-            'status' => 'required|in:pending,proses,selesai,ditolak',
+            'status' => 'required|in:baru,diproses,selesai,ditolak',
         ]);
 
-        $data = $request->all();
+        $pengaduan = Pengaduan::findOrFail($id);
+        $pengaduan->status = $request->status;
+        $pengaduan->save();
 
-        if ($request->hasFile('gambar')) {
-            if ($pengaduan->gambar) {
-                Storage::disk('public')->delete($pengaduan->gambar);
-            }
-            $data['gambar'] = $request->file('gambar')->store('pengaduan/gambar', 'public');
-        }
-
-        if ($request->hasFile('file')) {
-            if ($pengaduan->file) {
-                Storage::disk('public')->delete($pengaduan->file);
-            }
-            $data['file'] = $request->file('file')->store('pengaduan/file', 'public');
-        }
-
-        $pengaduan->update($data);
-
-        return redirect()->route('pengaduan.index')
-            ->with('success', 'Pengaduan berhasil diperbarui');
+        return redirect()->back()->with('success', 'Status pengaduan berhasil diperbarui.');
     }
 
-    public function destroy(Pengaduan $pengaduan)
-    {
-        if ($pengaduan->gambar) {
-            Storage::disk('public')->delete($pengaduan->gambar);
-        }
-        if ($pengaduan->file) {
-            Storage::disk('public')->delete($pengaduan->file);
-        }
 
+    /**
+     * Hapus pengaduan.
+     */
+    public function destroy($id)
+    {
+        $pengaduan = Pengaduan::findOrFail($id);
+        if ($pengaduan->file && file_exists(storage_path('app/public/' . $pengaduan->file))) {
+            unlink(storage_path('app/public/' . $pengaduan->file));
+        }
         $pengaduan->delete();
 
-        return redirect()->route('pengaduan.index')
-            ->with('success', 'Pengaduan berhasil dihapus');
+        return redirect()->back()->with('success', 'Pengaduan berhasil dihapus.');
     }
 }
-

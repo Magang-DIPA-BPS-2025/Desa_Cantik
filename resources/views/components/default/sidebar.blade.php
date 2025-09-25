@@ -71,7 +71,7 @@
                         <span>Data Pengaduan</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('dashboard') }}">Data Pengaduan</a></li>
+                        <li><a class="nav-link" href="{{ route('pengaduan.index') }}">Data Pengaduan</a></li>
                         <li><a class="nav-link" href="{{ route('dashboard') }}">Jadwal Tindak Lanjut</a></li>
                     </ul>
                 </li>

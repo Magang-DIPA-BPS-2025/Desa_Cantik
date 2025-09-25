@@ -6,6 +6,7 @@ use App\Http\Controllers\PemerintahDesaController;
 use App\Http\Controllers\DataPendudukController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\SejarahDesaController;
 use App\Models\Agenda;
 use Illuminate\Support\Facades\Route;
@@ -259,6 +260,10 @@ Route::group(
             Route::resource('berita', BeritaController::class);
 
             Route::resource('kategori', KategoriController::class);
+
+              Route::resource('pengaduan', PengaduanController::class);
+              Route::put('/pengaduan/{id}/status', [PengaduanController::class, 'updateStatus'])->name('pengaduan.updateStatus');
+
 
 
         });

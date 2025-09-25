@@ -56,7 +56,7 @@
 
     {{-- Form --}}
     <div class="card p-4">
-        <form action="{{ route('pengaduan') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('pengaduan.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 {{-- A. Data Diri --}}
