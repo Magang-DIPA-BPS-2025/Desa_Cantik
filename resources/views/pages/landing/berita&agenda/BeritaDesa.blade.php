@@ -11,7 +11,7 @@ body {
 
 .container {
   display: flex;
-  max-width: 1200px;
+  max-width: 1400px; /* tambah lebar total container */
   margin: 30px auto;
   gap: 25px;
 }
@@ -28,9 +28,9 @@ body {
 
 /* Grid Berita */
 .berita-grid {
-  flex: 3;
+  flex: 4; /* diperlebar */
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr); /* dari 3 ke 4 kolom */
   gap: 25px;
 }
 .berita-card {
@@ -42,7 +42,7 @@ body {
   flex-direction: column;
   transition: transform 0.3s, box-shadow 0.3s;
   position: relative;
-  min-height: 340px;
+  min-height: 320px; /* sedikit diperkecil agar lebih rapat */
 }
 .berita-card:hover {
   transform: translateY(-6px);
@@ -50,7 +50,7 @@ body {
 }
 .berita-card .thumb {
   width: 100%;
-  height: 200px;
+  height: 180px;
   background: #ccc;
   object-fit: cover;
   transition: transform 0.3s;
@@ -59,40 +59,40 @@ body {
   transform: scale(1.05);
 }
 .berita-card .info {
-  padding: 15px 18px;
+  padding: 12px 15px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 .berita-card .info span {
   color: #777;
-  font-size: 13px;
+  font-size: 12px;
 }
 .berita-card .info .title {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 600;
   color: #222;
   margin: 0;
 }
 .berita-card .info .desc-text {
-  font-size: 14px;
+  font-size: 13px;
   color: #555;
-  line-height: 1.5;
-  margin-bottom: 8px;
+  line-height: 1.4;
+  margin-bottom: 6px;
 }
 .berita-card .date {
   background: #4CAF50;
   color: #fff;
   font-weight: 600;
-  padding: 5px 10px;
-  font-size: 12px;
+  padding: 4px 8px;
+  font-size: 11px;
   position: absolute;
-  bottom: 15px;
-  right: 15px;
+  bottom: 12px;
+  right: 12px;
   border-radius: 5px;
 }
 .berita-card .views {
-  font-size: 12px;
+  font-size: 11px;
   color: #888;
   display: flex;
   align-items: center;
@@ -155,7 +155,7 @@ body {
 .pagination {
   margin: 30px 0;
   text-align: center;
-  grid-column: span 3;
+  grid-column: span 4; /* ikut jumlah kolom baru */
 }
 .pagination ul {
   list-style: none;
@@ -189,6 +189,11 @@ body {
 }
 
 /* Responsive */
+@media (max-width: 1200px) {
+  .berita-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 @media (max-width: 992px) {
   .berita-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -209,17 +214,17 @@ body {
 
 <div class="container">
   <!-- Grid Berita -->
-  <div style="flex:3">
+  <div style="flex:4">
     <div class="section-title">Daftar Berita</div>
 
     <div class="berita-grid">
-      @for ($i = 1; $i <= 9; $i++)
+      @for ($i = 1; $i <= 12; $i++)
       <div class="berita-card">
         <div class="thumb"></div>
         <div class="info">
           <span>9 September 2025</span>
           <h3 class="title">Judul Berita Desa Cantik #{{ $i }}</h3>
-          <p class="desc-text">Deskripsi singkat mengenai berita desa cantik ini agar pembaca lebih mudah memahami isi berita dan mendapatkan informasi yang jelas.</p>
+          <p class="desc-text">Deskripsi singkat berita desa cantik agar pembaca lebih mudah memahami isi berita.</p>
           <div class="views">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#888" viewBox="0 0 16 16">
               <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zm-8 4a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/>
