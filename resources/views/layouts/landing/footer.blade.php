@@ -1,10 +1,10 @@
-<footer class="footer">
-    <div class="container">
+<footer id="landing-footer" class="footer">
+    <div class="footer-container">
         <div class="row">
 
-            <!-- Kolom 1: Contact Info -->
+            <!-- Kolom 1: CONTACT INFO -->
             <div class="col-md-4 footer-col">
-                <h4>Contact Info</h4>
+                <h4>CONTACT INFO</h4>
                 <img src="{{ asset('landing/images/footer/logobps.png') }}"
                      alt="BPS Logo" class="footer-logo">
 
@@ -27,9 +27,9 @@
                 </p>
             </div>
 
-            <!-- Kolom 2: Sosial Media -->
+            <!-- Kolom 2: SOSIAL MEDIA -->
             <div class="col-md-4 footer-col">
-                <h4>Sosial Media</h4>
+                <h4>SOSIAL MEDIA</h4>
                 <div class="social-links">
                     <a href="https://facebook.com" target="_blank" class="social fb">
                         <i class="fab fa-facebook-f"></i>
@@ -46,13 +46,13 @@
                 </p>
             </div>
 
-            <!-- Kolom 3: Maps -->
+            <!-- Kolom 3: LOKASI KAMI -->
             <div class="col-md-4 footer-col">
-                <h4>Lokasi Kami</h4>
+            <h4>LOKASI KAMI</h4>
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d997.8399967192212!2d119.405861!3d-5.179667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sid!2sid!4v1694700000000!5m2!1sid!2sid"
                     width="100%"
-                    height="220"
+                    height="260"
                     style="border:0; border-radius:8px;"
                     allowfullscreen=""
                     loading="lazy">
@@ -69,8 +69,7 @@
 </footer>
 
 <style>
-/* Footer */
-.footer {
+#landing-footer {
     background: linear-gradient(135deg, #ffffff, #f8f9fa);
     padding: 50px 0 20px;
     border-top: 3px solid #C0D09D;
@@ -78,7 +77,16 @@
     font-size: 15px;
 }
 
-.footer h4 {
+/* Isolated container to avoid conflicts with global .container */
+#landing-footer .footer-container {
+    max-width: 1140px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#landing-footer h4 {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 20px;
@@ -87,32 +95,32 @@
     color: #222;
 }
 
-.footer-logo {
+#landing-footer .footer-logo {
     width: 90px;
     margin-bottom: 15px;
     display: block;
 }
 
-.footer p {
+#landing-footer p {
     margin-bottom: 10px;
     line-height: 1.6;
 }
 
-.footer a {
+#landing-footer a {
     color: #2c3e50;
     text-decoration: none;
     transition: all 0.3s ease;
 }
-.footer a:hover {
+#landing-footer a:hover {
     color: #C0D09D;
     text-decoration: underline;
 }
 
 /* Social media */
-.social-links {
+#landing-footer .social-links {
     margin-top: 10px;
 }
-.social {
+#landing-footer .social {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -124,24 +132,29 @@
     font-size: 18px;
     transition: all 0.3s ease;
 }
-.social:hover {
+#landing-footer .social:hover {
     transform: translateY(-3px);
     color: #fff;
 }
-.social.fb:hover { background: #3b5998; }
-.social.ig:hover { background: #E1306C; }
-.social.yt:hover { background: #FF0000; }
+#landing-footer .social.fb:hover { background: #3b5998; }
+#landing-footer .social.ig:hover { background: #E1306C; }
+#landing-footer .social.yt:hover { background: #FF0000; }
 
-.privacy {
+#landing-footer .privacy {
     margin-top: 20px;
     font-size: 14px;
 }
 
 /* Map Info */
-.map-info {
+#landing-footer .map-info {
     margin-top: 10px;
     font-size: 13px;
     color: #666;
     line-height: 1.5;
 }
+
+@media (max-width: 768px) {
+    #landing-footer .footer-container { text-align: center; }
+}
 </style>
+  
