@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
+use App\Models\DataPenduduk;
 
 class AdminController extends Controller
 {
@@ -17,19 +19,33 @@ class AdminController extends Controller
         $totalUsers = User::count();
         $totalAdmin = User::where('role', 'admin')->count();
 
-        // Data registrasi user per bulan
-        $monthlyUsers = [];
-        for ($i = 1; $i <= 12; $i++) {
-            $monthlyUsers[] = User::whereYear('created_at', now()->year)
-                ->whereMonth('created_at', $i)
-                ->count();
+        // Statistik penduduk per dusun (aman jika kolom belum ada)
+        if (Schema::hasTable('data_penduduks') && Schema::hasColumn('data_penduduks', 'dusun')) {
+            $labelsPenduduk = DataPenduduk::select('dusun')
+                ->whereNotNull('dusun')
+                ->where('dusun', '!=', '')
+                ->distinct()
+                ->pluck('dusun')
+                ->values();
+            $dataPenduduk = $labelsPenduduk->map(function ($d) {
+                return DataPenduduk::where('dusun', $d)->count();
+            });
+            if ($labelsPenduduk->isEmpty()) {
+                $labelsPenduduk = collect(['Dusun 1','Dusun 2','Dusun 3']);
+                $dataPenduduk = collect([0,0,0]);
+            }
+        } else {
+            $labelsPenduduk = collect(['Dusun 1','Dusun 2','Dusun 3']);
+            $dataPenduduk = collect([0,0,0]);
         }
 
-        return view('pages.admin.dashboard.index', compact(
-            'totalUsers',
-            'totalAdmin',
-            'monthlyUsers'
-        ))->with('menu', 'dashboard');
+        return view('pages.admin.dashboard.index', [
+            'totalUsers'      => $totalUsers,
+            'totalAdmin'      => $totalAdmin,
+            'monthlyUsers'    => [],
+            'labelsPenduduk'  => $labelsPenduduk,
+            'dataPenduduk'    => $dataPenduduk,
+        ])->with('menu', 'dashboard');
     }
 
     /**

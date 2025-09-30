@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('tempat_lahir', 100);
             $table->date('tanggal_lahir');
             $table->string('alamat', 200);
+            $table->string('dusun', 100)->nullable();
             $table->string('rt', 5)->nullable();
             $table->string('rw', 5)->nullable();
             $table->string('keldesa', 100);

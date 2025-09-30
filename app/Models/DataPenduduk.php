@@ -20,6 +20,7 @@ class dataPenduduk extends Model
         'tempat_lahir',
         'tanggal_lahir',
         'alamat',
+        'dusun',
         'rt',
         'rw',
         'keldesa',

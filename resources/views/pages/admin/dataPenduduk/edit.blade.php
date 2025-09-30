@@ -68,6 +68,12 @@
                                     rows="3">{{ old('alamat', $dataPenduduk->alamat) }}</textarea>
                             </div>
 
+                            <!-- Dusun -->
+                            <div class="form-group">
+                                <label>Dusun</label>
+                                <input type="text" name="dusun" class="form-control" value="{{ old('dusun', $dataPenduduk->dusun) }}">
+                            </div>
+
                             <!-- RT / RW -->
                             <div class="form-row">
                                 <div class="form-group col-md-6">

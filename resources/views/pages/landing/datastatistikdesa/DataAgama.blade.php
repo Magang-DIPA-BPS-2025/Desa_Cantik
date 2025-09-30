@@ -126,47 +126,7 @@
     font-size: 14px;
   }
 
-  @media (max-width: 992px) {
-    .row {
-      flex-direction: column;
-    }
-  }
-
-  /* Footer */
-  footer {
-    background: #fff;
-    border-top: 1px solid #e5e5e5;
-    padding: 20px 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    font-size: 14px;
-    color: #555;
-  }
-
-  footer a {
-    color: #3B82F6;
-    text-decoration: none;
-    margin: 0 8px;
-    font-size: 14px;
-  }
-
-  footer a:hover {
-    text-decoration: underline;
-  }
-
-  footer .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  @media (max-width: 768px) {
-    footer .container {
-      flex-direction: column;
-      text-align: center;
-      gap: 10px;
-    }
-  }
+  /* Inherit global footer from layouts.landing.footer */
 </style>
 
 <div class="container py-4">
@@ -176,7 +136,7 @@
       <!-- Chart Card -->
       <div class="card">
         <h6>Statistik Agama Penduduk</h6>
-        <div id="pie-chart"></div>
+        <div id="pie-chart-Agama"></div>
       </div>
 
       <!-- Table Card -->
@@ -208,9 +168,9 @@
     <div class="col-md-3 d-flex">
       <div class="card flex-fill">
         <div class="card-body">
-          <div class="filter-toggle" onclick="toggleFilter()">☰ Filter Dusun</div>
-          <div class="filter-content" id="filterContent">
-            <input type="search" placeholder="Cari Dusun..." class="search-box" id="searchBox" />
+          <div class="filter-toggle" onclick="toggleFilterAgama()">☰ Filter Dusun</div>
+          <div class="filter-content" id="filterContentAgama">
+            <input type="search" placeholder="Cari Dusun..." class="search-box" id="searchBoxAgama" />
 
             <!-- Card per Dusun -->
             <div class="dusun-card">
@@ -262,16 +222,16 @@
     }
   }
 
-  if (document.getElementById("pie-chart") && typeof ApexCharts !== 'undefined') {
-    const chart = new ApexCharts(document.getElementById("pie-chart"), getChartOptions());
+  if (document.getElementById("pie-chart-Agama") && typeof ApexCharts !== 'undefined') {
+    const chart = new ApexCharts(document.getElementById("pie-chart-Agama"), getChartOptions());
     chart.render();
   }
 
-  function toggleFilter() {
-    document.getElementById('filterContent').classList.toggle('active');
+  function toggleFilterAgama() {
+    document.getElementById('filterContentAgama').classList.toggle('active');
   }
 
-  document.getElementById('searchBox').addEventListener('keyup', function () {
+  document.getElementById('searchBoxAgama').addEventListener('keyup', function () {
     let query = this.value.toLowerCase();
     document.querySelectorAll('.dusun-card').forEach(card => {
       card.style.display = card.innerText.toLowerCase().includes(query) ? 'block' : 'none';

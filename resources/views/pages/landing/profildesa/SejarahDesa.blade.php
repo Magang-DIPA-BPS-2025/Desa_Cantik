@@ -75,11 +75,6 @@
     </div>
 </div>
 
----
-
-## CSS Kustom yang Diperbarui
-
-```css
 <style>
     /* Section Background */
     .history-section {

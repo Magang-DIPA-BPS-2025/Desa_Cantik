@@ -95,6 +95,13 @@
                                     </div>
 
                                     <div class="form-group row">
+                                        <label class="col-form-label col-md-3">Dusun</label>
+                                        <div class="col-md-7">
+                                            <input type="text" name="dusun" class="form-control" value="{{ old('dusun') }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
                                         <label class="col-form-label col-md-3">RT</label>
                                         <div class="col-md-3">
                                             <input required type="text" name="rt" class="form-control"
