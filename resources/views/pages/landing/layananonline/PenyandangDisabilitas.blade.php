@@ -85,6 +85,12 @@
             padding: 10px 20px;
         }
 
+        /* Card khusus form bawah */
+        .form-card {
+            width: 100% !important;     /* isi penuh container */
+            max-width: 1200px;          /* biar tidak terlalu melebar */
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .d-flex.justify-content-center {
@@ -145,7 +151,7 @@
     {{-- Form Section --}}
     <div class="d-flex justify-content-center flex-column align-items-center">
         {{-- Form Permohonan --}}
-        <div id="formPermohonan" class="card p-4 mb-5 w-75 d-none">
+        <div id="formPermohonan" class="card p-4 mb-5 form-card d-none">
             <h5>Form Permohonan Informasi Disabilitas</h5>
             <form>
                 <div class="mb-3"><label>Nama</label><input type="text" class="form-control" placeholder="Masukkan Nama Anda"></div>
@@ -160,7 +166,7 @@
         </div>
 
         {{-- Form Keberatan --}}
-        <div id="formKeberatan" class="card p-4 mb-5 w-75 d-none">
+        <div id="formKeberatan" class="card p-4 mb-5 form-card d-none">
             <h5>Form Pernyataan Keberatan Untuk Disabilitas</h5>
             <form>
                 <div class="mb-3"><label>Tujuan Pengguna Informasi</label><input type="text" class="form-control" placeholder="Masukkan Tujuan Pengguna Informasi"></div>

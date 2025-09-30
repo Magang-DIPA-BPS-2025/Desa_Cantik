@@ -14,6 +14,12 @@
     color: #333;
   }
 
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+
   .row {
     align-items: stretch;
   }
@@ -123,6 +129,42 @@
   @media (max-width: 992px) {
     .row {
       flex-direction: column;
+    }
+  }
+
+  /* Footer */
+  footer {
+    background: #fff;
+    border-top: 1px solid #e5e5e5;
+    padding: 20px 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 14px;
+    color: #555;
+  }
+
+  footer a {
+    color: #3B82F6;
+    text-decoration: none;
+    margin: 0 8px;
+    font-size: 14px;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+
+  footer .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    footer .container {
+      flex-direction: column;
+      text-align: center;
+      gap: 10px;
     }
   }
 </style>

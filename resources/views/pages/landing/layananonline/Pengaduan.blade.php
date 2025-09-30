@@ -1,7 +1,7 @@
 @extends('layouts.landing.app')
 
 @section('content')
-<div class="container mt-5">
+<div class="pengaduan-container mt-5">
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -10,6 +10,13 @@
             padding: 0;
             line-height: 1.6;
             color: #333;
+        }
+
+        /* Container khusus halaman pengaduan */
+        .pengaduan-container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 15px;
         }
 
         .card {

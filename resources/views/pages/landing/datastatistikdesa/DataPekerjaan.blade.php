@@ -10,63 +10,60 @@
   body {
     font-family: 'Segoe UI', Arial, sans-serif;
     margin: 0;
-    background-color: #f5f7fa;
+    background: linear-gradient(135deg, #f0f4f8, #fefefe);
     color: #333;
   }
 
-  .row {
-    align-items: stretch;
+  /* Container dibatasi max-width */
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 15px;
   }
 
   .card {
     background: #fff;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 20px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.08);
     transition: transform 0.3s, box-shadow 0.3s;
   }
 
   .card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
   }
 
   .card h6 {
     font-size: 18px;
     font-weight: 700;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     color: #222;
-    border-left: 5px solid #3B82F6;
+    border-left: 6px solid #3B82F6;
     padding-left: 10px;
   }
 
+  /* Table styling */
   .data-table {
     width: 100%;
     border-collapse: collapse;
     font-size: 14px;
-    border-radius: 12px;
-    overflow: hidden;
   }
 
   .data-table th, .data-table td {
-    padding: 12px;
+    border: 1px solid #ddd;
+    padding: 10px;
     text-align: center;
-    border-bottom: 1px solid #e0e0e0;
   }
 
-  .data-table thead {
-    background: linear-gradient(90deg, #3B82F6, #31C48D);
-    color: #fff;
-  }
-
-  .data-table tbody tr:hover {
-    background-color: #f0f9ff;
-    transition: background 0.3s;
+  .data-table th {
+    background: #f5f5f5;
+    font-weight: bold;
   }
 
   .filter-toggle {
     display: block;
-    background-color: #3B82F6;
+    background: linear-gradient(90deg, #3B82F6, #2563EB);
     color: white;
     text-align: center;
     padding: 10px;
@@ -79,7 +76,7 @@
 
   .filter-content {
     display: none;
-    max-height: 400px;
+    max-height: 300px;
     overflow-y: auto;
   }
 
@@ -88,27 +85,28 @@
   }
 
   .dusun-card {
-    background: #f0f9f0;
-    border-radius: 10px;
-    padding: 12px 15px;
+    background: #f0fdf4;
+    border-radius: 8px;
+    padding: 10px 12px;
     margin-bottom: 12px;
+    border: 1px solid #d1fae5;
     transition: background 0.3s;
   }
 
   .dusun-card:hover {
-    background: #d6efd6;
+    background: #dcfce7;
   }
 
   .dusun-card h4 {
-    margin: 0 0 5px 0;
+    margin: 0 0 4px 0;
     font-size: 15px;
     font-weight: 600;
-    color: #222;
+    color: #065f46;
   }
 
   .dusun-card small {
     font-size: 12px;
-    color: #555;
+    color: #444;
   }
 
   .search-box {
@@ -117,8 +115,18 @@
     margin-bottom: 12px;
     border-radius: 8px;
     border: 1px solid #ccc;
-    font-size: 14px;
+    font-size: 13px;
   }
+
+  /* Footer styling agar selalu center */
+  footer {
+  text-align: center;
+  padding: 20px 10px;
+  font-size: 14px;
+  color: #555;
+  background: #f9f9f9;
+  border-top: 2px solid #4CAF50;
+}
 
   @media (max-width: 992px) {
     .row {
@@ -127,20 +135,21 @@
   }
 </style>
 
-<div class="container py-4">
-  <div class="row g-3">
+<div class="container py-5">
+  <div class="row g-4">
     <!-- Main Content -->
-    <div class="col-md-9 d-flex flex-column gap-3">
+    <div class="col-lg-9 col-md-8 d-flex flex-column gap-4">
+
       <!-- Chart Card -->
       <div class="card">
         <h6>Statistik Pekerjaan Penduduk</h6>
-        <div id="pie-chart"></div>
+        <div id="pie-chart" style="min-height:420px"></div>
       </div>
 
       <!-- Table Card -->
       <div class="card">
         <h6>Tabel Data Pekerjaan</h6>
-        <table class="data-table mt-2">
+        <table class="data-table mt-3">
           <thead>
             <tr>
               <th>No</th>
@@ -163,7 +172,7 @@
     </div>
 
     <!-- Sidebar Filter -->
-    <div class="col-md-3 d-flex">
+    <div class="col-lg-3 col-md-4 d-flex">
       <div class="card flex-fill">
         <div class="card-body">
           <div class="filter-toggle" onclick="toggleFilter()">☰ Filter Dusun</div>
@@ -208,12 +217,12 @@
     return {
       series: [20, 30, 10, 15, 15, 10],
       colors: ["#C0D09D", "#A4BC92", "#95A78D", "#BCC5A8", "#8C9C74", "#708B75"],
-      chart: { height: 420, width: "100%", type: "pie" },
+      chart: { height: 400, width: "100%", type: "pie" },
       stroke: { colors: ["white"] },
       labels: ["Tidak Bekerja", "Petani", "PNS", "Pelajar/Mahasiswa", "Karyawan Swasta", "Wiraswasta"],
       dataLabels: {
         enabled: true,
-        style: { fontFamily: "Arial, sans-serif", fontSize: "13px" },
+        style: { fontFamily: "Arial, sans-serif", fontSize: "12px" },
         formatter: function (val) { return val.toFixed(1) + '%'; }
       },
       legend: { position: "bottom", fontFamily: "Arial, sans-serif", fontSize: "13px" },
@@ -237,3 +246,4 @@
   });
 </script>
 @endsection
+

@@ -14,18 +14,21 @@
   }
 
   .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 30px;
-    gap: 30px;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 30px;
+  gap: 30px;
+  max-width: 1400px; 
+  margin: auto;
+}
 
   .content-header {
-    max-width: 1000px;
-    margin: 30px auto 20px;
-    text-align: left;
-  }
+  max-width: 1400px;
+  margin: 30px auto 20px;
+  padding-left: 30px;
+  text-align: left;
+}
 
   .content-header h1 {
     font-size: 32px;
@@ -48,15 +51,15 @@
   }
 
   .form-box {
-    background: #fff;
-    padding: 25px 30px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    flex: 1;
-    min-width: 350px;
-    max-width: 600px;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  flex: 1.3;
+  min-width: 400px;
+  max-width: 700px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
 
   .form-box:hover {
     transform: translateY(-5px);
