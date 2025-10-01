@@ -241,6 +241,7 @@
             <a href="{{ route('galeri.user.index') }}">Galeri Desa</a>
             <a href="{{ route('sejarah') }}">Sejarah Desa</a>
             <a href="{{ route('pemerintah') }}">Pemerintah Desa</a>
+            <a href="{{ route('apbd') }}">APBD Desa</a>
           </div>
         </li>
         <li class="nav-item has-dropdown">

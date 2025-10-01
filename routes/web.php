@@ -3,6 +3,7 @@
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\PemerintahDesaController;
+use App\Http\Controllers\ApbdController;
 use App\Http\Controllers\DataPendudukController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\KategoriController;
@@ -37,6 +38,9 @@ Route::group(
         Route::get('/pemerintah', function () {
             return view('pages.landing.profildesa.PemerintahDesa');
         })->name('pemerintah');
+
+        // APBD Desa (static view)
+        Route::get('/apbd', [ApbdController::class, 'index'])->name('apbd');
 
         //Berita Desa (static view)
         Route::get('/berita', function () {

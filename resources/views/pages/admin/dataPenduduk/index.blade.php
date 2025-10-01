@@ -5,13 +5,6 @@
         <!-- DataTables CSS -->
         <link rel="stylesheet" href="{{ asset('library/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
         <link rel="stylesheet" href="{{ asset('library/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
-        <style>
-            /* Tambahkan spacing search NIK */
-            #nikSearch {
-                margin-bottom: 15px;
-                width: 300px;
-            }
-        </style>
     @endpush
 
     <div class="main-content">
@@ -29,8 +22,7 @@
                                     <i class="fas fa-plus"></i> Tambah Data Penduduk
                                 </a>
 
-                                <!-- Input search berdasarkan NIK -->
-                                <input type="text" id="nikSearch" class="form-control" placeholder="Cari NIK...">
+                
 
                                 <div class="table-responsive">
                                     <table class="table table-striped" id="table-penduduk">
@@ -44,6 +36,7 @@
                                                 <th>Tempat Lahir</th>
                                                 <th>Tanggal Lahir</th>
                                                 <th>Alamat</th>
+                                                <th>Dusun</th>
                                                 <th>RT</th>
                                                 <th>RW</th>
                                                 <th>Kel/Desa</th>
@@ -68,6 +61,7 @@
                                                     <td>{{ $penduduk->tempat_lahir }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($penduduk->tanggal_lahir)->format('d-m-Y') }}</td>
                                                     <td>{{ $penduduk->alamat }}</td>
+                                                    <td>{{ $penduduk->dusun }}</td>
                                                     <td>{{ $penduduk->rt }}</td>
                                                     <td>{{ $penduduk->rw }}</td>
                                                     <td>{{ $penduduk->keldesa }}</td>
