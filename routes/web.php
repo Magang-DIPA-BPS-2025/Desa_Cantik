@@ -41,6 +41,7 @@ Route::group(
 
         // APBD Desa (static view)
         Route::get('/apbd', [ApbdController::class, 'index'])->name('apbd');
+        
 
         //Berita Desa (static view)
         Route::get('/berita', function () {

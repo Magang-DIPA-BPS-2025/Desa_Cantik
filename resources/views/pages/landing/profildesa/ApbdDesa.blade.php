@@ -1,150 +1,268 @@
+{{-- resources/views/pages/landing/profildesa/APBDDesa.blade.php --}}
 @extends('layouts.landing.app')
 
 @section('content')
-<section class="bg-white py-12">
-    <div class="max-w-5xl mx-auto px-4">
+<style>
+.apb-desa {
+    background: #fff;
+    padding: 60px 20px;
+}
+.apb-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1400px;
+    margin: auto;
+    flex-wrap: wrap;
+}
+.apb-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.apb-info h2 {
+    color: #d32f2f;
+    font-size: 38px;
+    font-weight: 700;
+}
+.apb-right {
+    flex: 1.2;
+    min-width: 400px;
+}
+.apb-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+.apb-card {
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.apb-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.apb-card p {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+}
+.apb-card i {
+    font-size: 26px;
+    margin-bottom: 6px;
+}
+/* Warna khusus */
+.bg-green { background: #2e7d32; }
+.bg-red { background: #d32f2f; }
+.bg-blue { background: #1565c0; }
 
-        {{-- Judul utama --}}
-        <div class="text-center mb-12">
-            <h1 class="text-4xl font-bold text-gray-800 mb-2">APB DESA Kersik</h1>
-            <p class="text-lg text-gray-600">Tahun Anggaran <span class="text-red-600">{{ $apbd['tahun'] }}</span></p>
+/* Card untuk grafik & progress */
+.card-box {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 30px;
+    margin-top: 40px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+.card-box h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2e7d32;
+    margin-bottom: 18px;
+}
+canvas { max-height: 280px; width: 100% !important; }
+
+/* Progress bar */
+.progress-card {
+    background: #f9f9f9;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+.progress-bar-bg {
+    background: #e5e7eb;
+    border-radius: 8px;
+    height: 22px;
+    overflow: hidden;
+}
+.progress-bar-fill {
+    height: 22px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 22px;
+    color: #fff;
+    font-weight: bold;
+    background: #2e7d32;
+}
+</style>
+
+<div class="apb-desa">
+    <div class="apb-container">
+        {{-- Judul di kiri --}}
+        <div class="apb-info">
+            <h2>APB Desa Kersik Tahun {{ $apbd['tahun'] }}</h2>
         </div>
 
-        {{-- Angka ringkasan (Pendapatan / Belanja / Pembiayaan / Surplus) --}}
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {{-- Pendapatan --}}
-            <div class="bg-gray-50 p-6 rounded-lg shadow">
-                <div class="flex items-center">
-                    <div class="bg-green-200 p-3 rounded-full">
-                        <i class="fas fa-sack-dollar text-green-700 text-xl"></i>
-                    </div>
-                    <div class="ml-4">
-                        <p class="text-sm text-gray-600">Pendapatan</p>
-                        <h3 class="text-xl font-semibold text-green-700">
-                            Rp{{ number_format($apbd['pendapatan'],0,',','.') }}
-                        </h3>
-                    </div>
+        {{-- Ringkasan di kanan --}}
+        <div class="apb-right">
+            <div class="apb-grid">
+                <div class="apb-card bg-green">
+                    <i class="fas fa-wallet"></i>
+                    <h3>Pendapatan</h3>
+                    <p>Rp{{ number_format($apbd['pendapatan'],0,',','.') }}</p>
+                </div>
+                <div class="apb-card bg-red">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3>Belanja</h3>
+                    <p>Rp{{ number_format($apbd['belanja'],0,',','.') }}</p>
                 </div>
             </div>
-            {{-- Belanja --}}
-            <div class="bg-gray-50 p-6 rounded-lg shadow">
-                <div class="flex items-center">
-                    <div class="bg-red-200 p-3 rounded-full">
-                        <i class="fas fa-money-bill-wave text-red-700 text-xl"></i>
-                    </div>
-                    <div class="ml-4">
-                        <p class="text-sm text-gray-600">Belanja</p>
-                        <h3 class="text-xl font-semibold text-red-700">
-                            Rp{{ number_format($apbd['belanja'],0,',','.') }}
-                        </h3>
-                    </div>
+
+            <div class="apb-grid" style="margin-top:25px;">
+                <div class="apb-card bg-green">
+                    <i class="fas fa-arrow-down"></i>
+                    <h3>Penerimaan</h3>
+                    <p>Rp{{ number_format($pembiayaan[0]['jumlah'],0,',','.') }}</p>
+                </div>
+                <div class="apb-card bg-red">
+                    <i class="fas fa-arrow-up"></i>
+                    <h3>Pengeluaran</h3>
+                    <p>Rp{{ number_format($pembiayaan[1]['jumlah'],0,',','.') }}</p>
                 </div>
             </div>
-            {{-- Pembiayaan --}}
-            <div class="bg-gray-50 p-6 rounded-lg shadow">
-                <div class="flex items-center">
-                    <div class="bg-blue-200 p-3 rounded-full">
-                        <i class="fas fa-hand-holding-usd text-blue-700 text-xl"></i>
-                    </div>
-                    <div class="ml-4">
-                        <p class="text-sm text-gray-600">Pembiayaan</p>
-                        <h3 class="text-xl font-semibold text-blue-700">
-                            Rp{{ number_format($apbd['pembiayaan'],0,',','.') }}
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            {{-- Surplus / Defisit --}}
-            <div class="bg-gray-50 p-6 rounded-lg shadow">
-                <div class="flex items-center">
-                    <div class="bg-yellow-200 p-3 rounded-full">
-                        <i class="fas fa-chart-line text-yellow-800 text-xl"></i>
-                    </div>
-                    <div class="ml-4">
-                        <p class="text-sm text-gray-600">Surplus / Defisit</p>
-                        <h3 class="text-xl font-semibold text-yellow-800">
-                            Rp{{ number_format($apbd['surplus_defisit'],0,',','.') }}
-                        </h3>
-                    </div>
-                </div>
+
+            <div class="apb-card bg-blue" style="margin-top:20px;">
+                <i class="fas fa-balance-scale"></i>
+                <h3>Surplus/Defisit</h3>
+                <p>Rp{{ number_format($apbd['surplus_defisit'],0,',','.') }}</p>
             </div>
         </div>
-
-        {{-- Grafik utama --}}
-        <div class="bg-white rounded-lg shadow p-8 mb-12">
-            <canvas id="chartTahun" class="w-full h-72"></canvas>
-        </div>
-
-        {{-- Tabel tahun ke tahun --}}
-        <div class="bg-white rounded-lg shadow p-8 mb-12">
-            <h2 class="text-lg font-semibold text-gray-800 mb-4">Perbandingan Tahun</h2>
-            <div class="overflow-x-auto">
-                <table class="min-w-full text-sm text-gray-700">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th class="px-4 py-2 text-left">Tahun</th>
-                            <th class="px-4 py-2 text-right">Pendapatan</th>
-                            <th class="px-4 py-2 text-right">Belanja</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y">
-                        @foreach ($tahunData as $t)
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-4 py-2">{{ $t['tahun'] }}</td>
-                                <td class="px-4 py-2 text-right text-green-700">
-                                    Rp{{ number_format($t['pendapatan'],0,',','.') }}
-                                </td>
-                                <td class="px-4 py-2 text-right text-red-700">
-                                    Rp{{ number_format($t['belanja'],0,',','.') }}
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
     </div>
-</section>
+</div>
 
-@push('scripts')
+{{-- Bagian Chart & Progress --}}
+<div class="container mx-auto px-6 mt-10">
+
+    {{-- Pendapatan --}}
+    <div class="card-box">
+        <h3>Pendapatan Desa</h3>
+        <canvas id="chartPendapatan"></canvas>
+        @foreach($pendapatan as $item)
+            @php $persen = $apbd['pendapatan'] > 0 ? ($item['jumlah'] / $apbd['pendapatan']) * 100 : 0; @endphp
+            <div class="progress-card">
+                <div class="progress-label">
+                    <span>{{ $item['sumber'] }}</span>
+                    <span>Rp{{ number_format($item['jumlah'],0,',','.') }}</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="width: {{ $persen }}%">
+                        {{ number_format($persen,2) }}%
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+
+    {{-- Belanja --}}
+    <div class="card-box">
+        <h3>Belanja Desa</h3>
+        <canvas id="chartBelanja"></canvas>
+        @foreach($belanja as $item)
+            @php $persen = $apbd['belanja'] > 0 ? ($item['jumlah'] / $apbd['belanja']) * 100 : 0; @endphp
+            <div class="progress-card">
+                <div class="progress-label">
+                    <span>{{ $item['bidang'] }}</span>
+                    <span>Rp{{ number_format($item['jumlah'],0,',','.') }}</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="width: {{ $persen }}%">
+                        {{ number_format($persen,2) }}%
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+
+    {{-- Pembiayaan --}}
+    <div class="card-box">
+        <h3>Pembiayaan Desa</h3>
+        <canvas id="chartPembiayaan"></canvas>
+        @php $totalPembiayaan = array_sum(array_column($pembiayaan, 'jumlah')); @endphp
+        @foreach($pembiayaan as $item)
+            @php $persen = $totalPembiayaan > 0 ? ($item['jumlah'] / $totalPembiayaan) * 100 : 0; @endphp
+            <div class="progress-card">
+                <div class="progress-label">
+                    <span>{{ $item['jenis'] }}</span>
+                    <span>Rp{{ number_format($item['jumlah'],0,',','.') }}</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="width: {{ $persen }}%">
+                        {{ number_format($persen,2) }}%
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+</div>
+
+{{-- Chart.js --}}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <script>
-    const labels = {!! json_encode(array_column($tahunData, 'tahun')) !!};
-    const pend = {!! json_encode(array_column($tahunData, 'pendapatan')) !!};
-    const bel = {!! json_encode(array_column($tahunData, 'belanja')) !!};
+new Chart(document.getElementById('chartPendapatan'), {
+    type: 'bar',
+    data: {
+        labels: @json(array_column($pendapatan, 'sumber')),
+        datasets: [{
+            label: 'Pendapatan',
+            data: @json(array_column($pendapatan, 'jumlah')),
+            backgroundColor: '#2e7d32'
+        }]
+    },
+    options: { responsive: true, plugins: { legend: { display: false } } }
+});
 
-    new Chart(document.getElementById("chartTahun"), {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [
-                {
-                    label: "Pendapatan",
-                    data: pend,
-                    borderColor: "#16a34a",
-                    backgroundColor: "rgba(22,163,74,0.2)",
-                    tension: 0.4,
-                    fill: true
-                },
-                {
-                    label: "Belanja",
-                    data: bel,
-                    borderColor: "#dc2626",
-                    backgroundColor: "rgba(220,38,38,0.2)",
-                    tension: 0.4,
-                    fill: true
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            plugins: { legend: { position: 'bottom' } },
-            scales: {
-                y: { beginAtZero: true, ticks: { callback: v => "Rp" + v.toLocaleString("id-ID") } }
-            }
-        }
-    });
+new Chart(document.getElementById('chartBelanja'), {
+    type: 'bar',
+    data: {
+        labels: @json(array_column($belanja, 'bidang')),
+        datasets: [{
+            label: 'Belanja',
+            data: @json(array_column($belanja, 'jumlah')),
+            backgroundColor: '#d32f2f'
+        }]
+    },
+    options: { responsive: true, plugins: { legend: { display: false } } }
+});
+
+new Chart(document.getElementById('chartPembiayaan'), {
+    type: 'bar',
+    data: {
+        labels: @json(array_column($pembiayaan, 'jenis')),
+        datasets: [{
+            label: 'Pembiayaan',
+            data: @json(array_column($pembiayaan, 'jumlah')),
+            backgroundColor: '#d32f2f'
+        }]
+    },
+    options: { responsive: true, plugins: { legend: { display: false } } }
+});
 </script>
-@endpush
 @endsection
