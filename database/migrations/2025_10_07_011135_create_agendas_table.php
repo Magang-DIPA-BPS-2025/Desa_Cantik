@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('agendas', function (Blueprint $table) {
@@ -14,10 +17,14 @@ return new class extends Migration
             $table->dateTime('waktu_pelaksanaan');
             $table->text('deskripsi')->nullable();
             $table->string('kategori')->nullable();
+            $table->string('foto')->nullable(); 
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('agendas');

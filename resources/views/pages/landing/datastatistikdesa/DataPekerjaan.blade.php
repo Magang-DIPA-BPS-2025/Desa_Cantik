@@ -156,13 +156,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>1</td><td>Tidak Bekerja</td><td>20</td><td>20%</td></tr>
-            <tr><td>2</td><td>Petani</td><td>30</td><td>30%</td></tr>
-            <tr><td>3</td><td>PNS</td><td>10</td><td>10%</td></tr>
-            <tr><td>4</td><td>Pelajar/Mahasiswa</td><td>15</td><td>15%</td></tr>
-            <tr><td>5</td><td>Karyawan Swasta</td><td>15</td><td>15%</td></tr>
-            <tr><td>6</td><td>Wiraswasta</td><td>10</td><td>10%</td></tr>
-            <tr class="fw-bold"><td colspan="2">Total</td><td>100</td><td>100%</td></tr>
+            @php $total = $pekerjaanStats->sum('jumlah'); @endphp
+            @foreach($pekerjaanStats as $index => $item)
+              @php $persentase = $total > 0 ? round(($item->jumlah / $total) * 100, 1) : 0; @endphp
+              <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $item->pekerjaan }}</td>
+                <td>{{ $item->jumlah }}</td>
+                <td>{{ $persentase }}%</td>
+              </tr>
+            @endforeach
+            <tr class="fw-bold">
+              <td colspan="2">Total</td>
+              <td>{{ $total }}</td>
+              <td>100%</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -172,36 +180,24 @@
     <div class="col-md-3 d-flex">
       <div class="card flex-fill">
         <div class="card-body">
-          <div class="filter-toggle" onclick="toggleFilterAgama()">☰ Filter Dusun</div>
-          <div class="filter-content" id="filterContentAgama">
-            <input type="search" placeholder="Cari Dusun..." class="search-box" id="searchBoxAgama" />
-
-            <!-- Card per Dusun -->
-            <div class="dusun-card">
-              <h4>Dusun A</h4>
-              <small>Tahun 2024</small><br>
-              <small>Tahun 2025</small>
-            </div>
-            <div class="dusun-card">
-              <h4>Dusun B</h4>
-              <small>Tahun 2024</small><br>
-              <small>Tahun 2025</small>
-            </div>
-            <div class="dusun-card">
-              <h4>Dusun C</h4>
-              <small>Tahun 2024</small><br>
-              <small>Tahun 2025</small>
-            </div>
-            <div class="dusun-card">
-              <h4>Dusun D</h4>
-              <small>Tahun 2024</small><br>
-              <small>Tahun 2025</small>
-            </div>
-            <div class="dusun-card">
-              <h4>Dusun E</h4>
-              <small>Tahun 2024</small><br>
-              <small>Tahun 2025</small>
-            </div>
+          <div class="filter-toggle" onclick="toggleFilterPekerjaan()">☰ Filter Dusun</div>
+          <div class="filter-content" id="filterContentPekerjaan">
+            <form method="GET" action="{{ route('pekerjaan') }}">
+              <div class="mb-3">
+                <label for="dusun" class="form-label">Pilih Dusun:</label>
+                <select name="dusun" id="dusun" class="form-select" onchange="this.form.submit()">
+                  <option value="">Semua Dusun</option>
+                  @foreach($dusunList as $dusun)
+                    <option value="{{ $dusun->dusun }}" {{ request('dusun') == $dusun->dusun ? 'selected' : '' }}>
+                      {{ ucfirst($dusun->dusun) }}
+                    </option>
+                  @endforeach
+                </select>
+              </div>
+              @if(request('dusun'))
+                <a href="{{ route('pekerjaan') }}" class="btn btn-sm btn-outline-secondary">Reset Filter</a>
+              @endif
+            </form>
           </div>
         </div>
       </div>
@@ -210,13 +206,18 @@
 </div>
 
 <script>
+  // Data dari database
+  const pekerjaanData = @json($pekerjaanStats);
+  const pekerjaanLabels = pekerjaanData.map(item => item.pekerjaan);
+  const pekerjaanValues = pekerjaanData.map(item => item.jumlah);
+
   const getChartOptionsAgama = () => {
     return {
-      series: [20, 30, 10, 15, 15, 10],
-      colors: ["#C0D09D", "#A4BC92", "#95A78D", "#BCC5A8", "#8C9C74", "#708B75"],
+      series: pekerjaanValues,
+      colors: ["#C0D09D", "#A4BC92", "#95A78D", "#BCC5A8", "#8C9C74", "#708B75", "#5A6B5D", "#4A5D4A"],
       chart: { height: 420, width: "100%", type: "pie" },
       stroke: { colors: ["white"] },
-      labels: ["Tidak Bekerja", "Petani", "PNS", "Pelajar/Mahasiswa", "Karyawan Swasta", "Wiraswasta"],
+      labels: pekerjaanLabels,
       dataLabels: {
         enabled: true,
         style: { fontFamily: "Arial, sans-serif", fontSize: "13px" },
@@ -231,15 +232,8 @@
     chart.render();
   }
 
-  function toggleFilterAgama() {
-    document.getElementById('filterContentAgama').classList.toggle('active');
+  function toggleFilterPekerjaan() {
+    document.getElementById('filterContentPekerjaan').classList.toggle('active');
   }
-
-  document.getElementById('searchBoxAgama').addEventListener('keyup', function () {
-    let query = this.value.toLowerCase();
-    document.querySelectorAll('.dusun-card').forEach(card => {
-      card.style.display = card.innerText.toLowerCase().includes(query) ? 'block' : 'none';
-    });
-  });
 </script>
 @endsection

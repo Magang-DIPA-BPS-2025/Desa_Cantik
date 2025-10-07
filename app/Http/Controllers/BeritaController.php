@@ -16,7 +16,7 @@ class BeritaController extends Controller
         return view('pages.admin.berita.index', [
             'datas' => $datas,
             'menu'  => 'berita',
-            'title' => 'Manajemen Berita'
+            'title' => 'Manajemen Berita Desa'
         ]);
     }
 
@@ -27,27 +27,30 @@ class BeritaController extends Controller
         return view('pages.admin.berita.create', [
             'kategoris' => $kategoris,
             'menu'      => 'berita',
-            'title'     => 'Tambah Berita'
+            'title'     => 'Tambah Berita Desa'
         ]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'id_kategori' => 'nullable|exists:kategoris,id',
-            'judul'       => 'required|string|max:255',
-            'deskripsi'   => 'required|string',
-            'gambar'      => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'id_kategori'        => 'nullable|exists:kategoris,id',
+            'judul'              => 'required|string|max:255',
+            'deskripsi_singkat'  => 'required|string',
+            'tanggal_event'      => 'nullable|date',
+            'foto'               => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $data = [
-            'id_kategori' => $request->id_kategori,
-            'judul'       => $request->judul,
-            'deskripsi'   => $request->deskripsi,
+            'id_kategori'       => $request->id_kategori,
+            'judul'             => $request->judul,
+            'deskripsi_singkat' => $request->deskripsi_singkat,
+            'tanggal_event'     => $request->tanggal_event,
+            'dilihat'           => 0,
         ];
 
-        if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request->file('gambar')->store('berita', 'public');
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('berita_desa', 'public');
         }
 
         Berita::create($data);
@@ -64,7 +67,7 @@ class BeritaController extends Controller
             'berita'    => $berita,
             'kategoris' => $kategoris,
             'menu'      => 'berita',
-            'title'     => 'Edit Berita'
+            'title'     => 'Edit Berita Desa'
         ]);
     }
 
@@ -73,23 +76,25 @@ class BeritaController extends Controller
         $berita = Berita::findOrFail($id);
 
         $request->validate([
-            'id_kategori' => 'nullable|exists:kategoris,id',
-            'judul'       => 'required|string|max:255',
-            'deskripsi'   => 'required|string',
-            'gambar'      => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'id_kategori'        => 'nullable|exists:kategoris,id',
+            'judul'              => 'required|string|max:255',
+            'deskripsi_singkat'  => 'required|string',
+            'tanggal_event'      => 'nullable|date',
+            'foto'               => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $data = [
-            'id_kategori' => $request->id_kategori,
-            'judul'       => $request->judul,
-            'deskripsi'   => $request->deskripsi,
+            'id_kategori'       => $request->id_kategori,
+            'judul'             => $request->judul,
+            'deskripsi_singkat' => $request->deskripsi_singkat,
+            'tanggal_event'     => $request->tanggal_event,
         ];
 
-        if ($request->hasFile('gambar')) {
-            if ($berita->gambar) {
-                Storage::disk('public')->delete($berita->gambar);
+        if ($request->hasFile('foto')) {
+            if ($berita->foto) {
+                Storage::disk('public')->delete($berita->foto);
             }
-            $data['gambar'] = $request->file('gambar')->store('berita', 'public');
+            $data['foto'] = $request->file('foto')->store('berita_desa', 'public');
         }
 
         $berita->update($data);
@@ -101,12 +106,39 @@ class BeritaController extends Controller
     {
         $berita = Berita::findOrFail($id);
 
-        if ($berita->gambar) {
-            Storage::disk('public')->delete($berita->gambar);
+        if ($berita->foto) {
+            Storage::disk('public')->delete($berita->foto);
         }
 
         $berita->delete();
 
         return redirect()->route('berita.index')->with('success', 'Berita berhasil dihapus');
+    }
+
+    /**
+     * Menampilkan berita untuk user landing page
+     */
+    public function userIndex()
+    {
+        $beritas = Berita::with('kategori')->latest()->paginate(9);
+
+        return view('pages.landing.berita&agenda.BeritaDesa', [
+            'beritas' => $beritas,
+        ]);
+    }
+
+    /**
+     * Menampilkan detail berita untuk user
+     */
+    public function userShow($id)
+    {
+        $berita = Berita::with('kategori')->findOrFail($id);
+        $latest_beritas = Berita::latest()->take(5)->get();
+
+        return view('pages.landing.detail-post', [
+            'data' => $berita,
+            'jenis' => 'berita',
+            'latest_post' => $latest_beritas
+        ]);
     }
 }

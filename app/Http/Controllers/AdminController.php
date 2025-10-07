@@ -13,7 +13,7 @@ class AdminController extends Controller
     /**
      * Dashboard utama
      */
-    public function index()
+    public function index(Request $request)
     {
         // Total Data
         $totalUsers = User::count();
@@ -21,14 +21,25 @@ class AdminController extends Controller
 
         // Statistik penduduk per dusun (aman jika kolom belum ada)
         if (Schema::hasTable('data_penduduks') && Schema::hasColumn('data_penduduks', 'dusun')) {
+            $startDate = $request->query('start_date');
+            $endDate   = $request->query('end_date');
+
             $labelsPenduduk = DataPenduduk::select('dusun')
                 ->whereNotNull('dusun')
                 ->where('dusun', '!=', '')
                 ->distinct()
                 ->pluck('dusun')
                 ->values();
-            $dataPenduduk = $labelsPenduduk->map(function ($d) {
-                return DataPenduduk::where('dusun', $d)->count();
+            $dataPenduduk = $labelsPenduduk->map(function ($d) use ($startDate, $endDate) {
+                $query = DataPenduduk::where('dusun', $d);
+                // Filter berdasarkan tanggal_lahir jika filter diberikan
+                if ($startDate) {
+                    $query->whereDate('tanggal_lahir', '>=', $startDate);
+                }
+                if ($endDate) {
+                    $query->whereDate('tanggal_lahir', '<=', $endDate);
+                }
+                return $query->count();
             });
             if ($labelsPenduduk->isEmpty()) {
                 $labelsPenduduk = collect(['Dusun 1','Dusun 2','Dusun 3']);
@@ -45,6 +56,8 @@ class AdminController extends Controller
             'monthlyUsers'    => [],
             'labelsPenduduk'  => $labelsPenduduk,
             'dataPenduduk'    => $dataPenduduk,
+            'startDate'       => $request->query('start_date'),
+            'endDate'         => $request->query('end_date'),
         ])->with('menu', 'dashboard');
     }
 

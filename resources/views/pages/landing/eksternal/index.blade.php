@@ -198,13 +198,13 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <p><strong>Nama Lengkap:</strong> ${response.data.nama_lengkap ?? ''}</p>
-                                    
+
                                     <p><strong>Asal Kabupaten:</strong> ${response.data.kabupaten ?? ''}</p>
-                                    
+
                                     </div>
-                                    <div class="col-md-6">    
+                                    <div class="col-md-6">
                                         <p><strong>Jenis Kelamin:</strong> ${response.data.gender ?? ''}</p>
-                                 
+
                                     <p><strong>Status Kepegawaian:</strong> ${response.data.status_kepegawaian ?? ''}</p>
                                 </div>
                             </div>
@@ -283,7 +283,7 @@
                     var colJabatan = $('#colJabatan');
                     var jabKategori = $('#jabKategori');
                     var option = '';
-                    const dataJab = {!! json_encode($status) !!};
+                    const dataJab = {{ json_encode($status) }};
 
                     jabJenis.empty();
 
@@ -352,7 +352,7 @@
                     var jabKategori = $('#jabKategori').val();
                     var jabTugas = $('#jabTugas');
                     var option = '';
-                    const dataJab = {!! json_encode($status) !!};
+                    const dataJab = {{ json_encode($status) }};
 
                     jabTugas.empty();
 
@@ -394,7 +394,7 @@
                     var jabTugas = $('#jabTugas');
 
                     var option = '';
-                    const dataJab = {!! json_encode($status) !!};
+                    const dataJab = {{ json_encode($status) }};
 
                     var selectedOption = $(this).find('option:selected');
                     var seletJenis = jabJenis.find('option:selected');
@@ -459,7 +459,7 @@
                     var jabLatar = $('#jabLatar');
                     var jabJenis = $(this);
                     var option = '';
-                    const dataJab = {!! json_encode($status) !!};
+                    const dataJab = {{ json_encode($status) }};
 
                     jabKategori.empty();
                     jabKategori.append($('<option>', {
@@ -566,7 +566,7 @@
                     var jabTugas = $('#jabTugas');
 
                     var option = '';
-                    const dataJab = {!! json_encode($status) !!};
+                    const dataJab = {{ json_encode($status) }};
 
                     var selectedOption = $(this).find('option:selected');
                     var seletTugas = jabTugas.find('option:selected');

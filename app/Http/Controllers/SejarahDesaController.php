@@ -69,4 +69,16 @@ class SejarahDesaController extends Controller
 
         return redirect()->route('sejarahDesa.index')->with('success', 'Sejarah Desa berhasil dihapus.');
     }
+
+    /**
+     * Menampilkan sejarah desa untuk user landing page
+     */
+    public function userIndex()
+    {
+        $sejarahDesas = SejarahDesa::latest()->get();
+
+        return view('pages.landing.profildesa.SejarahDesa', [
+            'sejarahDesas' => $sejarahDesas,
+        ]);
+    }
 }

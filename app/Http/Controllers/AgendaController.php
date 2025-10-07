@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agenda;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AgendaController extends Controller
 {
@@ -36,13 +37,21 @@ class AgendaController extends Controller
             'waktu_pelaksanaan' => 'required|date',
             'deskripsi'         => 'nullable|string',
             'kategori'          => 'required|string',
+            'foto'              => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // validasi foto
         ]);
+
+        // Upload foto (jika ada)
+        $fotoPath = null;
+        if ($request->hasFile('foto')) {
+            $fotoPath = $request->file('foto')->store('agenda_foto', 'public');
+        }
 
         Agenda::create([
             'nama_kegiatan'     => $request->nama_kegiatan,
             'waktu_pelaksanaan' => $request->waktu_pelaksanaan,
             'deskripsi'         => $request->deskripsi,
             'kategori'          => $request->kategori,
+            'foto'              => $fotoPath,
         ]);
 
         return redirect()->route('AgendaDesa.index')
@@ -69,14 +78,28 @@ class AgendaController extends Controller
             'waktu_pelaksanaan' => 'required|date',
             'deskripsi'         => 'nullable|string',
             'kategori'          => 'required|string',
+            'foto'              => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // validasi foto
         ]);
 
         $agenda = Agenda::findOrFail($id);
+
+        // Update foto (jika ada foto baru)
+        if ($request->hasFile('foto')) {
+            // hapus foto lama kalau ada
+            if ($agenda->foto && Storage::disk('public')->exists($agenda->foto)) {
+                Storage::disk('public')->delete($agenda->foto);
+            }
+            $fotoPath = $request->file('foto')->store('agenda_foto', 'public');
+            $agenda->foto = $fotoPath;
+        }
+
+        // Update data lain
         $agenda->update([
             'nama_kegiatan'     => $request->nama_kegiatan,
             'waktu_pelaksanaan' => $request->waktu_pelaksanaan,
             'deskripsi'         => $request->deskripsi,
             'kategori'          => $request->kategori,
+            'foto'              => $agenda->foto,
         ]);
 
         return redirect()->route('AgendaDesa.index')
@@ -86,9 +109,42 @@ class AgendaController extends Controller
     public function destroy($id)
     {
         $agenda = Agenda::findOrFail($id);
+
+        // hapus foto dari storage
+        if ($agenda->foto && Storage::disk('public')->exists($agenda->foto)) {
+            Storage::disk('public')->delete($agenda->foto);
+        }
+
         $agenda->delete();
 
         return redirect()->route('AgendaDesa.index')
             ->with('success', 'Agenda berhasil dihapus');
+    }
+
+    /**
+     * Menampilkan agenda untuk user landing page
+     */
+    public function userIndex()
+    {
+        $agendas = Agenda::latest()->paginate(9);
+
+        return view('pages.landing.berita&agenda.AgendaDesa', [
+            'agendas' => $agendas,
+        ]);
+    }
+
+    /**
+     * Menampilkan detail agenda untuk user
+     */
+    public function userShow($id)
+    {
+        $agenda = Agenda::findOrFail($id);
+        $latest_agendas = Agenda::latest()->take(5)->get();
+
+        return view('pages.landing.detail-agenda', [
+            'data' => $agenda,
+            'jenis' => 'agenda',
+            'latest_post' => $latest_agendas
+        ]);
     }
 }

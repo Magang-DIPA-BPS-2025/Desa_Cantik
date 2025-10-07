@@ -25,6 +25,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
+                                                <th>Foto</th>
                                                 <th>Nama Kegiatan</th>
                                                 <th>Waktu Pelaksanaan</th>
                                                 <th>Deskripsi</th>
@@ -36,6 +37,17 @@
                                             @foreach ($datas as $index => $agenda)
                                                 <tr>
                                                     <td>{{ $index + 1 }}</td>
+                                                    <td>
+                                                        @if ($agenda->foto)
+                                                            <img src="{{ asset('storage/' . $agenda->foto) }}"
+                                                                 alt="Foto Agenda"
+                                                                 width="70"
+                                                                 height="70"
+                                                                 style="object-fit: cover; border-radius: 8px;">
+                                                        @else
+                                                            <span class="text-muted">Tidak ada</span>
+                                                        @endif
+                                                    </td>
                                                     <td>{{ $agenda->nama_kegiatan }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($agenda->waktu_pelaksanaan)->format('d-m-Y H:i') }}</td>
                                                     <td>{{ $agenda->deskripsi }}</td>

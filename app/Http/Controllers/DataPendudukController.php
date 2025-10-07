@@ -7,22 +7,15 @@ use Illuminate\Http\Request;
 
 class DataPendudukController extends Controller
 {
-    /**
-     * Tampilkan daftar penduduk
-     */
     public function index()
     {
         $datas = DataPenduduk::latest()->paginate(10);
-
         return view('pages.admin.dataPenduduk.index', [
             'datas' => $datas,
             'menu'  => 'data_penduduk'
         ]);
     }
 
-    /**
-     * Form tambah penduduk
-     */
     public function create()
     {
         return view('pages.admin.dataPenduduk.create', [
@@ -30,14 +23,11 @@ class DataPendudukController extends Controller
         ]);
     }
 
-    /**
-     * Simpan data baru
-     */
     public function store(Request $request)
     {
         $request->validate([
             'nik'               => 'required|digits:16|unique:data_penduduks,nik',
-            'nokk'              => 'required|string:16',
+            'nokk'              => 'required|string|max:16',
             'nama'              => 'required|string|max:100',
             'jenis_kelamin'     => 'required|in:Laki-laki,Perempuan',
             'tempat_lahir'      => 'required|string|max:100',
@@ -62,42 +52,31 @@ class DataPendudukController extends Controller
             ->with('success', 'Data penduduk berhasil ditambahkan');
     }
 
-    /**
-     * Detail penduduk
-     */
-    public function show($nik)
+    public function show($id)
     {
-        $dataPenduduk = DataPenduduk::findOrFail($nik);
-
+        $dataPenduduk = DataPenduduk::findOrFail($id);
         return view('pages.admin.dataPenduduk.show', [
             'dataPenduduk' => $dataPenduduk,
             'menu'         => 'data_penduduk'
         ]);
     }
 
-    /**
-     * Form edit penduduk
-     */
-    public function edit($nik)
+    public function edit($id)
     {
-        $dataPenduduk = DataPenduduk::findOrFail($nik);
-
+        $dataPenduduk = DataPenduduk::findOrFail($id);
         return view('pages.admin.dataPenduduk.edit', [
             'dataPenduduk' => $dataPenduduk,
             'menu'         => 'data_penduduk'
         ]);
     }
 
-    /**
-     * Update data penduduk
-     */
-    public function update(Request $request, $nik)
+    public function update(Request $request, $id)
     {
-        $data = DataPenduduk::findOrFail($nik);
+        $data = DataPenduduk::findOrFail($id);
 
         $request->validate([
-            'nik'               => 'required|digits:16|unique:data_penduduks,nik,' . $data->nik . ',nik',
-            'nokk'              => 'required|string:16',
+            'nik'               => 'required|digits:16|unique:data_penduduks,nik,' . $data->id,
+            'nokk'              => 'required|string|max:16',
             'nama'              => 'required|string|max:100',
             'jenis_kelamin'     => 'required|in:Laki-laki,Perempuan',
             'tempat_lahir'      => 'required|string|max:100',
@@ -122,40 +101,122 @@ class DataPendudukController extends Controller
             ->with('success', 'Data penduduk berhasil diperbarui');
     }
 
-    /**
-     * Hapus data penduduk
-     */
-    public function destroy($nik)
+    public function destroy($id)
     {
-        $dataPenduduk = DataPenduduk::findOrFail($nik);
+        $dataPenduduk = DataPenduduk::findOrFail($id);
         $dataPenduduk->delete();
 
         return redirect()->route('dataPenduduk.index')
             ->with('success', 'Data penduduk berhasil dihapus');
     }
 
-    /**
-     * Statistik penduduk (untuk grafik/chart)
-     */
-    public function statistik()
+    public function statistik(Request $request)
     {
-        $totalPenduduk  = DataPenduduk::count();
-        $laki           = DataPenduduk::where('jenis_kelamin', 'Laki-laki')->count();
-        $perempuan      = DataPenduduk::where('jenis_kelamin', 'Perempuan')->count();
-        $disabilitas    = DataPenduduk::whereNotNull('disabilitas')
-                            ->where('disabilitas', '!=', 'Tidak Ada')->count();
+        $query = DataPenduduk::query();
 
-        
-        $kepalaKeluarga = DataPenduduk::select('nokk')
-                            ->distinct()
-                            ->count('nokk');
+        // Filter dusun jika ada
+        if ($request->has('dusun') && $request->dusun) {
+            $query->where('dusun', $request->dusun);
+        }
+
+        $totalPenduduk  = $query->count();
+        $laki           = (clone $query)->where('jenis_kelamin', 'Laki-laki')->count();
+        $perempuan      = (clone $query)->where('jenis_kelamin', 'Perempuan')->count();
+        $disabilitas    = (clone $query)->whereNotNull('disabilitas')
+                            ->where('disabilitas', '!=', 'Tidak Ada')->count();
+        $kepalaKeluarga = (clone $query)->select('nokk')->distinct()->count('nokk');
+
+        // Data dusun untuk filter
+        $dusunList = DataPenduduk::select('dusun')->distinct()->orderBy('dusun')->get();
 
         return view('pages.landing.datastatistikdesa.jumlahPenduduk', compact(
             'totalPenduduk',
             'laki',
             'perempuan',
             'disabilitas',
-            'kepalaKeluarga'
+            'kepalaKeluarga',
+            'dusunList'
         ));
+    }
+
+    /**
+     * Statistik data pendidikan
+     */
+    public function statistikPendidikan(Request $request)
+    {
+        $query = DataPenduduk::selectRaw('pendidikan, COUNT(*) as jumlah')
+            ->whereNotNull('pendidikan')
+            ->where('pendidikan', '!=', '');
+
+        // Filter dusun jika ada
+        if ($request->has('dusun') && $request->dusun) {
+            $query->where('dusun', $request->dusun);
+        }
+
+        $pendidikanStats = $query->groupBy('pendidikan')
+            ->orderBy('jumlah', 'desc')
+            ->get();
+
+        // Data dusun untuk filter
+        $dusunList = DataPenduduk::select('dusun')->distinct()->orderBy('dusun')->get();
+
+        return view('pages.landing.datastatistikdesa.DataPendidikan', [
+            'pendidikanStats' => $pendidikanStats,
+            'dusunList' => $dusunList,
+        ]);
+    }
+
+    /**
+     * Statistik data pekerjaan
+     */
+    public function statistikPekerjaan(Request $request)
+    {
+        $query = DataPenduduk::selectRaw('pekerjaan, COUNT(*) as jumlah')
+            ->whereNotNull('pekerjaan')
+            ->where('pekerjaan', '!=', '');
+
+        // Filter dusun jika ada
+        if ($request->has('dusun') && $request->dusun) {
+            $query->where('dusun', $request->dusun);
+        }
+
+        $pekerjaanStats = $query->groupBy('pekerjaan')
+            ->orderBy('jumlah', 'desc')
+            ->get();
+
+        // Data dusun untuk filter
+        $dusunList = DataPenduduk::select('dusun')->distinct()->orderBy('dusun')->get();
+
+        return view('pages.landing.datastatistikdesa.DataPekerjaan', [
+            'pekerjaanStats' => $pekerjaanStats,
+            'dusunList' => $dusunList,
+        ]);
+    }
+
+    /**
+     * Statistik data agama
+     */
+    public function statistikAgama(Request $request)
+    {
+        $query = DataPenduduk::selectRaw('agama, COUNT(*) as jumlah')
+            ->whereNotNull('agama')
+            ->where('agama', '!=', '');
+
+        // Filter dusun jika ada
+        if ($request->has('dusun') && $request->dusun) {
+            $query->where('dusun', $request->dusun);
+        }
+
+        $agamaStats = $query->groupBy('agama')
+            ->orderBy('jumlah', 'desc')
+            ->get();
+
+        // Data dusun untuk filter
+        $dusunList = DataPenduduk::select('dusun')->distinct()->orderBy('dusun')->get();
+
+        return view('pages.landing.datastatistikdesa.DataAgama', [
+            'agamaStats' => $agamaStats,
+            'dusunList' => $dusunList,
+        ]);
     }
 }

@@ -45,7 +45,7 @@
                                     </span>
                                     <?php
                                     setlocale(LC_ALL, 'IND');
-                                    
+
                                     $tgl_publish = strftime('%B, %d %Y', strtotime($data->tgl_publish));
                                     ?>
                                     <span class="post-meta-date"><i class="far fa-calendar"></i>{{ $tgl_publish }}</span>
@@ -58,7 +58,7 @@
                             </div><!-- header end -->
 
                             <div class="entry-content">
-                                {!! $data->isi !!}
+                                {{ $data->isi }}
                             </div>
 
                             <div class="tags-area d-flex align-items-center justify-content-between">

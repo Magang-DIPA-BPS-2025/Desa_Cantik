@@ -13,5 +13,6 @@ class Agenda extends Model
         'waktu_pelaksanaan',
         'deskripsi',
         'kategori',
+        'foto',
     ];
 }

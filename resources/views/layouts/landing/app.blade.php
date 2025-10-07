@@ -190,7 +190,7 @@
                 $(document).ready(function() {
 
                     // var val = '{{ session('id') }}'
-                    var val = {!! json_encode(session('id')) !!};
+                    var val = {{ json_encode(session('id')) }};
                     console.log('id nya user : ', val.id);
                     var url = '{{ route('peserta.cetakByUser', ['id' => ':id']) }}'
                     url = url.replace(':id', val.id)

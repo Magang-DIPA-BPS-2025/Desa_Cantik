@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class dataPenduduk extends Model
+class DataPenduduk extends Model
 {
 
 
     protected $table = 'data_penduduks';
-    protected $primaryKey = 'nik';
-    public $incrementing = false;
-    protected $keyType = 'string';
+    protected $primaryKey = 'id';
+    public $incrementing = true;
+    protected $keyType = 'int';
     protected $fillable = [
         'nokk',
         'nik',

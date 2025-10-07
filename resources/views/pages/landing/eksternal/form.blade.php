@@ -478,7 +478,7 @@
                 })
 
 
-                const jenisEksternal = {!! json_encode($jenis) !!};
+                const jenisEksternal = {{ json_encode($jenis) }};
                 console.log(jenisEksternal);
 
                 $('#colJabatan').hide();
@@ -490,7 +490,7 @@
                     var colJabatan = $('#colJabatan');
                     var jabKategori = $('#jabKategori');
                     var option = '';
-                    const dataJab = {!! json_encode($status) !!};
+                    const dataJab = {{ json_encode($status) }};
 
                     jabJenis.empty();
 
@@ -559,7 +559,7 @@
                     var jabKategori = $('#jabKategori').val();
                     var jabTugas = $('#jabTugas');
                     var option = '';
-                    const dataJab = {!! json_encode($status) !!};
+                    const dataJab = {{ json_encode($status) }};
 
                     jabTugas.empty();
 
@@ -601,7 +601,7 @@
                     var jabTugas = $('#jabTugas');
 
                     var option = '';
-                    const dataJab = {!! json_encode($status) !!};
+                    const dataJab = {{ json_encode($status) }};
 
                     var selectedOption = $(this).find('option:selected');
                     var seletJenis = jabJenis.find('option:selected');
@@ -666,7 +666,7 @@
                     var jabLatar = $('#jabLatar');
                     var jabJenis = $(this);
                     var option = '';
-                    const dataJab = {!! json_encode($status) !!};
+                    const dataJab = {{ json_encode($status) }};
 
                     jabKategori.empty();
                     jabKategori.append($('<option>', {
@@ -778,7 +778,7 @@
                     var jabTugas = $('#jabTugas');
 
                     var option = '';
-                    const dataJab = {!! json_encode($status) !!};
+                    const dataJab = {{ json_encode($status) }};
 
                     var selectedOption = $(this).find('option:selected');
                     var seletTugas = jabTugas.find('option:selected');

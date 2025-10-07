@@ -97,4 +97,16 @@ class PemerintahDesaController extends Controller
         return redirect()->route('pemerintah-desa.index')
             ->with('success', 'Data Pemerintah Desa berhasil dihapus.');
     }
+
+    /**
+     * Menampilkan data Pemerintah Desa untuk user landing page
+     */
+    public function userIndex()
+    {
+        $pemerintahDesas = PemerintahDesa::all();
+
+        return view('pages.landing.profildesa.PemerintahDesa', [
+            'pemerintahDesas' => $pemerintahDesas,
+        ]);
+    }
 }

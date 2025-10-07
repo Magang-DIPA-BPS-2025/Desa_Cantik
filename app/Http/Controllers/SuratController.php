@@ -74,5 +74,21 @@ class SuratController extends Controller
         return redirect()->route('surat.index')
             ->with('success', 'Surat berhasil dihapus');
     }
+
+    /**
+     * Menampilkan form surat pengantar untuk user
+     */
+    public function userIndex()
+    {
+        return view('pages.landing.layananonline.SuratPengantar');
+    }
+
+    /**
+     * Menampilkan status surat pengantar untuk user
+     */
+    public function userStatus()
+    {
+        return view('pages.landing.layananonline.StatusPengantar');
+    }
 }
 

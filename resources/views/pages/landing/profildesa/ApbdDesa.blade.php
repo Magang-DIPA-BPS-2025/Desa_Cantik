@@ -62,7 +62,7 @@
 /* Warna khusus */
 .bg-green { background: #2e7d32; }
 .bg-red { background: #d32f2f; }
-.bg-blue { background: #1565c0; }
+.bg-red { background: #d32f2f; }
 
 /* Card untuk grafik & progress */
 .card-box {
@@ -109,15 +109,18 @@ canvas { max-height: 280px; width: 100% !important; }
     line-height: 22px;
     color: #fff;
     font-weight: bold;
-    background: #2e7d32;
 }
+/* Warna progress sesuai kategori */
+.progress-bar-fill.green { background: #2e7d32; } /* Pendapatan */
+.progress-bar-fill.red { background: #d32f2f; }   /* Belanja */
+.progress-bar-fill.blue { background: #d32f2f; }  /* Pembiayaan */
 </style>
 
 <div class="apb-desa">
     <div class="apb-container">
         {{-- Judul di kiri --}}
         <div class="apb-info">
-            <h2>APB Desa Kersik Tahun {{ $apbd['tahun'] }}</h2>
+            <h2>APB Desa Kersik Tahun {{ $apbd->tahun ?? 'N/A' }}</h2>
         </div>
 
         {{-- Ringkasan di kanan --}}
@@ -125,13 +128,13 @@ canvas { max-height: 280px; width: 100% !important; }
             <div class="apb-grid">
                 <div class="apb-card bg-green">
                     <i class="fas fa-wallet"></i>
-                    <h3>Pendapatan</h3>
-                    <p>Rp{{ number_format($apbd['pendapatan'],0,',','.') }}</p>
+                    <h3>Total Pendapatan</h3>
+                    <p>Rp{{ number_format($apbd->total_pendapatan ?? 0,0,',','.') }}</p>
                 </div>
                 <div class="apb-card bg-red">
                     <i class="fas fa-shopping-cart"></i>
-                    <h3>Belanja</h3>
-                    <p>Rp{{ number_format($apbd['belanja'],0,',','.') }}</p>
+                    <h3>Total Belanja</h3>
+                    <p>Rp{{ number_format($apbd->total_belanja ?? 0,0,',','.') }}</p>
                 </div>
             </div>
 
@@ -139,19 +142,19 @@ canvas { max-height: 280px; width: 100% !important; }
                 <div class="apb-card bg-green">
                     <i class="fas fa-arrow-down"></i>
                     <h3>Penerimaan</h3>
-                    <p>Rp{{ number_format($pembiayaan[0]['jumlah'],0,',','.') }}</p>
+                    <p>Rp{{ number_format($apbd->penerimaan ?? 0,0,',','.') }}</p>
                 </div>
                 <div class="apb-card bg-red">
                     <i class="fas fa-arrow-up"></i>
                     <h3>Pengeluaran</h3>
-                    <p>Rp{{ number_format($pembiayaan[1]['jumlah'],0,',','.') }}</p>
+                    <p>Rp{{ number_format($apbd->pengeluaran ?? 0,0,',','.') }}</p>
                 </div>
             </div>
 
             <div class="apb-card bg-blue" style="margin-top:20px;">
                 <i class="fas fa-balance-scale"></i>
                 <h3>Surplus/Defisit</h3>
-                <p>Rp{{ number_format($apbd['surplus_defisit'],0,',','.') }}</p>
+                <p>Rp{{ number_format($apbd->surplus_defisit ?? 0,0,',','.') }}</p>
             </div>
         </div>
     </div>
@@ -164,61 +167,95 @@ canvas { max-height: 280px; width: 100% !important; }
     <div class="card-box">
         <h3>Pendapatan Desa</h3>
         <canvas id="chartPendapatan"></canvas>
-        @foreach($pendapatan as $item)
-            @php $persen = $apbd['pendapatan'] > 0 ? ($item['jumlah'] / $apbd['pendapatan']) * 100 : 0; @endphp
-            <div class="progress-card">
-                <div class="progress-label">
-                    <span>{{ $item['sumber'] }}</span>
-                    <span>Rp{{ number_format($item['jumlah'],0,',','.') }}</span>
-                </div>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" style="width: {{ $persen }}%">
-                        {{ number_format($persen,2) }}%
+
+        @if($apbd)
+            @php
+                $pendapatanData = [
+                    ['sumber' => 'PAD', 'jumlah' => $apbd->pendapatan_pad],
+                    ['sumber' => 'Transfer', 'jumlah' => $apbd->pendapatan_transfer],
+                    ['sumber' => 'Lainnya', 'jumlah' => $apbd->pendapatan_lain]
+                ];
+            @endphp
+
+            @foreach($pendapatanData as $item)
+                @php $persen = $apbd->total_pendapatan > 0 ? ($item['jumlah'] / $apbd->total_pendapatan) * 100 : 0; @endphp
+                <div class="progress-card">
+                    <div class="progress-label">
+                        <span>{{ $item['sumber'] }}</span>
+                        <span>Rp{{ number_format($item['jumlah'],0,',','.') }}</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill green" style="width: {{ $persen }}%">
+                            {{ number_format($persen,2) }}%
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        @endif
     </div>
 
     {{-- Belanja --}}
     <div class="card-box">
         <h3>Belanja Desa</h3>
         <canvas id="chartBelanja"></canvas>
-        @foreach($belanja as $item)
-            @php $persen = $apbd['belanja'] > 0 ? ($item['jumlah'] / $apbd['belanja']) * 100 : 0; @endphp
-            <div class="progress-card">
-                <div class="progress-label">
-                    <span>{{ $item['bidang'] }}</span>
-                    <span>Rp{{ number_format($item['jumlah'],0,',','.') }}</span>
-                </div>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" style="width: {{ $persen }}%">
-                        {{ number_format($persen,2) }}%
+
+        @if($apbd)
+            @php
+                $belanjaData = [
+                    ['bidang' => 'Pemerintahan', 'jumlah' => $apbd->belanja_pemerintahan],
+                    ['bidang' => 'Pembangunan', 'jumlah' => $apbd->belanja_pembangunan],
+                    ['bidang' => 'Pembinaan', 'jumlah' => $apbd->belanja_pembinaan],
+                    ['bidang' => 'Pemberdayaan', 'jumlah' => $apbd->belanja_pemberdayaan],
+                    ['bidang' => 'Bencana', 'jumlah' => $apbd->belanja_bencana]
+                ];
+            @endphp
+
+            @foreach($belanjaData as $item)
+                @php $persen = $apbd->total_belanja > 0 ? ($item['jumlah'] / $apbd->total_belanja) * 100 : 0; @endphp
+                <div class="progress-card">
+                    <div class="progress-label">
+                        <span>{{ $item['bidang'] }}</span>
+                        <span>Rp{{ number_format($item['jumlah'],0,',','.') }}</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill red" style="width: {{ $persen }}%">
+                            {{ number_format($persen,2) }}%
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        @endif
     </div>
 
     {{-- Pembiayaan --}}
     <div class="card-box">
         <h3>Pembiayaan Desa</h3>
         <canvas id="chartPembiayaan"></canvas>
-        @php $totalPembiayaan = array_sum(array_column($pembiayaan, 'jumlah')); @endphp
-        @foreach($pembiayaan as $item)
-            @php $persen = $totalPembiayaan > 0 ? ($item['jumlah'] / $totalPembiayaan) * 100 : 0; @endphp
-            <div class="progress-card">
-                <div class="progress-label">
-                    <span>{{ $item['jenis'] }}</span>
-                    <span>Rp{{ number_format($item['jumlah'],0,',','.') }}</span>
-                </div>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" style="width: {{ $persen }}%">
-                        {{ number_format($persen,2) }}%
+
+        @if($apbd)
+            @php
+                $pembiayaanData = [
+                    ['jenis' => 'Penerimaan', 'jumlah' => $apbd->pembiayaan_penerimaan],
+                    ['jenis' => 'Pengeluaran', 'jumlah' => $apbd->pembiayaan_pengeluaran]
+                ];
+                $totalPembiayaan = $apbd->pembiayaan_penerimaan + $apbd->pembiayaan_pengeluaran;
+            @endphp
+
+            @foreach($pembiayaanData as $item)
+                @php $persen = $totalPembiayaan > 0 ? ($item['jumlah'] / $totalPembiayaan) * 100 : 0; @endphp
+                <div class="progress-card">
+                    <div class="progress-label">
+                        <span>{{ $item['jenis'] }}</span>
+                        <span>Rp{{ number_format($item['jumlah'],0,',','.') }}</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill blue" style="width: {{ $persen }}%">
+                            {{ number_format($persen,2) }}%
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        @endif
     </div>
 </div>
 
@@ -226,43 +263,73 @@ canvas { max-height: 280px; width: 100% !important; }
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <script>
-new Chart(document.getElementById('chartPendapatan'), {
-    type: 'bar',
-    data: {
-        labels: @json(array_column($pendapatan, 'sumber')),
-        datasets: [{
-            label: 'Pendapatan',
-            data: @json(array_column($pendapatan, 'jumlah')),
-            backgroundColor: '#2e7d32'
-        }]
-    },
-    options: { responsive: true, plugins: { legend: { display: false } } }
-});
+@if($apbd)
+    // Chart Pendapatan
+    @php
+        $pendapatanData = [
+            ['sumber' => 'PAD', 'jumlah' => $apbd->pendapatan_pad],
+            ['sumber' => 'Transfer', 'jumlah' => $apbd->pendapatan_transfer],
+            ['sumber' => 'Lainnya', 'jumlah' => $apbd->pendapatan_lain]
+        ];
+    @endphp
 
-new Chart(document.getElementById('chartBelanja'), {
-    type: 'bar',
-    data: {
-        labels: @json(array_column($belanja, 'bidang')),
-        datasets: [{
-            label: 'Belanja',
-            data: @json(array_column($belanja, 'jumlah')),
-            backgroundColor: '#d32f2f'
-        }]
-    },
-    options: { responsive: true, plugins: { legend: { display: false } } }
-});
+    new Chart(document.getElementById('chartPendapatan'), {
+        type: 'bar',
+        data: {
+            labels: @json(array_column($pendapatanData, 'sumber')),
+            datasets: [{
+                label: 'Pendapatan',
+                data: @json(array_column($pendapatanData, 'jumlah')),
+                backgroundColor: '#2e7d32'
+            }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } } }
+    });
 
-new Chart(document.getElementById('chartPembiayaan'), {
-    type: 'bar',
-    data: {
-        labels: @json(array_column($pembiayaan, 'jenis')),
-        datasets: [{
-            label: 'Pembiayaan',
-            data: @json(array_column($pembiayaan, 'jumlah')),
-            backgroundColor: '#d32f2f'
-        }]
-    },
-    options: { responsive: true, plugins: { legend: { display: false } } }
-});
+    // Chart Belanja
+    @php
+        $belanjaData = [
+            ['bidang' => 'Pemerintahan', 'jumlah' => $apbd->belanja_pemerintahan],
+            ['bidang' => 'Pembangunan', 'jumlah' => $apbd->belanja_pembangunan],
+            ['bidang' => 'Pembinaan', 'jumlah' => $apbd->belanja_pembinaan],
+            ['bidang' => 'Pemberdayaan', 'jumlah' => $apbd->belanja_pemberdayaan],
+            ['bidang' => 'Bencana', 'jumlah' => $apbd->belanja_bencana]
+        ];
+    @endphp
+
+    new Chart(document.getElementById('chartBelanja'), {
+        type: 'bar',
+        data: {
+            labels: @json(array_column($belanjaData, 'bidang')),
+            datasets: [{
+                label: 'Belanja',
+                data: @json(array_column($belanjaData, 'jumlah')),
+                backgroundColor: '#d32f2f'
+            }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } } }
+    });
+
+    // Chart Pembiayaan
+    @php
+        $pembiayaanData = [
+            ['jenis' => 'Penerimaan', 'jumlah' => $apbd->pembiayaan_penerimaan],
+            ['jenis' => 'Pengeluaran', 'jumlah' => $apbd->pembiayaan_pengeluaran]
+        ];
+    @endphp
+
+    new Chart(document.getElementById('chartPembiayaan'), {
+        type: 'bar',
+        data: {
+            labels: @json(array_column($pembiayaanData, 'jenis')),
+            datasets: [{
+                label: 'Pembiayaan',
+                data: @json(array_column($pembiayaanData, 'jumlah')),
+                backgroundColor: '#d32f2f'
+            }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } } }
+    });
+@endif
 </script>
 @endsection

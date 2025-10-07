@@ -154,14 +154,22 @@
         <div class="card-body">
           <div class="filter-toggle" onclick="toggleFilter()">☰ Filter Dusun</div>
           <div class="filter-content" id="filterContent">
-            <input type="search" placeholder="Cari Dusun..." class="search-box" id="searchBox" />
-
-            <!-- Card per Dusun -->
-            <div class="dusun-card"><h4>Dusun A</h4><small>Tahun 2024</small><br><small>Tahun 2025</small></div>
-            <div class="dusun-card"><h4>Dusun B</h4><small>Tahun 2024</small><br><small>Tahun 2025</small></div>
-            <div class="dusun-card"><h4>Dusun C</h4><small>Tahun 2024</small><br><small>Tahun 2025</small></div>
-            <div class="dusun-card"><h4>Dusun D</h4><small>Tahun 2024</small><br><small>Tahun 2025</small></div>
-            <div class="dusun-card"><h4>Dusun E</h4><small>Tahun 2024</small><br><small>Tahun 2025</small></div>
+            <form method="GET" action="{{ route('statistik.penduduk') }}">
+              <div class="mb-3">
+                <label for="dusun" class="form-label">Pilih Dusun:</label>
+                <select name="dusun" id="dusun" class="form-select" onchange="this.form.submit()">
+                  <option value="">Semua Dusun</option>
+                  @foreach($dusunList as $dusun)
+                    <option value="{{ $dusun->dusun }}" {{ request('dusun') == $dusun->dusun ? 'selected' : '' }}>
+                      {{ ucfirst($dusun->dusun) }}
+                    </option>
+                  @endforeach
+                </select>
+              </div>
+              @if(request('dusun'))
+                <a href="{{ route('statistik.penduduk') }}" class="btn btn-sm btn-outline-secondary">Reset Filter</a>
+              @endif
+            </form>
           </div>
         </div>
       </div>
@@ -209,11 +217,5 @@
     document.getElementById('filterContent').classList.toggle('active');
   }
 
-  document.getElementById('searchBox').addEventListener('keyup', function () {
-    let query = this.value.toLowerCase();
-    document.querySelectorAll('.dusun-card').forEach(card => {
-      card.style.display = card.innerText.toLowerCase().includes(query) ? 'block' : 'none';
-    });
-  });
 </script>
 @endsection

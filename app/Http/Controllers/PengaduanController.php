@@ -88,4 +88,20 @@ class PengaduanController extends Controller
 
         return redirect()->back()->with('success', 'Pengaduan berhasil dihapus.');
     }
+
+    /**
+     * Menampilkan form pengaduan untuk user
+     */
+    public function userIndex()
+    {
+        return view('pages.landing.layananonline.Pengaduan');
+    }
+
+    /**
+     * Menampilkan status pengaduan untuk user
+     */
+    public function userStatus()
+    {
+        return view('pages.landing.layananonline.StatusPengaduan');
+    }
 }

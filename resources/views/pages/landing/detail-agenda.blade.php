@@ -45,7 +45,7 @@
                                     </span>
                                     <?php
                                     setlocale(LC_ALL, 'IND');
-                                    
+
                                     $tgl_publish = strftime('%d %b - ', strtotime($data->tgl_kegiatan));
                                     $tgl_selesai = strftime('%d %b %Y ', strtotime($data->tgl_selesai));
 
@@ -64,7 +64,7 @@
                             </div><!-- header end -->
 
                             <div class="entry-content">
-                                {!! $data->deskripsi_kegiatan !!}
+                                {{ $data->deskripsi_kegiatan }}
                             </div>
 
                             <div class="tags-area d-flex align-items-center justify-content-between">

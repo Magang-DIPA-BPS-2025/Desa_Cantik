@@ -9,6 +9,8 @@ use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\SejarahDesaController;
+use App\Http\Controllers\SuratController;
+use App\Http\Controllers\Landing\ApbdDesaController;
 use App\Models\Agenda;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -29,67 +31,51 @@ Route::group(
         // Galeri Desa (static view)
         Route::get('/galeri', [GaleriController::class, 'userIndex'])->name('galeri.user.index');
 
-        // Sejarah Desa (static view)
-        Route::get('/sejarah', function () {
-            return view('pages.landing.profildesa.SejarahDesa');
-        })->name('sejarah');
+        // Sejarah Desa (dynamic view)
+        Route::get('/sejarah', [SejarahDesaController::class, 'userIndex'])->name('sejarah');
 
-        // Pemerintah Desa (static view)
-        Route::get('/pemerintah', function () {
-            return view('pages.landing.profildesa.PemerintahDesa');
-        })->name('pemerintah');
+        // Pemerintah Desa (dynamic view)
+        Route::get('/pemerintah', [PemerintahDesaController::class, 'userIndex'])->name('pemerintah');
 
-        // APBD Desa (static view)
-        Route::get('/apbd', [ApbdController::class, 'index'])->name('apbd');
-        
+        // APBD Desa (single data view)
+        Route::get('/apbd', [ApbdDesaController::class, 'show'])->name('apbd');
 
-        //Berita Desa (static view)
-        Route::get('/berita', function () {
-            return view('pages.landing.berita&agenda.BeritaDesa');
-        })->name('berita');
+        // APBD Desa (list view)
+        Route::get('/apbd-list', [ApbdController::class, 'userIndex'])->name('apbd.list');
 
-        //Agenda Desa (static view)
-        Route::get('/agenda', function () {
-            return view('pages.landing.berita&agenda.AgendaDesa');
-        })->name('agenda');
+
+        //Berita Desa (dynamic view)
+        Route::get('/berita', [BeritaController::class, 'userIndex'])->name('berita');
+        Route::get('/berita/{id}', [BeritaController::class, 'userShow'])->name('berita.show');
+
+        //Agenda Desa (dynamic view)
+        Route::get('/agenda', [AgendaController::class, 'userIndex'])->name('agenda');
+        Route::get('/agenda/{id}', [AgendaController::class, 'userShow'])->name('agenda.show');
 
         //Jumlah Penduduk (static view)
         Route::get('/statistik-penduduk', [DataPendudukController::class, 'statistik'])->name('statistik.penduduk');
 
-        //Data Pendidikan (static view)
-        Route::get('/pendidikan', function () {
-            return view('pages.landing.datastatistikdesa.DataPendidikan');
-        })->name('pendidikan');
+        //Data Pendidikan (dynamic view)
+        Route::get('/pendidikan', [DataPendudukController::class, 'statistikPendidikan'])->name('pendidikan');
 
-        //Data Pekerjaan(static view)
-        Route::get('/pekerjaan', function () {
-            return view('pages.landing.datastatistikdesa.DataPekerjaan');
-        })->name('pekerjaan');
+        //Data Pekerjaan (dynamic view)
+        Route::get('/pekerjaan', [DataPendudukController::class, 'statistikPekerjaan'])->name('pekerjaan');
 
-        //Berita Desa (static view)
-        Route::get('/agama', function () {
-            return view('pages.landing.datastatistikdesa.DataAgama');
-        })->name('agama');
+        //Data Agama (dynamic view)
+        Route::get('/agama', [DataPendudukController::class, 'statistikAgama'])->name('agama');
 
-        //Surat Pengantar (static view)
-        Route::get('/pengantar', function () {
-            return view('pages.landing.layananonline.SuratPengantar');
-        })->name('pengantar');
+        //Surat Pengantar (dynamic view)
+        Route::get('/pengantar', [SuratController::class, 'userIndex'])->name('pengantar');
 
-        //Status Surat Pengantar (static view)
-        Route::get('/status', function () {
-            return view('pages.landing.layananonline.StatusPengantar');
-        })->name('status');
+        //Status Surat Pengantar (dynamic view)
+        Route::get('/status', [SuratController::class, 'userStatus'])->name('status');
 
-        //Pengaduan (static view)
-        Route::get('/pengaduan', function () {
-            return view('pages.landing.layananonline.Pengaduan');
-        })->name('pengaduan');
+        //Pengaduan (dynamic view)
+        Route::get('/pengaduan', [PengaduanController::class, 'userIndex'])->name('pengaduan');
+        Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');
 
-        //Surat Pengaduan (static view)
-        Route::get('/statuspengaduan', function () {
-            return view('pages.landing.layananonline.StatusPengaduan');
-        })->name('statuspengaduan');
+        //Surat Pengaduan (dynamic view)
+        Route::get('/statuspengaduan', [PengaduanController::class, 'userStatus'])->name('statuspengaduan');
 
         //Penyandang (static view)
         Route::get('/penyandang', function () {
@@ -181,9 +167,9 @@ Route::group(
                 Route::get('/', 'DataPendudukController@index')->name('dataPenduduk.index');
                 Route::get('/create', 'DataPendudukController@create')->name('dataPenduduk.create');
                 Route::post('/store', 'DataPendudukController@store')->name('dataPenduduk.store');
-                Route::get('/edit/{nik}', 'DataPendudukController@edit')->name('dataPenduduk.edit');
-                Route::put('/update', 'DataPendudukController@update')->name('dataPenduduk.update');
-                Route::delete('/destroy/{nik}', 'DataPendudukController@destroy')->name('dataPenduduk.destroy');
+                Route::get('/edit/{id}', 'DataPendudukController@edit')->name('dataPenduduk.edit');
+                Route::put('/update/{id}', 'DataPendudukController@update')->name('dataPenduduk.update');
+                Route::delete('/destroy/{id}', 'DataPendudukController@destroy')->name('dataPenduduk.destroy');
             });
 
             // Akun
@@ -207,27 +193,27 @@ Route::group(
                 Route::post('/hapus/{id}', 'JadwalController@destroy')->name('jadwal.hapus');
             });
 
-            // Kegiatan
-            Route::prefix('kegiatan')->group(function () {
-                Route::get('/', 'kegiatanController@index')->name('kegiatan.index');
-                Route::get('/create', 'kegiatanController@create')->name('kegiatan.create');
-                Route::post('/store', 'kegiatanController@store')->name('kegiatan.store');
-                Route::get('/edit/{id}', 'kegiatanController@edit')->name('kegiatan.edit');
-                Route::put('/update', 'kegiatanController@update')->name('kegiatan.update');
-                Route::post('/hapus/{id}', 'kegiatanController@destroy')->name('kegiatan.hapus');
-            });
+            // Kegiatan - Commented out due to missing controller
+            // Route::prefix('kegiatan')->group(function () {
+            //     Route::get('/', 'kegiatanController@index')->name('kegiatan.index');
+            //     Route::get('/create', 'kegiatanController@create')->name('kegiatan.create');
+            //     Route::post('/store', 'kegiatanController@store')->name('kegiatan.store');
+            //     Route::get('/edit/{id}', 'kegiatanController@edit')->name('kegiatan.edit');
+            //     Route::put('/update', 'kegiatanController@update')->name('kegiatan.update');
+            //     Route::post('/hapus/{id}', 'kegiatanController@destroy')->name('kegiatan.hapus');
+            // });
 
 
-            // Kependudukan
-            Route::prefix('kependudukan')->group(function () {
-                Route::get('/', 'KependudukanController@index')->name('kependudukan.index');
-                Route::get('/create', 'KependudukanController@create')->name('kependudukan.create');
-                Route::post('/store', 'KependudukanController@store')->name('kependudukan.store');
-                Route::get('/edit/{nik}', 'KependudukanController@edit')->name('kependudukan.edit');
-                Route::put('/update', 'KependudukanController@update')->name('kependudukan.update');
-                Route::post('/hapus/{id}', 'KependudukanController@hapus')->name('kependudukan.hapus');
-                Route::get('/cetak/{id}', 'KependudukanController@cetak')->name('kependudukan.cetak');
-            });
+            // Kependudukan - Commented out due to missing controller
+            // Route::prefix('kependudukan')->group(function () {
+            //     Route::get('/', 'KependudukanController@index')->name('kependudukan.index');
+            //     Route::get('/create', 'KependudukanController@create')->name('kependudukan.create');
+            //     Route::post('/store', 'KependudukanController@store')->name('kependudukan.store');
+            //     Route::get('/edit/{nik}', 'KependudukanController@edit')->name('kependudukan.edit');
+            //     Route::put('/update', 'KependudukanController@update')->name('kependudukan.update');
+            //     Route::post('/hapus/{id}', 'KependudukanController@hapus')->name('kependudukan.hapus');
+            //     Route::get('/cetak/{id}', 'KependudukanController@cetak')->name('kependudukan.cetak');
+            // });
 
             // Agenda
             Route::prefix('agenda')->group(function () {
@@ -260,14 +246,16 @@ Route::group(
 
             Route::resource('pemerintah-desa', PemerintahDesaController::class);
 
+            Route::resource('apbd', ApbdController::class);
+
             Route::resource('AgendaDesa', AgendaController::class);
 
             Route::resource('berita', BeritaController::class);
 
             Route::resource('kategori', KategoriController::class);
 
-              Route::resource('pengaduan', PengaduanController::class);
-              Route::put('/pengaduan/{id}/status', [PengaduanController::class, 'updateStatus'])->name('pengaduan.updateStatus');
+            Route::resource('pengaduan', PengaduanController::class);
+            Route::put('/pengaduan/{id}/status', [PengaduanController::class, 'updateStatus'])->name('pengaduan.updateStatus');
 
 
 

@@ -125,7 +125,7 @@
             <div class="card card-calendar shadow-sm">
                 <div class="card-header"><h4>Kalender</h4></div>
                 <div class="card-body d-flex justify-content-center align-items-center" style="height:320px;">
-                    <div id="miniCalendar" class="mini-calendar w-100 "></div>
+                    <div id="miniCalendar" class="mini-calendar w-100"></div>
                 </div>
             </div>
         </div>
@@ -175,10 +175,18 @@
             <div class="card shadow-sm">
                 <div class="card-header"><h4>Tautan Cepat</h4></div>
                 <div class="card-body quick-links d-grid gap-2">
-                    <a href="{{ route('pengaduan.index') }}" class="btn btn-primary"><i class="fas fa-exclamation-circle"></i> Kelola Pengaduan</a>
-                    <a href="#" class="btn btn-success"><i class="fas fa-file-alt"></i> Kelola Surat</a>
-                    <a href="{{ route('berita.index') }}" class="btn btn-info"><i class="fas fa-newspaper"></i> Kelola Berita</a>
-                    <a href="#" class="btn btn-warning"><i class="fas fa-users"></i> Kelola Pengguna</a>
+                    <a href="{{ route('pengaduan.index') }}" class="btn btn-primary">
+                        <i class="fas fa-exclamation-circle"></i> Kelola Pengaduan
+                    </a>
+                    <a href="#" class="btn btn-success">
+                        <i class="fas fa-file-alt"></i> Kelola Surat
+                    </a>
+                    <a href="{{ route('berita.index') }}" class="btn btn-info">
+                        <i class="fas fa-newspaper"></i> Kelola Berita
+                    </a>
+                    <a href="#" class="btn btn-warning">
+                        <i class="fas fa-users"></i> Kelola Pengguna
+                    </a>
                 </div>
             </div>
         </div>
@@ -195,10 +203,10 @@
     new Chart(popCtx, {
         type: 'bar',
         data: {
-            labels: {!! json_encode($labelsPenduduk ?? ['RT1','RT2','RT3']) !!},
+            labels: {{ json_encode($labelsPenduduk ?? ['RT1','RT2','RT3']) }},
             datasets: [{
                 label: 'Jumlah Penduduk',
-                data: {!! json_encode($dataPenduduk ?? [0,0,0]) !!},
+                data: {{ json_encode($dataPenduduk ?? [0,0,0]) }},
                 backgroundColor: ['#4e73df','#1cc88a','#36b9cc','#f6c23e','#e74a3b'],
                 borderRadius: 8
             }]
@@ -248,3 +256,4 @@
 </script>
 @endpush
 @endsection
+ 

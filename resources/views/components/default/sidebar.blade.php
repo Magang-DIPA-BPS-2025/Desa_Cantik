@@ -36,6 +36,7 @@
                         <li><a class="nav-link" href="{{ route('galeriDesa.index') }}">Galeri Desa</a></li>
                         <li><a class="nav-link" href="{{ route('sejarahDesa.index') }}">Sejarah</a></li>
                         <li><a class="nav-link" href="{{ route('pemerintah-desa.index') }}">Pemerintah Desa</a></li>
+                         <li><a class="nav-link" href="{{ route('apbd.index') }}">APBD Desa</a></li>
                     </ul>
                 </li>
 

@@ -10,7 +10,7 @@
         <div class="section-body">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('AgendaDesa.update', $agenda->id) }}" method="POST">
+                    <form action="{{ route('AgendaDesa.update', $agenda->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
@@ -56,6 +56,22 @@
                             @error('waktu_pelaksanaan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
+                        </div>
+
+                        {{-- Field Foto --}}
+                        <div class="form-group">
+                            <label for="foto">Foto Agenda</label>
+                            @if ($agenda->foto)
+                                <div class="mb-3">
+                                    <img src="{{ asset('storage/'.$agenda->foto) }}" alt="Foto Agenda" width="150" class="img-thumbnail">
+                                </div>
+                            @endif
+                            <input type="file" name="foto" id="foto"
+                                   class="form-control @error('foto') is-invalid @enderror" accept="image/*">
+                            @error('foto')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <small class="text-muted">Biarkan kosong jika tidak ingin mengganti foto.</small>
                         </div>
 
                         <div class="d-flex justify-content-end">

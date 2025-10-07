@@ -108,11 +108,20 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>1</td><td>SD</td><td>55</td><td>55%</td></tr>
-            <tr><td>2</td><td>SMP</td><td>25</td><td>25%</td></tr>
-            <tr><td>3</td><td>SMA</td><td>20</td><td>20%</td></tr>
+            @php $total = $pendidikanStats->sum('jumlah'); @endphp
+            @foreach($pendidikanStats as $index => $item)
+              @php $persentase = $total > 0 ? round(($item->jumlah / $total) * 100, 1) : 0; @endphp
+              <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $item->pendidikan }}</td>
+                <td>{{ $item->jumlah }}</td>
+                <td>{{ $persentase }}%</td>
+              </tr>
+            @endforeach
             <tr class="fw-bold table-light">
-              <td colspan="2">Total</td><td>100</td><td>100%</td>
+              <td colspan="2">Total</td>
+              <td>{{ $total }}</td>
+              <td>100%</td>
             </tr>
           </tbody>
         </table>
@@ -122,24 +131,24 @@
     <!-- Filter Dusun -->
     <div class="col-lg-3">
       <div class="card">
-        <div class="filter-toggle" onclick="toggleFilterAgama()">☰ Filter Dusun</div>
-        <div class="filter-content" id="filterContentAgama">
-          <input type="search" placeholder="Cari Dusun..." class="search-box" id="searchBoxAgama" />
-          <div class="dusun-card">
-            <h4>Dusun A</h4>
-            <small>Tahun 2024</small><br>
-            <small>Tahun 2025</small>
-          </div>
-          <div class="dusun-card">
-            <h4>Dusun B</h4>
-            <small>Tahun 2024</small><br>
-            <small>Tahun 2025</small>
-          </div>
-          <div class="dusun-card">
-            <h4>Dusun C</h4>
-            <small>Tahun 2024</small><br>
-            <small>Tahun 2025</small>
-          </div>
+        <div class="filter-toggle" onclick="toggleFilterPendidikan()">☰ Filter Dusun</div>
+        <div class="filter-content" id="filterContentPendidikan">
+          <form method="GET" action="{{ route('pendidikan') }}">
+            <div class="mb-3">
+              <label for="dusun" class="form-label">Pilih Dusun:</label>
+              <select name="dusun" id="dusun" class="form-select" onchange="this.form.submit()">
+                <option value="">Semua Dusun</option>
+                @foreach($dusunList as $dusun)
+                  <option value="{{ $dusun->dusun }}" {{ request('dusun') == $dusun->dusun ? 'selected' : '' }}>
+                    {{ ucfirst($dusun->dusun) }}
+                  </option>
+                @endforeach
+              </select>
+            </div>
+            @if(request('dusun'))
+              <a href="{{ route('pendidikan') }}" class="btn btn-sm btn-outline-secondary">Reset Filter</a>
+            @endif
+          </form>
         </div>
       </div>
     </div>
@@ -149,18 +158,25 @@
 <!-- Script Chart dan Filter -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
+    // Data dari database
+    const pendidikanData = @json($pendidikanStats);
+    const labels = pendidikanData.map(item => item.pendidikan);
+    const data = pendidikanData.map(item => item.jumlah);
+    const total = data.reduce((sum, val) => sum + val, 0);
+    const percentages = data.map(val => total > 0 ? Math.round((val / total) * 100) : 0);
+
     // Inisialisasi Chart
     const options = {
       series: [{
         name: "Jumlah",
-        data: [55, 25, 20]
+        data: percentages
       }],
       chart: {
         type: "bar",
         height: 400,
         toolbar: { show: false }
       },
-      colors: ["#16a34a", "#2563eb", "#f59e0b"],
+      colors: ["#16a34a", "#2563eb", "#f59e0b", "#dc2626", "#7c3aed", "#ea580c"],
       plotOptions: {
         bar: {
           horizontal: false,
@@ -176,7 +192,7 @@
         }
       },
       xaxis: {
-        categories: ["SD", "SMP", "SMA"]
+        categories: labels
       },
       yaxis: {
         max: 100,
@@ -204,15 +220,7 @@
 
     // Filter Toggle
     document.querySelector('.filter-toggle').addEventListener('click', function () {
-      document.getElementById('filterContentAgama').classList.toggle('active');
-    });
-
-    // Pencarian Dusun
-    document.getElementById('searchBoxAgama').addEventListener('input', function () {
-      const q = this.value.toLowerCase();
-      document.querySelectorAll('.dusun-card').forEach(function (card) {
-        card.style.display = card.innerText.toLowerCase().includes(q) ? 'block' : 'none';
-      });
+      document.getElementById('filterContentPendidikan').classList.toggle('active');
     });
   });
 </script>

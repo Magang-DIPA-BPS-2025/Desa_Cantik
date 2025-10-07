@@ -22,7 +22,7 @@
                                     <i class="fas fa-plus"></i> Tambah Data Penduduk
                                 </a>
 
-                
+
 
                                 <div class="table-responsive">
                                     <table class="table table-striped" id="table-penduduk">
@@ -73,11 +73,11 @@
                                                     <td>{{ $penduduk->pendidikan }}</td>
                                                     <td>{{ $penduduk->disabilitas }}</td>
                                                     <td class="d-flex">
-                                                        <a href="{{ route('dataPenduduk.edit', $penduduk->nik) }}"
+                                                        <a href="{{ route('dataPenduduk.edit', $penduduk->id) }}"
                                                            class="btn btn-warning btn-sm mr-2">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
-                                                        <form action="{{ route('dataPenduduk.destroy', $penduduk->nik) }}"
+                                                        <form action="{{ route('dataPenduduk.destroy', $penduduk->id) }}"
                                                               method="POST"
                                                               onsubmit="return confirm('Yakin ingin hapus data ini?')">
                                                             @csrf
@@ -113,7 +113,7 @@
             $(document).ready(function () {
                 var table = $('#table-penduduk').DataTable({
                     paging: true,
-                    searching: true,    
+                    searching: true,
                     ordering: true,
                     responsive: true,
                     language: {

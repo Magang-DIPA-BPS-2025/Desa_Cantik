@@ -152,13 +152,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>1</td><td>Islam</td><td>70</td><td>70%</td></tr>
-            <tr><td>2</td><td>Kristen</td><td>10</td><td>10%</td></tr>
-            <tr><td>3</td><td>Katolik</td><td>5</td><td>5%</td></tr>
-            <tr><td>4</td><td>Hindu</td><td>5</td><td>5%</td></tr>
-            <tr><td>5</td><td>Buddha</td><td>3</td><td>3%</td></tr>
-            <tr><td>6</td><td>Khonghucu</td><td>2</td><td>2%</td></tr>
-            <tr class="fw-bold"><td colspan="2">Total</td><td>100</td><td>100%</td></tr>
+            @php $total = $agamaStats->sum('jumlah'); @endphp
+            @foreach($agamaStats as $index => $item)
+              @php $persentase = $total > 0 ? round(($item->jumlah / $total) * 100, 1) : 0; @endphp
+              <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $item->agama }}</td>
+                <td>{{ $item->jumlah }}</td>
+                <td>{{ $persentase }}%</td>
+              </tr>
+            @endforeach
+            <tr class="fw-bold">
+              <td colspan="2">Total</td>
+              <td>{{ $total }}</td>
+              <td>100%</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -170,34 +178,22 @@
         <div class="card-body">
           <div class="filter-toggle" onclick="toggleFilterAgama()">☰ Filter Dusun</div>
           <div class="filter-content" id="filterContentAgama">
-            <input type="search" placeholder="Cari Dusun..." class="search-box" id="searchBoxAgama" />
-
-            <!-- Card per Dusun -->
-            <div class="dusun-card">
-              <h4>Dusun A</h4>
-              <small>Tahun 2024</small><br>
-              <small>Tahun 2025</small>
-            </div>
-            <div class="dusun-card">
-              <h4>Dusun B</h4>
-              <small>Tahun 2024</small><br>
-              <small>Tahun 2025</small>
-            </div>
-            <div class="dusun-card">
-              <h4>Dusun C</h4>
-              <small>Tahun 2024</small><br>
-              <small>Tahun 2025</small>
-            </div>
-            <div class="dusun-card">
-              <h4>Dusun D</h4>
-              <small>Tahun 2024</small><br>
-              <small>Tahun 2025</small>
-            </div>
-            <div class="dusun-card">
-              <h4>Dusun E</h4>
-              <small>Tahun 2024</small><br>
-              <small>Tahun 2025</small>
-            </div>
+            <form method="GET" action="{{ route('agama') }}">
+              <div class="mb-3">
+                <label for="dusun" class="form-label">Pilih Dusun:</label>
+                <select name="dusun" id="dusun" class="form-select" onchange="this.form.submit()">
+                  <option value="">Semua Dusun</option>
+                  @foreach($dusunList as $dusun)
+                    <option value="{{ $dusun->dusun }}" {{ request('dusun') == $dusun->dusun ? 'selected' : '' }}>
+                      {{ ucfirst($dusun->dusun) }}
+                    </option>
+                  @endforeach
+                </select>
+              </div>
+              @if(request('dusun'))
+                <a href="{{ route('agama') }}" class="btn btn-sm btn-outline-secondary">Reset Filter</a>
+              @endif
+            </form>
           </div>
         </div>
       </div>
@@ -206,13 +202,18 @@
 </div>
 
 <script>
+  // Data dari database
+  const agamaData = @json($agamaStats);
+  const agamaLabels = agamaData.map(item => item.agama);
+  const agamaValues = agamaData.map(item => item.jumlah);
+
   const getChartOptions = () => {
     return {
-      series: [70, 10, 5, 5, 3, 2],
-      colors: ["#C0D09D", "#A4BC92", "#95A78D", "#BCC5A8", "#8C9C74", "#708B75"],
+      series: agamaValues,
+      colors: ["#C0D09D", "#A4BC92", "#95A78D", "#BCC5A8", "#8C9C74", "#708B75", "#5A6B5D", "#4A5D4A"],
       chart: { height: 420, width: "100%", type: "pie" },
       stroke: { colors: ["white"] },
-      labels: ["Islam", "Kristen", "Katolik", "Hindu", "Buddha", "Khonghucu"],
+      labels: agamaLabels,
       dataLabels: {
         enabled: true,
         style: { fontFamily: "Arial, sans-serif", fontSize: "13px" },
@@ -231,11 +232,5 @@
     document.getElementById('filterContentAgama').classList.toggle('active');
   }
 
-  document.getElementById('searchBoxAgama').addEventListener('keyup', function () {
-    let query = this.value.toLowerCase();
-    document.querySelectorAll('.dusun-card').forEach(card => {
-      card.style.display = card.innerText.toLowerCase().includes(query) ? 'block' : 'none';
-    });
-  });
 </script>
 @endsection
