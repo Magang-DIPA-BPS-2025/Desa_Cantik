@@ -4,7 +4,6 @@
 <title>Desa Cantik - Jumlah Penduduk</title>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-
 <style>
   .container {
     max-width: 1400px;
@@ -14,18 +13,24 @@
 
   .card {
     background: #fff;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 20px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
     transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.16);
   }
 
   .card h6 {
     font-size: 18px;
     font-weight: 700;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     border-left: 5px solid #3B82F6;
-    padding-left: 10px;
+    padding-left: 12px;
+    color: #333;
   }
 
   .data-table {
@@ -34,10 +39,11 @@
     font-size: 14px;
     border-radius: 12px;
     overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
 
   .data-table th, .data-table td {
-    padding: 12px;
+    padding: 12px 10px;
     text-align: center;
     border-bottom: 1px solid #e0e0e0;
   }
@@ -52,60 +58,39 @@
     transition: background 0.3s;
   }
 
-  .filter-toggle {
-    display: block;
-    background-color: #3B82F6;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 8px;
-    font-size: 14px;
-    margin-bottom: 12px;
+  .filter-card {
+    background: #f7faff;
+    border-radius: 16px;
+    padding: 15px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+
+  .filter-card h6 {
+    font-size: 16px;
     font-weight: 600;
-  }
-
-  .filter-content {
-    display: none;
-    max-height: 400px;
-    overflow-y: auto;
-  }
-
-  .filter-content.active {
-    display: block;
-  }
-
-  .dusun-card {
-    background: #f0f9f0;
-    border-radius: 10px;
-    padding: 12px 15px;
     margin-bottom: 12px;
-    transition: background 0.3s;
+    color: #333;
   }
 
-  .dusun-card:hover {
-    background: #d6efd6;
-  }
-
-  .dusun-card h4 {
-    margin: 0 0 5px 0;
-    font-size: 15px;
-    font-weight: 600;
-    color: #222;
-  }
-
-  .dusun-card small {
-    font-size: 12px;
-    color: #555;
-  }
-
-  .search-box {
+  .filter-select {
     width: 100%;
-    padding: 8px 10px;
-    margin-bottom: 12px;
-    border-radius: 8px;
+    padding: 10px 12px;
+    border-radius: 10px;
     border: 1px solid #ccc;
     font-size: 14px;
+    transition: border-color 0.3s;
+  }
+
+  .filter-select:focus {
+    outline: none;
+    border-color: #3B82F6;
+    box-shadow: 0 0 5px rgba(59,130,246,0.3);
+  }
+
+  .reset-btn {
+    display: block;
+    margin-top: 10px;
+    width: 100%;
   }
 
   @media (max-width: 992px) {
@@ -116,9 +101,9 @@
 </style>
 
 <div class="container py-4">
-  <div class="row g-3">
+  <div class="row g-4">
     <!-- Main Content -->
-    <div class="col-md-9 d-flex flex-column gap-3">
+    <div class="col-lg-9 d-flex flex-column gap-4">
       <!-- Chart Card -->
       <div class="card">
         <h6>Statistik Jumlah Penduduk</h6>
@@ -128,52 +113,72 @@
       <!-- Table Card -->
       <div class="card">
         <h6>Tabel Data Penduduk</h6>
-        <table class="data-table mt-2">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Kategori</th>
-              <th>Jumlah</th>
-              <th>Presentase</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>1</td><td>Kepala Keluarga</td><td>{{ $kepalaKeluarga }}</td><td id="persen-kepala"></td></tr>
-            <tr><td>2</td><td>Laki-laki</td><td>{{ $laki }}</td><td id="persen-laki"></td></tr>
-            <tr><td>3</td><td>Perempuan</td><td>{{ $perempuan }}</td><td id="persen-perempuan"></td></tr>
-            <tr><td>4</td><td>Disabilitas</td><td>{{ $disabilitas }}</td><td id="persen-disabilitas"></td></tr>
-            <tr class="fw-bold"><td colspan="2">Jumlah Penduduk</td><td>{{ $totalPenduduk }}</td><td>100%</td></tr>
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="data-table mt-3">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Kategori</th>
+                <th>Jumlah</th>
+                <th>Presentase</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Kepala Keluarga</td>
+                <td>{{ $kepalaKeluarga }}</td>
+                <td id="persen-kepala"></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Laki-laki</td>
+                <td>{{ $laki }}</td>
+                <td id="persen-laki"></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Perempuan</td>
+                <td>{{ $perempuan }}</td>
+                <td id="persen-perempuan"></td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Disabilitas</td>
+                <td>{{ $disabilitas }}</td>
+                <td id="persen-disabilitas"></td>
+              </tr>
+              <tr class="fw-bold">
+                <td colspan="2">Jumlah Penduduk</td>
+                <td>{{ $totalPenduduk }}</td>
+                <td>100%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
     <!-- Sidebar Filter -->
-    <div class="col-md-3 d-flex">
-      <div class="card flex-fill">
-        <div class="card-body">
-          <div class="filter-toggle" onclick="toggleFilter()">☰ Filter Dusun</div>
-          <div class="filter-content" id="filterContent">
-            <form method="GET" action="{{ route('statistik.penduduk') }}">
-              <div class="mb-3">
-                <label for="dusun" class="form-label">Pilih Dusun:</label>
-                <select name="dusun" id="dusun" class="form-select" onchange="this.form.submit()">
-                  <option value="">Semua Dusun</option>
-                  @foreach($dusunList as $dusun)
-                    <option value="{{ $dusun->dusun }}" {{ request('dusun') == $dusun->dusun ? 'selected' : '' }}>
-                      {{ ucfirst($dusun->dusun) }}
-                    </option>
-                  @endforeach
-                </select>
-              </div>
-              @if(request('dusun'))
-                <a href="{{ route('statistik.penduduk') }}" class="btn btn-sm btn-outline-secondary">Reset Filter</a>
-              @endif
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="col-lg-3 d-flex">
+  <div class="filter-card flex-fill" style="max-height: 460px; overflow-y: auto;">
+    <h6>Filter Berdasarkan Dusun</h6>
+    <form method="GET" action="{{ route('statistik.penduduk') }}">
+      <select name="dusun" class="filter-select" onchange="this.form.submit()">
+        <option value="">Semua Dusun</option>
+        @foreach($dusunList as $dusun)
+          <option value="{{ $dusun->dusun }}" {{ request('dusun') == $dusun->dusun ? 'selected' : '' }}>
+            {{ ucfirst($dusun->dusun) }}
+          </option>
+        @endforeach
+      </select>
+
+      @if(request('dusun'))
+        <a href="{{ route('statistik.penduduk') }}" class="btn btn-outline-secondary btn-sm reset-btn">Reset Filter</a>
+      @endif
+    </form>
+  </div>
+</div>
   </div>
 </div>
 
@@ -186,36 +191,29 @@
     disabilitas: {{ $disabilitas }}
   };
 
-  const getChartOptions = () => {
-    return {
-      series: [data.laki, data.perempuan, data.disabilitas, data.kepala],
-      colors: ["#C0D09D", "#A4BC92", "#95A78D", "#BCC5A8"],
-      chart: { height: 420, width: "100%", type: "pie" },
-      stroke: { colors: ["white"] },
-      labels: ["Laki-laki", "Perempuan", "Disabilitas", "Kepala Keluarga"],
-      dataLabels: {
-        enabled: true,
-        style: { fontFamily: "Arial, sans-serif", fontSize: "13px" },
-        formatter: function (val) { return val.toFixed(1) + '%'; }
-      },
-      legend: { position: "bottom", fontFamily: "Arial, sans-serif", fontSize: "13px" },
-    }
-  }
+  // ApexCharts Pie
+  const getChartOptions = () => ({
+    series: [data.laki, data.perempuan, data.disabilitas, data.kepala],
+    colors: ["#4F46E5", "#3B82F6", "#10B981", "#F59E0B"],
+    chart: { height: 420, type: "pie" },
+    labels: ["Laki-laki", "Perempuan", "Disabilitas", "Kepala Keluarga"],
+    stroke: { colors: ["white"] },
+    dataLabels: {
+      enabled: true,
+      formatter: function(val) { return val.toFixed(1) + "%"; }
+    },
+    legend: { position: "bottom", fontSize: "14px" }
+  });
 
   if (document.getElementById("pie-chart") && typeof ApexCharts !== 'undefined') {
     const chart = new ApexCharts(document.getElementById("pie-chart"), getChartOptions());
     chart.render();
   }
 
-  // Hitung persen tabel
-  document.getElementById('persen-kepala').innerText = ((data.kepala / totalPenduduk) * 100).toFixed(1) + '%';
-  document.getElementById('persen-laki').innerText = ((data.laki / totalPenduduk) * 100).toFixed(1) + '%';
-  document.getElementById('persen-perempuan').innerText = ((data.perempuan / totalPenduduk) * 100).toFixed(1) + '%';
-  document.getElementById('persen-disabilitas').innerText = ((data.disabilitas / totalPenduduk) * 100).toFixed(1) + '%';
-
-  function toggleFilter() {
-    document.getElementById('filterContent').classList.toggle('active');
-  }
-
+  // Hitung persentase tabel
+  document.getElementById('persen-kepala').innerText = ((data.kepala/totalPenduduk)*100).toFixed(1) + '%';
+  document.getElementById('persen-laki').innerText = ((data.laki/totalPenduduk)*100).toFixed(1) + '%';
+  document.getElementById('persen-perempuan').innerText = ((data.perempuan/totalPenduduk)*100).toFixed(1) + '%';
+  document.getElementById('persen-disabilitas').innerText = ((data.disabilitas/totalPenduduk)*100).toFixed(1) + '%';
 </script>
 @endsection

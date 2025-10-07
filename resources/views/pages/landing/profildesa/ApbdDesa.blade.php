@@ -59,10 +59,12 @@
     font-size: 26px;
     margin-bottom: 6px;
 }
+
 /* Warna khusus */
 .bg-green { background: #2e7d32; }
 .bg-red { background: #d32f2f; }
-.bg-red { background: #d32f2f; }
+.bg-blue { background: #1976d2; } /* Surplus/Defisit */
+.bg-gray { background: #757575; } /* Update card */
 
 /* Card untuk grafik & progress */
 .card-box {
@@ -110,20 +112,19 @@ canvas { max-height: 280px; width: 100% !important; }
     color: #fff;
     font-weight: bold;
 }
-/* Warna progress sesuai kategori */
-.progress-bar-fill.green { background: #2e7d32; } /* Pendapatan */
-.progress-bar-fill.red { background: #d32f2f; }   /* Belanja */
-.progress-bar-fill.blue { background: #d32f2f; }  /* Pembiayaan */
+.progress-bar-fill.green { background: #2e7d32; }
+.progress-bar-fill.red { background: #d32f2f; }
+.progress-bar-fill.blue { background: #1976d2; }
 </style>
 
 <div class="apb-desa">
     <div class="apb-container">
-        {{-- Judul di kiri --}}
+        {{-- Judul --}}
         <div class="apb-info">
             <h2>APB Desa Kersik Tahun {{ $apbd->tahun ?? 'N/A' }}</h2>
         </div>
 
-        {{-- Ringkasan di kanan --}}
+        {{-- Ringkasan --}}
         <div class="apb-right">
             <div class="apb-grid">
                 <div class="apb-card bg-green">
@@ -139,11 +140,14 @@ canvas { max-height: 280px; width: 100% !important; }
             </div>
 
             <div class="apb-grid" style="margin-top:25px;">
+                {{-- Penerimaan --}}
                 <div class="apb-card bg-green">
                     <i class="fas fa-arrow-down"></i>
                     <h3>Penerimaan</h3>
                     <p>Rp{{ number_format($apbd->penerimaan ?? 0,0,',','.') }}</p>
                 </div>
+
+                {{-- Pengeluaran --}}
                 <div class="apb-card bg-red">
                     <i class="fas fa-arrow-up"></i>
                     <h3>Pengeluaran</h3>
@@ -151,23 +155,38 @@ canvas { max-height: 280px; width: 100% !important; }
                 </div>
             </div>
 
+            {{-- Surplus/Defisit --}}
             <div class="apb-card bg-blue" style="margin-top:20px;">
                 <i class="fas fa-balance-scale"></i>
                 <h3>Surplus/Defisit</h3>
                 <p>Rp{{ number_format($apbd->surplus_defisit ?? 0,0,',','.') }}</p>
             </div>
+
+            {{-- Card Terakhir Diperbarui --}}
+            @if(!empty($apbd->updated_at))
+                @php
+                    $updated = \Carbon\Carbon::parse($apbd->updated_at)
+                                ->setTimezone('Asia/Makassar')
+                                ->format('d-m-Y H:i');
+                @endphp
+                <div class="apb-card bg-gray" style="margin-top:20px; text-align:center;">
+                    <i class="fas fa-clock"></i>
+                    <p style="margin-top:5px; font-size:16px; font-weight:600; color:#fff;">
+                        Data diperbarui: {{ $updated }}
+                    </p>
+                </div>
+            @endif
+
         </div>
     </div>
 </div>
 
 {{-- Bagian Chart & Progress --}}
 <div class="container mx-auto px-6 mt-10">
-
     {{-- Pendapatan --}}
     <div class="card-box">
         <h3>Pendapatan Desa</h3>
         <canvas id="chartPendapatan"></canvas>
-
         @if($apbd)
             @php
                 $pendapatanData = [
@@ -176,7 +195,6 @@ canvas { max-height: 280px; width: 100% !important; }
                     ['sumber' => 'Lainnya', 'jumlah' => $apbd->pendapatan_lain]
                 ];
             @endphp
-
             @foreach($pendapatanData as $item)
                 @php $persen = $apbd->total_pendapatan > 0 ? ($item['jumlah'] / $apbd->total_pendapatan) * 100 : 0; @endphp
                 <div class="progress-card">
@@ -198,7 +216,6 @@ canvas { max-height: 280px; width: 100% !important; }
     <div class="card-box">
         <h3>Belanja Desa</h3>
         <canvas id="chartBelanja"></canvas>
-
         @if($apbd)
             @php
                 $belanjaData = [
@@ -209,7 +226,6 @@ canvas { max-height: 280px; width: 100% !important; }
                     ['bidang' => 'Bencana', 'jumlah' => $apbd->belanja_bencana]
                 ];
             @endphp
-
             @foreach($belanjaData as $item)
                 @php $persen = $apbd->total_belanja > 0 ? ($item['jumlah'] / $apbd->total_belanja) * 100 : 0; @endphp
                 <div class="progress-card">
@@ -231,7 +247,6 @@ canvas { max-height: 280px; width: 100% !important; }
     <div class="card-box">
         <h3>Pembiayaan Desa</h3>
         <canvas id="chartPembiayaan"></canvas>
-
         @if($apbd)
             @php
                 $pembiayaanData = [
@@ -240,7 +255,6 @@ canvas { max-height: 280px; width: 100% !important; }
                 ];
                 $totalPembiayaan = $apbd->pembiayaan_penerimaan + $apbd->pembiayaan_pengeluaran;
             @endphp
-
             @foreach($pembiayaanData as $item)
                 @php $persen = $totalPembiayaan > 0 ? ($item['jumlah'] / $totalPembiayaan) * 100 : 0; @endphp
                 <div class="progress-card">
@@ -272,16 +286,11 @@ canvas { max-height: 280px; width: 100% !important; }
             ['sumber' => 'Lainnya', 'jumlah' => $apbd->pendapatan_lain]
         ];
     @endphp
-
     new Chart(document.getElementById('chartPendapatan'), {
         type: 'bar',
         data: {
             labels: @json(array_column($pendapatanData, 'sumber')),
-            datasets: [{
-                label: 'Pendapatan',
-                data: @json(array_column($pendapatanData, 'jumlah')),
-                backgroundColor: '#2e7d32'
-            }]
+            datasets: [{ label: 'Pendapatan', data: @json(array_column($pendapatanData, 'jumlah')), backgroundColor: '#2e7d32' }]
         },
         options: { responsive: true, plugins: { legend: { display: false } } }
     });
@@ -296,16 +305,11 @@ canvas { max-height: 280px; width: 100% !important; }
             ['bidang' => 'Bencana', 'jumlah' => $apbd->belanja_bencana]
         ];
     @endphp
-
     new Chart(document.getElementById('chartBelanja'), {
         type: 'bar',
         data: {
             labels: @json(array_column($belanjaData, 'bidang')),
-            datasets: [{
-                label: 'Belanja',
-                data: @json(array_column($belanjaData, 'jumlah')),
-                backgroundColor: '#d32f2f'
-            }]
+            datasets: [{ label: 'Belanja', data: @json(array_column($belanjaData, 'jumlah')), backgroundColor: '#d32f2f' }]
         },
         options: { responsive: true, plugins: { legend: { display: false } } }
     });
@@ -317,16 +321,11 @@ canvas { max-height: 280px; width: 100% !important; }
             ['jenis' => 'Pengeluaran', 'jumlah' => $apbd->pembiayaan_pengeluaran]
         ];
     @endphp
-
     new Chart(document.getElementById('chartPembiayaan'), {
         type: 'bar',
         data: {
             labels: @json(array_column($pembiayaanData, 'jenis')),
-            datasets: [{
-                label: 'Pembiayaan',
-                data: @json(array_column($pembiayaanData, 'jumlah')),
-                backgroundColor: '#d32f2f'
-            }]
+            datasets: [{ label: 'Pembiayaan', data: @json(array_column($pembiayaanData, 'jumlah')), backgroundColor: '#1976d2' }]
         },
         options: { responsive: true, plugins: { legend: { display: false } } }
     });
