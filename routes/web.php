@@ -73,6 +73,7 @@ Route::group(
         //Pengaduan (dynamic view)
         Route::get('/pengaduan', [PengaduanController::class, 'userIndex'])->name('pengaduan');
         Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');
+         Route::get('status-pengaduan', [PengaduanController::class, 'userStatus'])->name('pengaduan.userStatus');
 
         //Surat Pengaduan (dynamic view)
         Route::get('/statuspengaduan', [PengaduanController::class, 'userStatus'])->name('statuspengaduan');

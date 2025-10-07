@@ -7,46 +7,57 @@
     <h2 class="mb-3" style="text-align: left;">Status Pengaduan Online Warga Desa</h2>
 
     {{-- Form Search --}}
-    <form action="{{ route('dataPenduduk.index') }}" method="GET" class="mb-3">
+    <form action="{{ route('pengaduan.userStatus') }}" method="GET" class="mb-3">
         <div class="input-group">
-            <input type="text" name="keyword" class="form-control" placeholder="Cari NIK / Nama..."
-                   value="{{ request('keyword') }}">
+            <input type="email" name="email" class="form-control" placeholder="Cari berdasarkan email..."
+                   value="{{ request('email') }}">
             <button class="btn btn-primary" type="submit">Cari</button>
         </div>
     </form>
 
-    {{-- Tabel Data Surat --}}
+    {{-- Tabel --}}
     <table class="table table-bordered table-striped">
         <thead style="background: linear-gradient(90deg, #3B82F6, #31C48D); color: white;">
             <tr>
                 <th>No</th>
-                <th>Nama</th>
-                <th>NIK</th>
-                <th>Waktu Masuk Surat</th>
+                <th>Nama Pelapor</th>
+                <th>Email</th>
+                <th>Judul</th>
                 <th>Status</th>
-                <th>Tindakan</th>
+                <th>Waktu Pengaduan</th>
             </tr>
         </thead>
         <tbody>
-            @if(isset($dataPenduduk) && $dataPenduduk->count() > 0)
-                @foreach($dataPenduduk as $index => $data)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $data->nama }}</td>
-                        <td>{{ $data->nik }}</td>
-                        <td>{{ $data->waktu_masuk }}</td>
-                        <td>{{ $data->status }}</td>
-                        <td>
-                            <button class="btn btn-sm btn-info">Detail</button>
-                            <button class="btn btn-sm btn-danger">Hapus</button>
-                        </td>
-                    </tr>
-                @endforeach
-            @else
+            @forelse((request('email') ? $pengaduans : []) as $index => $data)
                 <tr>
-                    <td colspan="6" class="text-center">Belum ada data.</td>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $data->nama }}</td>
+                    <td>{{ $data->email }}</td>
+                    <td>{{ $data->judul }}</td>
+                    <td>
+                        @if($data->status == 'baru')
+                            <span class="badge bg-primary">Baru</span>
+                        @elseif($data->status == 'diproses')
+                            <span class="badge bg-warning">Diproses</span>
+                        @elseif($data->status == 'selesai')
+                            <span class="badge bg-success">Selesai</span>
+                        @elseif($data->status == 'ditolak')
+                            <span class="badge bg-danger">Ditolak</span>
+                        @endif
+                    </td>
+                    <td>{{ $data->created_at->format('d-m-Y H:i') }}</td>
                 </tr>
-            @endif
+            @empty
+                <tr>
+                    <td colspan="6" class="text-center">
+                        @if(request('email'))
+                            Tidak ada pengaduan ditemukan.
+                        @else
+                            Silahkan masukkan email Anda terlebih dahulu.
+                        @endif
+                    </td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 

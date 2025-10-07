@@ -6,7 +6,7 @@
     <!-- Basic Page Needs
 ================================================== -->
     <meta charset="utf-8">
-    <title>RPPH Provinsi Sulawesi Selatan - Rumah Belajar Insan Pendidikan</title>
+    <title>Desa Cantik</title>
 
     <!-- Mobile Specific Metas
 ================================================== -->
@@ -18,7 +18,7 @@
 
     <!-- Favicon
 ================================================== -->
-    <link rel="icon" type="image/png" href="{{ asset('landing/images/fav.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('landing/images/footer/desaCanti.png') }}">
 
     <!-- CSS
 ================================================== -->

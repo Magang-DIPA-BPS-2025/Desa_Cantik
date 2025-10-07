@@ -8,11 +8,17 @@ use Illuminate\Http\Request;
 class PengaduanController extends Controller
 {
     /**
-     * Tampilkan semua pengaduan (untuk admin).
+     * Tampilkan semua pengaduan (untuk admin)
      */
-    public function index()
+    public function index(Request $request)
     {
-        $datas = Pengaduan::latest()->get();
+        // Tambahkan pencarian untuk admin berdasarkan nama atau email (opsional)
+        $keyword = $request->input('keyword');
+
+        $datas = Pengaduan::when($keyword, function($query, $keyword) {
+            $query->where('nama_pelapor', 'like', "%{$keyword}%")
+                  ->orWhere('email', 'like', "%{$keyword}%");
+        })->latest()->get();
 
         return view('pages.admin.pengaduan.index', [
             'datas' => $datas,
@@ -22,7 +28,7 @@ class PengaduanController extends Controller
     }
 
     /**
-     * Simpan pengaduan dari form user.
+     * Simpan pengaduan dari form user
      */
     public function store(Request $request)
     {
@@ -36,30 +42,30 @@ class PengaduanController extends Controller
             'lampiran'  => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
         ]);
 
-        // upload lampiran jika ada
+        // Upload lampiran jika ada
         $lampiran = null;
         if ($request->hasFile('lampiran')) {
             $lampiran = $request->file('lampiran')->store('pengaduan_files', 'public');
         }
 
-        // simpan ke database
+        // Simpan ke database
         Pengaduan::create([
-            'nama'      => $request->nama,
-            'email'     => $request->email,
-            'telepon'   => $request->telepon,
-            'alamat'    => $request->alamat,
-            'judul'     => $request->judul,
-            'deskripsi' => $request->uraian, // simpan uraian ke kolom deskripsi
-            'file'      => $lampiran,
-            'status'    => 'baru',
-            'anonymous' => false,
+            'nama_pelapor' => $request->nama,
+            'email'        => $request->email,
+            'telepon'      => $request->telepon,
+            'alamat'       => $request->alamat,
+            'judul'        => $request->judul,
+            'isi_pengaduan'=> $request->uraian,
+            'file'         => $lampiran,
+            'status'       => 'baru',
+            'anonymous'    => false,
         ]);
 
         return redirect()->back()->with('success', 'Pengaduan berhasil dikirim.');
     }
 
     /**
-     * Update status pengaduan (untuk admin).
+     * Update status pengaduan (untuk admin)
      */
     public function updateStatus(Request $request, $id)
     {
@@ -74,9 +80,8 @@ class PengaduanController extends Controller
         return redirect()->back()->with('success', 'Status pengaduan berhasil diperbarui.');
     }
 
-
     /**
-     * Hapus pengaduan.
+     * Hapus pengaduan
      */
     public function destroy($id)
     {
@@ -98,10 +103,18 @@ class PengaduanController extends Controller
     }
 
     /**
-     * Menampilkan status pengaduan untuk user
+     * Menampilkan status pengaduan untuk user dengan pencarian email
      */
-    public function userStatus()
-    {
-        return view('pages.landing.layananonline.StatusPengaduan');
-    }
+   public function userStatus(Request $request)
+{
+    $email = $request->input('email');
+
+    // Ambil pengaduan berdasarkan email jika ada, atau kosong jika tidak ada
+    $pengaduans = Pengaduan::when($email, function($query, $email) {
+        $query->where('email', $email);
+    })->latest()->get();
+
+    return view('pages.landing.layananonline.StatusPengaduan', compact('pengaduans'));
+}
+
 }
