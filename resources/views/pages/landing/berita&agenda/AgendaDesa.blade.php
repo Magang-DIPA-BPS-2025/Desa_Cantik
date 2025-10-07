@@ -203,28 +203,20 @@
   <div class="agenda-list">
     <h2>Agenda Kegiatan</h2>
 
+    @forelse($agendas as $agenda)
     <div class="agenda-card">
-      <img class="thumb" src="https://images.unsplash.com/photo-1564869732096-8cf1e2e8c431?crop=entropy&cs=tinysrgb&fit=max&h=220&w=400" alt="Foto Agenda">
-      <h3>Judul Agenda</h3>
-      <div class="agenda-meta">📅 11 September 2025 | 📍 Aula</div>
-      <p>Keterangan agenda kegiatan ini singkat, jelas, dan menarik agar mudah dibaca oleh warga desa.</p>
-      <button>Selengkapnya →</button>
+      <img class="thumb" src="{{ $agenda->foto ? asset('storage/'.$agenda->foto) : asset('img/example-image.jpg') }}" alt="{{ $agenda->nama_kegiatan }}">
+      <h3><a href="{{ route('agenda.show', $agenda->id) }}" style="text-decoration:none;color:inherit;">{{ $agenda->nama_kegiatan }}</a></h3>
+      <div class="agenda-meta">📅 {{ $agenda->waktu_pelaksanaan ? \Carbon\Carbon::parse($agenda->waktu_pelaksanaan)->isoFormat('DD MMM YYYY') : '' }} @if($agenda->kategori) | 📍 {{ $agenda->kategori }} @endif</div>
+      <p>{{ Str::limit($agenda->deskripsi, 160) }}</p>
+      <a href="{{ route('agenda.show', $agenda->id) }}"><button>Selengkapnya →</button></a>
     </div>
+    @empty
+      <p>Tidak ada data agenda.</p>
+    @endforelse
 
-    <div class="agenda-card">
-      <img class="thumb" src="https://images.unsplash.com/photo-1596496057984-7c9f74d8f0e3?crop=entropy&cs=tinysrgb&fit=max&h=220&w=400" alt="Foto Agenda">
-      <h3>Judul Agenda 2</h3>
-      <div class="agenda-meta">📅 15 September 2025 | 📍 Balai Desa</div>
-      <p>Keterangan agenda kegiatan ini singkat, jelas, dan menarik agar mudah dibaca oleh warga desa.</p>
-      <button>Selengkapnya →</button>
-    </div>
-
-    <div class="agenda-card">
-      <img class="thumb" src="https://images.unsplash.com/photo-1581092334156-99f0e19c5d1f?crop=entropy&cs=tinysrgb&fit=max&h=220&w=400" alt="Foto Agenda">
-      <h3>Judul Agenda 3</h3>
-      <div class="agenda-meta">📅 20 September 2025 | 📍 Lapangan</div>
-      <p>Keterangan agenda kegiatan ini singkat, jelas, dan menarik agar mudah dibaca oleh warga desa.</p>
-      <button>Selengkapnya →</button>
+    <div class="pagination" style="margin-top:20px;">
+      {{ $agendas->appends(['kategori' => request('kategori')])->links() }}
     </div>
   </div>
 
@@ -237,50 +229,34 @@
 
     <div class="kategori">
       <h3>Kategori Agenda</h3>
-      <button>Umum</button>
-      <button>Rapat</button>
-      <button>Pelatihan</button>
-      <button>Sosialisasi</button>
-      <button>Acara Resmi</button>
-      <button>Internal</button>
-      <button>Eksternal</button>
+      <a href="{{ route('agenda') }}" style="text-decoration:none;">
+        <button @if(empty($kategoriSelected)) style="background:#4CAF50;color:#fff;" @endif>Semua</button>
+      </a>
+      @foreach(($kategoriList ?? collect()) as $kat)
+      <a href="{{ route('agenda', ['kategori' => $kat]) }}" style="text-decoration:none;">
+        <button @if(($kategoriSelected ?? '') === $kat) style="background:#4CAF50;color:#fff;" @endif>{{ $kat }}</button>
+      </a>
+      @endforeach
     </div>
 
     <div class="agenda-terbaru">
       <h3>Agenda Terbaru</h3>
 
+      @foreach(($latest_agendas ?? []) as $a)
+      <a href="{{ route('agenda.show', $a->id) }}" style="text-decoration:none;color:inherit;">
       <div class="agenda-item">
         <div class="agenda-date">
-          <div class="day">11</div>
-          <div class="month">Sep</div>
+          @php $dt = $a->waktu_pelaksanaan ? \Carbon\Carbon::parse($a->waktu_pelaksanaan) : null; @endphp
+          <div class="day">{{ $dt?->format('d') ?? '--' }}</div>
+          <div class="month">{{ $dt?->format('M') ?? '' }}</div>
         </div>
         <div class="agenda-info">
-          <h4>Judul Agenda</h4>
-          <p>📍 Aula</p>
+          <h4>{{ $a->nama_kegiatan }}</h4>
+          <p>📍 {{ $a->kategori }}</p>
         </div>
       </div>
-
-      <div class="agenda-item">
-        <div class="agenda-date">
-          <div class="day">15</div>
-          <div class="month">Sep</div>
-        </div>
-        <div class="agenda-info">
-          <h4>Judul Agenda 2</h4>
-          <p>📍 Balai Desa</p>
-        </div>
-      </div>
-
-      <div class="agenda-item">
-        <div class="agenda-date">
-          <div class="day">20</div>
-          <div class="month">Sep</div>
-        </div>
-        <div class="agenda-info">
-          <h4>Judul Agenda 3</h4>
-          <p>📍 Lapangan</p>
-        </div>
-      </div>
+      </a>
+      @endforeach
     </div>
   </div>
 </div>

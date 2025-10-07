@@ -226,36 +226,31 @@ body {
         <div class="section-title">Daftar Berita</div>
 
         <div class="berita-grid">
-          @for ($i = 1; $i <= 12; $i++)
+          @forelse ($beritas as $item)
           <div class="berita-card">
-            <div class="thumb"></div>
+            <img class="thumb" src="{{ $item->foto ? asset('storage/'.$item->foto) : asset('img/example-image.jpg') }}" alt="{{ $item->judul }}">
             <div class="info">
-              <span>9 September 2025</span>
-              <h3 class="title">Judul Berita Desa Cantik #{{ $i }}</h3>
-              <p class="desc-text">Deskripsi singkat berita desa cantik agar pembaca lebih mudah memahami isi berita.</p>
+              <span>{{ optional($item->tanggal_event ? \Carbon\Carbon::parse($item->tanggal_event) : null)?->translatedFormat('d F Y') }}</span>
+              <h3 class="title"><a href="{{ route('berita.show', $item->id) }}" style="text-decoration:none;color:inherit;">{{ $item->judul }}</a></h3>
+              <p class="desc-text">{{ Str::limit($item->deskripsi_singkat, 120) }}</p>
               <div class="views">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#888" viewBox="0 0 16 16">
                   <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zm-8 4a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/>
                   <path d="M8 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
                 </svg>
-                Dilihat {{ 100 + $i }} kali
+                Dilihat {{ $item->dilihat ?? 0 }} kali
               </div>
-              <div class="date">11 Sep 2025</div>
+              @if($item->tanggal_event)
+              <div class="date">{{ \Carbon\Carbon::parse($item->tanggal_event)->isoFormat('DD MMM YYYY') }}</div>
+              @endif
             </div>
           </div>
-          @endfor
+          @empty
+            <p>Tidak ada data berita.</p>
+          @endforelse
 
           <div class="pagination">
-            <ul>
-              <li><a href="#">&laquo; Previous</a></li>
-              <li class="active"><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">…</a></li>
-              <li><a href="#">67</a></li>
-              <li><a href="#">68</a></li>
-              <li><a href="#">Next &raquo;</a></li>
-            </ul>
+            {{ $beritas->links() }}
           </div>
         </div>
       </div>
@@ -263,22 +258,22 @@ body {
       <!-- Sidebar -->
       <div class="sidebar">
         <h2>Berita Terbaru</h2>
-        @for ($j = 1; $j <= 3; $j++)
+        @foreach(($latest_beritas ?? []) as $b)
         <div class="item">
-          <div class="thumb"></div>
+          <img class="thumb" src="{{ $b->foto ? asset('storage/'.$b->foto) : asset('img/example-image-50.jpg') }}" alt="{{ $b->judul }}">
           <div class="desc">
-            <h4>Judul berita #{{ $j }}</h4>
-            <small>20 September 2025</small>
+            <h4><a href="{{ route('berita.show', $b->id) }}" style="text-decoration:none;color:inherit;">{{ $b->judul }}</a></h4>
+            <small>{{ $b->tanggal_event ? \Carbon\Carbon::parse($b->tanggal_event)->isoFormat('DD MMM YYYY') : '' }}</small>
             <div class="views">
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="#888" viewBox="0 0 16 16">
                 <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zm-8 4a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/>
                 <path d="M8 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
               </svg>
-              Dilihat {{ 100 + $j * 10 }} kali
+              Dilihat {{ $b->dilihat ?? 0 }} kali
             </div>
           </div>
         </div>
-        @endfor
+        @endforeach
       </div>
     </div>
   </div>

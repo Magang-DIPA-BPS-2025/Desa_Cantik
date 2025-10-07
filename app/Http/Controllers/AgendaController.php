@@ -36,7 +36,7 @@ class AgendaController extends Controller
             'nama_kegiatan'     => 'required|string|max:255',
             'waktu_pelaksanaan' => 'required|date',
             'deskripsi'         => 'nullable|string',
-            'kategori'          => 'required|string',
+            'kategori'          => 'required|string|in:Umum,Rapat,Pelatihan,Sosialisasi,Acara Resmi,Internal,Eksternal',
             'foto'              => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // validasi foto
         ]);
 
@@ -47,10 +47,10 @@ class AgendaController extends Controller
         }
 
         Agenda::create([
-            'nama_kegiatan'     => $request->nama_kegiatan,
+            'nama_kegiatan'     => trim($request->nama_kegiatan),
             'waktu_pelaksanaan' => $request->waktu_pelaksanaan,
-            'deskripsi'         => $request->deskripsi,
-            'kategori'          => $request->kategori,
+            'deskripsi'         => $request->filled('deskripsi') ? trim($request->deskripsi) : null,
+            'kategori'          => trim($request->kategori),
             'foto'              => $fotoPath,
         ]);
 
@@ -77,7 +77,7 @@ class AgendaController extends Controller
             'nama_kegiatan'     => 'required|string|max:255',
             'waktu_pelaksanaan' => 'required|date',
             'deskripsi'         => 'nullable|string',
-            'kategori'          => 'required|string',
+            'kategori'          => 'required|string|in:Umum,Rapat,Pelatihan,Sosialisasi,Acara Resmi,Internal,Eksternal',
             'foto'              => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // validasi foto
         ]);
 
@@ -95,10 +95,10 @@ class AgendaController extends Controller
 
         // Update data lain
         $agenda->update([
-            'nama_kegiatan'     => $request->nama_kegiatan,
+            'nama_kegiatan'     => trim($request->nama_kegiatan),
             'waktu_pelaksanaan' => $request->waktu_pelaksanaan,
-            'deskripsi'         => $request->deskripsi,
-            'kategori'          => $request->kategori,
+            'deskripsi'         => $request->filled('deskripsi') ? trim($request->deskripsi) : null,
+            'kategori'          => trim($request->kategori),
             'foto'              => $agenda->foto,
         ]);
 
@@ -124,12 +124,24 @@ class AgendaController extends Controller
     /**
      * Menampilkan agenda untuk user landing page
      */
-    public function userIndex()
+    public function userIndex(Request $request)
     {
-        $agendas = Agenda::latest()->paginate(9);
+        $kategoriSelected = $request->query('kategori');
+
+        $query = Agenda::query()->latest();
+        if (!empty($kategoriSelected)) {
+            $query->where('kategori', $kategoriSelected);
+        }
+
+        $agendas = $query->paginate(9)->appends($request->query());
+        $latest_agendas = Agenda::latest()->take(5)->get();
+        $kategoriList = Agenda::select('kategori')->distinct()->orderBy('kategori')->pluck('kategori');
 
         return view('pages.landing.berita&agenda.AgendaDesa', [
             'agendas' => $agendas,
+            'latest_agendas' => $latest_agendas,
+            'kategoriList' => $kategoriList,
+            'kategoriSelected' => $kategoriSelected,
         ]);
     }
 

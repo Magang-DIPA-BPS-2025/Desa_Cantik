@@ -118,12 +118,14 @@ class BeritaController extends Controller
     /**
      * Menampilkan berita untuk user landing page
      */
-    public function userIndex()
+public function userIndex()
     {
         $beritas = Berita::with('kategori')->latest()->paginate(9);
+        $latest_beritas = Berita::latest()->take(5)->get();
 
         return view('pages.landing.berita&agenda.BeritaDesa', [
             'beritas' => $beritas,
+            'latest_beritas' => $latest_beritas,
         ]);
     }
 
