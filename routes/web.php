@@ -3,6 +3,7 @@
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\PemerintahDesaController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\ApbdController;
 use App\Http\Controllers\DataPendudukController;
 use App\Http\Controllers\GaleriController;

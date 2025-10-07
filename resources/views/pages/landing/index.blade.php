@@ -62,19 +62,28 @@
         width: 95%;
         box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
-    .statistik h2 { margin-bottom: 50px; font-size: 28px; font-weight: 700; }
-    .statistik .item {
-        display: inline-block;
-        margin: 25px;
-        width: 190px;
-        padding: 20px;
-        border-radius: 15px;
-        background: #fff;
-        box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-        transition: 0.3s;
+    .statistik h2 { margin-bottom: 30px; font-size: 28px; font-weight: 700; color: #1b5e20; }
+    .statistik-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 18px;
+        justify-items: center;
     }
-    .statistik .item:hover { transform: scale(1.05); background: #f9f9f9; }
-    .statistik img { width: 80px; margin-bottom: 15px; }
+    @media (max-width: 1100px) { .statistik-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 680px) { .statistik-grid { grid-template-columns: repeat(2, 1fr); } }
+    .statistik .item {
+        width: 100%;
+        max-width: 190px;
+        padding: 20px;
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .statistik .item:hover { transform: translateY(-6px); box-shadow: 0 12px 26px rgba(0,0,0,0.12); }
+    .statistik img { width: 72px; margin-bottom: 12px; }
+    .statistik .angka { font-size: 26px; font-weight: 800; color: #2e7d32; margin: 6px 0; }
+    .statistik .label { font-size: 14px; color: #555; }
 
     /* Profil Desa */
     .profil {
@@ -145,13 +154,14 @@
     .apb-card span {
         display: block;
         font-size: 14px;
-        color: #666;
+        color: #ffffffff;
     }
     .apb-card h3 {
         font-size: 22px;
         font-weight: 700;
         margin-top: 8px;
-        color: #333;
+        color: #ffffffff;
+
     }
     .apb-btn {
         display: inline-block;
@@ -169,6 +179,18 @@
         background: #333;
         color: #fff;
     }
+
+    /* Warna khusus APB Desa */
+.apb-card.pendapatan {
+    background: linear-gradient(135deg, #4CAF50, #81C784);
+    color: white;
+}
+
+.apb-card.belanja {
+    background: linear-gradient(135deg, #E53935, #EF5350);
+    color: white;
+}
+
 </style>
 @endpush
 
@@ -198,30 +220,32 @@
 {{-- Statistik --}}
 <div class="statistik">
     <h2>Statistik Penduduk Kelurahan Maccini Sombala Tahun 2025</h2>
-    <div class="item">
-        <img src="{{ asset('landing/images/icon-image/kepalaKeluarga.png') }}">
-        <p>2.463</p>
-        <p>Kepala Keluarga</p>
-    </div>
-    <div class="item">
-        <img src="{{ asset('landing/images/icon-image/male.png') }}">
-        <p>4.952</p>
-        <p>Laki-laki</p>
-    </div>
-    <div class="item">
-        <img src="{{ asset('landing/images/icon-image/women.png') }}">
-        <p>4.716</p>
-        <p>Perempuan</p>
-    </div>
-    <div class="item">
-        <img src="{{ asset('landing/images/icon-image/disabi.png') }}">
-        <p>4</p>
-        <p>Disabilitas</p>
-    </div>
-    <div class="item">
-        <img src="{{ asset('landing/images/icon-image/family.png') }}">
-        <p>9.668</p>
-        <p>Jumlah Penduduk</p>
+    <div class="statistik-grid">
+        <div class="item">
+            <img src="{{ asset('landing/images/icon-image/kepalaKeluarga.png') }}" alt="Kepala Keluarga">
+            <p class="angka">2.463</p>
+            <p class="label">Kepala Keluarga</p>
+        </div>
+        <div class="item">
+            <img src="{{ asset('landing/images/icon-image/male.png') }}" alt="Laki-laki">
+            <p class="angka">4.952</p>
+            <p class="label">Laki-laki</p>
+        </div>
+        <div class="item">
+            <img src="{{ asset('landing/images/icon-image/women.png') }}" alt="Perempuan">
+            <p class="angka">4.716</p>
+            <p class="label">Perempuan</p>
+        </div>
+        <div class="item">
+            <img src="{{ asset('landing/images/icon-image/disabi.png') }}" alt="Disabilitas">
+            <p class="angka">4</p>
+            <p class="label">Disabilitas</p>
+        </div>
+        <div class="item">
+            <img src="{{ asset('landing/images/icon-image/family.png') }}" alt="Jumlah Penduduk">
+            <p class="angka">9.668</p>
+            <p class="label">Jumlah Penduduk</p>
+        </div>
     </div>
 </div>
 
@@ -259,16 +283,14 @@
         <div class="apb-info">
             <h2>APB DESA 2024</h2>
             <p>Akses cepat dan transparan terhadap APB Desa serta proyek pembangunan</p>
-            
-            <div class="apb-card">
-                <span>Pendapatan Desa</span>
-                <h3>Rp4.802.205.800,00</h3>
+            <div class="apb-card pendapatan">
+            <span>Pendapatan Desa</span>
+            <h3>Rp4.802.205.800,00</h3>
             </div>
-            <div class="apb-card">
-                <span>Belanja Desa</span>
-                <h3>Rp4.888.222.678,00</h3>
+            <div class="apb-card belanja">
+            <span>Belanja Desa</span>
+            <h3>Rp4.888.222.678,00</h3>
             </div>
-
             <a href="{{ url('/apbd') }}" class="apb-btn">
                 <i class="fa fa-file-alt"></i> LIHAT DATA LEBIH LENGKAP
             </a>
@@ -280,6 +302,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const ctx = document.getElementById('chartPenduduk');
+    const chartColors = ['#22c55e', '#60a5fa', '#f97316', '#a78bfa', '#ef4444'];
     new Chart(ctx, {
         type: 'doughnut',
         data: {
@@ -287,9 +310,30 @@
             datasets: [{
                 label: 'Jumlah',
                 data: [4952,4716,445,232,4353],
-                backgroundColor: ['#4CAF50', '#FF7043', '#c4a233ff','#336bc4ff','#c43333ff'],
-                borderWidth: 1
+                backgroundColor: chartColors,
+                borderColor: '#ffffff',
+                borderWidth: 2,
+                hoverOffset: 8,
+                borderRadius: 6
             }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { usePointStyle: true, pointStyle: 'circle', padding: 16 }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (ctx) => `${ctx.label}: ${ctx.parsed}`
+                    }
+                },
+                title: {
+                    display: false
+                }
+            },
+            cutout: '65%'
         }
     });
 </script>

@@ -36,7 +36,7 @@
     .navbar-container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 12px 20px;
+      padding: 20px 30px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -54,7 +54,7 @@
     }
 
     .brand-text {
-      font-size: 18px;
+      font-size: 22px;
       font-weight: 700;
       color: #2e7d32;
       letter-spacing: 1px;
@@ -77,8 +77,8 @@
       text-decoration: none;
       color: #333;
       font-weight: 600;
-      font-size: 14px;
-      padding: 8px 10px;
+      font-size: 16px;
+      padding: 10px 14px;
       position: relative;
       transition: color 0.3s ease;
     }
@@ -118,17 +118,23 @@
     }
 
     .dropdown-menu a {
-      padding: 10px 18px;
-      color: #333;
-      text-decoration: none;
-      font-size: 14px;
-      transition: background 0.2s ease;
-    }
+  padding: 12px 20px;
+  color: #333;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
 
-    .dropdown-menu a:hover {
-      background: #f5f5f5;
-      color: #4CAF50;
-    }
+.dropdown-menu a:hover {
+  background: #f5f5f5;
+  color: #4CAF50;
+}
+
+.dropdown-menu a + a {
+  border-top: 1px solid #f2f2f2;
+}
+
 
     .nav-item:hover .dropdown-menu {
       display: flex;
@@ -224,7 +230,6 @@
     <div class="navbar-container">
       <!-- Logo -->
       <div class="logo-area">
-        <img src="{{ asset('landing/images/footer/logobps.png') }}" alt="Logo BPS" />
         <img src="{{ asset('landing/images/footer/desaCanti.png') }}" alt="Logo Desa Cantik" />
         <span class="brand-text">DESA CANTIK</span>
       </div>
