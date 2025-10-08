@@ -60,7 +60,6 @@
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-envelope"></i> <span>Data Persuratan</span></a>
                     <ul class="dropdown-menu {{ in_array($menu, $persuratanMenus) ? 'show' : '' }}">
                         <li><a class="nav-link {{ $menu == 'persuratan' ? 'active' : '' }}" href="{{ route('dashboard') }}">Data Surat</a></li>
-                        <li><a class="nav-link {{ $menu == 'persuratan' ? 'active' : '' }}" href="{{ route('dashboard') }}">Data Jadwal RPPH</a></li>
                     </ul>
                 </li>
 

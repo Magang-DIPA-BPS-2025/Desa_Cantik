@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('library/bootstrap-social/bootstrap-social.css') }}">
+<link rel="stylesheet" href="{{ asset('library/bootstrap-social/bootstrap-social.css') }}">
     @endpush
 
     <div class="card card-primary">

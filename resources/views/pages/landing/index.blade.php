@@ -254,10 +254,10 @@
     <div class="profil-text">
         <h2>Tentang Kelurahan</h2>
         <p>
-            Kelurahan Maccini Sombala merupakan salah satu kelurahan di Kota Makassar 
-            yang memiliki potensi besar dalam pembangunan masyarakat. 
-            Dengan jumlah penduduk lebih dari <b>9.600 jiwa</b>, 
-            wilayah ini terus berkembang dengan berbagai program sosial, pendidikan, 
+            Kelurahan Maccini Sombala merupakan salah satu kelurahan di Kota Makassar
+            yang memiliki potensi besar dalam pembangunan masyarakat.
+            Dengan jumlah penduduk lebih dari <b>9.600 jiwa</b>,
+            wilayah ini terus berkembang dengan berbagai program sosial, pendidikan,
             serta peningkatan infrastruktur.
         </p>
     </div>
@@ -297,7 +297,6 @@
         </div>
     </div>
 </div>
-
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>

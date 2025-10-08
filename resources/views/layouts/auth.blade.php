@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport" />
-    <title>{{ $title }} &mdash; RPPH Sul-Sel</title>
+    <title>{{ $title }} &mdash; Desa Cantik</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -60,7 +60,7 @@
     <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
     <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
 
-    
+
 
     <!-- JS Libraies -->
     @stack('scripts')
