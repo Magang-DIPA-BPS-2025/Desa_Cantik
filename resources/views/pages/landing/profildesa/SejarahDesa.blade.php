@@ -6,11 +6,10 @@
     <div class="container-fluid px-0 px-lg-5">
 
         {{-- Judul --}}
-<div>
-    <h1 class="fw-bolder display-4 mb-3" style="color:#1B5E20;">
-        <i class="bi bi-clock-history me-2"></i> SEJARAH SINGKAT DESA
-    </h1>
-    <div class="decor-line mt-4" style="width:100px; height:5px; background:#4CAF50; border-radius:5px; margin-left:0;"></div>
+<div class="text-start mb-5 mb-lg-6" style="padding-left: 30px; padding-right: 15px;">
+        <h2 class="fw-bolder display-5 mb-3 gallery-title">
+            <i class="bi bi-images me-2"></i> SEJARAH DESA
+        </h2>
     <p class="text-secondary fs-5 mt-3">Mengenal asal-usul, perkembangan, dan tradisi desa</p>
 </div>
 

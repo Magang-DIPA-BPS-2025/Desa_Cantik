@@ -10,7 +10,7 @@ class GaleriController extends Controller
 {
     public function index()
     {
-        $galeris = Galeri::latest()->paginate(12);
+        $galeris = Galeri::latest()->paginate(9);
 
         return view('pages.admin.galeriDesa.index', [
             'galeris' => $galeris,

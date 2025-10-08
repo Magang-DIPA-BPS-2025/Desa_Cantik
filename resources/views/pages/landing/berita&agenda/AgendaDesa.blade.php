@@ -216,8 +216,9 @@
     @endforelse
 
     <div class="pagination" style="margin-top:20px;">
-      {{ $agendas->appends(['kategori' => request('kategori')])->links() }}
-    </div>
+  {{ $agendas->appends(['kategori' => request('kategori')])->links() }}
+</div>
+
   </div>
 
   <!-- Kanan -->

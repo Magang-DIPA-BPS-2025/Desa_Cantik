@@ -1,10 +1,10 @@
-@extends('layouts.app', ['title' => $title])
+@extends('layouts.app', ['title' => 'tambah berita'])
 
 @section('content')
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>{{ $title }}</h1>
+            <h1>tambah berita</h1>
         </div>
 
         <div class="section-body">

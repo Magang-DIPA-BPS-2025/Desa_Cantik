@@ -2,274 +2,193 @@
 
 @section('content')
 <div class="container py-5">
-    <h2 class="mb-4">Pemerintah Desa</h2>
+    <h2 class="mb-4 text-dark text-center">Pemerintah Desa</h2>
 
     {{-- Tupoksi Desa --}}
-    <div class="mb-5">
-        <h4 class="text-primary mb-3">Tupoksi Desa</h4>
-        @if($pemerintahDesas->where('tupoksi', '!=', null)->count() > 0)
-            <div class="row g-3">
-                @foreach($pemerintahDesas as $pd)
-                    @if($pd->tupoksi)
-                        <div class="col-md-6">
-                            <div class="card shadow-sm h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $pd->jabatan }}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">{{ $pd->nama }}</h6>
-                                    <p class="card-text">{{ $pd->tupoksi }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                @endforeach
-            </div>
-        @else
-            <p class="text-muted">Belum ada data Tupoksi Desa.</p>
-        @endif
-    </div>
+	<div class="mb-5">
+		<h4 class="mb-3 text-dark">Tugas Pokok dan Fungsi (Tupoksi)</h4>
+		@if($pemerintahDesas->where('tupoksi', '!=', null)->count() > 0)
+			<ul class="tupoksi-list">
+				@foreach($pemerintahDesas as $pd)
+					@if($pd->tupoksi)
+						<li>{{ $pd->tupoksi }}</li>
+					@endif
+				@endforeach
+			</ul>
+		@else
+			<p class="text-muted">Belum ada data Tupoksi Desa.</p>
+		@endif
+	</div>
 
-    {{-- Struktur Organisasi Desa --}}
-    <div class="mb-5">
-        <h4 class="text-success mb-4 text-center">Struktur Organisasi Desa</h4>
+	{{-- Struktur Organisasi Desa --}}
+	<div class="mb-5">
+		<h4 class="mb-4 text-center text-dark">Struktur Organisasi Desa</h4>
 
-        @if(count($pemerintahDesas) > 0)
-        <div class="org-chart text-center">
+		@php
+		use Illuminate\Support\Str;
+		$strukturImgRel = 'img/struktur-organisasi-desa.jpg';
+		$strukturFullPath = public_path($strukturImgRel);
+		$kepala = $pemerintahDesas->first(fn($item) => Str::lower(trim($item->jabatan)) === 'kepala desa');
+		$sekretaris = $pemerintahDesas->first(fn($item) => Str::lower(trim($item->jabatan)) === 'sekretaris');
+		$levelBawah = $pemerintahDesas->filter(fn($item) => Str::contains(Str::lower(trim($item->jabatan)), ['kasi','kaur','kadus']));
+		@endphp
 
-            {{-- Kepala Desa --}}
-            @php $kepala = $pemerintahDesas->where('jabatan','Kepala Desa')->first(); @endphp
-            @if($kepala)
-            <div class="org-node">
-                <div class="node-box bg-success text-white">
-                    <strong>{{ $kepala->jabatan }}</strong><br>
-                    {{ $kepala->nama }}
-                    @if($kepala->tupoksi)
-                        <p class="mt-2"><em>{{ $kepala->tupoksi }}</em></p>
-                    @endif
-                </div>
-            </div>
-            @endif
+		@if(file_exists($strukturFullPath))
+			<div class="text-center">
+				<img src="{{ asset($strukturImgRel) }}" alt="Struktur Kelembagaan Pemerintahan Desa" class="img-fluid rounded shadow-sm org-image" />
+			</div>
+		@else
+			<div class="org-chart">
+				{{-- Fallback: render struktur sederhana dinamis --}}
+				@if($kepala)
+				<div class="org-node text-center">
+					@if($kepala->foto)
+					<img src="{{ asset('storage/' . $kepala->foto) }}" class="node-img mb-2">
+					@endif
+					<div class="node-box card-node">
+						<strong>{{ $kepala->jabatan }}</strong><br>
+						{{ $kepala->nama }}
+					</div>
+				</div>
+				@endif
 
-            {{-- Sekretaris --}}
-            @php $sekretaris = $pemerintahDesas->where('jabatan','Sekretaris')->first(); @endphp
-            @if($sekretaris)
-            <div class="org-node mt-3">
-                <div class="node-box bg-success text-white">
-                    <strong>{{ $sekretaris->jabatan }}</strong><br>
-                    {{ $sekretaris->nama }}
-                    @if($sekretaris->tupoksi)
-                        <p class="mt-2"><em>{{ $sekretaris->tupoksi }}</em></p>
-                    @endif
-                </div>
-            </div>
-            @endif
+				@if($sekretaris)
+				<div class="connector-vertical"></div>
+				<div class="org-node text-center mt-3">
+					@if($sekretaris->foto)
+					<img src="{{ asset('storage/' . $sekretaris->foto) }}" class="node-img mb-2">
+					@endif
+					<div class="node-box card-node">
+						<strong>{{ $sekretaris->jabatan }}</strong><br>
+						{{ $sekretaris->nama }}
+					</div>
+				</div>
+				@endif
 
-            {{-- Kepala Seksi / Kaur / Kadus --}}
-            <div class="org-level d-flex justify-content-center flex-wrap mt-4 gap-3">
-                @foreach($pemerintahDesas as $pd)
-                    @if(str_contains($pd->jabatan, 'Kasi') || str_contains($pd->jabatan, 'Kaur') || str_contains($pd->jabatan, 'Kadus'))
-                        <div class="org-node">
-                            <div class="node-box bg-success text-white">
-                                <strong>{{ $pd->jabatan }}</strong><br>
-                                {{ $pd->nama }}
-                                @if($pd->tupoksi)
-                                    <p class="mt-2"><em>{{ $pd->tupoksi }}</em></p>
-                                @endif
-                            </div>
-                        </div>
-                    @endif
-                @endforeach
-            </div>
-
-        </div>
-        @else
-            <p class="text-muted text-center">Belum ada data Struktur Organisasi Desa.</p>
-        @endif
-    </div>
-
-    {{-- Pilih Bulan & Tahun --}}
-    <form method="GET" action="{{ route('pemerintah') }}" class="mb-4 d-flex flex-wrap gap-3 align-items-end">
-        <div class="d-flex flex-column">
-            <label for="month" class="form-label">Bulan</label>
-            <select name="month" id="month" class="form-select">
-                @for($m=1; $m<=12; $m++)
-                    <option value="{{ $m }}" @if($m == $month) selected @endif>{{ \Carbon\Carbon::create()->month($m)->format('F') }}</option>
-                @endfor
-            </select>
-        </div>
-
-        <div class="d-flex flex-column">
-            <label for="year" class="form-label">Tahun</label>
-            <select name="year" id="year" class="form-select">
-                @for($y = date('Y')-5; $y <= date('Y')+5; $y++)
-                    <option value="{{ $y }}" @if($y == $year) selected @endif>{{ $y }}</option>
-                @endfor
-            </select>
-        </div>
-    </form>
-
-    {{-- Kalender Interaktif --}}
-    @php
-        $monthName = \Carbon\Carbon::create($year, $month)->format('F Y');
-    @endphp
-
-    <h4 class="mb-3 text-center">{{ $monthName }}</h4>
-
-    <table class="table table-bordered text-center calendar">
-        <thead class="table-light">
-            <tr>
-                <th>Minggu</th>
-                <th>Senin</th>
-                <th>Selasa</th>
-                <th>Rabu</th>
-                <th>Kamis</th>
-                <th>Jumat</th>
-                <th>Sabtu</th>
-            </tr>
-        </thead>
-        <tbody>
-            @php
-                $firstDay = \Carbon\Carbon::create($year, $month, 1);
-                $daysInMonth = $firstDay->daysInMonth;
-                $startDayOfWeek = $firstDay->dayOfWeek;
-                $day = 1;
-            @endphp
-            @for($i=0; $i<6; $i++)
-                <tr>
-                    @for($j=0; $j<7; $j++)
-                        @if($i == 0 && $j < $startDayOfWeek)
-                            <td></td>
-                        @elseif($day <= $daysInMonth)
-                            <td class="align-top">
-                                <strong>{{ $day }}</strong>
-                                @if(isset($events[$day]))
-                                    <br>
-                                    <button class="btn btn-sm btn-success mt-1" data-bs-toggle="modal" data-bs-target="#modalDay{{ $day }}">
-                                        {{ count($events[$day]) }} Kegiatan
-                                    </button>
-
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="modalDay{{ $day }}" tabindex="-1" aria-labelledby="modalDayLabel{{ $day }}" aria-hidden="true">
-                                      <div class="modal-dialog">
-                                        <div class="modal-content">
-                                          <div class="modal-header">
-                                            <h5 class="modal-title" id="modalDayLabel{{ $day }}">Kegiatan Tanggal {{ $day }} {{ $monthName }}</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                          </div>
-                                          <div class="modal-body">
-                                            <ul class="list-group">
-                                                @foreach($events[$day] as $event)
-                                                    <li class="list-group-item">
-                                                        <strong>{{ $event->nama_kegiatan }}</strong><br>
-                                                        @if($event->deskripsi) <small>{{ $event->deskripsi }}</small> @endif
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                          </div>
-                                          <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                @endif
-                            </td>
-                            @php $day++; @endphp
-                        @else
-                            <td></td>
-                        @endif
-                    @endfor
-                </tr>
-            @endfor
-        </tbody>
-    </table>
+				@if(count($levelBawah) > 0)
+				<div class="connector-vertical"></div>
+				<div class="org-level d-flex justify-content-center flex-wrap position-relative gap-3">
+					@foreach($levelBawah as $pd)
+					<div class="org-node text-center">
+						@if($pd->foto)
+						<img src="{{ asset('storage/' . $pd->foto) }}" class="node-img mb-2">
+						@endif
+						<div class="node-box card-node">
+							<strong>{{ $pd->jabatan }}</strong><br>
+							{{ $pd->nama }}
+						</div>
+					</div>
+					@endforeach
+				</div>
+				@endif
+			</div>
+		@endif
+	</div>
 </div>
 @endsection
 
 @section('styles')
 <style>
-    .calendar table td {
-        height: 100px;
-        vertical-align: top;
-    }
+/* Tupoksi Desa */
+.card {
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #f8f9fa;
+}
 
-    .card {
-        border-radius: 10px;
-    }
-    .card-body {
-        padding: 15px;
-    }
-    form select {
-        min-width: 150px;
-    }
+/* Struktur Organisasi Desa */
+.org-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
 
-    /* Struktur Organisasi Desa */
-    .org-chart {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        position: relative;
-    }
+.org-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
 
-    .org-node {
-        text-align: center;
-        position: relative;
-        margin: 0 auto;
-    }
+.node-box {
+    border-radius: 10px;
+    padding: 10px 12px;
+    min-width: 120px;
+    background: #fff;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-size: 14px;
+}
 
+/* Hover effect */
+.node-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.25);
+}
+
+.node-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Connector vertikal */
+.connector-vertical {
+    width: 2px;
+    height: 25px;
+    background-color: #198754;
+    margin: -5px auto;
+}
+
+/* Level bawah */
+.org-level {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    position: relative;
+}
+
+/* Garis horizontal dari Sekretaris ke semua node bawah */
+.org-level::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #198754;
+}
+
+/* Garis vertikal setiap node bawah */
+.org-level .org-node::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    width: 2px;
+    height: 20px;
+    background: #198754;
+    transform: translateX(-50%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
     .node-box {
-        border: 2px solid #198754;
-        padding: 15px 20px;
-        min-width: 180px;
-        border-radius: 8px;
-        box-shadow: 1px 1px 6px rgba(0,0,0,0.2);
+        min-width: 100px;
+        padding: 8px 10px;
+        font-size: 13px;
     }
-
     .org-level {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 40px;
-        position: relative;
-        margin-top: 40px;
+        gap: 10px;
     }
-
-    .org-chart .org-node::after {
-        content: '';
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        border-left: 2px solid #198754;
-        height: 25px;
-        transform: translateX(-50%);
+    .node-img {
+        width: 40px;
+        height: 40px;
     }
-
-    .org-level::before {
-        content: '';
-        position: absolute;
-        top: -25px;
-        left: 0;
-        width: 100%;
-        border-top: 2px solid #198754;
-    }
-
-    .org-level .org-node::before {
-        content: '';
-        position: absolute;
-        top: -25px;
-        left: 50%;
-        border-left: 2px solid #198754;
-        height: 25px;
-        transform: translateX(-50%);
-    }
-
-    @media (max-width: 768px) {
-        .node-box {
-            min-width: 140px;
-            padding: 10px 12px;
-        }
-        .org-level {
-            gap: 20px;
-        }
-    }
+}
 </style>
 @endsection

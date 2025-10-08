@@ -133,7 +133,7 @@ class AgendaController extends Controller
             $query->where('kategori', $kategoriSelected);
         }
 
-        $agendas = $query->paginate(9)->appends($request->query());
+        $agendas = $query->paginate(5)->appends($request->query());
         $latest_agendas = Agenda::latest()->take(5)->get();
         $kategoriList = Agenda::select('kategori')->distinct()->orderBy('kategori')->pluck('kategori');
 

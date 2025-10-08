@@ -11,7 +11,7 @@ class BeritaController extends Controller
 {
     public function index()
     {
-        $datas = Berita::with('kategori')->latest()->paginate(10);
+        $datas = Berita::with('kategori')->latest()->paginate(5);
 
         return view('pages.admin.berita.index', [
             'datas' => $datas,
@@ -22,15 +22,13 @@ class BeritaController extends Controller
 
     public function create()
     {
-        $kategoris = Kategori::all();
-
+        $kategoris = \App\Models\Kategori::all();
         return view('pages.admin.berita.create', [
-            'kategoris' => $kategoris,
-            'menu'      => 'berita',
-            'title'     => 'Tambah Berita Desa'
+        'kategoris' => $kategoris,
+        'menu'      => 'berita',
+        'title'     => 'Tambah Berita Desa'
         ]);
     }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -129,35 +127,46 @@ class BeritaController extends Controller
     /**
      * Menampilkan berita untuk user landing page
      */
-public function userIndex()
-    {
-        $beritas = Berita::with('kategori')->latest()->paginate(9);
-        $latest_beritas = Berita::latest()->take(5)->get();
+public function userIndex(Request $request)
+{
+    $kategoriSelected = $request->query('kategori');
+    $search = $request->query('search');
 
-        return view('pages.landing.berita&agenda.BeritaDesa', [
-            'beritas' => $beritas,
-            'latest_beritas' => $latest_beritas,
-        ]);
+    $query = Berita::with('kategori')->latest();
+
+    if (!empty($kategoriSelected)) {
+        $query->whereHas('kategori', function($q) use ($kategoriSelected) {
+            $q->where('nama', $kategoriSelected);
+        });
     }
 
-    /**
-     * Menampilkan detail berita untuk user
-     */
-    public function userShow($id)
-    {
-        $berita = Berita::with('kategori')->findOrFail($id);
-
-        // Tambahkan counter view kalau mau
-        $berita->increment('dilihat');
-
-        $latest_beritas = Berita::latest()->take(5)->get();
-
-        // Pastikan mengarah ke view landing page, bukan admin
-        // Debug: pastikan ini adalah halaman user, bukan admin
-        return view('pages.landing.detail-berita', [
-            'berita' => $berita,
-            'latest_beritas' => $latest_beritas,
-        ]);
+    if (!empty($search)) {
+        $query->where('judul', 'like', '%' . $search . '%');
     }
 
+    $beritas = $query->paginate(6)->appends($request->query());
+    $latest_beritas = Berita::latest()->take(5)->get();
+    $kategoriList = Kategori::select('nama')->distinct()->orderBy('nama')->pluck('nama');
+
+    return view('pages.landing.berita&agenda.BeritaDesa', [
+        'beritas' => $beritas,
+        'latest_beritas' => $latest_beritas,
+        'kategoriList' => $kategoriList,
+        'kategoriSelected' => $kategoriSelected,
+        'search' => $search,
+    ]);
+}
+
+public function userShow($id)
+{
+    $berita = Berita::with('kategori')->findOrFail($id);
+    $berita->increment('dilihat');
+
+    $latest_beritas = Berita::latest()->take(5)->get();
+
+    return view('pages.landing.detail-berita', [
+        'berita' => $berita,
+        'latest_beritas' => $latest_beritas,
+    ]);
+}
 }
