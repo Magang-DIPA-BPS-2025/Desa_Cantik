@@ -136,7 +136,7 @@
             </tr>
             <tr class="fw-bold table-light">
               <td colspan="2">Jumlah Penduduk</td>
-                {{$totalPenduduk = $perempuan + $laki}}
+                {{$totalPenduduk = $perempuan + $laki + $disabilitas}}
               <td>{{ $totalPenduduk }}</td>
               <td>100%</td>
             </tr>
