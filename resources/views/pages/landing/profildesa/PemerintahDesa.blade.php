@@ -39,7 +39,7 @@
             @php $kepala = $pemerintahDesas->where('jabatan','Kepala Desa')->first(); @endphp
             @if($kepala)
             <div class="org-node">
-                <div class="node-box bg-warning">
+                <div class="node-box bg-success text-white">
                     <strong>{{ $kepala->jabatan }}</strong><br>
                     {{ $kepala->nama }}
                     @if($kepala->tupoksi)
@@ -53,7 +53,7 @@
             @php $sekretaris = $pemerintahDesas->where('jabatan','Sekretaris')->first(); @endphp
             @if($sekretaris)
             <div class="org-node mt-3">
-                <div class="node-box bg-warning">
+                <div class="node-box bg-success text-white">
                     <strong>{{ $sekretaris->jabatan }}</strong><br>
                     {{ $sekretaris->nama }}
                     @if($sekretaris->tupoksi)
@@ -68,7 +68,7 @@
                 @foreach($pemerintahDesas as $pd)
                     @if(str_contains($pd->jabatan, 'Kasi') || str_contains($pd->jabatan, 'Kaur') || str_contains($pd->jabatan, 'Kadus'))
                         <div class="org-node">
-                            <div class="node-box bg-warning">
+                            <div class="node-box bg-success text-white">
                                 <strong>{{ $pd->jabatan }}</strong><br>
                                 {{ $pd->nama }}
                                 @if($pd->tupoksi)
@@ -143,7 +143,7 @@
                                 <strong>{{ $day }}</strong>
                                 @if(isset($events[$day]))
                                     <br>
-                                    <button class="btn btn-sm btn-warning mt-1" data-bs-toggle="modal" data-bs-target="#modalDay{{ $day }}">
+                                    <button class="btn btn-sm btn-success mt-1" data-bs-toggle="modal" data-bs-target="#modalDay{{ $day }}">
                                         {{ count($events[$day]) }} Kegiatan
                                     </button>
 
@@ -192,20 +192,17 @@
         vertical-align: top;
     }
 
-    /* Card Tupoksi & Struktur Organisasi */
     .card {
         border-radius: 10px;
     }
     .card-body {
         padding: 15px;
     }
-
-    /* Responsive dropdown */
     form select {
         min-width: 150px;
     }
 
-    /* Struktur Organisasi Desa - Diagram */
+    /* Struktur Organisasi Desa */
     .org-chart {
         display: flex;
         flex-direction: column;
@@ -213,68 +210,65 @@
         position: relative;
     }
 
+    .org-node {
+        text-align: center;
+        position: relative;
+        margin: 0 auto;
+    }
+
+    .node-box {
+        border: 2px solid #198754;
+        padding: 15px 20px;
+        min-width: 180px;
+        border-radius: 8px;
+        box-shadow: 1px 1px 6px rgba(0,0,0,0.2);
+    }
+
     .org-level {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 20px;
-        margin-top: 30px;
+        gap: 40px;
         position: relative;
+        margin-top: 40px;
     }
 
-    .org-node {
-        text-align: center;
-        position: relative;
-        padding: 10px;
-    }
-
-    .node-box {
-        border: 2px solid #000;
-        padding: 15px 20px;
-        min-width: 160px;
-        background-color: #fff59d;
-        border-radius: 6px;
-        box-shadow: 1px 1px 6px rgba(0,0,0,0.2);
-        position: relative;
-    }
-
-    /* Garis penghubung */
-    .org-node::after {
+    .org-chart .org-node::after {
         content: '';
         position: absolute;
         top: 100%;
         left: 50%;
-        border-left: 2px solid #000;
-        height: 20px;
-    }
-
-    .org-level .org-node::before {
-        content: '';
-        position: absolute;
-        top: -20px;
-        left: 50%;
-        border-left: 2px solid #000;
-        height: 20px;
+        border-left: 2px solid #198754;
+        height: 25px;
+        transform: translateX(-50%);
     }
 
     .org-level::before {
         content: '';
         position: absolute;
-        top: -20px;
+        top: -25px;
         left: 0;
         width: 100%;
-        border-top: 2px solid #000;
+        border-top: 2px solid #198754;
     }
 
-    .node-box p {
-        font-size: 0.85rem;
-        color: #333;
+    .org-level .org-node::before {
+        content: '';
+        position: absolute;
+        top: -25px;
+        left: 50%;
+        border-left: 2px solid #198754;
+        height: 25px;
+        transform: translateX(-50%);
     }
 
     @media (max-width: 768px) {
         .node-box {
             min-width: 140px;
             padding: 10px 12px;
+        }
+        .org-level {
+            gap: 20px;
         }
     }
 </style>

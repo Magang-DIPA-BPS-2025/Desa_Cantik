@@ -26,7 +26,7 @@
                             <h4>Form Edit Berita Desa</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('berita.update', $berita->id) }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.berita.update', $berita->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
 
@@ -101,7 +101,7 @@
 
                                 {{-- Tombol Aksi --}}
                                 <div class="d-flex justify-content-end mt-4">
-                                    <a href="{{ route('berita.index') }}" class="btn btn-secondary mr-2">Batal</a>
+                                    <a href="{{ route('admin.berita.index') }}" class="btn btn-secondary mr-2">Batal</a>
                                     <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                             </form>

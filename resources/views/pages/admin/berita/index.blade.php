@@ -17,7 +17,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <a href="{{ route('berita.create') }}" class="btn btn-primary my-4">
+                            <a href="{{ route('admin.berita.create') }}" class="btn btn-primary my-4">
                                 <i class="fas fa-plus"></i> Tambah Berita
                             </a>
                             <div class="table-responsive">
@@ -53,10 +53,10 @@
                                                 </td>
                                                 <td>{{ $berita->dilihat }}</td>
                                                 <td class="d-flex">
-                                                    <a href="{{ route('berita.edit', $berita->id) }}" class="btn btn-warning btn-sm mr-2">
+                                                    <a href="{{ route('admin.berita.edit', $berita->id) }}" class="btn btn-warning btn-sm mr-2">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <form action="{{ route('berita.destroy', $berita->id) }}" method="POST"
+                                                    <form action="{{ route('admin.berita.destroy', $berita->id) }}" method="POST"
                                                           onsubmit="return confirm('Yakin ingin hapus berita ini?')">
                                                         @csrf
                                                         @method('DELETE')

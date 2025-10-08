@@ -3,7 +3,7 @@
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\PemerintahDesaController;
-use App\Http\Controllers\EventController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ApbdController;
 use App\Http\Controllers\DataPendudukController;
 use App\Http\Controllers\GaleriController;
@@ -48,6 +48,7 @@ Route::group(
         //Berita Desa (dynamic view)
         Route::get('/berita', [BeritaController::class, 'userIndex'])->name('berita');
         Route::get('/berita/{id}', [BeritaController::class, 'userShow'])->name('berita.show');
+        Route::get('/detail/{jenis}/{id}', [UserController::class, 'detail'])->name('user.detail.berita');
 
         //Agenda Desa (dynamic view)
         Route::get('/agenda', [AgendaController::class, 'userIndex'])->name('agenda');
@@ -74,7 +75,7 @@ Route::group(
         //Pengaduan (dynamic view)
         Route::get('/pengaduan', [PengaduanController::class, 'userIndex'])->name('pengaduan');
         Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');
-         Route::get('status-pengaduan', [PengaduanController::class, 'userStatus'])->name('pengaduan.userStatus');
+        Route::get('status-pengaduan', [PengaduanController::class, 'userStatus'])->name('pengaduan.userStatus');
 
         //Surat Pengaduan (dynamic view)
         Route::get('/statuspengaduan', [PengaduanController::class, 'userStatus'])->name('statuspengaduan');
@@ -84,7 +85,7 @@ Route::group(
             return view('pages.landing.layananonline.PenyandangDisabilitas');
         })->name('penyandang');
 
-        Route::get('/detail/{jenis}/{id}', 'UserController@detail')->name('user.detail.post');
+
 
         // Pegawai
         Route::get('/pegawai', 'UserController@pegawai')->name('user.pegawai');
@@ -153,16 +154,16 @@ Route::group(
             Route::get('/profile/{id}', 'AdminController@profile')->name('profile.index');
             Route::put('/profile/update', 'AdminController@profile_update')->name('profile.update');
 
-            // Guru
-            Route::prefix('guru')->group(function () {
-                Route::get('/', 'guruController@index')->name('guru.index');
-                Route::get('/create', 'guruController@create')->name('guru.create');
-                Route::post('/store', 'guruController@store')->name('guru.store');
-                Route::get('/show', 'guruController@showguru')->name('admin.guru.detail');
-                Route::get('/edit/{id}', 'guruController@edit')->name('guru.edit');
-                Route::put('/update', 'guruController@update')->name('guru.update');
-                Route::post('/hapus/{id}', 'guruController@destroy')->name('guru.hapus');
-            });
+            // Guru - Commented out due to missing controller
+            // Route::prefix('guru')->group(function () {
+            //     Route::get('/', 'guruController@index')->name('guru.index');
+            //     Route::get('/create', 'guruController@create')->name('guru.create');
+            //     Route::post('/store', 'guruController@store')->name('guru.store');
+            //     Route::get('/show', 'guruController@showguru')->name('admin.guru.detail');
+            //     Route::get('/edit/{id}', 'guruController@edit')->name('guru.edit');
+            //     Route::put('/update', 'guruController@update')->name('guru.update');
+            //     Route::post('/hapus/{id}', 'guruController@destroy')->name('guru.hapus');
+            // });
 
             // Data Penduduk
             Route::prefix('dataPenduduk')->group(function () {
@@ -185,15 +186,15 @@ Route::group(
                 Route::post('/hapus/{id}', 'AkunController@destroy')->name('akun.hapus');
             });
 
-            // Jadwal
-            Route::prefix('jadwal')->group(function () {
-                Route::get('/', 'JadwalController@index')->name('jadwal.index');
-                Route::get('/create', 'JadwalController@create')->name('jadwal.create');
-                Route::post('/store', 'JadwalController@store')->name('jadwal.store');
-                Route::get('/edit/{id}', 'JadwalController@edit')->name('jadwal.edit');
-                Route::put('/update', 'JadwalController@update')->name('jadwal.update');
-                Route::post('/hapus/{id}', 'JadwalController@destroy')->name('jadwal.hapus');
-            });
+            // Jadwal - Commented out due to missing controller
+            // Route::prefix('jadwal')->group(function () {
+            //     Route::get('/', 'JadwalController@index')->name('jadwal.index');
+            //     Route::get('/create', 'JadwalController@create')->name('jadwal.create');
+            //     Route::post('/store', 'JadwalController@store')->name('jadwal.store');
+            //     Route::get('/edit/{id}', 'JadwalController@edit')->name('jadwal.edit');
+            //     Route::put('/update', 'JadwalController@update')->name('jadwal.update');
+            //     Route::post('/hapus/{id}', 'JadwalController@destroy')->name('jadwal.hapus');
+            // });
 
             // Kegiatan - Commented out due to missing controller
             // Route::prefix('kegiatan')->group(function () {
@@ -251,16 +252,18 @@ Route::group(
             Route::resource('apbd', ApbdController::class);
 
             Route::resource('AgendaDesa', AgendaController::class);
-
-            Route::resource('berita', BeritaController::class);
+            Route::get('/berita', [BeritaController::class, 'index'])->name('admin.berita.index');
+            Route::get('/berita/create', [BeritaController::class, 'create'])->name('admin.berita.create');
+            Route::post('/berita', [BeritaController::class, 'store'])->name('admin.berita.store');
+            Route::get('/berita/{berita}', [BeritaController::class, 'show'])->name('admin.berita.show');
+            Route::get('/berita/{berita}/edit', [BeritaController::class, 'edit'])->name('admin.berita.edit');
+            Route::put('/berita/{berita}', [BeritaController::class, 'update'])->name('admin.berita.update');
+            Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])->name('admin.berita.destroy');
 
             Route::resource('kategori', KategoriController::class);
 
             Route::resource('pengaduan', PengaduanController::class);
             Route::put('/pengaduan/{id}/status', [PengaduanController::class, 'updateStatus'])->name('pengaduan.updateStatus');
-
-
-
         });
     }
 );

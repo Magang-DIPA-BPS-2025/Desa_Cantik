@@ -4,58 +4,71 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Agenda;
-use App\Models\Modul;
-use App\Models\Tema;
-use App\Models\Artikel;
 use App\Models\Berita;
-
 
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Halaman utama user (menampilkan berita dan agenda)
      */
     public function index()
     {
-        $datas = array(
-            'berita' => Berita::orderByDesc('id')->skip(0)->take(10)->get(),
-            'agenda' => Agenda::orderByDesc('id')->skip(0)->take(10)->get()
-        );
+        $datas = [
+            'berita' => Berita::orderByDesc('id')->take(10)->get(),
+            'agenda' => Agenda::orderByDesc('id')->take(10)->get(),
+        ];
 
-        // dd($datas);
-        // return view('pages.user.index', ['menu' => 'profil']);
         return view('pages.landing.index', ['menu' => 'profil'], compact('datas'));
     }
 
+    /**
+     * Halaman kontak
+     */
     public function kontak()
     {
         return view('pages.landing.kontak', ['menu' => 'kontak']);
-        // return view('pages.user.kontak', ['menu' => 'kontak']);
     }
 
-
+    /**
+     * Detail Berita / Agenda
+     */
     public function detail($jenis, $id)
     {
-        // dd($jenis)
-         if ($jenis == 'agenda') {
-            $data = Agenda::find($id);
-            $latest_post = Agenda::orderByDesc('id')->skip(0)->take(5)->get();
-            return view('pages.landing.detail-agenda', [
-                'menu' => 'detail post',
-                'data' => $data,
-                'jenis' => $jenis,
-                'latest_post' => $latest_post
-            ]);
+        if ($jenis === 'berita') {
+            $data = Berita::findOrFail($id);
+            $latest_post = Berita::latest()->take(5)->get();
+            $view = 'pages.landing.detail-berita';
+        } elseif ($jenis === 'agenda') {
+            $data = Agenda::findOrFail($id);
+            $latest_post = Agenda::latest()->take(5)->get();
+            $view = 'pages.landing.detail-agenda';
+        } else {
+            abort(404);
+        }
 
-
-        return view('pages.landing.detail-post', [
+        return view($view, [
             'menu' => 'detail post',
             'data' => $data,
             'jenis' => $jenis,
             'latest_post' => $latest_post
         ]);
-        // return view('pages.user.kontak', ['menu' => 'kontak']);
     }
 
-}
+    /**
+     * Pemanggilan langsung halaman detail-berita tanpa parameter jenis
+     * Misal: route('/detail-berita/{id}')
+     */
+    public function showDetailBerita($id)
+    {
+        $data = Berita::findOrFail($id);
+        $latest_post = Berita::latest()->take(5)->get();
+
+        // Langsung panggil view yang sama
+        return view('pages.landing.detail-berita', [
+            'menu' => 'detail post',
+            'data' => $data,
+            'jenis' => 'berita',
+            'latest_post' => $latest_post
+        ]);
+    }
 }

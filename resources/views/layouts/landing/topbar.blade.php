@@ -158,7 +158,7 @@
     /* Hero Banner */
     .hero-banner img {
       width: 100%;
-      max-height: 2500px;
+      max-height: 250px;
       object-fit: cover;
       border-bottom-left-radius: 20px;
       border-bottom-right-radius: 20px;

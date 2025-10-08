@@ -3,13 +3,14 @@
 @section('content')
 <div class="gallery-section py-5 py-lg-6">
     {{-- Judul --}}
-    <div class="text-center mb-5 mb-lg-6">
-        <h2 class="fw-bolder text-success display-5 mb-3">
-            <i class="bi bi-images me-2"></i> GALERI DESA
-        </h2>
-        <p class="text-secondary fs-5">Kumpulan dokumentasi kegiatan & keindahan desa</p>
-        <div class="decor-line mx-auto mt-4"></div>
-    </div>
+    <div class="text-start mb-5 mb-lg-6" style="padding-left: 30px; padding-right: 15px;">
+    <h2 class="fw-bolder text-success display-5 mb-3">
+        <i class="bi bi-images me-2"></i> GALERI DESA
+    </h2>
+    <p class="text-secondary fs-5">Kumpulan dokumentasi kegiatan & keindahan desa</p>
+    <div class="decor-line mt-4" style="margin-left:0;"></div>
+</div>
+
 
     {{-- Grid Galeri: Menggunakan container-fluid untuk lebar penuh --}}
     <div class="container-fluid px-lg-5">

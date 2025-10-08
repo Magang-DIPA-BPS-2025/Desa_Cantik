@@ -6,13 +6,14 @@
     <div class="container-fluid px-0 px-lg-5">
 
         {{-- Judul --}}
-        <div class="text-center mb-5 mb-lg-6 mx-auto" style="max-width: 1000px;">
-            <h1 class="fw-bolder display-4 mb-3" style="color:#1B5E20;">
-                <i class="bi bi-clock-history me-2"></i> SEJARAH SINGKAT DESA
-            </h1>
-            <div class="decor-line mx-auto mt-4" style="width:100px; height:5px; background:#4CAF50; border-radius:5px;"></div>
-            <p class="text-secondary fs-5 mt-3">Mengenal asal-usul, perkembangan, dan tradisi desa</p>
-        </div>
+<div>
+    <h1 class="fw-bolder display-4 mb-3" style="color:#1B5E20;">
+        <i class="bi bi-clock-history me-2"></i> SEJARAH SINGKAT DESA
+    </h1>
+    <div class="decor-line mt-4" style="width:100px; height:5px; background:#4CAF50; border-radius:5px; margin-left:0;"></div>
+    <p class="text-secondary fs-5 mt-3">Mengenal asal-usul, perkembangan, dan tradisi desa</p>
+</div>
+
 
         {{-- Card Konten UTAMA --}}
         {{-- Hapus max-width di CSS agar card mengikuti container-fluid. Tambahkan padding horizontal yang besar untuk menjaga estetika --}}

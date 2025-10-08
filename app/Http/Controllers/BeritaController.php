@@ -55,7 +55,7 @@ class BeritaController extends Controller
 
         Berita::create($data);
 
-        return redirect()->route('berita.index')->with('success', 'Berita berhasil ditambahkan');
+        return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil ditambahkan');
     }
 
     public function edit($id)
@@ -99,7 +99,18 @@ class BeritaController extends Controller
 
         $berita->update($data);
 
-        return redirect()->route('berita.index')->with('success', 'Berita berhasil diperbarui');
+        return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil diperbarui');
+    }
+
+    public function show($id)
+    {
+        $berita = Berita::with('kategori')->findOrFail($id);
+
+        return view('pages.admin.berita.show', [
+            'berita' => $berita,
+            'menu'  => 'berita',
+            'title' => 'Detail Berita Desa'
+        ]);
     }
 
     public function destroy($id)
@@ -112,7 +123,7 @@ class BeritaController extends Controller
 
         $berita->delete();
 
-        return redirect()->route('berita.index')->with('success', 'Berita berhasil dihapus');
+        return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil dihapus');
     }
 
     /**
@@ -135,12 +146,18 @@ public function userIndex()
     public function userShow($id)
     {
         $berita = Berita::with('kategori')->findOrFail($id);
+
+        // Tambahkan counter view kalau mau
+        $berita->increment('dilihat');
+
         $latest_beritas = Berita::latest()->take(5)->get();
 
-        return view('pages.landing.detail-post', [
-            'data' => $berita,
-            'jenis' => 'berita',
-            'latest_post' => $latest_beritas
+        // Pastikan mengarah ke view landing page, bukan admin
+        // Debug: pastikan ini adalah halaman user, bukan admin
+        return view('pages.landing.detail-berita', [
+            'berita' => $berita,
+            'latest_beritas' => $latest_beritas,
         ]);
     }
+
 }

@@ -27,7 +27,7 @@
                             <h4>Form Tambah Berita Desa</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.berita.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 {{-- Judul --}}
@@ -95,7 +95,7 @@
 
                                 {{-- Tombol Aksi --}}
                                 <div class="d-flex justify-content-end mt-4">
-                                    <a href="{{ route('berita.index') }}" class="btn btn-secondary mr-2">
+                                    <a href="{{ route('admin.berita.index') }}" class="btn btn-secondary mr-2">
                                         <i class="fas fa-arrow-left"></i> Kembali
                                     </a>
                                     <button type="submit" class="btn btn-primary">

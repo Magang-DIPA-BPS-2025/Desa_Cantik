@@ -181,7 +181,7 @@
                     <a href="#" class="btn btn-success">
                         <i class="fas fa-file-alt"></i> Kelola Surat
                     </a>
-                    <a href="{{ route('berita.index') }}" class="btn btn-info">
+                    <a href="{{ route('admin.berita.index') }}" class="btn btn-info">
                         <i class="fas fa-newspaper"></i> Kelola Berita
                     </a>
                     <a href="#" class="btn btn-warning">
@@ -256,4 +256,3 @@
 </script>
 @endpush
 @endsection
- 

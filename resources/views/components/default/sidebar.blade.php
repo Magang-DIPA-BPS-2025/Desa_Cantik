@@ -7,6 +7,14 @@
             <a href="{{ route('dashboard') }}">DESA</a>
         </div>
 
+        @php
+            // Daftar sub-menu untuk dropdown
+            $profilMenus = ['galeriDesa','sejarahDesa','pemerintahDesa','apbd'];
+            $agendaMenus = ['kegiatan','berita','kategori'];
+            $persuratanMenus = ['persuratan']; // jika ada sub-menu spesifik, bisa ditambahkan
+            $pengaduanMenus = ['pengaduan'];
+        @endphp
+
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
 
@@ -27,41 +35,40 @@
                 </li>
 
                 {{-- Data Profil Desa --}}
-                <li class="nav-item dropdown {{ in_array($menu, ['galeriDesa','sejarahDesa','pemerintahDesa','apbd']) ? 'active' : '' }}">
+                <li class="nav-item dropdown {{ in_array($menu, $profilMenus) ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-sitemap"></i> <span>Data Profil Desa</span></a>
-                    <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('galeriDesa.index') }}">Galeri Desa</a></li>
-                        <li><a class="nav-link" href="{{ route('sejarahDesa.index') }}">Sejarah</a></li>
-                        <li><a class="nav-link" href="{{ route('pemerintah-desa.index') }}">Pemerintah Desa</a></li>
-                        <li><a class="nav-link" href="{{ route('apbd.index') }}">APBD Desa</a></li>
+                    <ul class="dropdown-menu {{ in_array($menu, $profilMenus) ? 'show' : '' }}">
+                        <li><a class="nav-link {{ $menu == 'galeriDesa' ? 'active' : '' }}" href="{{ route('galeriDesa.index') }}">Galeri Desa</a></li>
+                        <li><a class="nav-link {{ $menu == 'sejarahDesa' ? 'active' : '' }}" href="{{ route('sejarahDesa.index') }}">Sejarah</a></li>
+                        <li><a class="nav-link {{ $menu == 'pemerintahDesa' ? 'active' : '' }}" href="{{ route('pemerintah-desa.index') }}">Pemerintah Desa</a></li>
+                        <li><a class="nav-link {{ $menu == 'apbd' ? 'active' : '' }}" href="{{ route('apbd.index') }}">APBD Desa</a></li>
                     </ul>
                 </li>
 
                 {{-- Data Agenda --}}
-                <li class="nav-item dropdown {{ in_array($menu, ['kegiatan','berita','kategori']) ? 'active' : '' }}">
+                <li class="nav-item dropdown {{ in_array($menu, $agendaMenus) ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-calendar-week"></i> <span>Data Agenda</span></a>
-                    <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('AgendaDesa.index') }}">Agenda Desa</a></li>
-                        <li><a class="nav-link" href="{{ route('berita.index') }}">Berita Desa</a></li>
-                        <li><a class="nav-link" href="{{ route('kategori.index') }}">Kategori Berita</a></li>
+                    <ul class="dropdown-menu {{ in_array($menu, $agendaMenus) ? 'show' : '' }}">
+                        <li><a class="nav-link {{ $menu == 'kegiatan' ? 'active' : '' }}" href="{{ route('AgendaDesa.index') }}">Agenda Desa</a></li>
+                        <li><a class="nav-link {{ $menu == 'berita' ? 'active' : '' }}" href="{{ route('admin.berita.index') }}">Berita Desa</a></li>
+                        <li><a class="nav-link {{ $menu == 'kategori' ? 'active' : '' }}" href="{{ route('kategori.index') }}">Kategori Berita</a></li>
                     </ul>
                 </li>
 
                 {{-- Data Persuratan --}}
-                <li class="nav-item dropdown {{ $menu == 'persuratan' ? 'active' : '' }}">
+                <li class="nav-item dropdown {{ in_array($menu, $persuratanMenus) ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-envelope"></i> <span>Data Persuratan</span></a>
-                    <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('dashboard') }}">Data Surat</a></li>
-                        <li><a class="nav-link" href="{{ route('dashboard') }}">Data Jadwal RPPH</a></li>
+                    <ul class="dropdown-menu {{ in_array($menu, $persuratanMenus) ? 'show' : '' }}">
+                        <li><a class="nav-link {{ $menu == 'persuratan' ? 'active' : '' }}" href="{{ route('dashboard') }}">Data Surat</a></li>
+                        <li><a class="nav-link {{ $menu == 'persuratan' ? 'active' : '' }}" href="{{ route('dashboard') }}">Data Jadwal RPPH</a></li>
                     </ul>
                 </li>
 
                 {{-- Data Pengaduan --}}
-                <li class="nav-item dropdown {{ $menu == 'pengaduan' ? 'active' : '' }}">
+                <li class="nav-item dropdown {{ in_array($menu, $pengaduanMenus) ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-comments"></i> <span>Data Pengaduan</span></a>
-                    <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('pengaduan.index') }}">Data Pengaduan</a></li>
-                        <li><a class="nav-link" href="{{ route('dashboard') }}">Jadwal Tindak Lanjut</a></li>
+                    <ul class="dropdown-menu {{ in_array($menu, $pengaduanMenus) ? 'show' : '' }}">
+                        <li><a class="nav-link {{ $menu == 'pengaduan' ? 'active' : '' }}" href="{{ route('pengaduan.index') }}">Data Pengaduan</a></li>
                     </ul>
                 </li>
 
