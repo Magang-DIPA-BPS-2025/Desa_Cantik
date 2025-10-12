@@ -12,7 +12,8 @@ class DataPendudukController extends Controller
         $datas = DataPenduduk::latest()->paginate(10);
         return view('pages.admin.dataPenduduk.index', [
             'datas' => $datas,
-            'menu'  => 'data_penduduk'
+            'menu'  => 'dataPenduduk',
+            'title'    => 'Data Penduduk',
         ]);
     }
 
@@ -41,7 +42,7 @@ class DataPendudukController extends Controller
             'agama'             => 'required|string|max:50',
             'status_perkawinan' => 'required|string|max:50',
             'pekerjaan'         => 'required|string|max:100',
-            'kewarganegaraan'   => 'required|string|max:50',
+            'tahun'             => 'required|integer|between:' . (date('Y') - 4) . ',' . date('Y'),
             'pendidikan'        => 'nullable|string|max:100',
             'disabilitas'       => 'nullable|string|max:100',
         ]);
@@ -52,9 +53,9 @@ class DataPendudukController extends Controller
             ->with('success', 'Data penduduk berhasil ditambahkan');
     }
 
-    public function show($id)
+    public function show($nik)
     {
-        $dataPenduduk = DataPenduduk::findOrFail($id);
+        $dataPenduduk = DataPenduduk::findOrFail($nik);
         return view('pages.admin.dataPenduduk.show', [
             'dataPenduduk' => $dataPenduduk,
             'menu'         => 'data_penduduk'
@@ -70,12 +71,12 @@ class DataPendudukController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $nik)
     {
-        $data = DataPenduduk::findOrFail($id);
+        $data = DataPenduduk::findOrFail($nik);
 
         $request->validate([
-            'nik'               => 'required|digits:16|unique:data_penduduks,nik,' . $data->id,
+            'nik' => 'required|digits:16|unique:data_penduduks,nik,' . $data->nik . ',nik',
             'nokk'              => 'required|string|max:16',
             'nama'              => 'required|string|max:100',
             'jenis_kelamin'     => 'required|in:Laki-laki,Perempuan',
@@ -90,7 +91,7 @@ class DataPendudukController extends Controller
             'agama'             => 'required|string|max:50',
             'status_perkawinan' => 'required|string|max:50',
             'pekerjaan'         => 'required|string|max:100',
-            'kewarganegaraan'   => 'required|string|max:50',
+            'tahun'             => 'required|integer|between:' . (date('Y') - 4) . ',' . date('Y'),
             'pendidikan'        => 'nullable|string|max:100',
             'disabilitas'       => 'nullable|string|max:100',
         ]);
@@ -101,14 +102,15 @@ class DataPendudukController extends Controller
             ->with('success', 'Data penduduk berhasil diperbarui');
     }
 
-    public function destroy($id)
+    public function destroy($nik)
     {
-        $dataPenduduk = DataPenduduk::findOrFail($id);
+        $dataPenduduk = DataPenduduk::findOrFail($nik);
         $dataPenduduk->delete();
 
         return redirect()->route('dataPenduduk.index')
             ->with('success', 'Data penduduk berhasil dihapus');
     }
+
 
     public function statistik(Request $request)
     {
@@ -119,11 +121,16 @@ class DataPendudukController extends Controller
             $query->where('dusun', $request->dusun);
         }
 
+        // Filter tahun jika ada
+        if ($request->has('tahun') && $request->tahun) {
+            $query->where('tahun', $request->tahun);
+        }
+
         $totalPenduduk  = $query->count();
         $laki           = (clone $query)->where('jenis_kelamin', 'Laki-laki')->count();
         $perempuan      = (clone $query)->where('jenis_kelamin', 'Perempuan')->count();
         $disabilitas    = (clone $query)->whereNotNull('disabilitas')
-                            ->where('disabilitas', '!=', 'Tidak Ada')->count();
+            ->where('disabilitas', '!=', 'Tidak Ada')->count();
         $kepalaKeluarga = (clone $query)->select('nokk')->distinct()->count('nokk');
 
         // Data dusun untuk filter
@@ -139,6 +146,7 @@ class DataPendudukController extends Controller
         ));
     }
 
+
     /**
      * Statistik data pendidikan
      */
@@ -152,6 +160,12 @@ class DataPendudukController extends Controller
         if ($request->has('dusun') && $request->dusun) {
             $query->where('dusun', $request->dusun);
         }
+
+        // Filter tahun jika ada
+        if ($request->has('tahun') && $request->tahun) {
+            $query->where('tahun', $request->tahun);
+        }
+
 
         $pendidikanStats = $query->groupBy('pendidikan')
             ->orderBy('jumlah', 'desc')
@@ -180,6 +194,12 @@ class DataPendudukController extends Controller
             $query->where('dusun', $request->dusun);
         }
 
+        // Filter tahun jika ada
+        if ($request->has('tahun') && $request->tahun) {
+            $query->where('tahun', $request->tahun);
+        }
+
+
         $pekerjaanStats = $query->groupBy('pekerjaan')
             ->orderBy('jumlah', 'desc')
             ->get();
@@ -206,6 +226,12 @@ class DataPendudukController extends Controller
         if ($request->has('dusun') && $request->dusun) {
             $query->where('dusun', $request->dusun);
         }
+
+        // Filter tahun jika ada
+        if ($request->has('tahun') && $request->tahun) {
+            $query->where('tahun', $request->tahun);
+        }
+
 
         $agamaStats = $query->groupBy('agama')
             ->orderBy('jumlah', 'desc')

@@ -4,7 +4,8 @@
             <a href="{{ route('dashboard') }}">DESA CANTIK</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="{{ route('dashboard') }}">DESA</a>
+             <a href="{{ request()->is('penduduk*') ? route('penduduk.index') : route('dashboard') }}"> DESA
+</a>
         </div>
 
         @php
@@ -13,6 +14,7 @@
             $agendaMenus = ['kegiatan','berita','kategori'];
             $persuratanMenus = ['persuratan']; // jika ada sub-menu spesifik, bisa ditambahkan
             $pengaduanMenus = ['pengaduan'];
+              $ppidMenus = ['ppid'];
         @endphp
 
         <ul class="sidebar-menu">
@@ -28,10 +30,12 @@
             @if(session('role') == 'admin')
 
                 {{-- Data Penduduk --}}
-                <li class="nav-item {{ $menu == 'dataPenduduk' ? 'active' : '' }}">
-                    <a href="{{ route('dataPenduduk.index') }}" class="nav-link">
-                        <i class="fas fa-user"></i> <span>Data Penduduk</span>
-                    </a>
+
+
+                 <li class="nav-item {{ $menu == 'datapenduduk' ? 'active' : '' }}">
+                <a href="{{ route('dataPenduduk.index') }}" class="nav-link">
+                    <i class="fas fa-user"></i><span>Data Penduduk</span>
+                </a>
                 </li>
 
                 {{-- Data Profil Desa --}}
@@ -55,11 +59,13 @@
                     </ul>
                 </li>
 
+
+
                 {{-- Data Persuratan --}}
                 <li class="nav-item dropdown {{ in_array($menu, $persuratanMenus) ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-envelope"></i> <span>Data Persuratan</span></a>
                     <ul class="dropdown-menu {{ in_array($menu, $persuratanMenus) ? 'show' : '' }}">
-                        <li><a class="nav-link {{ $menu == 'persuratan' ? 'active' : '' }}" href="{{ route('dashboard') }}">Data Surat</a></li>
+                        <li><a class="nav-link {{ $menu == 'surat' ? 'active' : '' }}" href="{{ route('surat.index') }}">Data Persuratan</a></li>
                     </ul>
                 </li>
 
@@ -71,12 +77,23 @@
                     </ul>
                 </li>
 
+                {{-- Data PPID & UMKM --}}
+                <li class="nav-item dropdown {{ in_array($menu, $ppidMenus) ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-calendar-week"></i> <span>Data PPID&UMKM</span></a>
+                    <ul class="dropdown-menu {{ in_array($menu, $agendaMenus) ? 'show' : '' }}">
+                        <li><a class="nav-link {{ $menu == 'ppid' ? 'active' : '' }}" href="{{ route('ppid.index') }}">PPID</a></li>
+                        <li><a class="nav-link {{ $menu == 'belanja' ? 'active' : '' }}" href="{{ route('belanja.index') }}">UMKM</a></li>
+                    </ul>
+                </li>
+
                 {{-- Data Akun --}}
                 <li class="nav-item {{ $menu == 'akun' ? 'active' : '' }}">
                     <a href="{{ route('dashboard') }}" class="nav-link">
                         <i class="fas fa-user"></i> <span>Data Akun</span>
                     </a>
                 </li>
+
+
 
             @endif
         </ul>

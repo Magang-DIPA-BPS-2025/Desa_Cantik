@@ -10,9 +10,9 @@ class DataPenduduk extends Model
 
 
     protected $table = 'data_penduduks';
-    protected $primaryKey = 'id';
-    public $incrementing = true;
-    protected $keyType = 'int';
+    protected $primaryKey = 'nik';
+    public $incrementing = false;
+    protected $keyType = 'string'; 
     protected $fillable = [
         'nokk',
         'nik',
@@ -31,6 +31,12 @@ class DataPenduduk extends Model
         'kewarganegaraan',
         'pendidikan',
         'disabilitas',
-        'jenis_kelamin'
+        'jenis_kelamin',
+        'tahun'
     ];
+
+    public function suraketuses()
+    {
+        return $this->hasMany(Suratketus::class, 'nik', 'nik');
+    }
 }

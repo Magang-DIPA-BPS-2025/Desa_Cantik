@@ -18,7 +18,7 @@
             <div class="section-body">
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
-                        <form action="{{ route('dataPenduduk.update', $dataPenduduk->id) }}" method="POST">
+                        <form action="{{ route('dataPenduduk.update', $dataPenduduk->nik) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="card">
@@ -188,6 +188,26 @@
                                             @endforeach
                                         </select>
                                     </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-3">Tahun</label>
+                        <div class="col-md-7">
+                            <select name="tahun" class="form-control" required>
+                                @php
+                                    $currentYear = date('Y');
+                                @endphp
+                                @for ($i = 0; $i < 5; $i++)
+                                    <option value="{{ $currentYear - $i }}"
+                                        {{ old('tahun', $dataPenduduk->tahun ?? '') == $currentYear - $i ? 'selected' : '' }}>
+                                        {{ $currentYear - $i }}
+                                    </option>
+                                @endfor
+                            </select>
+                        </div>
+                    </div>
+
+
+
 
                                     <div class="form-group row">
                                         <div class="col-md-12 text-center">

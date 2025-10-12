@@ -99,7 +99,7 @@
     .profil-text h2 { font-size: 32px; margin-bottom: 20px; color: #2e7d32; }
     .profil-text p { line-height: 1.8; }
     .profil-img { flex: 1; text-align: center; }
-    .profil-img img { width: 100%; max-width: 450px; border-radius: 20px; }
+    .profil-img img { width: 100%; max-width: 450px; border-radius: 20px; cursor: pointer; }
 
     /* Chart */
     .chart-section {
@@ -127,8 +127,9 @@
         max-width: 1200px;
         margin: auto;
     }
-    .apb-img img {
+    .apbdesa-img img {
         max-width: 400px;
+        cursor: pointer;
     }
     .apb-info {
         flex: 1;
@@ -181,24 +182,59 @@
     }
 
     /* Warna khusus APB Desa */
-.apb-card.pendapatan {
-    background: linear-gradient(135deg, #4CAF50, #81C784);
-    color: white;
-}
+    .apb-card.pendapatan {
+        background: linear-gradient(135deg, #4CAF50, #81C784);
+        color: white;
+    }
+    .apb-card.belanja {
+        background: linear-gradient(135deg, #E53935, #EF5350);
+        color: white;
+    }
 
-.apb-card.belanja {
-    background: linear-gradient(135deg, #E53935, #EF5350);
-    color: white;
-}
-
+    /* === Modal Popup Gambar === */
+    .img-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        padding-top: 80px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.8);
+    }
+    .img-modal-content {
+        margin: auto;
+        display: block;
+        max-width: 80%;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        animation: zoomIn 0.3s;
+    }
+    @keyframes zoomIn {
+        from {transform: scale(0.7);}
+        to {transform: scale(1);}
+    }
+    .close {
+        position: absolute;
+        top: 30px;
+        right: 50px;
+        color: #fff;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .close:hover { color: #ccc; }
 </style>
 @endpush
 
 {{-- Hero Section --}}
 <div class="hero-section">
     <h2>Selamat Datang di Website Resmi</h2>
-    <h1>Desa Cantik Kelurahan Maccini Sombala</h1>
-    <h3>Badan Pusat Statistik Kota Makassar</h3>
+    <h1>Desa Cantik Desa Manggalung</h1>
+    <h3>Badan Pusat Statistik Sulsel</h3>
 </div>
 
 {{-- Info Dusun/RT/RW --}}
@@ -278,18 +314,18 @@
 <div class="apb-desa">
     <div class="apb-container">
         <div class="apbdesa-img">
-        <img src="{{ asset('landing/images/slider-main/apbd.png') }}" alt="APBD Desa">
-    </div>
+            <img src="{{ asset('landing/images/slider-main/apbd.png') }}" alt="APBD Desa">
+        </div>
         <div class="apb-info">
             <h2>APB DESA 2024</h2>
             <p>Akses cepat dan transparan terhadap APB Desa serta proyek pembangunan</p>
             <div class="apb-card pendapatan">
-            <span>Pendapatan Desa</span>
-            <h3>Rp4.802.205.800,00</h3>
+                <span>Pendapatan Desa</span>
+                <h3>Rp4.802.205.800,00</h3>
             </div>
             <div class="apb-card belanja">
-            <span>Belanja Desa</span>
-            <h3>Rp4.888.222.678,00</h3>
+                <span>Belanja Desa</span>
+                <h3>Rp4.888.222.678,00</h3>
             </div>
             <a href="{{ url('/apbd') }}" class="apb-btn">
                 <i class="fa fa-file-alt"></i> LIHAT DATA LEBIH LENGKAP
@@ -297,6 +333,13 @@
         </div>
     </div>
 </div>
+
+{{-- Modal Popup Gambar --}}
+<div id="imgModal" class="img-modal">
+  <span class="close">&times;</span>
+  <img class="img-modal-content" id="imgInModal">
+</div>
+
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -334,6 +377,32 @@
             },
             cutout: '65%'
         }
+    });
+
+    // === Modal Popup Gambar ===
+    document.addEventListener("DOMContentLoaded", function () {
+        const modal = document.getElementById("imgModal");
+        const modalImg = document.getElementById("imgInModal");
+        const closeBtn = document.querySelector(".img-modal .close");
+
+        const images = document.querySelectorAll(".profil-img img, .apbdesa-img img");
+
+        images.forEach(img => {
+            img.addEventListener("click", function() {
+                modal.style.display = "block";
+                modalImg.src = this.src;
+            });
+        });
+
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        };
+
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        };
     });
 </script>
 @endpush

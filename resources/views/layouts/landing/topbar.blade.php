@@ -23,7 +23,7 @@
     }
 
     header {
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(0, 0, 0, 0.05);
       width: 100%;
@@ -34,19 +34,23 @@
     }
 
     .navbar-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px 30px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+  width: 100%; /* membentang penuh */
+  max-width: 1200px;
+  margin: 0 auto; /* center container */
+  padding: 15px 30px; /* jarak kiri-kanan */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* logo kiri, menu kanan */
+  gap: 20px;
+}
+
 
     /* Logo */
     .logo-area {
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-shrink: 0; /* mencegah logo mengecil */
     }
 
     .logo-area img {
@@ -58,6 +62,7 @@
       font-weight: 700;
       color: #2e7d32;
       letter-spacing: 1px;
+      white-space: nowrap; /* mencegah teks pecah jadi 2 baris */
     }
 
     /* Menu */
@@ -65,7 +70,7 @@
       display: flex;
       gap: 20px;
       align-items: center;
-      transition: all 0.3s ease;
+      flex-wrap: nowrap; /* menu tetap satu baris */
     }
 
     .nav-item {
@@ -79,6 +84,7 @@
       font-weight: 600;
       font-size: 16px;
       padding: 10px 14px;
+      white-space: nowrap; /* mencegah teks menu pecah */
       position: relative;
       transition: color 0.3s ease;
     }
@@ -114,27 +120,25 @@
       display: none;
       flex-direction: column;
       min-width: 200px;
-      animation: fadeIn 0.3s ease;
     }
 
     .dropdown-menu a {
-  padding: 12px 20px;
-  color: #333;
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: 500;
-  transition: background 0.2s ease;
-}
+      padding: 12px 20px;
+      color: #333;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      transition: background 0.2s ease;
+    }
 
-.dropdown-menu a:hover {
-  background: #f5f5f5;
-  color: #4CAF50;
-}
+    .dropdown-menu a:hover {
+      background: #f5f5f5;
+      color: #4CAF50;
+    }
 
-.dropdown-menu a + a {
-  border-top: 1px solid #f2f2f2;
-}
-
+    .dropdown-menu a + a {
+      border-top: 1px solid #f2f2f2;
+    }
 
     .nav-item:hover .dropdown-menu {
       display: flex;
@@ -148,7 +152,6 @@
       border: none;
       cursor: pointer;
       color: #333;
-      transition: transform 0.3s ease;
     }
 
     .nav-toggle.active {
@@ -184,7 +187,6 @@
 
       .nav-menu.active {
         display: flex;
-        animation: fadeInDown 0.3s ease;
       }
 
       .nav-item {
@@ -194,6 +196,7 @@
       .nav-link {
         padding: 15px 20px;
         border-bottom: 1px solid #f0f0f0;
+        white-space: normal; /* mobile boleh pecah */
       }
 
       .dropdown-menu {
@@ -211,17 +214,6 @@
       .nav-item.active .dropdown-menu {
         display: flex;
       }
-    }
-
-    /* Animations */
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(10px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-
-    @keyframes fadeInDown {
-      from {opacity: 0; transform: translateY(-20px);}
-      to {opacity: 1; transform: translateY(0);}
     }
   </style>
 </head>
@@ -275,6 +267,13 @@
             <a href="{{ route('penyandang') }}">Penyandang Disabilitas</a>
           </div>
         </li>
+        <li class="nav-item has-dropdown">
+          <a href="#" class="nav-link">PPID & UMKM</a>
+          <div class="dropdown-menu">
+            <a href="{{ route('ppid') }}">PPID</a>
+            <a href="{{ route(name: 'belanja') }}">UMKM</a>
+          </div>
+        </li>
       </ul>
     </div>
   </header>
@@ -303,8 +302,6 @@
 
     dropdownItems.forEach((item) => {
       const link = item.querySelector(".nav-link");
-      const dropdown = item.querySelector(".dropdown-menu");
-
       link.addEventListener("click", function (e) {
         if (isMobile()) {
           e.preventDefault();
@@ -315,5 +312,3 @@
   </script>
 </body>
 </html>
-
-

@@ -7,10 +7,9 @@
      <h2 class="mb-3" style="text-align: left;">Status Surat Pengantar Online Warga Desa</h2>
 
     {{-- Form Search --}}
-    <form action="{{ route('dataPenduduk.index') }}" method="GET" class="mb-3">
+    <form action="{{ route('status') }}" method="GET" class="mb-3">
         <div class="input-group">
-            <input type="text" name="keyword" class="form-control" placeholder="Cari NIK / Nama..."
-                   value="{{ request('keyword') }}">
+            <input type="text" name="nik" class="form-control" placeholder="Masukkan NIK" value="{{ $nik ?? '' }}">
             <button class="btn btn-primary" type="submit">Cari</button>
         </div>
     </form>
@@ -20,33 +19,32 @@
         <thead style="background: linear-gradient(90deg, #3B82F6, #31C48D); color: white;">
             <tr>
                 <th>No</th>
-                <th>Nama</th>
-                <th>NIK</th>
-                <th>Waktu Masuk Surat</th>
+                <th>Jenis Surat</th>
                 <th>Status</th>
-                <th>Tindakan</th>
+                <th>Tanggal Diajukan</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @if(isset($dataPenduduk) && $dataPenduduk->count() > 0)
-                @foreach($dataPenduduk as $index => $data)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $data->nama }}</td>
-                        <td>{{ $data->nik }}</td>
-                        <td>{{ $data->waktu_masuk }}</td>
-                        <td>{{ $data->status }}</td>
-                        <td>
-                            <button class="btn btn-sm btn-info">Detail</button>
-                            <button class="btn btn-sm btn-danger">Hapus</button>
-                        </td>
-                    </tr>
-                @endforeach
-            @else
+            @forelse(($datas ?? collect()), $datas as $index => $surat)
                 <tr>
-                    <td colspan="6" class="text-center">Belum ada data.</td>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $surat->jenisSurat->nama_surat ?? '-' }}</td>
+                    <td>{{ $surat->status }}</td>
+                    <td>{{ \Carbon\Carbon::parse($surat->created_at)->translatedFormat('d M Y') }}</td>
+                    <td>
+                        @if($surat->status === 'Disetujui')
+                            <a class="btn btn-sm btn-success" href="{{ route('user.surat.show', $surat->id) }}">Lihat Surat</a>
+                        @else
+                            <span class="text-muted">Sedang diproses oleh admin desa.</span>
+                        @endif
+                    </td>
                 </tr>
-            @endif
+            @empty
+                <tr>
+                    <td colspan="5" class="text-center">Belum ada data.</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 

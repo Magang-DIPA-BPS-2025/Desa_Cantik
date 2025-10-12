@@ -5,19 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tema extends Model
+class Ppid extends Model
 {
     use HasFactory;
+
+    protected $table = 'ppids';
+
     protected $fillable = [
-        'modul_id',
-        'nama',
+        'judul',
         'deskripsi',
-        'gambar',
-        'status',
+        'tanggal',
+        'file',
     ];
 
-    public function modul()
-    {
-        return $this->hasMany(modul::class,'id', 'modul_id');
-    }
+    protected $dates = ['tanggal'];
 }

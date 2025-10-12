@@ -1,7 +1,7 @@
 describe("bootstrap-tagsinput", function() {
 
   describe("with objects as items", function() {
-    
+
     testTagsInput('<select multiple />', { itemValue: function(item) { return item.value; }, itemText: function(item) { return item.text; } }, function() {
       describe("adding an item", function() {
         var item;
@@ -17,7 +17,7 @@ describe("bootstrap-tagsinput", function() {
         });
         it("tag's text should be the item's text", function() {
           expect($('.tag', this.$sandbox).text()).toBe("some");
-        });
+        }); 
 
         describe("change item's value and text and invoke 'refesh'", function() {
           beforeEach(function() {

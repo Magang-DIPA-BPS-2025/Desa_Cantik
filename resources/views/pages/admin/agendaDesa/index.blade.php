@@ -4,6 +4,77 @@
     @push('styles')
         <link rel="stylesheet" href="{{ asset('library/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
         <link rel="stylesheet" href="{{ asset('library/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
+
+        <style>
+            /* Card styling */
+            .card {
+                border: none;
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            }
+
+            /* Tabel lebih rapi */
+            #table-agenda thead {
+                background-color: #f8f9fa;
+            }
+
+            #table-agenda thead th {
+                font-weight: 600;
+                text-transform: uppercase;
+                font-size: 13px;
+                color: #495057;
+                border-bottom: 2px solid #dee2e6;
+            }
+
+            #table-agenda tbody tr:hover {
+                background-color: #f2f7fb;
+                transition: 0.2s;
+            }
+
+            /* Foto agenda konsisten */
+            .foto-agenda {
+                width: 70px;
+                height: 70px;
+                object-fit: cover;
+                border-radius: 8px;
+                border: 1px solid #ddd;
+            }
+
+            /* Tombol aksi */
+            .action-buttons {
+                display: flex;
+                gap: 8px;
+                justify-content: center;
+            }
+
+            .action-buttons .btn {
+                width: 38px;
+                height: 38px;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 16px;
+                transition: all 0.2s;
+            }
+
+            .action-buttons .btn-warning {
+                background-color: #ffc107;
+                border: none;
+                color: #fff;
+            }
+
+            .action-buttons .btn-danger {
+                background-color: #e74c3c;
+                border: none;
+                color: #fff;
+            }
+
+            .action-buttons .btn:hover {
+                transform: scale(1.1);
+                opacity: 0.9;
+            }
+        </style>
     @endpush
 
     <div class="main-content">
@@ -17,9 +88,10 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <a href="{{ route('AgendaDesa.create') }}" class="btn btn-primary my-4">
+                                <a href="{{ route('AgendaDesa.create') }}" class="btn btn-primary mb-3">
                                     <i class="fas fa-plus"></i> Tambah Agenda
                                 </a>
+
                                 <div class="table-responsive">
                                     <table class="table table-striped" id="table-agenda">
                                         <thead>
@@ -30,7 +102,7 @@
                                                 <th>Waktu Pelaksanaan</th>
                                                 <th>Deskripsi</th>
                                                 <th>Kategori</th>
-                                                <th>Action</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -41,9 +113,7 @@
                                                         @if ($agenda->foto)
                                                             <img src="{{ asset('storage/' . $agenda->foto) }}"
                                                                  alt="Foto Agenda"
-                                                                 width="70"
-                                                                 height="70"
-                                                                 style="object-fit: cover; border-radius: 8px;">
+                                                                 class="foto-agenda">
                                                         @else
                                                             <span class="text-muted">Tidak ada</span>
                                                         @endif
@@ -52,17 +122,14 @@
                                                     <td>{{ \Carbon\Carbon::parse($agenda->waktu_pelaksanaan)->format('d-m-Y H:i') }}</td>
                                                     <td>{{ $agenda->deskripsi }}</td>
                                                     <td>{{ $agenda->kategori }}</td>
-                                                    <td class="d-flex">
-                                                        <a href="{{ route('AgendaDesa.edit', $agenda->id) }}"
-                                                           class="btn btn-warning btn-sm mr-2">
+                                                    <td class="action-buttons">
+                                                        <a href="{{ route('AgendaDesa.edit', $agenda->id) }}" class="btn btn-warning">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
-                                                        <form action="{{ route('AgendaDesa.destroy', $agenda->id) }}"
-                                                              method="POST"
-                                                              onsubmit="return confirm('Yakin ingin hapus agenda ini?')">
+                                                        <form action="{{ route('AgendaDesa.destroy', $agenda->id) }}" method="POST" onsubmit="return confirm('Yakin ingin hapus agenda ini?')">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                            <button type="submit" class="btn btn-danger">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </button>
                                                         </form>

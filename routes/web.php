@@ -5,12 +5,17 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\PemerintahDesaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ApbdController;
+use App\Http\Controllers\PPIDController;
+use App\Http\Controllers\UmkmController;
+use App\Http\Controllers\BelanjaDesaController;
 use App\Http\Controllers\DataPendudukController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\SejarahDesaController;
 use App\Http\Controllers\SuratController;
+use App\Http\Controllers\Admin\SuratController as AdminSuratController;
+use App\Http\Controllers\Admin\SuratPengantarController as AdminSuratPengantarController;
 use App\Http\Controllers\Landing\ApbdDesaController;
 use App\Models\Agenda;
 use Illuminate\Support\Facades\Route;
@@ -66,11 +71,15 @@ Route::group(
         //Data Agama (dynamic view)
         Route::get('/agama', [DataPendudukController::class, 'statistikAgama'])->name('agama');
 
-        //Surat Pengantar (dynamic view)
+        //Surat Pengantar (landing form + submit)
         Route::get('/pengantar', [SuratController::class, 'userIndex'])->name('pengantar');
+        Route::post('/pengantar', [SuratController::class, 'userStore'])->name('pengantar.store');
+        Route::get('/get-data/{nik}', [SuratController::class, 'getPendudukByNik']);
 
-        //Status Surat Pengantar (dynamic view)
+
+        //Status Surat (by NIK) & view approved letter
         Route::get('/status', [SuratController::class, 'userStatus'])->name('status');
+        Route::get('/surat/{id}', [SuratController::class, 'userShowLetter'])->name('user.surat.show');
 
         //Pengaduan (dynamic view)
         Route::get('/pengaduan', [PengaduanController::class, 'userIndex'])->name('pengaduan');
@@ -85,49 +94,13 @@ Route::group(
             return view('pages.landing.layananonline.PenyandangDisabilitas');
         })->name('penyandang');
 
+        //PPID & Belanja Desa
+        Route::get('/ppid', [App\Http\Controllers\PPIDController::class, 'userindex'])
+            ->name('ppid');
 
 
-        // Pegawai
-        Route::get('/pegawai', 'UserController@pegawai')->name('user.pegawai');
-        Route::get('/pegawai/form', 'UserController@form_pegawai')->name('user.form_pegawai');
-        Route::post('/pegawai/daftar', 'UserController@daftar_pegawai')->name('user.daftar_pegawai');
-        Route::get('/pegawai/all', 'UserController@getPenugasanAll')->name('user.pegawai.all');
-        Route::get('/pegawai/detail', 'UserController@getPenugasanDetail')->name('user.pegawai.detail');
-        Route::get('/pegawai/detailLoka', 'UserController@getPenugasanDetailLoka')->name('user.pegawai.detail.loka');
-        Route::get('/pegawai/detailEksternal', 'UserController@getPenugasanDetailEksternal')->name('user.pegawai.detail.eksternal');
-
-        // Statistik
-        Route::get('/statistik', 'UserController@statistik')->name('user.statistik');
-        Route::get('/api/statistics/month/{month}', 'UserController@getMonthStatistics')->name('user.statistik.month');
-        Route::get('/api/statistics/activities/{month}', 'UserController@getActivitiesByMonth')->name('user.statistik.month');
-        Route::get('/api/statistics/activity/{activityId}/{participantType}', 'UserController@getActivityStatistics')->name('user.statistik.activity');
-
-        // Eksternal
-        Route::get('/eksternal/form/{jenis}', 'UserController@form_guru')->name('user.form_guru');
-        Route::post('/eksternal/daftar', 'UserController@daftar_guru')->name('user.daftar_guru');
-
-        // Kegiatan
-        Route::get('/kegiatan', 'KegiatanController@index')->name('user.kegiatan');
-        Route::get('/kegiatan/cari', 'KegiatanController@cari')->name('user.cari');
-        Route::get('/kegiatan/registrasi', 'KegiatanController@regist')->name('user.kegiatan_regist');
-        Route::post('/kegiatan/store', 'KegiatanController@store')->name('user.kegiatan_store');
-
-        // API response JSON
-        Route::get('/kegiatan/getStatus', 'KegiatanController@getStatus')->name('user.kegiatan.getStatus');
-        Route::get('/kegiatan/cariPeserta', 'KegiatanController@cariPeserta')->name('user.kegiatan.cariPeserta');
-        Route::get('/kegiatan/peserta', 'KegiatanController@getPesertaByKegiatan')->name('user.kegiatan.peserta');
-        Route::get('/peserta/detail', 'KegiatanController@getPesertaDetail')->name('user.peserta.detail');
-        Route::get('/peserta/cekData', 'KegiatanController@cekDataPeserta')->name('user.peserta.cekData');
-
-        // Cetak (Print)
-        Route::get('/print/absensi-peserta', 'KegiatanController@printAbsensiPeserta')->name('print.absensi.peserta');
-        Route::get('/print/registrasi-peserta', 'KegiatanController@fprintRegistrasiPeserta')->name('print.registrasi.peserta');
-        Route::get('/print/absensi-panitia', 'KegiatanController@printAbsensiPanitia')->name('print.absensi.panitia');
-        Route::get('/print/absensi-narasumber', 'KegiatanController@printAbsensiNarasumber')->name('print.absensi.narasumber');
-        Route::get('/print/absensi-tp', 'KegiatanController@printAbsensiTp')->name('print.absensi.tp');
-        Route::get('/print/absensi-tkp', 'KegiatanController@printAbsensiTkp')->name('print.absensi.tkp');
-        Route::get('/print/absensi-stk', 'KegiatanController@printAbsensiStk')->name('print.absensi.stk');
-        Route::get('/print/absensi-pgw', 'KegiatanController@printAbsensiPgw')->name('print.absensi.pgw');
+        Route::get('/belanja', [BelanjaDesaController::class, 'userIndex'])->name('belanja');
+        Route::get('/belanja/{id}', [BelanjaDesaController::class, 'userShow'])->name('belanja.usershow');
     }
 );
 
@@ -154,25 +127,14 @@ Route::group(
             Route::get('/profile/{id}', 'AdminController@profile')->name('profile.index');
             Route::put('/profile/update', 'AdminController@profile_update')->name('profile.update');
 
-            // Guru - Commented out due to missing controller
-            // Route::prefix('guru')->group(function () {
-            //     Route::get('/', 'guruController@index')->name('guru.index');
-            //     Route::get('/create', 'guruController@create')->name('guru.create');
-            //     Route::post('/store', 'guruController@store')->name('guru.store');
-            //     Route::get('/show', 'guruController@showguru')->name('admin.guru.detail');
-            //     Route::get('/edit/{id}', 'guruController@edit')->name('guru.edit');
-            //     Route::put('/update', 'guruController@update')->name('guru.update');
-            //     Route::post('/hapus/{id}', 'guruController@destroy')->name('guru.hapus');
-            // });
-
             // Data Penduduk
             Route::prefix('dataPenduduk')->group(function () {
                 Route::get('/', 'DataPendudukController@index')->name('dataPenduduk.index');
                 Route::get('/create', 'DataPendudukController@create')->name('dataPenduduk.create');
                 Route::post('/store', 'DataPendudukController@store')->name('dataPenduduk.store');
-                Route::get('/edit/{id}', 'DataPendudukController@edit')->name('dataPenduduk.edit');
-                Route::put('/update/{id}', 'DataPendudukController@update')->name('dataPenduduk.update');
-                Route::delete('/destroy/{id}', 'DataPendudukController@destroy')->name('dataPenduduk.destroy');
+                Route::get('/edit/{nik}', 'DataPendudukController@edit')->name('dataPenduduk.edit');
+                Route::put('/update/{nik}', 'DataPendudukController@update')->name('dataPenduduk.update');
+                Route::delete('/destroy/{nik}', 'DataPendudukController@destroy')->name('dataPenduduk.destroy');
             });
 
             // Akun
@@ -186,39 +148,6 @@ Route::group(
                 Route::post('/hapus/{id}', 'AkunController@destroy')->name('akun.hapus');
             });
 
-            // Jadwal - Commented out due to missing controller
-            // Route::prefix('jadwal')->group(function () {
-            //     Route::get('/', 'JadwalController@index')->name('jadwal.index');
-            //     Route::get('/create', 'JadwalController@create')->name('jadwal.create');
-            //     Route::post('/store', 'JadwalController@store')->name('jadwal.store');
-            //     Route::get('/edit/{id}', 'JadwalController@edit')->name('jadwal.edit');
-            //     Route::put('/update', 'JadwalController@update')->name('jadwal.update');
-            //     Route::post('/hapus/{id}', 'JadwalController@destroy')->name('jadwal.hapus');
-            // });
-
-            // Kegiatan - Commented out due to missing controller
-            // Route::prefix('kegiatan')->group(function () {
-            //     Route::get('/', 'kegiatanController@index')->name('kegiatan.index');
-            //     Route::get('/create', 'kegiatanController@create')->name('kegiatan.create');
-            //     Route::post('/store', 'kegiatanController@store')->name('kegiatan.store');
-            //     Route::get('/edit/{id}', 'kegiatanController@edit')->name('kegiatan.edit');
-            //     Route::put('/update', 'kegiatanController@update')->name('kegiatan.update');
-            //     Route::post('/hapus/{id}', 'kegiatanController@destroy')->name('kegiatan.hapus');
-            // });
-
-
-            // Kependudukan - Commented out due to missing controller
-            // Route::prefix('kependudukan')->group(function () {
-            //     Route::get('/', 'KependudukanController@index')->name('kependudukan.index');
-            //     Route::get('/create', 'KependudukanController@create')->name('kependudukan.create');
-            //     Route::post('/store', 'KependudukanController@store')->name('kependudukan.store');
-            //     Route::get('/edit/{nik}', 'KependudukanController@edit')->name('kependudukan.edit');
-            //     Route::put('/update', 'KependudukanController@update')->name('kependudukan.update');
-            //     Route::post('/hapus/{id}', 'KependudukanController@hapus')->name('kependudukan.hapus');
-            //     Route::get('/cetak/{id}', 'KependudukanController@cetak')->name('kependudukan.cetak');
-            // });
-
-            // Agenda
             Route::prefix('agenda')->group(function () {
                 Route::get('/', 'AgendaController@index')->name('agenda.index');
                 Route::get('/create', 'AgendaController@create')->name('agenda.create');
@@ -227,10 +156,6 @@ Route::group(
                 Route::put('/update', 'AgendaController@update')->name('agenda.update');
                 Route::post('/hapus/{id}', 'AgendaController@destroy')->name('agenda.hapus');
             });
-
-
-
-
 
             // Galeri Desa
             Route::prefix('galeriDesa')->group(function () {
@@ -251,6 +176,7 @@ Route::group(
 
             Route::resource('apbd', ApbdController::class);
 
+
             Route::resource('AgendaDesa', AgendaController::class);
             Route::get('/berita', [BeritaController::class, 'index'])->name('admin.berita.index');
             Route::get('/berita/create', [BeritaController::class, 'create'])->name('admin.berita.create');
@@ -264,6 +190,26 @@ Route::group(
 
             Route::resource('pengaduan', PengaduanController::class);
             Route::put('/pengaduan/{id}/status', [PengaduanController::class, 'updateStatus'])->name('pengaduan.updateStatus');
+
+            Route::resource('surat', AdminSuratController::class)->only(['index', 'show', 'destroy', 'create', 'store']);
+            Route::post('surat/{id}/approve', [AdminSuratController::class, 'approve'])->name('admin.surat.approve');
+            Route::post('surat/{id}/reject', [AdminSuratController::class, 'reject'])->name('admin.surat.reject');
+
+
+            Route::group(['prefix' => 'dashboard', 'middleware' => 'ValidasiUser'], function () {
+                Route::resource('belanja', BelanjaDesaController::class)->except(['show']);
+            });
+
+
+            Route::resource('ppid', PPIDController::class);
+
+            // Surat Pengantar (kolom lengkap dari form user)
+            Route::prefix('surat-pengantar')->group(function () {
+                Route::get('/', [AdminSuratPengantarController::class, 'index'])->name('admin.surat_pengantar.index');
+                Route::get('/{id}', [AdminSuratPengantarController::class, 'show'])->name('admin.surat_pengantar.show');
+                Route::delete('/{id}', [AdminSuratPengantarController::class, 'destroy'])->name('admin.surat_pengantar.destroy');
+                Route::post('/{id}/approve', [AdminSuratPengantarController::class, 'approve'])->name('admin.surat_pengantar.approve');
+            });
         });
     }
 );

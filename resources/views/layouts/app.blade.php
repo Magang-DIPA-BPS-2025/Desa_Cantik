@@ -26,11 +26,26 @@
     <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('library/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Tutup sidebar otomatis kalau menu diklik di layar kecil
+    document.querySelectorAll(".sidebar-menu a").forEach(function (link) {
+        link.addEventListener("click", function () {
+            if (window.innerWidth <= 768) {
+                document.body.classList.remove("sidebar-show");
+            }
+        });
+    });
+});
+</script>
+    
 
 
 </head>
 
 <body class="{{ $title == 'Layout Transparent' ? 'layout-2' : ($title == 'Layout Top Navigation' ? 'layout-3' : '') }}">
+
+
 
     <div id="app">
         <div class="main-wrapper {{ $title == 'Layout Top Navigation' ? 'container' : '' }}">

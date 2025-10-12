@@ -3,6 +3,7 @@
 @section('content')
 <title>Desa Cantik - Data Agama</title>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
 <style>
   .container-main {
@@ -18,7 +19,6 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.06);
     transition: transform .25s, box-shadow .25s;
   }
-
   .card:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 28px rgba(0,0,0,0.12);
@@ -30,21 +30,29 @@
     margin-top: 18px;
     font-size: 15px;
   }
-
   .table th, .table td {
     padding: 12px;
     text-align: center;
     border-bottom: 1px solid #e5e7eb;
   }
-
   .table thead {
-    background: linear-gradient(90deg, #2563eb, #16a34a);
+    background: linear-gradient(90deg, #16a34a, #16a34a);
     color: #fff;
   }
 
+  .chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+  }
+
+  .btn-download { margin-left: 5px; }
   .filter-toggle {
     display: block;
-    background: #2563eb;
+    background: #16a34a;
     color: #fff;
     text-align: center;
     padding: 12px;
@@ -53,51 +61,100 @@
     margin-bottom: 14px;
     font-weight: 600;
   }
-
   .filter-content {
     display: none;
     max-height: 450px;
     overflow-y: auto;
   }
+  .filter-content.active { display: block; }
 
-  .filter-content.active {
-    display: block;
+  /* --- Layout utama --- */
+  .layout-wrapper {
+    display: flex;
+    gap: 20px;
   }
 
-  .filter-select {
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-    margin-bottom: 10px;
+  /* --- Posisi default (desktop): filter kanan --- */
+  .layout-sidebar {
+    order: 2;
+    flex: 0 0 25%;
+  }
+  .layout-main {
+    order: 1;
+    flex: 1;
   }
 
-  .reset-btn {
-    display: block;
-    margin-top: 5px;
-    width: 100%;
-  }
-
+  /* --- Posisi mobile: filter di atas --- */
   @media (max-width: 992px) {
-    .row {
+    .layout-wrapper {
       flex-direction: column;
+    }
+    .layout-sidebar {
+      order: 1; /* jadi di atas */
+      width: 100%;
+    }
+    .layout-main {
+      order: 2;
+      width: 100%;
     }
   }
 </style>
 
 <div class="container-main">
-  <div class="row g-4">
-    <!-- Chart & Table -->
-    <div class="col-lg-9 d-flex flex-column gap-4">
+  <div class="layout-wrapper">
+    <!-- Sidebar Filter Dusun -->
+    <div class="layout-sidebar">
       <div class="card">
-        <h6>Statistik Agama Penduduk</h6>
+        <div class="filter-toggle" onclick="toggleFilterAgama()">☰ Filter Dusun</div>
+        <div class="filter-content" id="filterContentAgama">
+          <form method="GET" action="{{ route('agama') }}">
+            <div class="mb-3">
+              <label for="dusun" class="form-label">Pilih Dusun:</label>
+              <select name="dusun" id="dusun" class="form-select" onchange="this.form.submit()">
+                <option value="">Semua Dusun</option>
+                @foreach($dusunList as $dusun)
+                  <option value="{{ $dusun->dusun }}" {{ request('dusun')==$dusun->dusun?'selected':'' }}>
+                    {{ ucfirst($dusun->dusun) }}
+                  </option>
+                @endforeach
+              </select>
+            </div>
+            @if(request('dusun'))
+              <a href="{{ route('agama') }}" class="btn btn-sm btn-outline-secondary">Reset Filter</a>
+            @endif
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Chart & Table -->
+    <div class="layout-main d-flex flex-column gap-4">
+      <!-- CARD CHART -->
+      <div class="card">
+        <div class="chart-header">
+          <h6>Statistik Agama Penduduk</h6>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <form method="GET" action="{{ route('agama') }}">
+              <select name="tahun" class="form-select form-select-sm" onchange="this.form.submit()">
+                <option value="">Semua Tahun</option>
+                @foreach(range(date('Y'), date('Y')-5) as $tahun)
+                  <option value="{{ $tahun }}" {{ request('tahun') == $tahun ? 'selected' : '' }}>{{ $tahun }}</option>
+                @endforeach
+              </select>
+            </form>
+            <button class="btn btn-sm btn-success btn-download" onclick="downloadChart()">Download Grafik</button>
+          </div>
+        </div>
         <div id="pie-chart-Agama" style="min-height: 400px;"></div>
       </div>
 
+      <!-- CARD TABLE -->
       <div class="card">
-        <h6>Tabel Data Agama</h6>
-        <table class="table table-bordered text-center">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h6>Tabel Data Agama</h6>
+          <button class="btn btn-sm" style="background-color:#16a34a; color:#fff;" onclick="downloadExcel()">Download Excel</button>
+        </div>
+        <table id="tabelAgama" class="table table-bordered text-center">
           <thead>
             <tr>
               <th>No</th>
@@ -109,9 +166,9 @@
           <tbody>
             @php $total = $agamaStats->sum('jumlah'); @endphp
             @foreach($agamaStats as $index => $item)
-              @php $persentase = $total > 0 ? round(($item->jumlah / $total) * 100, 1) : 0; @endphp
+              @php $persentase = $total > 0 ? round(($item->jumlah/$total)*100,1) : 0; @endphp
               <tr>
-                <td>{{ $index + 1 }}</td>
+                <td>{{ $index+1 }}</td>
                 <td>{{ $item->agama }}</td>
                 <td>{{ $item->jumlah }}</td>
                 <td>{{ $persentase }}%</td>
@@ -124,31 +181,6 @@
             </tr>
           </tbody>
         </table>
-      </div>
-    </div>
-
-    <!-- Sidebar Filter Dusun -->
-    <div class="col-lg-3">
-      <div class="card">
-        <div class="filter-toggle" onclick="toggleFilterAgama()">☰ Filter Dusun</div>
-        <div class="filter-content" id="filterContentAgama">
-          <form method="GET" action="{{ route('agama') }}">
-            <div class="mb-3">
-              <label for="dusun" class="form-label">Pilih Dusun:</label>
-              <select name="dusun" id="dusun" class="form-select" onchange="this.form.submit()">
-                <option value="">Semua Dusun</option>
-                @foreach($dusunList as $dusun)
-                  <option value="{{ $dusun->dusun }}" {{ request('dusun') == $dusun->dusun ? 'selected' : '' }}>
-                    {{ ucfirst($dusun->dusun) }}
-                  </option>
-                @endforeach
-              </select>
-            </div>
-            @if(request('dusun'))
-              <a href="{{ route('agama') }}" class="btn btn-sm btn-outline-secondary">Reset Filter</a>
-            @endif
-          </form>
-        </div>
       </div>
     </div>
   </div>
@@ -164,36 +196,41 @@
     chart: { height: 420, type: "donut" },
     labels: agamaData.map(item => item.agama),
     stroke: { colors: ["#fff"] },
-    dataLabels: {
-      enabled: true,
-      formatter: function(val) { return val.toFixed(1) + "%"; },
-      style: { fontSize: "13px" }
-    },
-    legend: { position: "bottom", fontSize: "14px" },
+    dataLabels: { enabled:true, formatter: val => val.toFixed(1)+"%", style:{fontSize:"13px"} },
+    legend: { position:"bottom", fontSize:"14px" },
     plotOptions: {
       pie: {
         donut: {
           size: "65%",
-          labels: {
-            show: true,
-            total: {
-              show: true,
-              label: "Total",
-              formatter: () => total
-            }
-          }
+          labels: { show:true, total:{ show:true, label:"Total", formatter:()=>total } }
         }
       }
     }
   };
 
-  if (document.getElementById("pie-chart-Agama") && typeof ApexCharts !== 'undefined') {
-    const chart = new ApexCharts(document.getElementById("pie-chart-Agama"), chartOptions);
+  let chart;
+  if(document.getElementById("pie-chart-Agama") && typeof ApexCharts !== 'undefined'){
+    chart = new ApexCharts(document.getElementById("pie-chart-Agama"), chartOptions);
     chart.render();
   }
 
-  function toggleFilterAgama() {
-    document.getElementById('filterContentAgama').classList.toggle('active');
+  function toggleFilterAgama(){ document.getElementById('filterContentAgama').classList.toggle('active'); }
+
+  function downloadChart(){
+    if(typeof chart!=='undefined'){
+      chart.dataURI().then(({imgURI})=>{
+        const a=document.createElement("a");
+        a.href=imgURI;
+        a.download="Statistik_Agama.png";
+        a.click();
+      });
+    }
+  }
+
+  function downloadExcel(){
+    const table=document.getElementById("tabelAgama");
+    const wb=XLSX.utils.table_to_book(table,{sheet:"Data Agama"});
+    XLSX.writeFile(wb,"Data_Agama.xlsx");
   }
 </script>
 @endsection

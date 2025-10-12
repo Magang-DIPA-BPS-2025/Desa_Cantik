@@ -2,7 +2,10 @@
 
 @section('content')
 <title>Desa Cantik - Jumlah Penduduk</title>
+
+<!-- CDN Libraries -->
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
 <style>
   .container-main {
@@ -15,13 +18,13 @@
     background: #fff;
     border-radius: 14px;
     padding: 25px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
     transition: transform .25s, box-shadow .25s;
   }
 
   .card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
   }
 
   .table {
@@ -38,13 +41,26 @@
   }
 
   .table thead {
-    background: linear-gradient(90deg, #2563eb, #16a34a);
+    background: linear-gradient(90deg, #16a34a, #16a34a);
     color: #fff;
+  }
+
+  .chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+  }
+
+  .btn-download {
+    margin-left: 5px;
   }
 
   .filter-toggle {
     display: block;
-    background: #2563eb;
+    background: #16a34a;
     color: #fff;
     text-align: center;
     padding: 12px;
@@ -64,40 +80,74 @@
     display: block;
   }
 
-  .filter-select {
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-    margin-bottom: 10px;
+  /* Atur tata letak dua kolom */
+  .row-layout {
+    display: flex;
+    gap: 20px;
   }
 
-  .reset-btn {
-    display: block;
-    margin-top: 5px;
-    width: 100%;
+  .col-left {
+    flex: 1;
   }
 
+  .col-right {
+    width: 320px;
+  }
+
+  /* Saat mobile, ubah posisi filter jadi di atas */
   @media (max-width: 992px) {
-    .row {
+    .row-layout {
       flex-direction: column;
+    }
+    .col-right {
+      order: -1;
+      width: 100%;
     }
   }
 </style>
 
 <div class="container-main">
-  <div class="row g-4">
-    <!-- Chart & Tabel -->
-    <div class="col-lg-9 d-flex flex-column gap-4">
+  <div class="row-layout">
+
+    <!-- Kolom kiri: Chart & Tabel -->
+    <div class="col-left d-flex flex-column gap-4">
+
+      <!-- CARD CHART -->
       <div class="card">
-        <h6>Statistik Jumlah Penduduk</h6>
+        <div class="chart-header">
+          <h6 style="margin:0;">Statistik Jumlah Penduduk</h6>
+
+          <!-- Filter Tahun + Download -->
+          <div style="display:flex; align-items:center; gap:10px;">
+            <form method="GET" id="filterTahunForm" action="{{ route('statistik.penduduk') }}">
+              <select name="tahun" class="form-select form-select-sm" onchange="this.form.submit()">
+                <option value="">Semua Tahun</option>
+                @foreach(range(date('Y'), date('Y') - 5) as $tahun)
+                  <option value="{{ $tahun }}" {{ request('tahun') == $tahun ? 'selected' : '' }}>{{ $tahun }}</option>
+                @endforeach
+              </select>
+            </form>
+            <button class="btn btn-sm btn-success btn-download" onclick="downloadChart()">Download Grafik</button>
+          </div>
+        </div>
+
         <div id="pie-chart" style="min-height: 400px;"></div>
       </div>
 
+      <!-- CARD TABLE -->
       <div class="card">
-        <h6>Tabel Data Penduduk</h6>
-        <table class="table table-bordered text-center">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h6>Tabel Data Penduduk</h6>
+          <button class="btn btn-sm" style="background-color:#16a34a; color:#fff;" onclick="downloadExcel()">
+            Download Excel
+          </button>
+        </div>
+
+        @php
+          $totalPenduduk = $laki + $perempuan;
+        @endphp
+
+        <table id="tabelPenduduk" class="table table-bordered text-center">
           <thead>
             <tr>
               <th>No</th>
@@ -107,9 +157,6 @@
             </tr>
           </thead>
           <tbody>
-            @php
-              $totalPenduduk = $kepalaKeluarga + $laki + $perempuan + $disabilitas;
-            @endphp
             <tr>
               <td>1</td>
               <td>Kepala Keluarga</td>
@@ -136,7 +183,6 @@
             </tr>
             <tr class="fw-bold table-light">
               <td colspan="2">Jumlah Penduduk</td>
-                {{$totalPenduduk = $perempuan + $laki}}
               <td>{{ $totalPenduduk }}</td>
               <td>100%</td>
             </tr>
@@ -145,8 +191,8 @@
       </div>
     </div>
 
-    <!-- Sidebar Filter Dusun (sama dengan Data Pendidikan) -->
-    <div class="col-lg-3">
+    <!-- Kolom kanan: Filter Dusun -->
+    <div class="col-right">
       <div class="card">
         <div class="filter-toggle" onclick="toggleFilterPenduduk()">☰ Filter Dusun</div>
         <div class="filter-content" id="filterContentPenduduk">
@@ -169,12 +215,12 @@
         </div>
       </div>
     </div>
+
   </div>
 </div>
 
 <script>
-  // Chart
-  const totalPenduduk = {{ $totalPenduduk }};
+  const totalPenduduk = {{ $laki + $perempuan  }};
   const data = {
     kepala: {{ $kepalaKeluarga }},
     laki: {{ $laki }},
@@ -182,15 +228,17 @@
     disabilitas: {{ $disabilitas }}
   };
 
+  // Chart
+  let chart;
   const options = {
-    series: [data.laki, data.perempuan, data.disabilitas, data.kepala],
-    colors: ["#22c55e", "#60a5fa", "#f97316", "#a78bfa"],
-    chart: { height: 420, type: "donut" },
-    labels: ["Laki-laki", "Perempuan", "Disabilitas", "Kepala Keluarga"],
+    series: [data.kepala, data.laki, data.perempuan, data.disabilitas],
+    colors: ["#a78bfa", "#22c55e", "#60a5fa", "#f97316"],
+    chart: { height: 420, type: "donut", id: 'chartPenduduk' },
+    labels: ["Kepala Keluarga", "Laki-laki", "Perempuan", "Disabilitas"],
     stroke: { colors: ["#ffffff"] },
     dataLabels: {
       enabled: true,
-      formatter: function(val) { return val.toFixed(1) + "%"; },
+      formatter: (val) => val.toFixed(1) + "%",
       style: { fontSize: "13px" }
     },
     legend: { position: "bottom", fontSize: "14px" },
@@ -200,11 +248,7 @@
           size: "65%",
           labels: {
             show: true,
-            total: {
-              show: true,
-              label: "Total",
-              formatter: () => totalPenduduk
-            }
+            total: { show: true, label: "Total", formatter: () => totalPenduduk }
           }
         }
       }
@@ -212,11 +256,27 @@
   };
 
   if (document.getElementById("pie-chart") && typeof ApexCharts !== 'undefined') {
-    const chart = new ApexCharts(document.getElementById("pie-chart"), options);
+    chart = new ApexCharts(document.getElementById("pie-chart"), options);
     chart.render();
   }
 
-  // Toggle filter (sama seperti Data Pendidikan)
+  function downloadChart() {
+    if (typeof chart !== 'undefined') {
+      chart.dataURI().then(({ imgURI }) => {
+        const a = document.createElement("a");
+        a.href = imgURI;
+        a.download = "Statistik_Penduduk.png";
+        a.click();
+      });
+    }
+  }
+
+  function downloadExcel() {
+    const table = document.getElementById("tabelPenduduk");
+    const wb = XLSX.utils.table_to_book(table, { sheet: "Data Penduduk" });
+    XLSX.writeFile(wb, "Data_Penduduk.xlsx");
+  }
+
   function toggleFilterPenduduk() {
     document.getElementById('filterContentPenduduk').classList.toggle('active');
   }
