@@ -50,12 +50,12 @@ class PengaduanController extends Controller
 
         // Simpan ke database
         Pengaduan::create([
-            'nama_pelapor' => $request->nama,
+            'nama' => $request->nama,
             'email'        => $request->email,
             'telepon'      => $request->telepon,
             'alamat'       => $request->alamat,
             'judul'        => $request->judul,
-            'isi_pengaduan'=> $request->uraian,
+            'deskripsi'    => $request->uraian,
             'file'         => $lampiran,
             'status'       => 'baru',
             'anonymous'    => false,

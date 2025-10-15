@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BelanjaDesa;
+use App\Models\Agenda;
+use App\Models\Berita;
 use App\Models\Galeri;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -96,5 +99,19 @@ class GaleriController extends Controller
         $galeris = Galeri::latest()->paginate(9);
 
         return view('pages.landing.profildesa.GaleriDesa', compact('galeris'));
+    }
+    public function userBeranda()
+    {
+        $beritas = Berita::with('kategori')->latest()->take(6)->get();
+        $latest_agendas = Agenda::latest()->take(6)->get();
+        $belanjas = BelanjaDesa::latest()->take(6)->get();
+        $galeris = Galeri::latest()->take(6)->get();
+
+        return view('pages.landing.index', [
+            'beritas' => $beritas,
+            'latest_agendas' => $latest_agendas,
+            'belanjas' => $belanjas,
+            'galeris' => $galeris,
+        ]);
     }
 }

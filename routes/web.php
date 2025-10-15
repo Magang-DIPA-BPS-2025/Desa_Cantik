@@ -1,11 +1,12 @@
 <?php
-
+use App\Models\Berita;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\PemerintahDesaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ApbdController;
 use App\Http\Controllers\PPIDController;
+use App\Http\Controllers\PermohonanInformasiController;
 use App\Http\Controllers\UmkmController;
 use App\Http\Controllers\BelanjaDesaController;
 use App\Http\Controllers\DataPendudukController;
@@ -49,8 +50,11 @@ Route::group(
         // APBD Desa (list view)
         Route::get('/apbd-list', [ApbdController::class, 'userIndex'])->name('apbd.list');
 
+        Route::get('/', [BeritaController::class, 'userBeranda'])->name('home');
+        Route::get('/', [AgendaController::class, 'userBeranda'])->name('agenda');
+        Route::get('/', [BelanjaDesaController::class, 'userBeranda'])->name('home');
+        Route::get('/', [GaleriController::class, 'userBeranda'])->name('home');
 
-        //Berita Desa (dynamic view)
         Route::get('/berita', [BeritaController::class, 'userIndex'])->name('berita');
         Route::get('/berita/{id}', [BeritaController::class, 'userShow'])->name('berita.show');
         Route::get('/detail/{jenis}/{id}', [UserController::class, 'detail'])->name('user.detail.berita');
@@ -97,10 +101,30 @@ Route::group(
         //PPID & Belanja Desa
         Route::get('/ppid', [App\Http\Controllers\PPIDController::class, 'userindex'])
             ->name('ppid');
+            Route::get('/ppid/status-permohonan', [App\Http\Controllers\PermohonanInformasiController::class, 'userStatus'])
+    ->name('permohonan.userStatus');
 
+        // routes/web.php
+        Route::get('/ppid/dasar-hukum', function () {
+            return view('pages.landing.PPID&UMKM.dasar-hukum');
+        })->name('ppid.dasar-hukum');
+
+        // Informasi Secara Berkala
+Route::get('/ppid/berkala', [App\Http\Controllers\PPIDController::class, 'berkala'])->name('ppid.berkala');
+
+// Informasi Serta Merta
+Route::get('/ppid/serta', [PPIDController::class, 'serta'])->name('ppid.serta');
+
+// Informasi Setiap Saat
+Route::get('/ppid/setiap', [PPIDController::class, 'setiap'])->name('ppid.setiap');
+
+        Route::get('/permohonan-informasi', [PermohonanInformasiController::class, 'create'])->name('userindex');
+        Route::post('/permohonan-informasi', [PermohonanInformasiController::class, 'store'])->name('permohonan.store');
 
         Route::get('/belanja', [BelanjaDesaController::class, 'userIndex'])->name('belanja');
         Route::get('/belanja/{id}', [BelanjaDesaController::class, 'userShow'])->name('belanja.usershow');
+        Route::post('/belanja/{id}/rating', [BelanjaDesaController::class, 'storeRating'])->name('belanja.rating');
+
     }
 );
 
@@ -167,6 +191,14 @@ Route::group(
                 Route::delete('/delete/{id}', 'GaleriController@destroy')->name('galeriDesa.destroy');
             });
 
+          Route::prefix('admin')->group(function () {
+    Route::get('/permohonan', [PermohonanInformasiController::class, 'index'])->name('permohonan.index');
+Route::get('/permohonan/{id}/edit', [PermohonanInformasiController::class, 'edit'])->name('permohonan.edit');
+Route::put('/permohonan/{id}', [PermohonanInformasiController::class, 'update'])->name('permohonan.update');
+Route::put('/permohonan/{id}/status', [PermohonanInformasiController::class, 'updateStatus'])->name('permohonan.updateStatus');
+Route::delete('/permohonan/{id}', [PermohonanInformasiController::class, 'destroy'])->name('permohonan.destroy');
+});
+
 
             // routes/web.php
 
@@ -196,12 +228,17 @@ Route::group(
             Route::post('surat/{id}/reject', [AdminSuratController::class, 'reject'])->name('admin.surat.reject');
 
 
-            Route::group(['prefix' => 'dashboard', 'middleware' => 'ValidasiUser'], function () {
-                Route::resource('belanja', BelanjaDesaController::class)->except(['show']);
-            });
-
-
             Route::resource('ppid', PPIDController::class);
+
+            // routes/web.php
+Route::prefix('admin')->group(function () {
+    Route::get('/belanja', [BelanjaDesaController::class, 'index'])->name('belanja.index');
+    Route::get('/belanja/create', [BelanjaDesaController::class, 'create'])->name('belanja.create');
+    Route::post('/belanja', [BelanjaDesaController::class, 'store'])->name('belanja.store');
+    Route::get('/belanja/{id}/edit', [BelanjaDesaController::class, 'edit'])->name('belanja.edit');
+    Route::put('/belanja/{id}', [BelanjaDesaController::class, 'update'])->name('belanja.update');
+    Route::delete('/belanja/{id}', [BelanjaDesaController::class, 'destroy'])->name('belanja.destroy');
+});
 
             // Surat Pengantar (kolom lengkap dari form user)
             Route::prefix('surat-pengantar')->group(function () {
@@ -214,14 +251,12 @@ Route::group(
     }
 );
 
-
-//
 // ===================== AUTH ROUTES ===================== //
 Route::group(['prefix' => 'auth', 'namespace' => 'App\Http\Controllers'], function () {
     Route::get('/', 'AuthController@login')->name('login');
     Route::post('/login', 'AuthController@login_action')->name('login_action');
     Route::get('/logout', function () {
         Session::flush();
-        return redirect()->route('user.index')->with('message', 'sukses logout');
+        return redirect()->route('home')->with('message', 'sukses logout');
     })->name('logout');
 });

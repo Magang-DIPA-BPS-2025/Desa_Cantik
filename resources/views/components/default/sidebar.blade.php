@@ -86,6 +86,13 @@
                     </ul>
                 </li>
 
+     <li class="nav-item {{ $menu == 'permohonan' ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('permohonan.index') }}">
+        <i class="fas fa-file-alt"></i> Permohonan Informasi
+    </a>
+</li>
+
+
                 {{-- Data Akun --}}
                 <li class="nav-item {{ $menu == 'akun' ? 'active' : '' }}">
                     <a href="{{ route('dashboard') }}" class="nav-link">

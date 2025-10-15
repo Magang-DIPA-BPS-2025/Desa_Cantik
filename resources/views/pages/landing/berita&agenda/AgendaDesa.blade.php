@@ -204,16 +204,22 @@
     <h2>Agenda Kegiatan</h2>
 
     @forelse($agendas as $agenda)
-    <div class="agenda-card">
+<a href="{{ route('agenda.show', $agenda->id) }}" style="text-decoration:none; color:inherit;">
+  <div class="agenda-card">
       <img class="thumb" src="{{ $agenda->foto ? asset('storage/'.$agenda->foto) : asset('img/example-image.jpg') }}" alt="{{ $agenda->nama_kegiatan }}">
-      <h3><a href="{{ route('agenda.show', $agenda->id) }}" style="text-decoration:none;color:inherit;">{{ $agenda->nama_kegiatan }}</a></h3>
-      <div class="agenda-meta">📅 {{ $agenda->waktu_pelaksanaan ? \Carbon\Carbon::parse($agenda->waktu_pelaksanaan)->isoFormat('DD MMM YYYY') : '' }} @if($agenda->kategori) | 📍 {{ $agenda->kategori }} @endif</div>
+      <h3>{{ $agenda->nama_kegiatan }}</h3>
+      <div class="agenda-meta">
+        📅 {{ $agenda->waktu_pelaksanaan ? \Carbon\Carbon::parse($agenda->waktu_pelaksanaan)->isoFormat('DD MMM YYYY') : '' }}
+        @if($agenda->kategori) | 📍 {{ $agenda->kategori }} @endif
+      </div>
       <p>{{ Str::limit($agenda->deskripsi, 160) }}</p>
-      <a href="{{ route('agenda.show', $agenda->id) }}"><button>Selengkapnya →</button></a>
-    </div>
-    @empty
-      <p>Tidak ada data agenda.</p>
-    @endforelse
+      <button style="pointer-events:none;">Selengkapnya →</button>
+  </div>
+</a>
+@empty
+  <p>Tidak ada data agenda.</p>
+@endforelse
+
 
     <div class="pagination" style="margin-top:20px;">
   {{ $agendas->appends(['kategori' => request('kategori')])->links() }}

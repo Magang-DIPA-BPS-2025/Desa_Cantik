@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BelanjaDesa;
 use App\Models\Agenda;
+use App\Models\Berita;
+use App\Models\Galeri;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -151,7 +154,10 @@ class AgendaController extends Controller
     public function userShow($id)
     {
         $agenda = Agenda::findOrFail($id);
-        $latest_agendas = Agenda::latest()->take(5)->get();
+
+        $agenda->increment('dilihat');
+
+        $latest_agendas = Agenda::latest()->take(6)->get();
 
         return view('pages.landing.detail-agenda', [
             'data' => $agenda,
@@ -159,4 +165,19 @@ class AgendaController extends Controller
             'latest_post' => $latest_agendas
         ]);
     }
+    public function userBeranda()
+    {
+        $beritas = Berita::with('kategori')->latest()->take(6)->get();
+        $latest_agendas = Agenda::latest()->take(6)->get();
+        $belanjas = BelanjaDesa::latest()->take(6)->get();
+        $galeris = Galeri::latest()->take(6)->get();
+
+        return view('pages.landing.index', [
+            'beritas' => $beritas,
+            'latest_agendas' => $latest_agendas,
+            'belanjas' => $belanjas,
+            'galeris' => $galeris,
+        ]);
+    }
+
 }

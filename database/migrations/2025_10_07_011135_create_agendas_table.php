@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('deskripsi')->nullable();
             $table->string('kategori')->nullable();
             $table->string('foto')->nullable(); 
+            $table->unsignedBigInteger('dilihat')->default(0)->after('foto'); 
             $table->timestamps();
         });
     }
@@ -28,5 +29,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('agendas');
+        $table->dropColumn('dilihat');
     }
 };

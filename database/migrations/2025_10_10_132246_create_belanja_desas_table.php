@@ -11,22 +11,40 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('belanja_desas', function (Blueprint $table) {
-            $table->id();
-            $table->string('judul');
-            $table->string('foto')->nullable();
-            $table->decimal('harga', 15, 2)->default(0); // harga maksimal 999.999.999.999,99
-            $table->decimal('rating', 2, 1)->default(0); // rating 0.0 - 5.0
-            $table->string('wa')->nullable(); // nomor WhatsApp opsional
-            $table->timestamps();
+        Schema::table('belanja_desas', function (Blueprint $table) {
+            // Tambahkan field-field baru
+            $table->string('kategori')->nullable()->after('judul');
+            $table->text('deskripsi')->nullable()->after('kategori');
+            $table->string('lokasi')->nullable()->after('deskripsi');
+            $table->string('pemilik')->nullable()->after('lokasi');
+            $table->decimal('latitude', 10, 8)->nullable()->after('pemilik');
+            $table->decimal('longitude', 11, 8)->nullable()->after('latitude');
+            $table->text('alamat_lengkap')->nullable()->after('longitude');
+            $table->time('jam_buka')->nullable()->after('alamat_lengkap');
+            $table->time('jam_tutup')->nullable()->after('jam_buka');
+            
+    
         });
     }
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('belanja_desas');
+        Schema::table('belanja_desas', function (Blueprint $table) {
+            $table->dropColumn([
+                'kategori',
+                'deskripsi',
+                'lokasi',
+                'pemilik',
+                'latitude',
+                'longitude',
+                'alamat_lengkap',
+                'jam_buka',
+                'jam_tutup'
+            ]);
+        });
     }
 };

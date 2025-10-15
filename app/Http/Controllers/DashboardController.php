@@ -14,6 +14,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
+    if (!auth()->user() || !auth()->user()->hasRole('admin')) {
+        return redirect()->route('error.403');
+    }
+        
         $data = [
             'total_penduduk'   => DataPenduduk::count(),
             'total_pengaduan'  => Pengaduan::count(),

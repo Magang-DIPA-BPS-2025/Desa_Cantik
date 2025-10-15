@@ -268,12 +268,14 @@
           </div>
         </li>
         <li class="nav-item has-dropdown">
-          <a href="#" class="nav-link">PPID & UMKM</a>
-          <div class="dropdown-menu">
-            <a href="{{ route('ppid') }}">PPID</a>
-            <a href="{{ route(name: 'belanja') }}">UMKM</a>
-          </div>
-        </li>
+    <a href="#" class="nav-link">PPID & UMKM</a>
+    <div class="dropdown-menu">
+        <a href="{{ route('ppid') }}" class="dropdown-item">PPID</a>
+        <a href="{{ route('belanja') }}" class="dropdown-item">UMKM</a>
+        <a href="{{ route('permohonan.userStatus') }}" class="dropdown-item">Status Permohonan</a>
+    </div>
+</li>
+
       </ul>
     </div>
   </header>

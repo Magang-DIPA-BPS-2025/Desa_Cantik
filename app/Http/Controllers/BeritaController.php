@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BelanjaDesa;
+use App\Models\Agenda;
 use App\Models\Berita;
+use App\Models\Galeri;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -169,4 +172,20 @@ public function userShow($id)
         'latest_beritas' => $latest_beritas,
     ]);
 }
+
+  public function userBeranda()
+    {
+        $beritas = Berita::with('kategori')->latest()->take(6)->get();
+        $latest_agendas = Agenda::latest()->take(6)->get();
+        $belanjas = BelanjaDesa::latest()->take(6)->get();
+        $galeris = Galeri::latest()->take(6)->get();
+
+        return view('pages.landing.index', [
+            'beritas' => $beritas,
+            'latest_agendas' => $latest_agendas,
+            'belanjas' => $belanjas,
+            'galeris' => $galeris,
+        ]);
+    }
+
 }

@@ -1,57 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>{{ $title }} &mdash; Stisla</title>
-
-    <!-- General CSS Files -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-    <!-- CSS Libraries -->
-
-    <!-- Template CSS -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/components.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title ?? 'Error' }} - {{ config('app.name', 'Laravel') }}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        .error-container {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            margin: 2rem auto;
+        }
+        
+        .error-code {
+            font-size: 6rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+        
+        .error-message {
+            font-size: 1.5rem;
+            color: #6c757d;
+            margin-bottom: 2rem;
+        }
+        
+        .btn-home {
+            background: #667eea;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-home:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            color: white;
+        }
+        
+        @media (max-width: 576px) {
+            .error-container {
+                padding: 2rem;
+                margin: 1rem;
+            }
+            
+            .error-code {
+                font-size: 4rem;
+            }
+            
+            .error-message {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
-    <div id="app">
-        <section class="section">
-            <div class="container mt-5">
-                {{-- content --}}
-                @yield('content')
-
-                {{-- footer --}}
-                @include('components.error.footer')
-
-            </div>
-        </section>
+    <div class="container">
+        @yield('content')
     </div>
 
-    <!-- General JS Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="{{ asset('js/stisla.js') }}"></script>
-
-    <!-- JS Libraies -->
-
-    <!-- Template JS File -->
-    <script src="{{ asset('js/scripts.js') }}"></script>
-    <script src="{{ asset('js/custom.js') }}"></script>
-
-    <!-- Page Specific JS File -->
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    @stack('scripts')
 </body>
-
 </html>
