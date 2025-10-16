@@ -201,6 +201,9 @@ Route::delete('/permohonan/{id}', [PermohonanInformasiController::class, 'destro
 
 
             // routes/web.php
+            Route::get('/admin/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])
+    ->name('admin.dashboard');
+
 
             Route::resource('sejarahDesa', SejarahDesaController::class);
 

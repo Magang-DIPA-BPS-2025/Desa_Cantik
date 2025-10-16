@@ -198,15 +198,20 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 <script>
-    // Chart Penduduk
-    var popCtx = document.getElementById('populationChart').getContext('2d');
-    new Chart(popCtx, {
+    <script>
+    // === CHART PENUDUK ===
+    var ctx = document.getElementById('populationChart').getContext('2d');
+
+    var labelsPenduduk = {!! json_encode($labelsPenduduk ?? ['RT1','RT2','RT3']) !!};
+    var dataPenduduk = {!! json_encode($dataPenduduk ?? [0,0,0]) !!};
+
+    new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: {{ json_encode($labelsPenduduk ?? ['RT1','RT2','RT3']) }},
+            labels: labelsPenduduk,
             datasets: [{
                 label: 'Jumlah Penduduk',
-                data: {{ json_encode($dataPenduduk ?? [0,0,0]) }},
+                data: dataPenduduk,
                 backgroundColor: ['#4e73df','#1cc88a','#36b9cc','#f6c23e','#e74a3b'],
                 borderRadius: 8
             }]
@@ -214,13 +219,23 @@
         options: {
             maintainAspectRatio: false,
             scales: {
-                yAxes: [{ ticks: { beginAtZero: true }, gridLines: { color: '#f2f2f2' } }],
+                yAxes: [{
+                    ticks: { beginAtZero: true },
+                    gridLines: { color: '#f2f2f2' }
+                }],
                 xAxes: [{ gridLines: { display: false } }]
             },
             legend: { display: false },
-            tooltips: { backgroundColor:'#fff', bodyFontColor:'#333', borderColor:'#ddd', borderWidth:1 }
+            tooltips: {
+                backgroundColor: '#fff',
+                bodyFontColor: '#333',
+                borderColor: '#ddd',
+                borderWidth: 1
+            }
         }
     });
+</script>
+
 
     // Mini Calendar
     (function renderCalendar(){
