@@ -15,6 +15,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\SejarahDesaController;
 use App\Http\Controllers\SuratController;
+use App\Http\Controllers\BukuTamuController;
 use App\Http\Controllers\Admin\SuratController as AdminSuratController;
 use App\Http\Controllers\Admin\SuratPengantarController as AdminSuratPengantarController;
 use App\Http\Controllers\Landing\ApbdDesaController;
@@ -86,9 +87,9 @@ Route::group(
         Route::get('/surat/{id}', [SuratController::class, 'userShowLetter'])->name('user.surat.show');
 
         //Pengaduan (dynamic view)
-        Route::get('/pengaduan', [PengaduanController::class, 'userIndex'])->name('pengaduan');
-        Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');
-        Route::get('status-pengaduan', [PengaduanController::class, 'userStatus'])->name('pengaduan.userStatus');
+      Route::get('/pengaduan', [PengaduanController::class, 'userIndex'])->name('pengaduan');
+Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');
+Route::get('/status-pengaduan', [PengaduanController::class, 'userStatus'])->name('pengaduan.userStatus');
 
         //Surat Pengaduan (dynamic view)
         Route::get('/statuspengaduan', [PengaduanController::class, 'userStatus'])->name('statuspengaduan');
@@ -125,6 +126,8 @@ Route::get('/ppid/setiap', [PPIDController::class, 'setiap'])->name('ppid.setiap
         Route::get('/belanja/{id}', [BelanjaDesaController::class, 'userShow'])->name('belanja.usershow');
         Route::post('/belanja/{id}/rating', [BelanjaDesaController::class, 'storeRating'])->name('belanja.rating');
 
+        Route::get('/bukutamu', [BukuTamuController::class, 'index'])->name('bukutamu');
+        Route::post('/bukutamu', [BukuTamuController::class, 'store'])->name('bukutamu.store');
     }
 );
 
@@ -204,6 +207,13 @@ Route::delete('/permohonan/{id}', [PermohonanInformasiController::class, 'destro
             Route::get('/admin/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])
     ->name('admin.dashboard');
 
+            Route::prefix('admin')->group(function () {
+                Route::get('/buku-tamu', [BukuTamuController::class, 'adminIndex'])->name('admin.buku.index');
+                Route::get('/buku-tamu/{id}/edit', [BukuTamuController::class, 'edit'])->name('admin.buku.edit');
+                Route::put('/buku-tamu/{id}', [BukuTamuController::class, 'update'])->name('admin.buku.update');
+                Route::delete('/buku-tamu/{id}', [BukuTamuController::class, 'destroy'])->name('admin.buku.destroy');
+});
+
 
             Route::resource('sejarahDesa', SejarahDesaController::class);
 
@@ -224,6 +234,7 @@ Route::delete('/permohonan/{id}', [PermohonanInformasiController::class, 'destro
             Route::resource('kategori', KategoriController::class);
 
             Route::resource('pengaduan', PengaduanController::class);
+
             Route::put('/pengaduan/{id}/status', [PengaduanController::class, 'updateStatus'])->name('pengaduan.updateStatus');
 
             Route::resource('surat', AdminSuratController::class)->only(['index', 'show', 'destroy', 'create', 'store']);

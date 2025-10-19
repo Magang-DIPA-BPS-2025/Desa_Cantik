@@ -10,6 +10,7 @@
 
         @php
             // Daftar sub-menu untuk dropdown
+            $menu = ['dashboard'];
             $profilMenus = ['galeriDesa','sejarahDesa','pemerintahDesa','apbd'];
             $agendaMenus = ['kegiatan','berita','kategori'];
             $persuratanMenus = ['persuratan']; // jika ada sub-menu spesifik, bisa ditambahkan
@@ -92,15 +93,18 @@
     </a>
 </li>
 
-
+{{-- Buku Tamu --}}
+<li class="nav-item {{ $menu == 'buku' ? 'active' : '' }}">
+    <a href="{{ route('admin.buku.index') }}" class="nav-link">
+        <i class="fas fa-file-alt"></i><span> Buku Tamu</span>
+    </a>
+</li>
                 {{-- Data Akun --}}
                 <li class="nav-item {{ $menu == 'akun' ? 'active' : '' }}">
                     <a href="{{ route('dashboard') }}" class="nav-link">
                         <i class="fas fa-user"></i> <span>Data Akun</span>
                     </a>
                 </li>
-
-
 
             @endif
         </ul>

@@ -1,4 +1,5 @@
 @extends('layouts.landing.app')
+
 @section('content')
 
 @push('styles')
@@ -9,6 +10,8 @@ body {
     background-color: #f9fafb;
     color: #333;
     margin: 0;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 /* ---------------- Hero Section ---------------- */
@@ -191,125 +194,112 @@ body {
     transform: translateY(-2px);
 }
 
-/* ---------------- Pengumuman Slider dengan Foto ---------------- */
-.pengumuman-section {
-    padding: 80px 20px;
-    background: #fff;
-}
-
-.pengumuman-container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.pengumuman-slider {
-    position: relative;
-    background: #f8f9fa;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-}
-
-.pengumuman-slide {
+/* ---------------- Search Results ---------------- */
+.search-results {
     display: none;
-    animation: fadeIn 0.5s ease;
-}
-
-.pengumuman-slide.active {
-    display: block;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.pengumuman-item {
     background: white;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    border-left: 5px solid #4CAF50;
-    overflow: hidden;
+    padding: 30px;
+    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-.pengumuman-image {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
+.search-results.active {
     display: block;
+    animation: fadeIn 0.3s ease;
 }
 
-.pengumuman-content {
-    padding: 25px;
+.search-results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e9ecef;
 }
 
-.pengumuman-title {
+.search-results-title {
     color: #2E7D32;
-    font-size: 20px;
-    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.search-results-count {
+    background: #4CAF50;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 14px;
     font-weight: 600;
 }
 
-.pengumuman-date {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 15px;
-    display: block;
+.search-results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.pengumuman-text {
-    color: #555;
-    line-height: 1.6;
+.search-result-item {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    border-left: 4px solid #4CAF50;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.search-result-item:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+}
+
+.search-result-title {
+    color: #2E7D32;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.search-result-category {
+    display: inline-block;
+    background: #4CAF50;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.search-result-text {
+    color: #666;
+    line-height: 1.5;
     margin-bottom: 0;
 }
 
-/* ---------------- Navigasi Slider dengan Panah ---------------- */
-.pengumuman-nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin-top: 20px;
+.search-result-highlight {
+    background: #FFEB3B;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: 600;
 }
 
-.pengumuman-arrow {
-    background: #4CAF50;
-    color: white;
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+.no-results {
+    text-align: center;
+    padding: 40px;
+    color: #666;
 }
 
-.pengumuman-arrow:hover {
-    background: #388e3c;
-    transform: scale(1.1);
+.no-results i {
+    font-size: 48px;
+    color: #ddd;
+    margin-bottom: 15px;
 }
 
-.pengumuman-dots {
-    display: flex;
-    gap: 10px;
-}
-
-.pengumuman-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #ddd;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.pengumuman-dot.active {
-    background: #4CAF50;
-    transform: scale(1.2);
+.no-results h4 {
+    color: #888;
+    margin-bottom: 10px;
 }
 
 /* ---------------- Jadwal Sholat Section ---------------- */
@@ -378,9 +368,10 @@ body {
     transform: translateX(5px);
 }
 
-.jadwal-item.active {
+.jadwal-item.next-prayer {
     background: linear-gradient(135deg, #4CAF50, #2E7D32);
     color: white;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
 }
 
 .jadwal-name {
@@ -531,6 +522,7 @@ body {
 
 .profil-text { 
     flex: 1; 
+    min-width: 300px;
 }
 
 .profil-text h2 { 
@@ -541,11 +533,13 @@ body {
 
 .profil-text p { 
     line-height: 1.8; 
+    font-size: 16px;
 }
 
 .profil-img { 
     flex: 1; 
     text-align: center; 
+    min-width: 300px;
 }
 
 .profil-img img { 
@@ -565,6 +559,7 @@ body {
 .chart-section h2 { 
     margin-bottom: 30px; 
     color: #2e7d32; 
+    font-size: 32px;
 }
 
 .chart-wrapper { 
@@ -588,8 +583,15 @@ body {
     margin: auto; 
 }
 
+.apbdesa-img { 
+    flex: 1;
+    min-width: 300px;
+    text-align: center;
+}
+
 .apbdesa-img img { 
     max-width: 400px; 
+    width: 100%;
     cursor: pointer; 
 }
 
@@ -608,6 +610,7 @@ body {
 .apb-info p { 
     font-size: 16px; 
     margin-bottom: 25px; 
+    line-height: 1.6;
 }
 
 .apb-card { 
@@ -683,28 +686,30 @@ body {
     background: #fff;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
     height: 100%;
     width: 100%;
+    border: 1px solid #e9ecef;
 }
 
 .uniform-card:hover { 
-    transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
 .uniform-card-img {
     width: 100%;
-    height: 220px;
+    height: 200px;
     object-fit: cover;
     display: block;
+    border-bottom: 1px solid #e9ecef;
 }
 
 .uniform-card-content {
-    padding: 20px;
+    padding: 1.25rem 1.5rem;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -738,6 +743,139 @@ body {
     display: block;
     height: 100%;
     width: 100%;
+}
+
+/* ---------------- UMKM Card Styles ---------------- */
+.umkm-card {
+    height: 100%;
+    border: 1px solid #e9ecef;
+    background-color: #fff;
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+}
+
+.umkm-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border-color: #4CAF50;
+}
+
+.umkm-card:active {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Pastikan tombol tidak mewarisi cursor pointer dari parent */
+.umkm-btn, .btn-outline-success {
+    cursor: pointer !important;
+}
+
+/* Efek hover untuk bagian yang bisa diklik */
+.umkm-card .uniform-card-content {
+    position: relative;
+}
+
+/* Tambahan style untuk badge agar tidak mengganggu klik */
+.badge-wrapper {
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Style untuk tombol agar terlihat lebih interaktif */
+.umkm-btn, .btn-outline-success {
+    position: relative;
+    z-index: 3;
+    transition: all 0.2s ease;
+}
+
+.umkm-btn:hover, .btn-outline-success:hover {
+    transform: scale(1.05);
+}
+
+/* Overlay effect untuk seluruh card */
+.umkm-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(76, 175, 80, 0);
+    transition: background 0.3s ease;
+    border-radius: 12px;
+    pointer-events: none;
+}
+
+.umkm-card:hover::after {
+    background: rgba(76, 175, 80, 0.05);
+}
+
+.badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 6px;
+    padding: 0.35em 0.65em;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.badge-category {
+    background: #28a745;
+    color: #fff;
+}
+
+.badge-rating {
+    background: #ffc107;
+    color: #212529;
+}
+
+.badge-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem;
+    z-index: 2;
+}
+
+.info-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+}
+
+.price {
+    font-weight: 700;
+    color: #28a745;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.umkm-btn {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: auto;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.umkm-btn:hover {
+    background: #388e3c;
+    color: white;
+    text-decoration: none;
 }
 
 /* ---------------- Section Styles ---------------- */
@@ -883,34 +1021,45 @@ body {
     transform: rotate(90deg);
 }
 
-/* ---------------- UMKM Button ---------------- */
-.umkm-btn {
-    background: #4CAF50;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.3s;
-    margin-top: auto;
-}
-
-.umkm-btn:hover {
-    background: #388e3c;
-}
-
 /* ---------------- Responsive Design ---------------- */
+@media (max-width: 1200px) {
+    .uniform-grid-container {
+        padding: 0 20px;
+    }
+    
+    .hero-section h1 {
+        font-size: 42px;
+    }
+    
+    .jadwal-sholat-container {
+        gap: 30px;
+    }
+}
+
 @media (max-width: 1024px) { 
     .uniform-grid { 
         grid-template-columns: repeat(2, 1fr); 
+        gap: 25px;
     }
     
     #slider > .item { 
-        flex: 0 0 33.33%; 
-        max-width: 33.33%; 
+        flex: 0 0 calc(33.33% - 15px); 
     } 
+    
+    .profil {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+    
+    .apb-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .apbdesa-img img {
+        max-width: 100%;
+    }
 }
 
 @media (max-width: 768px) { 
@@ -919,83 +1068,365 @@ body {
         gap: 20px;
     }
     
+    .uniform-grid-container {
+        padding: 0 15px;
+    }
+    
     #slider > .item { 
-        flex: 0 0 50%; 
-        max-width: 50%; 
+        flex: 0 0 calc(50% - 10px); 
+    }
+    
+    .slider-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
     }
     
     .slider-btn.left { 
-        left: 0; 
+        left: 5px; 
     }
     
     .slider-btn.right { 
-        right: 0; 
+        right: 5px; 
     }
     
     .jadwal-sholat-container {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 25px;
     }
     
     .search-box {
         flex-direction: column;
+        gap: 15px;
     }
     
     .search-input, .search-btn {
         width: 100%;
-    }
-    
-    .pengumuman-image {
-        height: 200px;
-    }
-    
-    .pengumuman-nav {
-        gap: 15px;
-    }
-    
-    .pengumuman-arrow {
-        width: 35px;
-        height: 35px;
-        font-size: 14px;
+        border-radius: 12px;
     }
     
     .hero-section {
-        padding: 100px 20px;
+        padding: 80px 20px;
         border-bottom-left-radius: 30px;
         border-bottom-right-radius: 30px;
     }
     
     .hero-section h1 {
-        font-size: 36px;
+        font-size: 32px;
+        line-height: 1.3;
     }
     
     .hero-section h2 {
-        font-size: 20px;
+        font-size: 18px;
     }
     
     .hero-section h3 {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+    
+    .section-title {
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+    
+    .statistik {
+        padding: 50px 15px;
+        border-radius: 25px;
+        margin: 40px auto;
+        width: 90%;
+    }
+    
+    .statistik h2 {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+    
+    .profil {
+        padding: 50px 20px;
+    }
+    
+    .profil-text h2 {
+        font-size: 28px;
+    }
+    
+    .apb-desa {
+        padding: 50px 20px;
+    }
+    
+    .apb-info h2 {
+        font-size: 28px;
+    }
+    
+    .berita-section,
+    .agenda-section,
+    .umkm-section,
+    .galeri-section {
+        padding: 50px 0;
+    }
+    
+    .search-section {
+        margin: 30px auto;
+        padding: 30px 20px;
+        border-radius: 15px;
+    }
+    
+    .search-title {
+        font-size: 24px;
+    }
+    
+    .jadwal-sholat-section {
+        padding: 50px 20px;
+    }
+    
+    .jadwal-item {
+        padding: 12px 15px;
+    }
+    
+    .jadwal-name {
+        font-size: 14px;
+    }
+    
+    .jadwal-time {
         font-size: 16px;
+    }
+    
+    .next-time {
+        font-size: 28px;
     }
     
     .galeri-modal-content {
         width: 95%;
-        margin: 10% auto;
+        margin: 15% auto;
     }
     
     .galeri-close {
-        top: -30px;
-        right: -10px;
-        width: 40px;
-        height: 40px;
-        font-size: 30px;
+        top: -35px;
+        right: 5px;
+        width: 35px;
+        height: 35px;
+        font-size: 25px;
+    }
+    
+    .btn-view-all {
+        padding: 12px 25px;
+        font-size: 14px;
+    }
+    
+    .uniform-card-img {
+        height: 180px;
+    }
+    
+    .uniform-card-content {
+        padding: 1rem 1.25rem;
+    }
+    
+    .uniform-card-title {
+        font-size: 1rem;
+    }
+    
+    .apb-card {
+        padding: 15px 20px;
+    }
+    
+    .apb-card h3 {
+        font-size: 20px;
     }
 }
 
-@media (max-width: 480px) { 
-    #slider > .item { 
-        flex: 0 0 100%; 
-        max-width: 100%; 
-    } 
+@media (max-width: 576px) {
+    .uniform-grid-container {
+        padding: 0 10px;
+    }
+    
+    #slider > .item {
+        flex: 0 0 calc(100% - 10px);
+    }
+    
+    .hero-section {
+        padding: 60px 15px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+    
+    .hero-section h1 {
+        font-size: 28px;
+    }
+    
+    .hero-section h2 {
+        font-size: 16px;
+    }
+    
+    .section-title {
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+    
+    .statistik {
+        padding: 40px 10px;
+        border-radius: 20px;
+        width: 95%;
+    }
+    
+    .statistik h2 {
+        font-size: 20px;
+        margin-bottom: 25px;
+    }
+    
+    .statistik .item {
+        padding: 15px;
+    }
+    
+    .statistik .angka {
+        font-size: 22px;
+    }
+    
+    .statistik .label {
+        font-size: 13px;
+    }
+    
+    .statistik img {
+        width: 50px;
+    }
+    
+    .profil {
+        padding: 40px 15px;
+        gap: 25px;
+    }
+    
+    .profil-text h2 {
+        font-size: 24px;
+    }
+    
+    .apb-desa {
+        padding: 40px 15px;
+    }
+    
+    .apb-info h2 {
+        font-size: 24px;
+    }
+    
+    .search-section {
+        padding: 25px 15px;
+        margin: 25px auto;
+    }
+    
+    .search-title {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .jadwal-sholat-section {
+        padding: 40px 15px;
+    }
+    
+    .jadwal-sholat-card {
+        padding: 20px;
+    }
+    
+    .jadwal-sholat-header h3 {
+        font-size: 20px;
+    }
+    
+    .berita-section,
+    .agenda-section,
+    .umkm-section,
+    .galeri-section {
+        padding: 40px 0;
+    }
+    
+    .uniform-card-img {
+        height: 160px;
+    }
+    
+    .btn-view-all-container {
+        margin-top: 35px;
+    }
+    
+    .search-results {
+        padding: 20px;
+    }
+    
+    .search-results-title {
+        font-size: 20px;
+    }
+    
+    .search-result-item {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 400px) {
+    .hero-section h1 {
+        font-size: 24px;
+    }
+    
+    .hero-section h3 {
+        font-size: 13px;
+        padding: 6px 12px;
+    }
+    
+    .section-title {
+        font-size: 22px;
+    }
+    
+    .statistik h2 {
+        font-size: 18px;
+    }
+    
+    .profil-text h2,
+    .apb-info h2 {
+        font-size: 22px;
+    }
+    
+    .jadwal-sholat-header h3 {
+        font-size: 18px;
+    }
+    
+    .next-time {
+        font-size: 24px;
+    }
+}
+
+/* Optimize images for mobile */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Improve touch targets for mobile */
+@media (max-width: 768px) {
+    .search-btn,
+    .slider-btn,
+    .btn-view-all,
+    .apb-btn,
+    .umkm-btn {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Improve text readability on mobile */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    
+    .uniform-card-text,
+    .profil-text p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+}
+
+/* Smooth scrolling for better mobile experience */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
 }
 </style>
 @endpush
@@ -1020,6 +1451,17 @@ body {
                 <i class="fa fa-search"></i> Cari
             </button>
         </div>
+        
+        {{-- Search Results --}}
+        <div class="search-results" id="searchResults">
+            <div class="search-results-header">
+                <h3 class="search-results-title">Hasil Pencarian</h3>
+                <span class="search-results-count" id="resultsCount">0 hasil</span>
+            </div>
+            <div class="search-results-list" id="resultsList">
+                {{-- Hasil pencarian akan ditampilkan di sini --}}
+            </div>
+        </div>
     </div>
 </div>
 
@@ -1043,67 +1485,6 @@ body {
     </div>
 </div>
 
-{{-- ---------------- Pengumuman Section ---------------- --}}
-<div class="pengumuman-section">
-    <div class="uniform-grid-container">
-        <h2 class="section-title">Pengumuman Desa</h2>
-        <div class="pengumuman-slider">
-            {{-- Slide 1 --}}
-            <div class="pengumuman-slide active">
-                <div class="pengumuman-item">
-                    <img src="{{ asset('landing/images/slider-main/pengumuman1.jpg') }}" alt="Pengumuman 1" class="pengumuman-image">
-                    <div class="pengumuman-content">
-                        <h3 class="pengumuman-title">Pendaftaran Bantuan Sosial Tahap II</h3>
-                        <span class="pengumuman-date"><i class="fa fa-calendar"></i> 15 Maret 2024</span>
-                        <p class="pengumuman-text">Pendaftaran bantuan sosial tahap II akan dibuka mulai tanggal 20-25 Maret 2024. Syarat dan ketentuan dapat dilihat di kantor kelurahan.</p>
-                    </div>
-                </div>
-            </div>
-            
-            {{-- Slide 2 --}}
-            <div class="pengumuman-slide">
-                <div class="pengumuman-item">
-                    <img src="{{ asset('landing/images/slider-main/pengumuman2.jpg') }}" alt="Pengumuman 2" class="pengumuman-image">
-                    <div class="pengumuman-content">
-                        <h3 class="pengumuman-title">Jadwal Pemadaman Listrik Bergilir</h3>
-                        <span class="pengumuman-date"><i class="fa fa-calendar"></i> 12 Maret 2024</span>
-                        <p class="pengumuman-text">Akan dilakukan pemadaman listrik bergilir pada tanggal 18 Maret 2024 pukul 09.00-15.00 WITA untuk perawatan jaringan.</p>
-                    </div>
-                </div>
-            </div>
-            
-            {{-- Slide 3 --}}
-            <div class="pengumuman-slide">
-                <div class="pengumuman-item">
-                    <img src="{{ asset('landing/images/slider-main/pengumuman3.jpg') }}" alt="Pengumuman 3" class="pengumuman-image">
-                    <div class="pengumuman-content">
-                        <h3 class="pengumuman-title">Kegiatan Kerja Bakti Bersama</h3>
-                        <span class="pengumuman-date"><i class="fa fa-calendar"></i> 10 Maret 2024</span>
-                        <p class="pengumuman-text">Akan diadakan kerja bakti membersihkan lingkungan desa pada hari Minggu, 24 Maret 2024. Partisipasi warga sangat diharapkan.</p>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Navigasi dengan Panah dan Dots --}}
-            <div class="pengumuman-nav">
-                <button class="pengumuman-arrow prev-arrow">
-                    <i class="fa fa-chevron-left"></i>
-                </button>
-                
-                <div class="pengumuman-dots">
-                    <span class="pengumuman-dot active" data-slide="0"></span>
-                    <span class="pengumuman-dot" data-slide="1"></span>
-                    <span class="pengumuman-dot" data-slide="2"></span>
-                </div>
-                
-                <button class="pengumuman-arrow next-arrow">
-                    <i class="fa fa-chevron-right"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
 {{-- ---------------- Jadwal Sholat Section ---------------- --}}
 <div class="jadwal-sholat-section">
     <div class="uniform-grid-container">
@@ -1113,7 +1494,7 @@ body {
                 <div class="jadwal-sholat-header">
                     <h3>Jadwal Sholat Hari Ini</h3>
                     <div class="jadwal-date" id="current-date">Senin, 18 Maret 2024</div>
-                    <div class="jadwal-location">Lokasi: Kelurahan Maccini Sombala, Makassar</div>
+                    <div class="jadwal-location">Lokasi: Desa Manggalung, Kabupaten Pangkep</div>
                 </div>
                 <div class="jadwal-list" id="prayer-times">
                     <!-- Jadwal sholat akan diisi oleh JavaScript -->
@@ -1129,7 +1510,7 @@ body {
                 <div style="margin-top: 30px;">
                     <h4 style="color: #2E7D32; margin-bottom: 15px;">Informasi</h4>
                     <p style="color: #666; line-height: 1.6; font-size: 14px;">
-                        Jadwal sholat ini dihitung berdasarkan koordinat lokasi Kelurahan Maccini Sombala. 
+                        Jadwal sholat ini dihitung berdasarkan koordinat lokasi Desa Manggalung, Kabupaten Pangkep. 
                         Waktu dapat berbeda ±2 menit tergantung kondisi cuaca dan observasi.
                     </p>
                 </div>
@@ -1236,25 +1617,67 @@ body {
         <h2 class="section-title">UMKM Desa</h2>
         <div class="uniform-grid">
             @foreach($belanjas->take(6) as $umkm)
-            <a href="{{ route('belanja.usershow', $umkm->id) }}" class="uniform-card-link">
-                <div class="uniform-card">
-                    @if($umkm->foto)
-                    <img src="{{ asset('storage/' . $umkm->foto) }}"
-                         alt="{{ $umkm->judul }}"
+            <div class="uniform-card umkm-card" onclick="window.location.href='{{ route('belanja.usershow', $umkm->id) }}'" style="cursor: pointer;" tabindex="0">
+                <div class="position-relative">
+                    <img src="{{ $umkm->foto ? asset('storage/' . $umkm->foto) : asset('img/default-product.png') }}"
+                         alt="{{ $umkm->judul }}" 
                          class="uniform-card-img">
-                    @else
-                    <img src="{{ asset('img/default-product.png') }}"
-                         alt="Default"
-                         class="uniform-card-img">
-                    @endif
-                    <div class="uniform-card-content">
-                        <h4 class="uniform-card-title">{{ $umkm->judul }}</h4>
-                        <p class="uniform-card-text">Harga: Rp {{ number_format($umkm->harga,0,',','.') }}</p>
-                        <p class="uniform-card-text">Rating: {{ $umkm->rating }} ⭐</p>
-                        <button class="umkm-btn">Lihat Detail</button>
+
+                    {{-- Kategori & Rating sejajar --}}
+                    <div class="badge-wrapper">
+                        <div>
+                            @if($umkm->kategori)
+                                <span class="badge badge-category">
+                                    <i class="fas fa-tag me-1"></i>{{ $umkm->kategori }}
+                                </span>
+                            @endif
+                        </div>
+                        <div>
+                            @php
+                                $rating = $umkm->averageRating();
+                            @endphp
+                            @if($rating > 0)
+                                <span class="badge badge-rating">
+                                    <i class="fas fa-star me-1"></i>{{ number_format($rating, 1) }}
+                                </span>
+                            @endif
+                        </div>
                     </div>
                 </div>
-            </a>
+
+                <div class="uniform-card-content">
+                    <h4 class="uniform-card-title">{{ $umkm->judul }}</h4>
+                    @if($umkm->deskripsi)
+                        <p class="uniform-card-text">{{ Str::limit(strip_tags($umkm->deskripsi), 120) }}</p>
+                    @endif
+
+                    <div class="info-line">
+                        <i class="fas fa-user text-success"></i>
+                        <small>{{ $umkm->pemilik }}</small>
+                    </div>
+
+                    @if($umkm->lokasi)
+                    <div class="info-line">
+                        <i class="fas fa-map-marker-alt text-success"></i>
+                        <small>{{ $umkm->lokasi }}</small>
+                    </div>
+                    @endif
+
+                    <div class="price">Rp {{ number_format($umkm->harga, 0, ',', '.') }}</div>
+
+                    <div class="d-grid gap-2 mt-auto">
+                        <a href="{{ route('belanja.usershow', $umkm->id) }}" class="umkm-btn" onclick="event.stopPropagation()">
+                            <i class="fas fa-eye me-2"></i>Lihat Detail
+                        </a>
+                        @if($umkm->wa)
+                        <a href="https://wa.me/62{{ ltrim($umkm->wa, '0') }}?text=Halo%20{{ urlencode($umkm->pemilik) }},%20saya%20tertarik%20dengan%20{{ urlencode($umkm->judul) }}."
+                           target="_blank" class="btn btn-outline-success btn-sm" onclick="event.stopPropagation()">
+                           <i class="fab fa-whatsapp me-2"></i>Chat WhatsApp
+                        </a>
+                        @endif
+                    </div>
+                </div>
+            </div>
             @endforeach
         </div>
         <div class="btn-view-all-container">
@@ -1298,6 +1721,7 @@ body {
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 // ---------------- Chart Penduduk ----------------
 const ctx = document.getElementById('chartPenduduk');
@@ -1315,8 +1739,21 @@ new Chart(ctx, {
         }]
     },
     options: {
-        plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, padding: 16 } } },
-        cutout: '65%'
+        plugins: { 
+            legend: { 
+                position: 'bottom', 
+                labels: { 
+                    usePointStyle: true, 
+                    padding: 16,
+                    font: {
+                        size: window.innerWidth < 768 ? 12 : 14
+                    }
+                } 
+            } 
+        },
+        cutout: '65%',
+        responsive: true,
+        maintainAspectRatio: true
     }
 });
 
@@ -1324,14 +1761,23 @@ new Chart(ctx, {
 const slider = document.getElementById('slider');
 const leftBtn = document.getElementById('slideLeft');
 const rightBtn = document.getElementById('slideRight');
-const itemWidth = slider.children[0].offsetWidth + 20;
 let autoSlideInterval;
+
+function updateItemWidth() {
+    if (slider.children.length > 0) {
+        return slider.children[0].offsetWidth + 20;
+    }
+    return 300; // fallback width
+}
+
+let itemWidth = updateItemWidth();
 
 leftBtn.addEventListener('click', ()=>{
     if(slider.scrollLeft<=0) slider.scrollTo({left:slider.scrollWidth, behavior:'smooth'});
     else slider.scrollBy({left:-itemWidth, behavior:'smooth'});
     resetAutoSlide();
 });
+
 rightBtn.addEventListener('click', ()=>{
     if(slider.scrollLeft + slider.clientWidth >= slider.scrollWidth-10) slider.scrollTo({left:0, behavior:'smooth'});
     else slider.scrollBy({left:itemWidth, behavior:'smooth'});
@@ -1344,10 +1790,21 @@ function autoSlide(){
         else slider.scrollBy({left:itemWidth, behavior:'smooth'});
     },3000);
 }
-function resetAutoSlide(){ clearInterval(autoSlideInterval); autoSlide(); }
+
+function resetAutoSlide(){ 
+    clearInterval(autoSlideInterval); 
+    autoSlide(); 
+}
+
+// Initialize slider
 autoSlide();
 slider.addEventListener('mouseenter',()=>clearInterval(autoSlideInterval));
 slider.addEventListener('mouseleave', autoSlide);
+
+// Update item width on resize
+window.addEventListener('resize', () => {
+    itemWidth = updateItemWidth();
+});
 
 // ---------------- Modal Galeri Functions ----------------
 function openModal(imageSrc) {
@@ -1387,14 +1844,17 @@ document.addEventListener('keydown', function(event) {
 // ---------------- Efek Partikel di Hero Section ----------------
 function createParticles() {
     const particlesContainer = document.getElementById('particles');
-    const particleCount = 20;
+    const particleCount = window.innerWidth < 768 ? 15 : 20;
+    
+    // Clear existing particles
+    particlesContainer.innerHTML = '';
     
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.classList.add('particle');
         
         // Random size and position
-        const size = Math.random() * 10 + 5;
+        const size = Math.random() * 8 + 3;
         const left = Math.random() * 100;
         const animationDuration = Math.random() * 20 + 10;
         const animationDelay = Math.random() * 5;
@@ -1409,113 +1869,108 @@ function createParticles() {
     }
 }
 
-// ---------------- Pengumuman Slider Functionality dengan Panah ----------------
-let currentSlide = 0;
-const slides = document.querySelectorAll('.pengumuman-slide');
-const dots = document.querySelectorAll('.pengumuman-dot');
-const prevArrow = document.querySelector('.prev-arrow');
-const nextArrow = document.querySelector('.next-arrow');
-let autoSlideIntervalPengumuman;
-
-function showSlide(n) {
-    // Hide all slides
-    slides.forEach(slide => slide.classList.remove('active'));
-    dots.forEach(dot => dot.classList.remove('active'));
+// ---------------- UMKM Card Click Handler ----------------
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle klik pada card UMKM
+    const umkmCards = document.querySelectorAll('.umkm-card');
     
-    // Show current slide
-    currentSlide = (n + slides.length) % slides.length;
-    slides[currentSlide].classList.add('active');
-    dots[currentSlide].classList.add('active');
-}
-
-function nextSlide() {
-    showSlide(currentSlide + 1);
-}
-
-function prevSlide() {
-    showSlide(currentSlide - 1);
-}
-
-// Auto slide every 5 seconds
-function startAutoSlide() {
-    autoSlideIntervalPengumuman = setInterval(() => {
-        nextSlide();
-    }, 5000);
-}
-
-// Stop auto slide when user interacts
-function stopAutoSlide() {
-    clearInterval(autoSlideIntervalPengumuman);
-}
-
-// Event listeners for arrows
-if (prevArrow) {
-    prevArrow.addEventListener('click', () => {
-        prevSlide();
-        stopAutoSlide();
-        startAutoSlide();
-    });
-}
-
-if (nextArrow) {
-    nextArrow.addEventListener('click', () => {
-        nextSlide();
-        stopAutoSlide();
-        startAutoSlide();
-    });
-}
-
-// Dot click event
-dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-        showSlide(index);
-        stopAutoSlide();
-        startAutoSlide();
+    umkmCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            // Cek jika yang diklik adalah tombol atau link
+            if (e.target.tagName === 'A' || e.target.closest('a') || 
+                e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+                return; // Biarkan event default untuk tombol/link
+            }
+            
+            // Cari link detail di dalam card
+            const detailLink = this.querySelector('a[href*="belanja"]');
+            if (detailLink) {
+                window.location.href = detailLink.href;
+            }
+        });
+        
+        // Tambahkan efek keyboard accessibility
+        card.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const detailLink = this.querySelector('a[href*="belanja"]');
+                if (detailLink) {
+                    window.location.href = detailLink.href;
+                }
+            }
+        });
     });
 });
 
-// Start auto slide on page load
-startAutoSlide();
-
-// ---------------- Jadwal Sholat Functionality ----------------
+// ---------------- Jadwal Sholat Functionality untuk Kabupaten Pangkep ----------------
 async function updatePrayerTimes() {
     const now = new Date();
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     document.getElementById('current-date').textContent = now.toLocaleDateString('id-ID', options);
 
-    // Ganti dengan koordinat lokasi kamu (Makassar)
-    const latitude = -5.1477;
-    const longitude = 119.4327;
+    // Koordinat untuk Kabupaten Pangkep, Desa Manggalung
+    const latitude = -4.7686;  // Latitude Kabupaten Pangkep
+    const longitude = 119.5578; // Longitude Kabupaten Pangkep
     const method = 2; // Muslim World League
+    const timezone = 'Asia/Makassar'; // WITA
 
-    const apiUrl = `https://api.aladhan.com/v1/timings/${Math.floor(now.getTime() / 1000)}?latitude=${latitude}&longitude=${longitude}&method=${method}&timezonestring=Asia/Makassar`;
+    // Format tanggal untuk API: DD-MM-YYYY
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    const dateString = `${day}-${month}-${year}`;
+
+    // API URL untuk Kabupaten Pangkep
+    const apiUrl = `https://api.aladhan.com/v1/timings/${dateString}?latitude=${latitude}&longitude=${longitude}&method=${method}&timezonestring=${timezone}`;
 
     try {
         const response = await fetch(apiUrl);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const data = await response.json();
-        const timings = data.data.timings;
+        
+        if (data.code === 200 && data.data && data.data.timings) {
+            const timings = data.data.timings;
 
-        const prayerOrder = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
-        const prayerNames = ['Subuh', 'Syuruq', 'Dzuhur', 'Ashar', 'Maghrib', 'Isya'];
-
-        const prayerTimes = prayerOrder.map((key, i) => {
-            const time = timings[key]; // format "04:45"
-            const [hours, minutes] = time.split(':').map(Number);
-            const totalMinutes = hours * 60 + minutes;
-
-            const nowMinutes = now.getHours() * 60 + now.getMinutes();
-            const passed = nowMinutes >= totalMinutes;
-
-            return {
-                name: prayerNames[i],
-                time,
-                passed
+            const prayerOrder = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+            const prayerNames = {
+                'Fajr': 'Subuh',
+                'Sunrise': 'Syuruq', 
+                'Dhuhr': 'Dzuhur',
+                'Asr': 'Ashar',
+                'Maghrib': 'Maghrib',
+                'Isha': 'Isya'
             };
-        });
 
-        displayPrayerTimes(prayerTimes);
+            const prayerTimes = prayerOrder.map((key) => {
+                const time = timings[key];
+                const [hours, minutes] = time.split(':').map(Number);
+                const totalMinutes = hours * 60 + minutes;
+
+                const nowMinutes = now.getHours() * 60 + now.getMinutes();
+                const passed = nowMinutes >= totalMinutes;
+
+                return {
+                    name: prayerNames[key],
+                    time: time,
+                    passed: passed,
+                    totalMinutes: totalMinutes
+                };
+            });
+
+            displayPrayerTimes(prayerTimes);
+            updateNextPrayer(prayerTimes);
+            
+        } else {
+            throw new Error('Data jadwal sholat tidak valid');
+        }
     } catch (error) {
         console.error('Gagal mengambil jadwal sholat:', error);
+        // Fallback ke jadwal statis untuk Pangkep
+        displayFallbackPrayerTimes();
     }
 }
 
@@ -1523,39 +1978,334 @@ function displayPrayerTimes(prayerTimes) {
     const container = document.getElementById('prayer-times');
     container.innerHTML = ''; // Clear existing list
 
+    // Hapus class 'next-prayer' dari semua item sebelumnya
+    const existingItems = document.querySelectorAll('.jadwal-item');
+    existingItems.forEach(item => item.classList.remove('next-prayer'));
+
+    // Cari sholat berikutnya
+    const now = new Date();
+    const nowMinutes = now.getHours() * 60 + now.getMinutes();
+    let nextPrayerFound = false;
+
     prayerTimes.forEach(prayer => {
-        const li = document.createElement('li');
-        li.textContent = `${prayer.name}: ${prayer.time}`;
-        if (prayer.passed) li.style.color = 'gray';
-        container.appendChild(li);
+        const div = document.createElement('div');
+        div.className = `jadwal-item`;
+        
+        // Tandai sholat berikutnya dengan warna hijau
+        if (!nextPrayerFound && !prayer.passed) {
+            div.classList.add('next-prayer');
+            nextPrayerFound = true;
+        }
+        
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'jadwal-name';
+        nameSpan.textContent = prayer.name;
+        
+        const timeSpan = document.createElement('span');
+        timeSpan.className = 'jadwal-time';
+        timeSpan.textContent = prayer.time;
+        
+        div.appendChild(nameSpan);
+        div.appendChild(timeSpan);
+        container.appendChild(div);
     });
 }
 
-// Jalankan saat halaman dimuat
-updatePrayerTimes();
+function updateNextPrayer(prayerTimes) {
+    const now = new Date();
+    const nowMinutes = now.getHours() * 60 + now.getMinutes();
+    
+    // Cari sholat berikutnya yang belum lewat
+    const nextPrayer = prayerTimes.find(prayer => {
+        return !prayer.passed;
+    });
 
-// ---------------- Search Functionality ----------------
-document.querySelector('.search-btn').addEventListener('click', function() {
-    const searchTerm = document.querySelector('.search-input').value;
-    if (searchTerm.trim()) {
-        alert(`Mencari: ${searchTerm}`);
-        // Here you can implement actual search functionality
-        // window.location.href = `/search?q=${encodeURIComponent(searchTerm)}`;
+    if (nextPrayer) {
+        document.getElementById('next-prayer-name').textContent = nextPrayer.name;
+        document.getElementById('next-prayer-time').textContent = nextPrayer.time;
+        
+        // Hitung countdown
+        const [hours, minutes] = nextPrayer.time.split(':').map(Number);
+        const nextPrayerDate = new Date();
+        nextPrayerDate.setHours(hours, minutes, 0, 0);
+        
+        if (nextPrayerDate < now) {
+            nextPrayerDate.setDate(nextPrayerDate.getDate() + 1);
+        }
+        
+        updateCountdown(nextPrayerDate);
+    } else {
+        // Jika semua sholat hari ini sudah lewat, tampilkan sholat pertama besok
+        document.getElementById('next-prayer-name').textContent = 'Subuh';
+        document.getElementById('next-prayer-time').textContent = prayerTimes[0].time;
+        
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        tomorrow.setHours(0, 0, 0, 0);
+        
+        updateCountdown(tomorrow);
     }
-});
+}
 
-document.querySelector('.search-input').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        document.querySelector('.search-btn').click();
+function updateCountdown(targetDate) {
+    function update() {
+        const now = new Date();
+        const diff = targetDate - now;
+        
+        if (diff <= 0) {
+            // Waktu sholat sudah tiba
+            document.getElementById('countdown').textContent = 'Waktu sholat telah tiba';
+            updatePrayerTimes(); // Refresh data
+            return;
+        }
+        
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        document.getElementById('countdown').textContent = 
+            `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     }
+    
+    update();
+    setInterval(update, 1000);
+}
+
+// Fallback jadwal sholat untuk Kabupaten Pangkep jika API tidak bekerja
+function displayFallbackPrayerTimes() {
+    const now = new Date();
+    const nowMinutes = now.getHours() * 60 + now.getMinutes();
+    
+    // Jadwal sholat estimasi untuk Kabupaten Pangkep
+    const fallbackTimes = [
+        { name: 'Subuh', time: '04:45', passed: nowMinutes >= (4*60+45), totalMinutes: 4*60+45 },
+        { name: 'Syuruq', time: '06:05', passed: nowMinutes >= (6*60+5), totalMinutes: 6*60+5 },
+        { name: 'Dzuhur', time: '12:10', passed: nowMinutes >= (12*60+10), totalMinutes: 12*60+10 },
+        { name: 'Ashar', time: '15:25', passed: nowMinutes >= (15*60+25), totalMinutes: 15*60+25 },
+        { name: 'Maghrib', time: '18:15', passed: nowMinutes >= (18*60+15), totalMinutes: 18*60+15 },
+        { name: 'Isya', time: '19:30', passed: nowMinutes >= (19*60+30), totalMinutes: 19*60+30 }
+    ];
+    
+    displayPrayerTimes(fallbackTimes);
+    updateNextPrayer(fallbackTimes);
+    
+    // Update informasi lokasi
+    document.querySelector('.jadwal-location').textContent = 'Lokasi: Desa Manggalung, Kabupaten Pangkep (Data Estimasi)';
+    
+    // Update informasi di card kanan
+    const infoElement = document.querySelector('.jadwal-sholat-card:last-child p');
+    if (infoElement) {
+        infoElement.innerHTML = 'Jadwal sholat ini dihitung berdasarkan koordinat lokasi Desa Manggalung, Kabupaten Pangkep. Waktu dapat berbeda ±2 menit tergantung kondisi cuaca dan observasi. <strong>Menggunakan data estimasi.</strong>';
+    }
+}
+
+// ---------------- Search Functionality dengan jQuery ----------------
+$(document).ready(function() {
+    const $searchInput = $('.search-input');
+    const $searchBtn = $('.search-btn');
+    const $searchResults = $('#searchResults');
+    const $resultsList = $('#resultsList');
+    const $resultsCount = $('#resultsCount');
+
+    // Data untuk pencarian
+    const searchData = {
+        beritas: [
+            @foreach($beritas as $berita)
+            {
+                id: {{ $berita->id }},
+                title: "{{ addslashes($berita->judul) }}",
+                content: "{{ addslashes(strip_tags($berita->isi)) }}",
+                category: "Berita",
+                date: "{{ $berita->tanggal_event ? \Carbon\Carbon::parse($berita->tanggal_event)->translatedFormat('d M Y') : $berita->created_at->translatedFormat('d M Y') }}",
+                url: "{{ route('berita.show', $berita->id) }}",
+                image: "{{ $berita->foto ? asset('storage/'.$berita->foto) : asset('img/example-image.jpg') }}"
+            },
+            @endforeach
+        ],
+        agendas: [
+            @foreach($latest_agendas as $agenda)
+            {
+                id: {{ $agenda->id }},
+                title: "{{ addslashes($agenda->nama_kegiatan) }}",
+                content: "{{ addslashes(strip_tags($agenda->deskripsi)) }}",
+                category: "Agenda",
+                date: "{{ $agenda->waktu_pelaksanaan ? \Carbon\Carbon::parse($agenda->waktu_pelaksanaan)->translatedFormat('d M Y') : '' }}",
+                url: "{{ route('agenda.show', $agenda->id) }}",
+                image: "{{ $agenda->foto ? asset('storage/'.$agenda->foto) : asset('img/example-image.jpg') }}"
+            },
+            @endforeach
+        ],
+        umkms: [
+            @foreach($belanjas as $umkm)
+            {
+                id: {{ $umkm->id }},
+                title: "{{ addslashes($umkm->judul) }}",
+                content: "{{ addslashes(strip_tags($umkm->deskripsi)) }}",
+                category: "UMKM",
+                date: "",
+                url: "{{ route('belanja.usershow', $umkm->id) }}",
+                image: "{{ $umkm->foto ? asset('storage/' . $umkm->foto) : asset('img/default-product.png') }}",
+                price: "Rp {{ number_format($umkm->harga, 0, ',', '.') }}",
+                pemilik: "{{ addslashes($umkm->pemilik) }}"
+            },
+            @endforeach
+        ],
+    };
+
+    // Fungsi pencarian
+    function performSearch(query) {
+        if (!query.trim()) {
+            hideSearchResults();
+            return;
+        }
+
+        const results = [];
+        const searchTerms = query.toLowerCase().split(' ').filter(term => term.length > 2);
+
+        // Cari di semua kategori
+        Object.keys(searchData).forEach(category => {
+            searchData[category].forEach(item => {
+                const searchableText = (item.title + ' ' + item.content + ' ' + (item.pemilik || '')).toLowerCase();
+                const matches = searchTerms.some(term => searchableText.includes(term));
+                
+                if (matches) {
+                    // Hitung relevansi
+                    let relevance = 0;
+                    searchTerms.forEach(term => {
+                        if (item.title.toLowerCase().includes(term)) relevance += 3;
+                        if (item.content.toLowerCase().includes(term)) relevance += 1;
+                        if (item.pemilik && item.pemilik.toLowerCase().includes(term)) relevance += 2;
+                    });
+                    
+                    results.push({
+                        ...item,
+                        relevance: relevance,
+                        matches: searchTerms.filter(term => searchableText.includes(term))
+                    });
+                }
+            });
+        });
+
+        // Urutkan berdasarkan relevansi
+        results.sort((a, b) => b.relevance - a.relevance);
+        displaySearchResults(results, query);
+    }
+
+    // Tampilkan hasil pencarian
+    function displaySearchResults(results, query) {
+        $resultsList.empty();
+        
+        if (results.length === 0) {
+            $resultsList.html(`
+                <div class="no-results">
+                    <i class="fas fa-search"></i>
+                    <h4>Tidak ada hasil ditemukan</h4>
+                    <p>Tidak ada hasil untuk "<strong>${query}</strong>". Coba dengan kata kunci lain.</p>
+                </div>
+            `);
+        } else {
+            results.forEach(result => {
+                const highlightedTitle = highlightText(result.title, query);
+                const highlightedContent = highlightText(result.content.substring(0, 150) + '...', query);
+                
+                const resultItem = `
+                    <div class="search-result-item" onclick="window.location.href='${result.url}'" style="cursor: pointer;">
+                        <span class="search-result-category">${result.category}</span>
+                        <h4 class="search-result-title">${highlightedTitle}</h4>
+                        ${result.date ? `<small><i class="fas fa-calendar"></i> ${result.date}</small>` : ''}
+                        <p class="search-result-text">${highlightedContent}</p>
+                        ${result.price ? `<div class="price">${result.price}</div>` : ''}
+                    </div>
+                `;
+                $resultsList.append(resultItem);
+            });
+        }
+
+        $resultsCount.text(`${results.length} hasil`);
+        $searchResults.addClass('active');
+        
+        // Scroll ke hasil pencarian
+        $('html, body').animate({
+            scrollTop: $searchResults.offset().top - 100
+        }, 500);
+    }
+
+    // Fungsi untuk highlight teks
+    function highlightText(text, query) {
+        const searchTerms = query.toLowerCase().split(' ').filter(term => term.length > 2);
+        let highlightedText = text;
+        
+        searchTerms.forEach(term => {
+            const regex = new RegExp(`(${term})`, 'gi');
+            highlightedText = highlightedText.replace(regex, '<span class="search-result-highlight">$1</span>');
+        });
+        
+        return highlightedText;
+    }
+
+    // Sembunyikan hasil pencarian
+    function hideSearchResults() {
+        $searchResults.removeClass('active');
+    }
+
+    // Event handlers
+    $searchBtn.on('click', function() {
+        const query = $searchInput.val().trim();
+        performSearch(query);
+    });
+
+    $searchInput.on('keypress', function(e) {
+        if (e.which === 13) {
+            const query = $searchInput.val().trim();
+            performSearch(query);
+        }
+    });
+
+    $searchInput.on('input', function() {
+        const query = $(this).val().trim();
+        if (query.length === 0) {
+            hideSearchResults();
+        } else if (query.length >= 3) {
+            // Debounce search
+            clearTimeout($(this).data('timeout'));
+            $(this).data('timeout', setTimeout(() => {
+                performSearch(query);
+            }, 500));
+        }
+    });
+
+    // Klik di luar untuk menutup hasil pencarian
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('.search-container').length) {
+            hideSearchResults();
+        }
+    });
+
+    // Prevent hiding when clicking inside search results
+    $searchResults.on('click', function(e) {
+        e.stopPropagation();
+    });
 });
 
 // Initialize everything when page loads
 document.addEventListener('DOMContentLoaded', function() {
     createParticles();
     updatePrayerTimes();
-    setInterval(updatePrayerTimes, 1000); // Update every second
+    
+    // Recreate particles on resize
+    window.addEventListener('resize', createParticles);
 });
+
+// Handle window resize for better responsiveness
+window.addEventListener('resize', function() {
+    // Update any layout-dependent calculations
+    if (typeof updateItemWidth === 'function') {
+        updateItemWidth();
+    }
+});
+
+// Auto refresh jadwal sholat setiap 1 menit
+setInterval(updatePrayerTimes, 60000);
 </script>
 @endpush
 @endsection

@@ -31,39 +31,36 @@ class PengaduanController extends Controller
      * Simpan pengaduan dari form user
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'nama'      => 'required|string|max:255',
-            'email'     => 'required|email',
-            'telepon'   => 'required|string|max:20',
-            'alamat'    => 'required|string',
-            'judul'     => 'required|string|max:255',
-            'uraian'    => 'required|string',
-            'lampiran'  => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
-        ]);
+{
+    $request->validate([
+        'nama' => 'required|string|max:255',
+        'email' => 'required|email',
+        'telepon' => 'required|string|max:20',
+        'alamat' => 'required|string',
+        'judul' => 'required|string|max:255',
+        'uraian' => 'required|string',
+        'lampiran' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
+    ]);
 
-        // Upload lampiran jika ada
-        $lampiran = null;
-        if ($request->hasFile('lampiran')) {
-            $lampiran = $request->file('lampiran')->store('pengaduan_files', 'public');
-        }
+    $lampiran = $request->hasFile('lampiran')
+        ? $request->file('lampiran')->store('pengaduan_files', 'public')
+        : null;
 
-        // Simpan ke database
-        Pengaduan::create([
-            'nama' => $request->nama,
-            'email'        => $request->email,
-            'telepon'      => $request->telepon,
-            'alamat'       => $request->alamat,
-            'judul'        => $request->judul,
-            'deskripsi'    => $request->uraian,
-            'file'         => $lampiran,
-            'status'       => 'baru',
-            'anonymous'    => false,
-        ]);
+    Pengaduan::create([
+        'nama' => $request->nama,
+        'email' => $request->email,
+        'telepon' => $request->telepon,
+        'alamat' => $request->alamat,
+        'judul' => $request->judul,
+        'deskripsi' => $request->uraian,
+        'file' => $lampiran,
+        'status' => 'baru',
+        'anonymous' => false,
+    ]);
 
-        return redirect()->back()->with('success', 'Pengaduan berhasil dikirim.');
-    }
-
+    return redirect()->back()->with('success', 'Pengaduan berhasil dikirim.');
+}
+    
     /**
      * Update status pengaduan (untuk admin)
      */

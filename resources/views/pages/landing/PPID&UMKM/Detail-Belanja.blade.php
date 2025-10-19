@@ -2,14 +2,7 @@
 
 @push('styles')
 <style>
-    .product-header {
-        background: linear-gradient(135deg, #28a745, #20c997);
-        color: #fff;
-        border-radius: 15px;
-        padding: 2rem;
-        text-align: center;
-        margin-bottom: 2rem;
-    }
+    
 
     .product-header h2 {
         font-weight: 700;
@@ -136,12 +129,6 @@
 
 @section('content')
 <div class="container py-4">
-
-    {{-- Header Produk --}}
-    <div class="product-header fade-in-up">
-        <h2><i class="fas fa-store me-2"></i>{{ $belanja->judul }}</h2>
-        <p class="mb-0">Detail produk UMKM Desa</p>
-    </div>
 
     {{-- Card Produk --}}
     <div class="card shadow-sm mb-4 fade-in-up">

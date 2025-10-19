@@ -16,37 +16,25 @@
         overflow: hidden;
     }
 
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    }
-
-    /* ========== HEADER ========== */
-    .page-header {
-        background: linear-gradient(135deg, #28a745, #20c997);
-        color: white;
-        border-radius: 15px;
-        text-align: center;
-        padding: 3rem 2rem;
-        margin-bottom: 3rem;
-    }
-
-    .page-title {
-        font-weight: 700;
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-    }
-
-    .page-subtitle {
-        font-size: 1.1rem;
-        opacity: 0.9;
-    }
-
-    /* ========== UMKM CARD ========== */
+    /* CARD BISA DIKLIK */
     .umkm-card {
+        display: block;
+        text-decoration: none;
+        color: inherit;
         height: 100%;
         border: 1px solid #e9ecef;
         background-color: #fff;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .umkm-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.75rem 1.5rem rgba(0,0,0,0.1);
+    }
+
+    .umkm-card:hover .card-title {
+        color: #28a745;
     }
 
     .umkm-image {
@@ -120,7 +108,6 @@
         margin-bottom: 6px;
     }
 
-    /* ========== MAP & STATS ========== */
     #umkmMap {
         border-radius: 0 0 12px 12px;
         height: 400px;
@@ -164,7 +151,6 @@
         text-transform: uppercase;
     }
 
-    /* ========== RESPONSIVE ========== */
     @media (max-width: 768px) {
         .page-title { font-size: 2rem; }
         #umkmMap { height: 300px; }
@@ -186,54 +172,12 @@
         <p class="page-subtitle">Temukan berbagai produk unggulan dan jasa dari UMKM desa kami</p>
     </div>
 
-    {{-- STATS --}}
-    <div class="stats-container">
-        <div class="row text-center">
-            <div class="col-md-3 col-6 stat-item">
-                <div class="stat-number">{{ $belanjas->total() }}</div>
-                <div class="stat-label">Total UMKM</div>
-            </div>
-            <div class="col-md-3 col-6 stat-item">
-                <div class="stat-number">{{ $belanjas->whereNotNull('latitude')->whereNotNull('longitude')->count() }}</div>
-                <div class="stat-label">Ada Lokasi</div>
-            </div>
-            <div class="col-md-3 col-6 stat-item">
-                @php
-                    // PERBAIKAN: Hitung rating rata-rata yang benar
-                    $totalRating = 0;
-                    $umkmWithRating = 0;
-                    
-                    foreach ($belanjas as $umkm) {
-                        $rating = $umkm->averageRating();
-                        if ($rating > 0) {
-                            $totalRating += $rating;
-                            $umkmWithRating++;
-                        }
-                    }
-                    
-                    $avgRating = $umkmWithRating > 0 
-                        ? number_format($totalRating / $umkmWithRating, 1) 
-                        : '0.0';
-                @endphp
-                <div class="stat-number">{{ $avgRating }}</div>
-                <div class="stat-label">Rating Rata-rata</div>
-            </div>
-            <div class="col-md-3 col-6 stat-item">
-                <div class="stat-number">{{ $belanjas->unique('kategori')->count() }}</div>
-                <div class="stat-label">Kategori</div>
-            </div>
-        </div>
-    </div>
-
     {{-- MAP --}}
     <div class="row mb-5">
         <div class="col-12">
             <div class="card map-container">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0"><i class="fas fa-map-marked-alt me-2"></i>Peta Lokasi UMKM Desa</h5>
-                    <span class="badge bg-light text-success fs-6">
-                        {{ $belanjas->whereNotNull('latitude')->whereNotNull('longitude')->count() }} UMKM Terdaftar
-                    </span>
                 </div>
                 <div class="card-body p-0">
                     <div id="umkmMap"></div>
@@ -246,7 +190,8 @@
     <div class="row g-4">
         @forelse($belanjas as $umkm)
         <div class="col-12 col-sm-6 col-lg-4">
-            <div class="card umkm-card h-100">
+            {{-- CARD BISA DIKLIK --}}
+            <a href="{{ route('belanja.usershow', $umkm->id) }}" class="umkm-card">
                 <div class="position-relative">
                     <img src="{{ $umkm->foto ? asset('storage/' . $umkm->foto) : asset('img/default-product.png') }}"
                          alt="{{ $umkm->judul }}" class="umkm-image">
@@ -292,20 +237,16 @@
                     @endif
 
                     <div class="price">Rp {{ number_format($umkm->harga, 0, ',', '.') }}</div>
-
-                    <div class="d-grid gap-2 mt-auto">
-                        <a href="{{ route('belanja.usershow', $umkm->id) }}" class="btn btn-success">
-                            <i class="fas fa-eye me-2"></i>Lihat Detail
-                        </a>
-                        @if($umkm->wa)
-                        <a href="https://wa.me/62{{ ltrim($umkm->wa, '0') }}?text=Halo%20{{ urlencode($umkm->pemilik) }},%20saya%20tertarik%20dengan%20{{ urlencode($umkm->judul) }}."
-                           target="_blank" class="btn btn-outline-success">
-                           <i class="fab fa-whatsapp me-2"></i>Chat WhatsApp
-                        </a>
-                        @endif
-                    </div>
                 </div>
-            </div>
+            </a>
+
+            {{-- Tombol WA tetap terpisah --}}
+            @if($umkm->wa)
+            <a href="https://wa.me/62{{ ltrim($umkm->wa, '0') }}?text=Halo%20{{ urlencode($umkm->pemilik) }},%20saya%20tertarik%20dengan%20{{ urlencode($umkm->judul) }}."
+               target="_blank" class="btn btn-outline-success w-100 mt-2">
+               <i class="fab fa-whatsapp me-2"></i>Chat WhatsApp
+            </a>
+            @endif
         </div>
         @empty
         <div class="col-12 text-center text-muted">
