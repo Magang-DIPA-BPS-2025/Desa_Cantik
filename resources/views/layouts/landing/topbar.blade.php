@@ -500,7 +500,7 @@
         </li>
 
         <li class="nav-item">
-          <a href="#" class="nav-link {{ request()->is('ppid*', 'belanja*', 'permohonan*') ? 'active' : '' }}">
+          <a href="#" class="nav-link {{ request()->is('ppid*', 'belanja*', 'permohonan*') ? 'active' : ' ' }}">
             <i class="fas fa-store"></i>PPID & UMKM
           </a>
           <div class="dropdown-menu">

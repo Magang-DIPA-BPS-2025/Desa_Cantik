@@ -197,7 +197,6 @@
                         <th>No</th>
                         <th>Nama</th>
                         <th>Asal</th>
-                        <th>Nomor HP</th>
                         <th>Keperluan</th>
                         <th>Tanggal</th>
                     </tr>
@@ -208,7 +207,6 @@
                             <td class="no-column">{{ $index + 1 }}</td>
                             <td>{{ $tamu->nama }}</td>
                             <td>{{ $tamu->asal }}</td>
-                            <td>{{ $tamu->nomor_hp ?? '-' }}</td>
                             <td>
                                 <span class="d-inline-block text-truncate" style="max-width: 200px;" title="{{ $tamu->keperluan }}">
                                     {{ $tamu->keperluan }}

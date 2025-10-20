@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Surat;
-use App\Models\DataPenduduk;
 use App\Models\JenisSurat;
 use App\Models\SuratPengantar;
 use Illuminate\Http\Request;
@@ -19,7 +18,7 @@ class SuratController extends Controller
     public function index(Request $request)
     {
         $status = $request->query('status');
-        $query = Surat::with(['penduduk', 'jenisSurat'])->latest();
+        $query = Surat::latest();
 
         if (!empty($status)) {
             $query->where('status', $status);
@@ -37,11 +36,9 @@ class SuratController extends Controller
 
     public function create()
     {
-        $penduduks = DataPenduduk::orderBy('nama')->get();
         $jenisSurats = JenisSurat::orderBy('nama_surat')->get();
 
         return view('pages.admin.surat.create', [
-            'penduduks' => $penduduks,
             'jenisSurats' => $jenisSurats,
             'menu' => 'surat',
             'title' => 'Tambah Surat',
@@ -51,7 +48,9 @@ class SuratController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'penduduk_id' => 'required|exists:data_penduduks,id',
+            'nik' => 'required|string|max:20',
+            'nama' => 'required|string|max:100',
+            'alamat' => 'required|string',
             'jenis_surat_id' => 'required|exists:jenis_surats,id',
             'nomor_surat' => 'nullable|string|max:255|unique:surats,nomor_surat',
             'tanggal_dibuat' => 'required|date',
@@ -59,23 +58,9 @@ class SuratController extends Controller
             'keterangan' => 'nullable|string',
         ]);
 
-        if (empty($validated['status'])) {
-            $validated['status'] = 'Menunggu Verifikasi';
-        }
+        $validated['status'] = $validated['status'] ?? 'Menunggu Verifikasi';
 
-        $penduduk = DataPenduduk::findOrFail($validated['penduduk_id']);
-
-        $payload = array_merge($validated, [
-            'nik' => $penduduk->nik,
-            'nama' => $penduduk->nama,
-            'alamat' => $penduduk->alamat,
-            'tempat_lahir' => $penduduk->tempat_lahir,
-            'tanggal_lahir' => $penduduk->tanggal_lahir,
-            'jenis_kelamin' => $penduduk->jenis_kelamin,
-            'pekerjaan' => $penduduk->pekerjaan,
-        ]);
-
-        Surat::create($payload);
+        Surat::create($validated);
 
         return redirect()->route('surat.index')->with('success', 'Surat berhasil dibuat.');
     }
@@ -83,12 +68,10 @@ class SuratController extends Controller
     public function edit($id)
     {
         $surat = Surat::findOrFail($id);
-        $penduduks = DataPenduduk::orderBy('nama')->get();
         $jenisSurats = JenisSurat::orderBy('nama_surat')->get();
 
         return view('pages.admin.surat.edit', [
             'surat' => $surat,
-            'penduduks' => $penduduks,
             'jenisSurats' => $jenisSurats,
             'menu' => 'surat',
             'title' => 'Edit Surat',
@@ -100,8 +83,10 @@ class SuratController extends Controller
         $surat = Surat::findOrFail($id);
 
         $validated = $request->validate([
-            'penduduk_id' => 'required',
-            'jenis_surat_id' => 'required',
+            'nik' => 'required|string|max:20',
+            'nama' => 'required|string|max:100',
+            'alamat' => 'required|string',
+            'jenis_surat_id' => 'required|exists:jenis_surats,id',
             'nomor_surat' => 'required|string|max:255|unique:surats,nomor_surat,' . $surat->id,
             'tanggal_dibuat' => 'required|date',
             'status' => 'required|in:Menunggu Verifikasi,Diproses,Disetujui,Ditolak',
@@ -128,11 +113,11 @@ class SuratController extends Controller
             'status' => 'required|in:Diproses,Disetujui,Ditolak',
         ]);
 
-        if ($surat->status === 'Disetujui' || $surat->status === 'Ditolak') {
+        if (in_array($surat->status, ['Disetujui', 'Ditolak'])) {
             return redirect()->route('surat.index')->with('error', 'Surat sudah diverifikasi.');
         }
 
-        $surat->update(['status' => $request->input('status')]);
+        $surat->update(['status' => $request->status]);
 
         return redirect()->route('surat.index')->with('success', 'Status surat diperbarui menjadi ' . $surat->status);
     }
@@ -144,14 +129,9 @@ class SuratController extends Controller
      */
     public function userIndex(Request $request)
     {
-        $jenisSurats = collect();
-        try {
-            if (Schema::hasTable('jenis_surats')) {
-                $jenisSurats = JenisSurat::orderBy('nama_surat')->get();
-            }
-        } catch (\Throwable $e) {
-            $jenisSurats = collect();
-        }
+        $jenisSurats = Schema::hasTable('jenis_surats')
+            ? JenisSurat::orderBy('nama_surat')->get()
+            : collect();
 
         return view('pages.landing.layananonline.SuratPengantar', [
             'jenisSurats' => $jenisSurats,
@@ -161,37 +141,25 @@ class SuratController extends Controller
     public function userStore(Request $request)
     {
         $validated = $request->validate([
-            'nik' => 'required|string',
-            'tempat_lahir' => 'nullable|string',
+            'nik' => 'required|string|max:20',
+            'nama' => 'required|string|max:100',
+            'alamat' => 'required|string',
+            'tempat_lahir' => 'nullable|string|max:100',
             'tanggal_lahir' => 'nullable|date',
-            'jenis_kelamin' => 'nullable|string',
-            'pekerjaan' => 'nullable|string',
-            'no_hp' => 'nullable|string',
-            'email' => 'nullable|email',
-            'alamat' => 'nullable|string',
-            'usaha' => 'nullable|string',
-            'jenis_surat' => 'required|string',
+            'jenis_kelamin' => 'nullable|string|max:20',
+            'pekerjaan' => 'nullable|string|max:100',
+            'no_hp' => 'nullable|string|max:20',
+            'email' => 'nullable|email|max:100',
+            'jenis_surat' => 'required|string|max:100',
             'tanggal_dibuat' => 'required|date',
             'keterangan' => 'nullable|string',
         ]);
 
-        SuratPengantar::create([
-            'nik' => $validated['nik'],
-            'tempat_lahir' => $validated['tempat_lahir'] ?? null,
-            'tanggal_lahir' => $validated['tanggal_lahir'] ?? null,
-            'jenis_kelamin' => $validated['jenis_kelamin'] ?? null,
-            'pekerjaan' => $validated['pekerjaan'] ?? null,
-            'no_hp' => $validated['no_hp'] ?? null,
-            'email' => $validated['email'] ?? null,
-            'alamat' => $validated['alamat'] ?? null,
-            'usaha' => $validated['usaha'] ?? null,
-            'jenis_surat' => $validated['jenis_surat'],
+        SuratPengantar::create(array_merge($validated, [
             'nomor_surat' => null,
-            'tanggal_dibuat' => $validated['tanggal_dibuat'],
             'status' => 'Menunggu Verifikasi',
-            'keterangan' => $validated['keterangan'] ?? null,
             'qr_code' => null,
-        ]);
+        ]));
 
         return redirect()->route('status')->with('success', 'Pengajuan surat diterima. Menunggu verifikasi admin.');
     }
@@ -199,11 +167,9 @@ class SuratController extends Controller
     public function userStatus(Request $request)
     {
         $nik = $request->query('nik');
-        $datas = collect();
-
-        if (!empty($nik)) {
-            $datas = SuratPengantar::where('nik', $nik)->latest()->get();
-        }
+        $datas = !empty($nik)
+            ? SuratPengantar::where('nik', $nik)->latest()->get()
+            : collect();
 
         return view('pages.landing.layananonline.StatusPengantar', [
             'datas' => $datas,
@@ -220,26 +186,7 @@ class SuratController extends Controller
 
         return view('pages.landing.layananonline.SuratView', [
             'surat' => $surat,
-            'kepalaDesa' => 'Kepala Desa',
+            'kepalaDesa' => 'Kepala Desa Contoh',
         ]);
-    }
-
-    /**
-     * ============================
-     * API: Ambil Data Penduduk via NIK
-     * ============================
-     */
-    public function getPendudukByNik($nik)
-    {
-        $penduduk = DataPenduduk::where('nik', $nik)->first();
-
-        if ($penduduk) {
-            return response()->json([
-                'success' => true,
-                'data' => $penduduk
-            ]);
-        }
-
-        return response()->json(['success' => false]);
     }
 }

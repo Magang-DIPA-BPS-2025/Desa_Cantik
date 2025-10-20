@@ -66,7 +66,7 @@
                 <li class="nav-item dropdown {{ in_array($menu, $persuratanMenus) ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-envelope"></i> <span>Data Persuratan</span></a>
                     <ul class="dropdown-menu {{ in_array($menu, $persuratanMenus) ? 'show' : '' }}">
-                        <li><a class="nav-link {{ $menu == 'surat' ? 'active' : '' }}" href="{{ route('surat.index') }}">Data Persuratan</a></li>
+                        <li><a class="nav-link {{ $menu == 'surat' ? 'active' : '' }}" href="{{ route('sku.index') }}">Data Persuratan</a></li>
                     </ul>
                 </li>
 

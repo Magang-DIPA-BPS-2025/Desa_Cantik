@@ -29,7 +29,8 @@
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
 
-    <form action="{{ route('pengantar.store') }}" method="POST">
+    {{-- Form utama --}}
+    <form id="formLayanan" method="POST" action="#">
         @csrf
         <input type="hidden" name="tanggal_dibuat" value="{{ date('Y-m-d') }}">
 
@@ -53,23 +54,23 @@
             </div>
             <div class="form-group">
                 <label>Nama</label>
-                <input type="text" name="nama" id="nama" placeholder="Nama Penduduk" readonly>
+                <input type="text" name="nama" id="nama" placeholder="Nama Penduduk" required>
             </div>
             <div class="form-group">
                 <label>Alamat</label>
-                <input type="text" name="alamat" id="alamat" placeholder="Alamat Penduduk" readonly>
+                <input type="text" name="alamat" id="alamat" placeholder="Alamat Penduduk" required>
             </div>
             <div class="form-group">
                 <label>Tempat Lahir</label>
-                <input type="text" name="tempat_lahir" id="tempat_lahir" placeholder="Tempat Lahir" readonly>
+                <input type="text" name="tempat_lahir" id="tempat_lahir" placeholder="Tempat Lahir">
             </div>
             <div class="form-group">
                 <label>Tanggal Lahir</label>
-                <input type="date" name="tanggal_lahir" id="tanggal_lahir" readonly>
+                <input type="date" name="tanggal_lahir" id="tanggal_lahir">
             </div>
             <div class="form-group">
                 <label>Jenis Kelamin</label>
-                <select name="jenis_kelamin" id="jenis_kelamin" readonly>
+                <select name="jenis_kelamin" id="jenis_kelamin">
                     <option value="">-- Pilih --</option>
                     <option value="Laki-laki">Laki-laki</option>
                     <option value="Perempuan">Perempuan</option>
@@ -77,7 +78,7 @@
             </div>
             <div class="form-group">
                 <label>Pekerjaan</label>
-                <input type="text" name="pekerjaan" id="pekerjaan" placeholder="Pekerjaan" readonly>
+                <input type="text" name="pekerjaan" id="pekerjaan" placeholder="Pekerjaan">
             </div>
             <div class="form-group">
                 <label>No HP</label>
@@ -113,11 +114,11 @@
         <div id="formKematian" class="hidden">
             <div class="form-group">
                 <label>Nomor Kartu Keluarga</label>
-                <input type="text" placeholder="Masukkan Nomor KK" disabled>
+                <input type="text" placeholder="Masukkan Nomor KK" name="no_kk">
             </div>
             <div class="form-group">
                 <label>Tanggal Kematian</label>
-                <input type="date" name="tanggal_dibuat" required>
+                <input type="date" name="tanggal_kematian">
             </div>
         </div>
 
@@ -148,35 +149,52 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const jenisSurat = document.getElementById('jenisSurat');
+    const form = document.getElementById('formLayanan');
+
     const formUmum = document.getElementById('formUmum');
     const formKematian = document.getElementById('formKematian');
     const formSKU = document.getElementById('formSKU');
     const formIzin = document.getElementById('formIzin');
     const formSKTM = document.getElementById('formSKTM');
 
-    // Toggle form sesuai jenis surat
+    // Saat jenis surat dipilih
     jenisSurat.addEventListener('change', function () {
-        formUmum.classList.add('hidden');
-        formKematian.classList.add('hidden');
-        formSKU.classList.add('hidden');
-        formSKTM.classList.add('hidden');
-        formIzin.classList.add('hidden');
+        // Sembunyikan semua form dulu
+        [formUmum, formKematian, formSKU, formIzin, formSKTM].forEach(f => f.classList.add('hidden'));
 
+        // Tampilkan form umum dulu (selalu wajib)
         if (this.value) formUmum.classList.remove('hidden');
 
-        if (this.value === 'SURAT KETERANGAN KEMATIAN') formKematian.classList.remove('hidden');
-        else if (this.value === 'SURAT KETERANGAN USAHA (SKU)') formSKU.classList.remove('hidden');
-        else if (this.value === 'SURAT KETERANGAN TIDAK MAMPU (SKTM)') formSKTM.classList.remove('hidden');
-        else if (this.value === 'SURAT IZIN KEGIATAN') formIzin.classList.remove('hidden');
+        // Tentukan action dan tampilkan form tambahan
+        switch (this.value) {
+            case 'SURAT KETERANGAN USAHA (SKU)':
+                formSKU.classList.remove('hidden');
+                form.action = "{{ route('sku.store') }}";
+                break;
+            case 'SURAT KETERANGAN TIDAK MAMPU (SKTM)':
+                formSKTM.classList.remove('hidden');
+                form.action = "{{ route('sktm.store') }}";
+                break;
+            case 'SURAT KETERANGAN KEMATIAN':
+                formKematian.classList.remove('hidden');
+                form.action = "{{ route('kematian.store') }}";
+                break;
+            case 'SURAT IZIN KEGIATAN':
+                formIzin.classList.remove('hidden');
+                form.action = "{{ route('izin.store') }}";
+                break;
+            default:
+                form.action = "#";
+        }
     });
 
-    // Ambil data penduduk via NIK
+    // Ambil data penduduk otomatis berdasarkan NIK
     document.getElementById('nik').addEventListener('blur', function() {
         const nik = this.value.trim();
         if (!nik) return;
 
-        fetch('/api/penduduk/' + nik)
-            .then(response => response.json())
+        fetch(`/api/penduduk/${nik}`)
+            .then(res => res.json())
             .then(data => {
                 if (data.success) {
                     const p = data.data;
@@ -187,11 +205,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById('jenis_kelamin').value = p.jenis_kelamin;
                     document.getElementById('pekerjaan').value = p.pekerjaan;
                 } else {
-                    ['nama','alamat','tanggal_lahir','tempat_lahir','jenis_kelamin','pekerjaan'].forEach(id => document.getElementById(id).value = '');
-                    alert('Data penduduk dengan NIK tersebut tidak ditemukan.');
+                    alert('Data penduduk tidak ditemukan!');
                 }
             })
-            .catch(err => console.error(err));
+            .catch(err => console.error('Error:', err));
     });
 });
 </script>

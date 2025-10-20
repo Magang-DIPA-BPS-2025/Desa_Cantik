@@ -19,7 +19,6 @@ class AdminController extends Controller
         $totalPenduduk   = DataPenduduk::count();
         $totalPengaduan  = class_exists(Pengaduan::class) ? Pengaduan::count() : 0;
         $totalBerita     = class_exists(Berita::class) ? Berita::count() : 0;
-        $totalSurat      = class_exists(Surat::class) ? Surat::count() : 0;
 
         // Statistik penduduk per dusun
         if (Schema::hasTable('data_penduduks') && Schema::hasColumn('data_penduduks', 'dusun')) {
@@ -50,7 +49,6 @@ class AdminController extends Controller
             'totalPenduduk'   => $totalPenduduk,
             'totalPengaduan'  => $totalPengaduan,
             'totalBerita'     => $totalBerita,
-            'totalSurat'      => $totalSurat,
             'labelsPenduduk'  => $labelsPenduduk,
             'dataPenduduk'    => $dataPenduduk,
             'latestPengaduan' => $latestPengaduan,

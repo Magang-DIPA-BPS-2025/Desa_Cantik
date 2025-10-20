@@ -13,11 +13,9 @@ use App\Http\Controllers\DataPendudukController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PengaduanController;
-use App\Http\Controllers\SejarahDesaController;
-use App\Http\Controllers\SuratController;
 use App\Http\Controllers\BukuTamuController;
-use App\Http\Controllers\Admin\SuratController as AdminSuratController;
-use App\Http\Controllers\Admin\SuratPengantarController as AdminSuratPengantarController;
+use App\Http\Controllers\SkuController;
+use App\Http\Controllers\SuratController;
 use App\Http\Controllers\Landing\ApbdDesaController;
 use App\Models\Agenda;
 use Illuminate\Support\Facades\Route;
@@ -75,21 +73,30 @@ Route::group(
 
         //Data Agama (dynamic view)
         Route::get('/agama', [DataPendudukController::class, 'statistikAgama'])->name('agama');
+// Halaman form pengajuan umum
+Route::get('/pengantar', [SuratController::class, 'userIndex'])->name('pengantar');
 
-        //Surat Pengantar (landing form + submit)
-        Route::get('/pengantar', [SuratController::class, 'userIndex'])->name('pengantar');
-        Route::post('/pengantar', [SuratController::class, 'userStore'])->name('pengantar.store');
-        Route::get('/get-data/{nik}', [SuratController::class, 'getPendudukByNik']);
+
+Route::get('/status', [SuratController::class, 'userStatus'])->name('status');
+
+
+
+// Pengajuan surat berdasarkan jenis
+Route::post('/sku', [SkuController::class, 'store'])->name('sku.store');
+Route::post('/sktm', [SktmController::class, 'store'])->name('sktm.store');
+Route::post('/kematian', [KematianController::class, 'store'])->name('kematian.store');
+Route::post('/izin', [IzinController::class, 'store'])->name('izin.store');
 
 
         //Status Surat (by NIK) & view approved letter
-        Route::get('/status', [SuratController::class, 'userStatus'])->name('status');
-        Route::get('/surat/{id}', [SuratController::class, 'userShowLetter'])->name('user.surat.show');
+    Route::get('/pengantar', [SuratController::class, 'userIndex'])->name('pengantar');
+    Route::post('/pengantar', [SuratController::class, 'userStore'])->name('pengantar.store');
+
 
         //Pengaduan (dynamic view)
       Route::get('/pengaduan', [PengaduanController::class, 'userIndex'])->name('pengaduan');
-Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');
-Route::get('/status-pengaduan', [PengaduanController::class, 'userStatus'])->name('pengaduan.userStatus');
+    Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');
+    Route::get('/status-pengaduan', [PengaduanController::class, 'userStatus'])->name('pengaduan.userStatus');
 
         //Surat Pengaduan (dynamic view)
         Route::get('/statuspengaduan', [PengaduanController::class, 'userStatus'])->name('statuspengaduan');
@@ -240,6 +247,21 @@ Route::delete('/permohonan/{id}', [PermohonanInformasiController::class, 'destro
             Route::resource('surat', AdminSuratController::class)->only(['index', 'show', 'destroy', 'create', 'store']);
             Route::post('surat/{id}/approve', [AdminSuratController::class, 'approve'])->name('admin.surat.approve');
             Route::post('surat/{id}/reject', [AdminSuratController::class, 'reject'])->name('admin.surat.reject');
+
+
+           Route::middleware(['ValidasiUser'])->group(function () {
+    Route::resource('admin/sku', SkuController::class);
+    Route::get('admin/sku/{id}/verifikasi', [SkuController::class, 'verifikasi'])->name('sku.verifikasi');
+    Route::get('admin/sku/{id}/cetak', [SkuController::class, 'cetak'])->name('sku.cetak');
+
+Route::get('/verifikasi-surat/{id}', [SkuController::class, 'verifikasiQr'])
+    ->name('sku.verifikasiQr');
+});
+
+
+            Route::resource('admin/sktm', SktmController::class);
+            Route::resource('admin/kematian', KematianController::class);
+            Route::resource('admin/izin', IzinController::class);
 
 
             Route::resource('ppid', PPIDController::class);
