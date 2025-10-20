@@ -321,19 +321,30 @@
       display: block;
     }
 
-    /* Content untuk demo */
-    .content {
-      padding: 40px;
-      max-width: 1200px;
-      margin: 0 auto;
+    /* ================== BANNER ================== */
+    .custom-header-banner {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+      margin-top: 80px; /* beri jarak sesuai tinggi navbar agar tidak tertutup */
+      background: none; /* pastikan tidak ada background abu-abu */
+      border: none; 
+      padding: 0;
     }
 
-    .demo-text {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
+    .custom-header-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      margin: 0;
+      border: none;
+    }
+
+    /* Class untuk menyembunyikan banner */
+    .banner-hidden {
+      display: none;
     }
 
     /* Responsive */
@@ -370,6 +381,17 @@
         height: 40px;
         width: 40px;
       }
+
+      .custom-header-banner {
+        height: 300px;
+        margin-top: 75px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .custom-header-banner {
+        height: 250px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -395,8 +417,9 @@
         font-size: 18px;
       }
       
-      .content {
-        padding: 20px;
+      .custom-header-banner {
+        height: 200px;
+        margin-top: 70px;
       }
     }
 
@@ -425,70 +448,70 @@
       <!-- Desktop Navigation - SEJAJAR DENGAN LOGO -->
       <ul class="nav-menu">
         <li class="nav-item">
-          <a href="/" class="nav-link active">
+          <a href="/" class="nav-link {{ request()->is('/') ? 'active' : '' }}">
             <i class="fas fa-home"></i>BERANDA
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="#" class="nav-link {{ request()->is('galeri*', 'sejarah', 'pemerintah', 'apbd') ? 'active' : '' }}">
             <i class="fas fa-landmark"></i>PROFIL DESA
           </a>
           <div class="dropdown-menu">
-            <a href="{{ route('galeri.user.index') }}"><i class="fas fa-images"></i>Galeri Desa</a>
-            <a href="{{ route('sejarah') }}"><i class="fas fa-history"></i>Sejarah Desa</a>
-            <a href="{{ route('pemerintah') }}"><i class="fas fa-users"></i>Pemerintah Desa</a>
-            <a href="{{ route('apbd') }}"><i class="fas fa-chart-pie"></i>APBD Desa</a>
+            <a href="{{ route('galeri.user.index') }}" class="{{ request()->is('galeri*') ? 'active' : '' }}"><i class="fas fa-images"></i>Galeri Desa</a>
+            <a href="{{ route('sejarah') }}" class="{{ request()->is('sejarah') ? 'active' : '' }}"><i class="fas fa-history"></i>Sejarah Desa</a>
+            <a href="{{ route('pemerintah') }}" class="{{ request()->is('pemerintah') ? 'active' : '' }}"><i class="fas fa-users"></i>Pemerintah Desa</a>
+            <a href="{{ route('apbd') }}" class="{{ request()->is('apbd') ? 'active' : '' }}"><i class="fas fa-chart-pie"></i>APBD Desa</a>
           </div>
         </li>
 
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="#" class="nav-link {{ request()->is('berita*', 'agenda*') ? 'active' : '' }}">
             <i class="fas fa-newspaper"></i>BERITA & AGENDA
           </a>
           <div class="dropdown-menu">
-            <a href="{{ route('berita') }}"><i class="fas fa-file-alt"></i>Berita Desa</a>
-            <a href="{{ route('agenda') }}"><i class="fas fa-calendar-alt"></i>Agenda Desa</a>
+            <a href="{{ route('berita') }}" class="{{ request()->is('berita*') ? 'active' : '' }}"><i class="fas fa-file-alt"></i>Berita Desa</a>
+            <a href="{{ route('agenda') }}" class="{{ request()->is('agenda*') ? 'active' : '' }}"><i class="fas fa-calendar-alt"></i>Agenda Desa</a>
           </div>
         </li>
 
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="#" class="nav-link {{ request()->is('statistik*', 'pendidikan', 'pekerjaan', 'agama') ? 'active' : '' }}">
             <i class="fas fa-chart-bar"></i>DATA STATISTIK
           </a>
           <div class="dropdown-menu">
-            <a href="{{ route('statistik.penduduk') }}"><i class="fas fa-users"></i>Jumlah Penduduk</a>
-            <a href="{{ route('pendidikan') }}"><i class="fas fa-graduation-cap"></i>Data Pendidikan</a>
-            <a href="{{ route('pekerjaan') }}"><i class="fas fa-briefcase"></i>Data Pekerjaan</a>
-            <a href="{{ route('agama') }}"><i class="fas fa-pray"></i>Data Agama</a>
+            <a href="{{ route('statistik.penduduk') }}" class="{{ request()->is('statistik*') ? 'active' : '' }}"><i class="fas fa-users"></i>Jumlah Penduduk</a>
+            <a href="{{ route('pendidikan') }}" class="{{ request()->is('pendidikan') ? 'active' : '' }}"><i class="fas fa-graduation-cap"></i>Data Pendidikan</a>
+            <a href="{{ route('pekerjaan') }}" class="{{ request()->is('pekerjaan') ? 'active' : '' }}"><i class="fas fa-briefcase"></i>Data Pekerjaan</a>
+            <a href="{{ route('agama') }}" class="{{ request()->is('agama') ? 'active' : '' }}"><i class="fas fa-pray"></i>Data Agama</a>
           </div>
         </li>
 
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="#" class="nav-link {{ request()->is('pengantar*', 'status*', 'pengaduan*') ? 'active' : '' }}">
             <i class="fas fa-laptop-code"></i>LAYANAN ONLINE
           </a>
           <div class="dropdown-menu">
-            <a href="{{ route('pengantar') }}"><i class="fas fa-envelope"></i>Surat Pengantar</a>
-            <a href="{{ route('status') }}"><i class="fas fa-tasks"></i>Status Pengantar</a>
-            <a href="{{ route('pengaduan') }}"><i class="fas fa-exclamation-circle"></i>Pengaduan</a>
-            <a href="{{ route('pengaduan.userStatus') }}"><i class="fas fa-question-circle"></i>Status Pengaduan</a>
+            <a href="{{ route('pengantar') }}" class="{{ request()->is('pengantar*') ? 'active' : '' }}"><i class="fas fa-envelope"></i>Surat Pengantar</a>
+            <a href="{{ route('status') }}" class="{{ request()->is('status*') ? 'active' : '' }}"><i class="fas fa-tasks"></i>Status Pengantar</a>
+            <a href="{{ route('pengaduan') }}" class="{{ request()->is('pengaduan*') ? 'active' : '' }}"><i class="fas fa-exclamation-circle"></i>Pengaduan</a>
+            <a href="{{ route('pengaduan.userStatus') }}" class="{{ request()->is('pengaduan*') ? 'active' : '' }}"><i class="fas fa-question-circle"></i>Status Pengaduan</a>
           </div>
         </li>
 
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="#" class="nav-link {{ request()->is('ppid*', 'belanja*', 'permohonan*') ? 'active' : '' }}">
             <i class="fas fa-store"></i>PPID & UMKM
           </a>
           <div class="dropdown-menu">
-            <a href="{{ route('ppid') }}"><i class="fas fa-info-circle"></i>PPID</a>
-            <a href="{{ route('belanja') }}"><i class="fas fa-shopping-bag"></i>UMKM</a>
-            <a href="{{ route('permohonan.userStatus') }}"><i class="fas fa-file-contract"></i>Status Permohonan</a>
+            <a href="{{ route('ppid') }}" class="{{ request()->is('ppid*') ? 'active' : '' }}"><i class="fas fa-info-circle"></i>PPID</a>
+            <a href="{{ route('belanja') }}" class="{{ request()->is('belanja*') ? 'active' : '' }}"><i class="fas fa-shopping-bag"></i>UMKM</a>
+            <a href="{{ route('permohonan.userStatus') }}" class="{{ request()->is('permohonan*') ? 'active' : '' }}"><i class="fas fa-file-contract"></i>Status Permohonan</a>
           </div>
         </li>
 
         <li class="nav-item">
-          <a href="{{ route('bukutamu') }}" class="nav-link">
+          <a href="{{ route('bukutamu') }}" class="nav-link {{ request()->is('bukutamu*') ? 'active' : '' }}">
             <i class="fas fa-book-open"></i>BUKU TAMU
           </a>
         </li>
@@ -500,6 +523,13 @@
       </button>
     </div>
   </header>
+
+  <!-- BANNER - Hanya tampil jika bukan halaman beranda -->
+  @if (!request()->is('/'))
+  <section class="custom-header-banner">
+    <img src="{{ asset('landing/images/banner/navbar.jpg') }}" alt="Banner Desa Cantik">
+  </section>
+  @endif
 
   <!-- Mobile Sidebar -->
   <div class="mobile-sidebar" id="mobile-sidebar">
@@ -515,75 +545,75 @@
 
     <ul class="sidebar-menu">
       <li class="sidebar-item">
-        <a href="/" class="sidebar-link active">
+        <a href="/" class="sidebar-link {{ request()->is('/') ? 'active' : '' }}">
           <i class="fas fa-home"></i>BERANDA
         </a>
       </li>
 
       <li class="sidebar-item">
-        <a href="#" class="sidebar-link sidebar-dropdown-toggle">
+        <a href="#" class="sidebar-link sidebar-dropdown-toggle {{ request()->is('galeri*', 'sejarah', 'pemerintah', 'apbd') ? 'active' : '' }}">
           <i class="fas fa-landmark"></i>PROFIL DESA
           <i class="fas fa-chevron-down"></i>
         </a>
         <div class="sidebar-dropdown">
-          <a href="{{ route('galeri.user.index') }}"><i class="fas fa-images"></i>Galeri Desa</a>
-          <a href="{{ route('sejarah') }}"><i class="fas fa-history"></i>Sejarah Desa</a>
-          <a href="{{ route('pemerintah') }}"><i class="fas fa-users"></i>Pemerintah Desa</a>
-          <a href="{{ route('apbd') }}"><i class="fas fa-chart-pie"></i>APBD Desa</a>
+          <a href="{{ route('galeri.user.index') }}" class="{{ request()->is('galeri*') ? 'active' : '' }}"><i class="fas fa-images"></i>Galeri Desa</a>
+          <a href="{{ route('sejarah') }}" class="{{ request()->is('sejarah') ? 'active' : '' }}"><i class="fas fa-history"></i>Sejarah Desa</a>
+          <a href="{{ route('pemerintah') }}" class="{{ request()->is('pemerintah') ? 'active' : '' }}"><i class="fas fa-users"></i>Pemerintah Desa</a>
+          <a href="{{ route('apbd') }}" class="{{ request()->is('apbd') ? 'active' : '' }}"><i class="fas fa-chart-pie"></i>APBD Desa</a>
         </div>
       </li>
 
       <li class="sidebar-item">
-        <a href="#" class="sidebar-link sidebar-dropdown-toggle">
+        <a href="#" class="sidebar-link sidebar-dropdown-toggle {{ request()->is('berita*', 'agenda*') ? 'active' : '' }}">
           <i class="fas fa-newspaper"></i>BERITA & AGENDA
           <i class="fas fa-chevron-down"></i>
         </a>
         <div class="sidebar-dropdown">
-          <a href="{{ route('berita') }}"><i class="fas fa-file-alt"></i>Berita Desa</a>
-          <a href="{{ route('agenda') }}"><i class="fas fa-calendar-alt"></i>Agenda Desa</a>
+          <a href="{{ route('berita') }}" class="{{ request()->is('berita*') ? 'active' : '' }}"><i class="fas fa-file-alt"></i>Berita Desa</a>
+          <a href="{{ route('agenda') }}" class="{{ request()->is('agenda*') ? 'active' : '' }}"><i class="fas fa-calendar-alt"></i>Agenda Desa</a>
         </div>
       </li>
 
       <li class="sidebar-item">
-        <a href="#" class="sidebar-link sidebar-dropdown-toggle">
+        <a href="#" class="sidebar-link sidebar-dropdown-toggle {{ request()->is('statistik*', 'pendidikan', 'pekerjaan', 'agama') ? 'active' : '' }}">
           <i class="fas fa-chart-bar"></i>DATA STATISTIK
           <i class="fas fa-chevron-down"></i>
         </a>
         <div class="sidebar-dropdown">
-          <a href="{{ route('statistik.penduduk') }}"><i class="fas fa-users"></i>Jumlah Penduduk</a>
-          <a href="{{ route('pendidikan') }}"><i class="fas fa-graduation-cap"></i>Data Pendidikan</a>
-          <a href="{{ route('pekerjaan') }}"><i class="fas fa-briefcase"></i>Data Pekerjaan</a>
-          <a href="{{ route('agama') }}"><i class="fas fa-pray"></i>Data Agama</a>
+          <a href="{{ route('statistik.penduduk') }}" class="{{ request()->is('statistik*') ? 'active' : '' }}"><i class="fas fa-users"></i>Jumlah Penduduk</a>
+          <a href="{{ route('pendidikan') }}" class="{{ request()->is('pendidikan') ? 'active' : '' }}"><i class="fas fa-graduation-cap"></i>Data Pendidikan</a>
+          <a href="{{ route('pekerjaan') }}" class="{{ request()->is('pekerjaan') ? 'active' : '' }}"><i class="fas fa-briefcase"></i>Data Pekerjaan</a>
+          <a href="{{ route('agama') }}" class="{{ request()->is('agama') ? 'active' : '' }}"><i class="fas fa-pray"></i>Data Agama</a>
         </div>
       </li>
 
       <li class="sidebar-item">
-        <a href="#" class="sidebar-link sidebar-dropdown-toggle">
+        <a href="#" class="sidebar-link sidebar-dropdown-toggle {{ request()->is('pengantar*', 'status*', 'pengaduan*') ? 'active' : '' }}">
           <i class="fas fa-laptop-code"></i>LAYANAN ONLINE
           <i class="fas fa-chevron-down"></i>
         </a>
         <div class="sidebar-dropdown">
-          <a href="{{ route('pengantar') }}"><i class="fas fa-envelope"></i>Surat Pengantar</a>
-          <a href="{{ route('status') }}"><i class="fas fa-tasks"></i>Status Pengantar</a>
-          <a href="{{ route('pengaduan') }}"><i class="fas fa-exclamation-circle"></i>Pengaduan</a>
-          <a href="{{ route('pengaduan.userStatus') }}"><i class="fas fa-question-circle"></i>Status Pengaduan</a>
+          <a href="{{ route('pengantar') }}" class="{{ request()->is('pengantar*') ? 'active' : '' }}"><i class="fas fa-envelope"></i>Surat Pengantar</a>
+          <a href="{{ route('status') }}" class="{{ request()->is('status*') ? 'active' : '' }}"><i class="fas fa-tasks"></i>Status Pengantar</a>
+          <a href="{{ route('pengaduan') }}" class="{{ request()->is('pengaduan*') ? 'active' : '' }}"><i class="fas fa-exclamation-circle"></i>Pengaduan</a>
+          <a href="{{ route('pengaduan.userStatus') }}" class="{{ request()->is('pengaduan*') ? 'active' : '' }}"><i class="fas fa-question-circle"></i>Status Pengaduan</a>
         </div>
       </li>
 
       <li class="sidebar-item">
-        <a href="#" class="sidebar-link sidebar-dropdown-toggle">
+        <a href="#" class="sidebar-link sidebar-dropdown-toggle {{ request()->is('ppid*', 'belanja*', 'permohonan*') ? 'active' : '' }}">
           <i class="fas fa-store"></i>PPID & UMKM
           <i class="fas fa-chevron-down"></i>
         </a>
         <div class="sidebar-dropdown">
-          <a href="{{ route('ppid') }}"><i class="fas fa-info-circle"></i>PPID</a>
-          <a href="{{ route('belanja') }}"><i class="fas fa-shopping-bag"></i>UMKM</a>
-          <a href="{{ route('permohonan.userStatus') }}"><i class="fas fa-file-contract"></i>Status Permohonan</a>
+          <a href="{{ route('ppid') }}" class="{{ request()->is('ppid*') ? 'active' : '' }}"><i class="fas fa-info-circle"></i>PPID</a>
+          <a href="{{ route('belanja') }}" class="{{ request()->is('belanja*') ? 'active' : '' }}"><i class="fas fa-shopping-bag"></i>UMKM</a>
+          <a href="{{ route('permohonan.userStatus') }}" class="{{ request()->is('permohonan*') ? 'active' : '' }}"><i class="fas fa-file-contract"></i>Status Permohonan</a>
         </div>
       </li>
 
       <li class="sidebar-item">
-        <a href="{{ route('bukutamu') }}" class="sidebar-link">
+        <a href="{{ route('bukutamu') }}" class="sidebar-link {{ request()->is('bukutamu*') ? 'active' : '' }}">
           <i class="fas fa-book-open"></i>BUKU TAMU
         </a>
       </li>

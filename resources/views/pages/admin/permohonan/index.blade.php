@@ -27,18 +27,23 @@
         color: white;
     }
 
-    .alert-success {
-        border-radius: 8px;
+    /* Search box di kanan */
+    .table-search {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 10px;
     }
 
-    .dataTables_wrapper .dataTables_filter input {
+    .table-search input {
         border-radius: 6px;
-        padding: 5px 10px;
+        padding: 6px 10px;
+        border: 1px solid #ccc;
+        width: 250px;
     }
 
-    .dataTables_wrapper .dataTables_length select {
-        border-radius: 6px;
-        padding: 4px;
+    /* Pagination Laravel di kanan bawah */
+    .pagination {
+        justify-content: flex-end !important;
     }
 </style>
 @endpush
@@ -53,6 +58,7 @@
         <div class="section-body">
             <div class="card shadow">
                 <div class="card-body">
+
                     {{-- Notifikasi sukses --}}
                     @if(session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -63,7 +69,12 @@
                         </div>
                     @endif
 
-                    {{-- Tabel daftar permohonan --}}
+                    {{-- Tombol Search --}}
+                    <div class="table-search">
+                        <input type="text" id="searchInput" placeholder="Cari data...">
+                    </div>
+
+                    {{-- Tabel --}}
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover" id="table-permohonan">
                             <thead>
@@ -82,7 +93,7 @@
                             <tbody>
                                 @forelse($permohonans as $key => $permohonan)
                                 <tr>
-                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $permohonans->firstItem() + $key }}</td>
                                     <td>{{ $permohonan->nama }}</td>
                                     <td>{{ $permohonan->nomor_telepon }}</td>
                                     <td>{{ $permohonan->asal_instansi ?? '-' }}</td>
@@ -139,9 +150,9 @@
                         </table>
                     </div>
 
-                    {{-- Pagination (jika pakai paginate di controller) --}}
+                    {{-- Pagination Laravel --}}
                     <div class="mt-3">
-                        {{ $permohonans->links() }}
+                        {{ $permohonans->links('pagination::bootstrap-4') }}
                     </div>
                 </div>
             </div>
@@ -151,20 +162,16 @@
 @endsection
 
 @push('scripts')
-<script src="{{ asset('library/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('#table-permohonan').DataTable({
-            "language": {
-                "search": "Cari:",
-                "lengthMenu": "Tampilkan _MENU_ data",
-                "zeroRecords": "Tidak ada data ditemukan",
-                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-                "infoEmpty": "Tidak ada data tersedia",
-                "infoFiltered": "(difilter dari total _MAX_ data)"
-            },
-            "pageLength": 10
+$(document).ready(function() {
+    // Fungsi pencarian manual jQuery
+    $("#searchInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#table-permohonan tbody tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
         });
     });
+});
 </script>
 @endpush
