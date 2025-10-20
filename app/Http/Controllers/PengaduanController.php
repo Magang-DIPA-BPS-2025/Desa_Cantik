@@ -11,21 +11,25 @@ class PengaduanController extends Controller
      * Tampilkan semua pengaduan (untuk admin)
      */
     public function index(Request $request)
-    {
-        // Tambahkan pencarian untuk admin berdasarkan nama atau email (opsional)
-        $keyword = $request->input('keyword');
+{
+    $keyword = $request->input('keyword');
 
-        $datas = Pengaduan::when($keyword, function($query, $keyword) {
-            $query->where('nama_pelapor', 'like', "%{$keyword}%")
-                  ->orWhere('email', 'like', "%{$keyword}%");
-        })->latest()->get();
+    $datas = Pengaduan::when($keyword, function($query, $keyword) {
+        $query->where('nama_pelapor', 'like', "%{$keyword}%")
+              ->orWhere('email', 'like', "%{$keyword}%");
+    })
+    ->latest()
+    ->paginate(10)
+    ->withQueryString();
 
-        return view('pages.admin.pengaduan.index', [
-            'datas' => $datas,
-            'menu'  => 'Pengaduan',
-            'title' => 'Data Pengaduan'
-        ]);
-    }
+    return view('pages.admin.pengaduan.index', [
+        'datas' => $datas,
+        'menu'  => 'Pengaduan',
+        'title' => 'Data Pengaduan'
+    ]);
+}
+
+
 
     /**
      * Simpan pengaduan dari form user

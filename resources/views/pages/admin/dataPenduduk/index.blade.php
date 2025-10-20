@@ -2,20 +2,38 @@
 
 @section('content')
 @push('styles')
+<!-- DataTables + Buttons -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap4.min.css">
+
 <style>
     #table-penduduk tbody tr:hover { background-color: #f2f7fb; }
-    .action-buttons { display: flex; gap: 5px; justify-content: center; }
+
+    .action-buttons {
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+    }
     .action-buttons .btn {
-        width: 40px; height: 40px; font-size: 16px;
-        display: flex; align-items: center; justify-content: center;
-        padding: 0; border-radius: 6px; color: white;
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border-radius: 6px;
+        color: white;
         transition: transform 0.2s;
     }
     .action-buttons .btn-warning { background-color: #FFA500; border: none; }
     .action-buttons .btn-danger { background-color: #FF4D4F; border: none; }
     .action-buttons .btn:hover { transform: scale(1.1); }
+
+    /* Pagination Laravel di kanan bawah */
+    .pagination {
+        justify-content: flex-end !important;
+    }
 </style>
 @endpush
 
@@ -33,7 +51,7 @@
                     </a>
 
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover" id="table-penduduk" style="width:100%">
+                        <table class="table table-striped table-hover" id="table-penduduk">
                             <thead class="thead-dark">
                                 <tr>
                                     <th>No</th>
@@ -62,7 +80,7 @@
                             <tbody>
                                 @foreach ($datas as $index => $penduduk)
                                     <tr>
-                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $datas->firstItem() + $index }}</td>
                                         <td>{{ $penduduk->nik }}</td>
                                         <td>{{ $penduduk->nokk }}</td>
                                         <td>{{ $penduduk->nama }}</td>
@@ -83,11 +101,15 @@
                                         <td>{{ $penduduk->disabilitas }}</td>
                                         <td>{{ $penduduk->tahun }}</td>
                                         <td class="action-buttons">
-                                            <a href="{{ route('dataPenduduk.edit', $penduduk->nik) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                            <a href="{{ route('dataPenduduk.edit', $penduduk->nik) }}" class="btn btn-warning">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
                                             <form action="{{ route('dataPenduduk.destroy', $penduduk->nik) }}" method="POST" onsubmit="return confirm('Yakin ingin hapus data ini?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
                                             </form>
                                         </td>
                                     </tr>
@@ -95,6 +117,12 @@
                             </tbody>
                         </table>
                     </div>
+
+                    {{-- Pagination Laravel di kanan --}}
+                    <div class="d-flex justify-content-end mt-3">
+                        {{ $datas->links('pagination::bootstrap-4') }}
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -102,14 +130,12 @@
 </div>
 
 @push('scripts')
-<!-- jQuery WAJIB satu kali di bawah -->
+<!-- jQuery & DataTables -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-<!-- DataTables core -->
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
 
-<!-- Buttons -->
+<!-- Buttons Export -->
 <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -117,33 +143,29 @@
 
 <script>
 $(document).ready(function() {
-    // pastikan tabel sudah siap
-    setTimeout(() => {
-        $('#table-penduduk').DataTable({
-            responsive: true,
-            paging: true,
-            lengthChange: true,
-            pageLength: 10,
-            ordering: true,
-            info: true,
-            autoWidth: false,
-            searching: true,
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/2.1.0/i18n/id.json'
-            },
-            columnDefs: [
-                { orderable: false, targets: -1 }
-            ],
-            dom: '<"row mb-2"<"col-md-6"B><"col-md-6"f>>rtip',
-            buttons: [
-                {
-                    extend: 'excelHtml5',
-                    text: '<i class="fas fa-file-excel"></i> Export Excel',
-                    className: 'btn btn-success btn-sm'
-                }
-            ]
-        });
-    }, 300); // beri delay kecil untuk render penuh
+    $('#table-penduduk').DataTable({
+        paging: false, // nonaktifkan pagination bawaan DataTable
+        searching: true,
+        ordering: true,
+        info: false,
+        autoWidth: false,
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/2.1.0/i18n/id.json'
+        },
+        columnDefs: [
+            { orderable: false, targets: -1 }
+        ],
+        dom:
+            '<"d-flex justify-content-between align-items-center mb-2"Bf>' + // kiri: export, kanan: search
+            'rt',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fas fa-file-excel"></i> Export Excel',
+                className: 'btn btn-success btn-sm'
+            }
+        ]
+    });
 });
 </script>
 @endpush
