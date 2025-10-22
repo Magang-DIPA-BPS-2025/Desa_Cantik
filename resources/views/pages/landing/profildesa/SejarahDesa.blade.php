@@ -1,12 +1,12 @@
 @extends('layouts.landing.app')
 
 @section('content')
-<div class="history-section py-5 py-lg-6" style="min-height: 100vh;">
-    <div class="container-fluid px-0 px-lg-5">
-
-        {{-- Judul --}}
+<div class="gallery-section py-5">
+    <div class="container-fluid px-lg-5">
+       
+        {{-- Judul Halaman --}}
         <div class="text-start mb-4 mt-2 px-2 gallery-header">
-            <h2 class="fw-bolder display-4 mb-2 gallery-title">
+            <h2 class="fw-semibold display-4 mb-2 gallery-title">
                 <i class="bi bi-images me-2"></i> SEJARAH DESA
             </h2>
             <p class="text-secondary fs-5 mb-0">
@@ -14,14 +14,14 @@
             </p>
         </div>
 
-        {{-- Card Konten UTAMA --}}
-        <div class="card border-0 shadow-lg rounded-0 history-card px-4 py-5 px-lg-6 py-lg-6">
+        {{-- Card Utama --}}
+        <div class="card gallery-card shadow border-0 h-100 px-4 py-5 px-lg-6 py-lg-6">
 
-            {{-- 🖼️ BAGIAN FOTO --}}
-            <div class="history-image-wrapper mb-5">
+            {{-- Bagian Gambar --}}
+            <div class="gallery-image-wrapper mb-5">
                 <img src="{{ asset('landing/images/footer/sejarah.png') }}" 
                      alt="Sejarah Desa Manggalung" 
-                     class="history-image">
+                     class="gallery-img">
             </div>
 
             {{-- Meta Data --}}
@@ -35,7 +35,7 @@
                 </div>
             </div>
 
-            {{-- Isi Konten --}}
+            {{-- Konten --}}
             <div class="content py-3 mx-auto" style="max-width: 1200px;">
                 
                 <h3>Profil Desa Manggalung</h3>
@@ -142,68 +142,124 @@
     </div>
 </div>
 
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
-/* Sama persis dengan galeri */
+/* Terapkan font modern */
+body, .gallery-section, .gallery-header, .gallery-card, .gallery-overlay, .galeri-modal, .galeri-close {
+    font-family: 'Poppins', 'Open Sans', sans-serif;
+}
+
+/* Header Galeri */
+.gallery-header {
+    margin-bottom: 2rem;
+    margin-top: -1rem;
+}
 .gallery-title {
     font-size: 2.8rem;
-    font-weight: 800;
-    color: #000000ff;
+    font-weight: 600;
+    color: #2E7D32;
+    line-height: 1.1;
+}
+.gallery-header p {
+    font-size: 1.1rem;
 }
 
-.history-section {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-}
-
-.history-card {
-    background: #fff;
-    border-radius: 16px !important;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-}
-.history-card:hover {
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
-}
-
-.history-image-wrapper {
-    width: 100%;
-    height: 420px;
+/* Card Galeri */
+.gallery-card {
+    border-radius: 16px;
     overflow: hidden;
+    transition: all 0.3s ease;
+    border: none;
 }
-.history-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
-}
-.history-image:hover {
-    transform: scale(1.03);
+.gallery-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15) !important;
 }
 
-.content h3 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #1B5E20;
-    padding-bottom: 8px;
-    position: relative;
+/* Gambar galeri */
+.gallery-img {
+    object-fit: cover;
+    aspect-ratio: 16/9;
+    height: 300px;
+    width: 100%;
+    transition: transform 0.5s ease;
 }
-.content h3::after {
-    content: "";
+.gallery-card:hover .gallery-img {
+    transform: scale(1.1);
+}
+
+/* Overlay hover */
+.gallery-overlay {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 70px;
-    height: 4px;
-    background: #4CAF50;
-    border-radius: 2px;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(46, 125, 50, 0.85);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
-.content p {
-    font-size: 1.15rem;
-    line-height: 1.9;
-    color: #343a40;
-    text-align: justify;
+.gallery-card:hover .gallery-overlay {
+    opacity: 1;
 }
+
+/* Modal Popup */
+.galeri-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.95);
+    overflow: auto;
+    animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.galeri-modal-content {
+    position: relative;
+    margin: 2% auto;
+    width: 95%;
+    max-width: 900px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 95vh;
+}
+.galeri-modal-image {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+    object-fit: contain;
+    cursor: zoom-in;
+    transition: transform 0.3s ease;
+}
+.galeri-modal-image.zoomed {
+    transform: scale(1.8);
+    cursor: zoom-out;
+}
+.galeri-close {
+    position: absolute;
+    top: -50px; right: -10px;
+    color: #fff;
+    font-size: 45px;
+    font-weight: bold;
+    cursor: pointer;
+    background: rgba(255,255,255,0.2);
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s ease;
+    border: 2px solid #fff;
+    z-index: 10000;
+}
+.galeri-close:hover {
+    background: #ff4444;
+    transform: rotate(90deg);
+    border-color: #ff4444;
+}
+
 @media (max-width: 768px) {
-    .history-image-wrapper { height: 250px; }
     .gallery-title { font-size: 2.2rem; }
 }
 </style>

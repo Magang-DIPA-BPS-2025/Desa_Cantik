@@ -3,12 +3,19 @@
 @section('content')
 <title>Desa Cantik - Pemerintah Desa</title>
 
-<div class="container py-5">
+<div class="container-fluid px-lg-5 py-5">
 
   <!-- =======================
        TUPOKSI PEMERINTAH DESA (DINAMIS)
   ========================== -->
-  <h3 class="mb-4 text-dark fw-bold text-start">Tugas Pokok dan Fungsi Pemerintah Desa</h3>
+  <div class="text-start mb-4 mt-2 px-2 gallery-header">
+    <h2 class="fw-semibold display-4 mb-2 gallery-title">
+        <i class="bi bi-person-badge me-2"></i> TUGAS POKOK DAN FUNGSI PEMERINTAH DESA
+    </h2>
+    <p class="text-secondary fs-5 mb-0">
+        Mengetahui struktur dan tanggung jawab perangkat desa dalam melayani masyarakat
+    </p>
+  </div>
 
   <div class="row justify-content-center gx-4 gy-5">
     @foreach($pemerintahDesas as $pd)
@@ -28,7 +35,7 @@
             @endif
           </div>
           <div class="card-body d-flex flex-column justify-content-center text-center">
-            <h5 class="fw-bold text-success mb-1">{{ $pd->nama }}</h5>
+            <h5 class="fw-semibold text-success mb-1">{{ $pd->nama }}</h5>
             <p class="text-muted mb-2">{{ $pd->jabatan }}</p>
             <small class="text-secondary d-block">{{ $pd->tupoksi ?? '-' }}</small>
           </div>
@@ -41,175 +48,254 @@
        STRUKTUR DESA (STATIS, RESPONSIF)
   ========================== -->
   <div class="my-5">
-  <h3 class="fw-bold text-dark text-start mb-4">Struktur Pemerintahan Desa</h3>
-  <div class="table-responsive"> <!-- Sama container dengan kalender -->
-    <img src="{{ asset('/landing/images/banner/desa.png') }}"
-         alt="Struktur Pemerintahan Desa"
-         class="img-fluid struktur-img-fullwidth">
+    <div class="text-start mb-4 mt-2 px-2 gallery-header">
+      <h2 class="fw-semibold display-4 mb-2 gallery-title">
+          <i class="bi bi-diagram-3 me-2"></i> STRUKTUR PEMERINTAHAN DESA
+      </h2>
+      <p class="text-secondary fs-5 mb-0">
+          Memahami hierarki dan hubungan kerja dalam pemerintahan desa
+      </p>
+    </div>
+    
+    <div class="card gallery-card shadow border-0 h-100 px-4 py-5 px-lg-6 py-lg-6">
+      <div class="table-responsive">
+        <img src="{{ asset('/landing/images/banner/desa.png') }}"
+             alt="Struktur Pemerintahan Desa"
+             class="img-fluid struktur-img-fullwidth">
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================
+       KALENDER AGENDA KEGIATAN (DINAMIS)
+  ========================== -->
+  <div class="mt-5">
+    <div class="text-start mb-4 mt-2 px-2 gallery-header">
+      <h2 class="fw-semibold display-4 mb-2 gallery-title">
+          <i class="bi bi-calendar-event me-2"></i> KALENDER KEGIATAN DESA
+      </h2>
+      <p class="text-secondary fs-5 mb-0">
+          Mengetahui jadwal kegiatan dan agenda desa secara terupdate
+      </p>
+    </div>
+
+    <div class="card gallery-card shadow border-0 h-100 px-4 py-5 px-lg-6 py-lg-6">
+      <div class="card-header bg-gradient-success text-white py-4">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <h3 class="mb-0 fw-semibold">
+              <i class="fas fa-calendar-alt me-2"></i>Kalender Kegiatan Desa
+            </h3>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <form method="GET" class="d-flex justify-content-end align-items-center gap-2 flex-wrap">
+              <div class="input-group input-group-sm" style="width: auto;">
+                <span class="input-group-text bg-white border-end-0">
+                  <i class="fas fa-calendar text-success"></i>
+                </span>
+                <select name="month" class="form-select border-start-0" onchange="this.form.submit()" style="min-width: 140px;">
+                  @for($m = 1; $m <= 12; $m++)
+                    <option value="{{ $m }}" {{ $m == $month ? 'selected' : '' }}>
+                      {{ date('F', mktime(0, 0, 0, $m, 1)) }}
+                    </option>
+                  @endfor
+                </select>
+              </div>
+              
+              <div class="input-group input-group-sm" style="width: auto;">
+                <span class="input-group-text bg-white border-end-0">
+                  <i class="fas fa-clock text-success"></i>
+                </span>
+                <select name="year" class="form-select border-start-0" onchange="this.form.submit()" style="min-width: 100px;">
+                  @for($y = date('Y') - 2; $y <= date('Y') + 2; $y++)
+                    <option value="{{ $y }}" {{ $y == $year ? 'selected' : '' }}>{{ $y }}</option>
+                  @endfor
+                </select>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-bordered mb-0 calendar-table">
+            <thead class="calendar-header">
+              <tr>
+                @foreach(['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'] as $day)
+                  <th class="text-center py-3">
+                    <div class="day-label">{{ $day }}</div>
+                  </th>
+                @endforeach
+              </tr>
+            </thead>
+            <tbody>
+              @php
+                $day = 1;
+                $totalCells = ceil(($daysInMonth + $startDayOfWeek) / 7) * 7;
+                $currentDate = date('Y-m-d');
+              @endphp
+              
+              @for($week = 0; $week < 6; $week++)
+                @if($day <= $daysInMonth)
+                  <tr class="calendar-week">
+                    @for($dow = 0; $dow < 7; $dow++)
+                      @php
+                        $cellIndex = $week * 7 + $dow;
+                        $isEmpty = $cellIndex < $startDayOfWeek || $day > $daysInMonth;
+                        
+                        if (!$isEmpty) {
+                          $dateString = sprintf('%04d-%02d-%02d', $year, $month, $day);
+                          $isToday = $dateString === $currentDate;
+                          $hasEvent = isset($events[$dateString]);
+                          $dayEvents = $hasEvent ? $events[$dateString] : [];
+                        }
+                      @endphp
+
+                      @if($isEmpty)
+                        <td class="calendar-day empty-day">
+                          <div class="day-content">
+                            &nbsp;
+                          </div>
+                        </td>
+                      @else
+                        <td class="calendar-day {{ $isToday ? 'today' : '' }} {{ $hasEvent ? 'has-event' : '' }}"
+                            onclick="showEvents('{{ $dateString }}', {{ $day }}, {{ $month }}, {{ $year }}, {{ json_encode($dayEvents) }})">
+                          <div class="day-content">
+                            <div class="day-number {{ $isToday ? 'today-badge' : '' }}">
+                              {{ $day }}
+                            </div>
+                            @if($hasEvent)
+                              <div class="event-indicator">
+                                <div class="event-dots">
+                                  @foreach($dayEvents as $index => $event)
+                                    @if($index < 3)
+                                      <div class="event-dot"></div>
+                                    @endif
+                                  @endforeach
+                                  @if(count($dayEvents) > 3)
+                                    <div class="event-dot-more">+</div>
+                                  @endif
+                                </div>
+                              </div>
+                            @endif
+                          </div>
+                        </td>
+                        @php $day++; @endphp
+                      @endif
+                    @endfor
+                  </tr>
+                @endif
+              @endfor
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div class="card-footer bg-light py-3">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <div class="calendar-legend">
+              <span class="legend-item me-3">
+                <span class="legend-color today-legend"></span>
+                <small>Hari Ini</small>
+              </span>
+              <span class="legend-item me-3">
+                <span class="legend-color event-legend"></span>
+                <small>Ada Kegiatan</small>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <small class="text-muted">
+              <i class="fas fa-info-circle me-1"></i>
+              Klik pada tanggal untuk melihat detail kegiatan
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Event Details -->
+  <div class="modal fade" id="eventModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-gradient-success text-white">
+          <h5 class="modal-title fw-semibold" id="eventModalTitle">
+            <i class="fas fa-calendar-day me-2"></i>Detail Kegiatan
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="eventModalBody">
+          <!-- Content will be loaded via JavaScript -->
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- =======================
-       KALENDER AGENDA KEGIATAN (DINAMIS)
-  ========================== -->
-<div class="mt-5">
-    <div class="card shadow-lg border-0">
-        <div class="card-header bg-gradient-success text-white py-3">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <h3 class="mb-0 fw-bold">
-                        <i class="fas fa-calendar-alt me-2"></i>Kalender Kegiatan Desa
-                    </h3>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <form method="GET" class="d-flex justify-content-end align-items-center gap-2 flex-wrap">
-                        <div class="input-group input-group-sm" style="width: auto;">
-                            <span class="input-group-text bg-white border-end-0">
-                                <i class="fas fa-calendar text-success"></i>
-                            </span>
-                            <select name="month" class="form-select border-start-0" onchange="this.form.submit()" style="min-width: 140px;">
-                                @for($m = 1; $m <= 12; $m++)
-                                    <option value="{{ $m }}" {{ $m == $month ? 'selected' : '' }}>
-                                        {{ date('F', mktime(0, 0, 0, $m, 1)) }}
-                                    </option>
-                                @endfor
-                            </select>
-                        </div>
-                        
-                        <div class="input-group input-group-sm" style="width: auto;">
-                            <span class="input-group-text bg-white border-end-0">
-                                <i class="fas fa-clock text-success"></i>
-                            </span>
-                            <select name="year" class="form-select border-start-0" onchange="this.form.submit()" style="min-width: 100px;">
-                                @for($y = date('Y') - 2; $y <= date('Y') + 2; $y++)
-                                    <option value="{{ $y }}" {{ $y == $year ? 'selected' : '' }}>{{ $y }}</option>
-                                @endfor
-                            </select>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-bordered mb-0 calendar-table">
-                    <thead class="calendar-header">
-                        <tr>
-                            @foreach(['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'] as $day)
-                                <th class="text-center py-3">
-                                    <div class="day-label">{{ $day }}</div>
-                                </th>
-                            @endforeach
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php
-                            $day = 1;
-                            $totalCells = ceil(($daysInMonth + $startDayOfWeek) / 7) * 7;
-                            $currentDate = date('Y-m-d');
-                        @endphp
-                        
-                        @for($week = 0; $week < 6; $week++)
-                            @if($day <= $daysInMonth)
-                                <tr class="calendar-week">
-                                    @for($dow = 0; $dow < 7; $dow++)
-                                        @php
-                                            $cellIndex = $week * 7 + $dow;
-                                            $isEmpty = $cellIndex < $startDayOfWeek || $day > $daysInMonth;
-                                            
-                                            if (!$isEmpty) {
-                                                $dateString = sprintf('%04d-%02d-%02d', $year, $month, $day);
-                                                $isToday = $dateString === $currentDate;
-                                                $hasEvent = isset($events[$dateString]);
-                                                $dayEvents = $hasEvent ? $events[$dateString] : [];
-                                            }
-                                        @endphp
-
-                                        @if($isEmpty)
-                                            <td class="calendar-day empty-day">
-                                                <div class="day-content">
-                                                    &nbsp;
-                                                </div>
-                                            </td>
-                                        @else
-                                            <td class="calendar-day {{ $isToday ? 'today' : '' }} {{ $hasEvent ? 'has-event' : '' }}"
-                                                onclick="showEvents('{{ $dateString }}', {{ $day }}, {{ $month }}, {{ $year }}, {{ json_encode($dayEvents) }})">
-                                                <div class="day-content">
-                                                    <div class="day-number {{ $isToday ? 'today-badge' : '' }}">
-                                                        {{ $day }}
-                                                    </div>
-                                                    @if($hasEvent)
-                                                        <div class="event-indicator">
-                                                            <div class="event-dots">
-                                                                @foreach($dayEvents as $index => $event)
-                                                                    @if($index < 3) {{-- Maksimal 3 dot --}}
-                                                                        <div class="event-dot"></div>
-                                                                    @endif
-                                                                @endforeach
-                                                                @if(count($dayEvents) > 3)
-                                                                    <div class="event-dot-more">+</div>
-                                                                @endif
-                                                            </div>
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                            </td>
-                                            @php $day++; @endphp
-                                        @endif
-                                    @endfor
-                                </tr>
-                            @endif
-                        @endfor
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
-        <div class="card-footer bg-light py-3">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <div class="calendar-legend">
-                        <span class="legend-item me-3">
-                            <span class="legend-color today-legend"></span>
-                            <small>Hari Ini</small>
-                        </span>
-                        <span class="legend-item me-3">
-                            <span class="legend-color event-legend"></span>
-                            <small>Ada Kegiatan</small>
-                        </span>
-                    </div>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <small class="text-muted">
-                        <i class="fas fa-info-circle me-1"></i>
-                        Klik pada tanggal untuk melihat detail kegiatan
-                    </small>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal for Event Details -->
-<div class="modal fade" id="eventModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-gradient-success text-white">
-                <h5 class="modal-title" id="eventModalTitle">
-                    <i class="fas fa-calendar-day me-2"></i>Detail Kegiatan
-                </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body" id="eventModalBody">
-                <!-- Content will be loaded via JavaScript -->
-            </div>
-        </div>
-    </div>
-</div>
-</div>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
+/* Terapkan font modern konsisten dengan halaman sejarah */
+body, .gallery-section, .gallery-header, .gallery-card, .calendar-table, .modal-content {
+    font-family: 'Poppins', 'Open Sans', sans-serif;
+}
+
+/* Header Galeri */
+.gallery-header {
+    margin-bottom: 2rem;
+    margin-top: -1rem;
+}
+.gallery-title {
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: #2E7D32;
+    line-height: 1.1;
+}
+.gallery-header p {
+    font-size: 1.1rem;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+}
+
+/* Card Galeri */
+.gallery-card {
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: none;
+}
+.gallery-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15) !important;
+}
+
+/* Card untuk perangkat desa */
+.card {
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    font-family: 'Open Sans', sans-serif;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12) !important;
+}
+
+/* Heading konsisten */
+h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+/* Text body konsisten */
+p, small, .text-muted, .card-body, .modal-body, .event-description {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+}
+
 .calendar-table {
     border: none;
     background: white;
@@ -221,6 +307,7 @@
     border: none;
     font-weight: 600;
     font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
 }
 
 .calendar-day {
@@ -231,6 +318,7 @@
     transition: all 0.3s ease;
     position: relative;
     background: white;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .calendar-day:hover {
@@ -272,6 +360,7 @@
     font-weight: 600;
     font-size: 1.1rem;
     color: #495057;
+    font-family: 'Poppins', sans-serif;
 }
 
 .today-badge {
@@ -322,6 +411,7 @@
 .calendar-legend {
     display: flex;
     align-items: center;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .legend-item {
@@ -354,6 +444,7 @@
 .day-label {
     font-weight: 600;
     font-size: 0.85rem;
+    font-family: 'Poppins', sans-serif;
 }
 
 /* Event List Styles */
@@ -364,6 +455,7 @@
     border-radius: 8px;
     padding: 15px;
     transition: all 0.3s ease;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .event-list-item:hover {
@@ -375,6 +467,7 @@
     font-size: 0.9rem;
     color: #6c757d;
     margin-bottom: 5px;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .event-title {
@@ -382,24 +475,58 @@
     color: #495057;
     margin-bottom: 5px;
     font-size: 1.1rem;
+    font-family: 'Poppins', sans-serif;
 }
 
 .event-description {
     font-size: 0.9rem;
     color: #6c757d;
     margin-bottom: 0;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .no-events {
     text-align: center;
     padding: 40px 20px;
     color: #6c757d;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .no-events i {
     font-size: 3rem;
     margin-bottom: 15px;
     color: #dee2e6;
+}
+
+/* Struktur Image Styles */
+.struktur-img-fullwidth {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
+/* Card Title Consistency */
+.card-body h5 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.card-body p, .card-body small {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+}
+
+/* Modal Title Consistency */
+.modal-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+/* Container fluid untuk konsistensi layout */
+.container-fluid.px-lg-5 {
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 @media (max-width: 768px) {
@@ -425,6 +552,29 @@
     .event-list-item {
         padding: 10px;
     }
+    
+    .gallery-title {
+        font-size: 2.2rem;
+    }
+    
+    .gallery-header p {
+        font-size: 1rem;
+    }
+    
+    .container-fluid.px-lg-5 {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .gallery-title {
+        font-size: 1.8rem;
+    }
+    
+    .gallery-header p {
+        font-size: 0.9rem;
+    }
 }
 </style>
 
@@ -440,7 +590,7 @@ function showEvents(dateString, day, month, year, dayEvents) {
     if (dayEvents && dayEvents.length > 0) {
         eventContent = `
             <div class="text-center mb-4">
-                <h6 class="text-success">${formattedDate}</h6>
+                <h6 class="text-success fw-semibold">${formattedDate}</h6>
                 <p class="text-muted mb-0">${dayEvents.length} kegiatan ditemukan</p>
             </div>
             <div class="events-list">
@@ -476,7 +626,7 @@ function showEvents(dateString, day, month, year, dayEvents) {
         eventContent = `
             <div class="no-events">
                 <i class="fas fa-calendar-times"></i>
-                <h6 class="text-muted mt-3">Tidak Ada Kegiatan</h6>
+                <h6 class="text-muted mt-3 fw-semibold">Tidak Ada Kegiatan</h6>
                 <p class="text-muted">Tidak ada kegiatan yang dijadwalkan pada tanggal ${formattedDate}</p>
             </div>
         `;
@@ -488,32 +638,5 @@ function showEvents(dateString, day, month, year, dayEvents) {
     const modal = new bootstrap.Modal(document.getElementById('eventModal'));
     modal.show();
 }
-</script> 
-
-{{-- =======================
-     STYLE TAMBAHAN
-======================= --}}
-<style>
-  .struktur-img-responsive {
-      width: 100%;          /* Memenuhi lebar container */
-      max-width: 1000px;    /* Tidak melebar melebihi max */
-      height: auto;         /* Pertahankan rasio asli */
-      display: block;
-      margin: 0 auto;       /* Centering horizontal */
-  }
-
-  .struktur-img-fullwidth {
-    width: 100%;   /* Penuhi lebar container table-responsive */
-    height: auto;  /* Pertahankan rasio asli */
-    display: block;
-}
-
-  @media (max-width: 768px) {
-      .struktur-img-responsive {
-          width: 100%;      /* Pastikan lebar penuh di mobile */
-          max-width: 100%;  /* Tidak ada batasan */
-          height: auto;
-      }
-  }
-</style>
+</script>
 @endsection

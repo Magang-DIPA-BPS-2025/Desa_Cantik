@@ -3,8 +3,7 @@
 @section('content')
 <div class="gallery-section py-5">
     <div class="container-fluid px-lg-5">
-
-        {{-- Judul & Deskripsi --}}
+       
         <div class="text-start mb-4 mt-2 px-2 gallery-header">
             <h2 class="fw-bolder display-4 mb-2 gallery-title">
                 <i class="bi bi-images me-2"></i> GALERI DESA
@@ -59,10 +58,13 @@
     </div>
 </div>
 
+ <!-- Google Fonts Modern -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
-.gallery-section {
-    background: linear-gradient(145deg, #f8fffb 0%, #ffffff 100%);
-    min-height: 100vh;
+/* Terapkan font modern */
+body, .gallery-section, .gallery-header, .gallery-card, .gallery-overlay, .galeri-modal, .galeri-close {
+    font-family: 'Poppins', 'Open Sans', sans-serif;
 }
 
 /* Header Galeri */
@@ -72,8 +74,8 @@
 }
 .gallery-title {
     font-size: 2.8rem;
-    font-weight: 800;
-    color: #000;
+    font-weight: 600;
+    color: #2E7D32;
     line-height: 1.1;
 }
 .gallery-header p {
@@ -128,10 +130,7 @@
     overflow: auto;
     animation: fadeIn 0.3s ease;
 }
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .galeri-modal-content {
     position: relative;
     margin: 2% auto;
@@ -177,9 +176,7 @@
 }
 
 @media (max-width: 768px) {
-    .gallery-title {
-        font-size: 2.2rem;
-    }
+    .gallery-title { font-size: 2.2rem; }
 }
 </style>
 

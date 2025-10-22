@@ -4,436 +4,267 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Desa Cantik - Website Resmi</title>
+  <!-- Google Fonts Modern -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  /* Reset & Base Styles */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-  <style>
-    /* Reset & Base Styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  body {
+    font-family: 'Poppins', 'Open Sans', sans-serif;
+    background: #f9fafb;
+    color: #333;
+    overflow-x: hidden;
+  }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #f9fafb;
-      color: #333;
-      overflow-x: hidden;
-    }
+  /* Header */
+  header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+  }
 
-    /* Header */
-    header {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
-    }
+  .navbar-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+  }
 
-    .navbar-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 30px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 80px;
-    }
+  /* Logo */
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-left: 10px;
+  }
 
-    /* Logo - SEJAJAR DENGAN MENU */
-    .logo-area {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding-left: 10px; /* Sesuaikan dengan padding menu */
-    }
+  .logo-area img {
+    height: 45px;
+    width: 45px;
+    object-fit: contain;
+  }
 
-    .logo-area img {
-      height: 45px;
-      width: 45px;
-      object-fit: contain;
-    }
+  .brand-text {
+    font-size: 22px;
+    font-weight: 700;
+    color: #2E7D32;
+    line-height: 1;
+  }
 
-    .brand-text {
-      font-size: 22px;
-      font-weight: 700;
-      color: #2E7D32;
-      line-height: 1;
-    }
+  /* Navigation Menu */
+  .nav-menu {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
 
-    /* Navigation Menu - SEJAJAR DENGAN LOGO */
-    .nav-menu {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      height: 100%;
-    }
+  .nav-item { position: relative; height: 100%; display: flex; align-items: center; }
 
-    .nav-item {
-      position: relative;
-      height: 100%;
-      display: flex;
-      align-items: center;
-    }
+  .nav-link {
+    text-decoration: none;
+    color: #2D3748;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    height: 44px;
+    line-height: 1;
+  }
 
-    .nav-link {
-      text-decoration: none;
-      color: #2D3748;
-      font-weight: 500;
-      font-size: 14px;
-      padding: 12px 16px;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      white-space: nowrap;
-      height: 44px; /* Tinggi konsisten */
-      line-height: 1;
-    }
+  .nav-link:hover {
+    background: rgba(76,175,80,0.1);
+    color: #2E7D32;
+  }
 
-    .nav-link:hover {
-      background: rgba(76, 175, 80, 0.1);
-      color: #2E7D32;
-    }
+  .nav-link.active {
+    background: #2E7D32;
+    color: white;
+  }
 
-    .nav-link.active {
-      background: #2E7D32;
-      color: white;
-    }
+  .nav-link i { font-size: 14px; width: 16px; text-align: center; }
 
-    .nav-link i {
-      font-size: 14px;
-      width: 16px;
-      text-align: center;
-    }
+  /* Dropdown - tanpa garis biru */
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    padding: 8px 0;
+    min-width: 200px;
+    display: none;
+    z-index: 1000;
+    margin-top: 8px;
+    border: none; /* hapus garis biru */
+  }
 
-    /* Dropdown */
-    .dropdown-menu {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      padding: 8px 0;
-      min-width: 200px;
-      display: none;
-      z-index: 1000;
-      margin-top: 8px;
-    }
+  .nav-item:hover .dropdown-menu { display: block; }
 
-    .nav-item:hover .dropdown-menu {
-      display: block;
-    }
+  .dropdown-menu a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    color: #4A5568;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+  }
 
-    .dropdown-menu a {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 16px;
-      color: #4A5568;
-      text-decoration: none;
-      font-size: 14px;
-      transition: all 0.3s ease;
-    }
+  .dropdown-menu a:hover {
+    background: rgba(76,175,80,0.1);
+    color: #2E7D32;
+  }
 
-    .dropdown-menu a:hover {
-      background: rgba(76, 175, 80, 0.1);
-      color: #2E7D32;
-    }
+  .dropdown-menu a i { width: 16px; text-align: center; }
 
-    .dropdown-menu a i {
-      width: 16px;
-      text-align: center;
-    }
+  /* Mobile Toggle */
+  .nav-toggle {
+    display: none;
+    background: #2E7D32;
+    border: none;
+    border-radius: 8px;
+    width: 44px;
+    height: 44px;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    align-items: center;
+    justify-content: center;
+  }
 
-    /* Mobile Toggle */
-    .nav-toggle {
-      display: none;
-      background: #2E7D32;
-      border: none;
-      border-radius: 8px;
-      width: 44px;
-      height: 44px;
-      color: white;
-      cursor: pointer;
-      font-size: 18px;
-      align-items: center;
-      justify-content: center;
-    }
+  /* Mobile Sidebar */
+  .mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 320px;
+    height: 100vh;
+    background: white;
+    box-shadow: 0 0 30px rgba(0,0,0,0.2);
+    z-index: 9999;
+    transition: left 0.3s ease;
+    overflow-y: auto;
+  }
 
-    /* Mobile Sidebar - TAMPILAN LEBIH RAPI */
-    .mobile-sidebar {
-      position: fixed;
-      top: 0;
-      left: -100%;
-      width: 320px;
-      height: 100vh;
-      background: white;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
-      z-index: 9999;
-      transition: left 0.3s ease;
-      overflow-y: auto;
-    }
+  .mobile-sidebar.active { left: 0; }
 
-    .mobile-sidebar.active {
-      left: 0;
-    }
+  .sidebar-header {
+    padding: 25px 20px 20px;
+    border-bottom: 1px solid #e2e8f0;
+    background: rgba(76,175,80,0.05);
+  }
 
-    .sidebar-header {
-      padding: 25px 20px 20px;
-      border-bottom: 1px solid #e2e8f0;
-      background: rgba(76, 175, 80, 0.05);
-    }
+  .sidebar-logo { display: flex; align-items: center; gap: 12px; }
+  .sidebar-logo img { height: 40px; width: 40px; }
+  .sidebar-brand { font-size: 20px; font-weight: 700; color: #2E7D32; }
 
-    .sidebar-logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+  .close-sidebar {
+    position: absolute;
+    top: 25px;
+    right: 20px;
+    background: #2E7D32;
+    border: none;
+    border-radius: 6px;
+    width: 36px;
+    height: 36px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-    .sidebar-logo img {
-      height: 40px;
-      width: 40px;
-    }
+  .sidebar-menu { padding: 0; list-style: none; }
+  .sidebar-item { position: relative; }
 
-    .sidebar-brand {
-      font-size: 20px;
-      font-weight: 700;
-      color: #2E7D32;
-    }
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    color: #2D3748;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    border-bottom: 1px solid #f7fafc;
+    transition: all 0.3s ease;
+    min-height: 56px;
+  }
 
-    .close-sidebar {
-      position: absolute;
-      top: 25px;
-      right: 20px;
-      background: #2E7D32;
-      border: none;
-      border-radius: 6px;
-      width: 36px;
-      height: 36px;
-      color: white;
-      cursor: pointer;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+  .sidebar-link i:first-child { margin-right: 12px; width: 18px; text-align: center; font-size: 16px; }
 
-    .sidebar-menu {
-      padding: 0;
-      list-style: none;
-    }
+  .sidebar-link:hover,
+  .sidebar-link.active { background: rgba(76,175,80,0.1); color: #2E7D32; }
 
-    .sidebar-item {
-      position: relative;
-    }
+  .sidebar-dropdown { background: #f8f9fa; display: none; }
+  .sidebar-dropdown.active { display: block; }
 
-    .sidebar-link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 20px;
-      color: #2D3748;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 15px;
-      border-bottom: 1px solid #f7fafc;
-      transition: all 0.3s ease;
-      min-height: 56px;
-    }
+  .sidebar-dropdown a {
+    display: flex; align-items: center;
+    padding: 14px 20px 14px 52px;
+    color: #4A5568; text-decoration: none;
+    font-size: 14px; transition: all 0.3s ease;
+    border-bottom: 1px solid #e2e8f0; min-height: 48px;
+  }
 
-    .sidebar-link i:first-child {
-      margin-right: 12px;
-      width: 18px;
-      text-align: center;
-      font-size: 16px;
-    }
+  .sidebar-dropdown a:last-child { border-bottom: none; }
+  .sidebar-dropdown a:hover { background: rgba(76,175,80,0.1); color: #2E7D32; }
+  .sidebar-dropdown a i { margin-right: 10px; width: 16px; text-align: center; font-size: 14px; }
 
-    .sidebar-link:hover,
-    .sidebar-link.active {
-      background: rgba(76, 175, 80, 0.1);
-      color: #2E7D32;
-    }
+  /* Overlay */
+  .sidebar-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 9998;
+    display: none;
+  }
 
-    /* Dropdown Mobile */
-    .sidebar-dropdown {
-      background: #f8f9fa;
-      display: none;
-    }
+  .sidebar-overlay.active { display: block; }
 
-    .sidebar-dropdown.active {
-      display: block;
-    }
+  /* Banner */
+  .custom-header-banner {
+    width: 100%; height: 200px;
+    overflow: hidden; position: relative;
+    margin-top: 80px;
+    background: none; border: none; padding: 0;
+  }
 
-    .sidebar-dropdown a {
-      display: flex;
-      align-items: center;
-      padding: 14px 20px 14px 52px;
-      color: #4A5568;
-      text-decoration: none;
-      font-size: 14px;
-      transition: all 0.3s ease;
-      border-bottom: 1px solid #e2e8f0;
-      min-height: 48px;
-    }
+  .custom-header-banner img { width: 100%; height: 100%; object-fit: cover; display: block; margin: 0; border: none; }
+  .banner-hidden { display: none; }
 
-    .sidebar-dropdown a:last-child {
-      border-bottom: none;
-    }
+  /* Scroll Effect */
+  header.scrolled { height: 70px; background: rgba(255,255,255,0.98); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+  header.scrolled .navbar-container { height: 70px; }
+</style>
 
-    .sidebar-dropdown a:hover {
-      background: rgba(76, 175, 80, 0.1);
-      color: #2E7D32;
-    }
-
-    .sidebar-dropdown a i {
-      margin-right: 10px;
-      width: 16px;
-      text-align: center;
-      font-size: 14px;
-    }
-
-    /* Overlay */
-    .sidebar-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 9998;
-      display: none;
-    }
-
-    .sidebar-overlay.active {
-      display: block;
-    }
-
-    /* ================== BANNER ================== */
-    .custom-header-banner {
-      width: 100%;
-      height: 200px;
-      overflow: hidden;
-      position: relative;
-      margin-top: 80px; /* beri jarak sesuai tinggi navbar agar tidak tertutup */
-      background: none; /* pastikan tidak ada background abu-abu */
-      border: none; 
-      padding: 0;
-    }
-
-    .custom-header-banner img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      margin: 0;
-      border: none;
-    }
-
-    /* Class untuk menyembunyikan banner */
-    .banner-hidden {
-      display: none;
-    }
-
-    /* Responsive */
-    @media (max-width: 1100px) {
-      .navbar-container {
-        padding: 0 25px;
-      }
-      
-      .nav-link {
-        padding: 10px 14px;
-        font-size: 13px;
-      }
-    }
-
-    @media (max-width: 991px) {
-      .nav-menu {
-        display: none;
-      }
-
-      .nav-toggle {
-        display: flex;
-      }
-
-      .navbar-container {
-        height: 75px;
-        padding: 0 20px;
-      }
-
-      .brand-text {
-        font-size: 20px;
-      }
-
-      .logo-area img {
-        height: 40px;
-        width: 40px;
-      }
-
-      .custom-header-banner {
-        height: 300px;
-        margin-top: 75px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .custom-header-banner {
-        height: 250px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .navbar-container {
-        padding: 0 15px;
-        height: 70px;
-      }
-
-      .brand-text {
-        font-size: 18px;
-      }
-
-      .logo-area img {
-        height: 36px;
-        width: 36px;
-      }
-
-      .mobile-sidebar {
-        width: 280px;
-      }
-      
-      .sidebar-brand {
-        font-size: 18px;
-      }
-      
-      .custom-header-banner {
-        height: 200px;
-        margin-top: 70px;
-      }
-    }
-
-    /* Scroll Effect */
-    header.scrolled {
-      height: 70px;
-      background: rgba(255, 255, 255, 0.98);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    header.scrolled .navbar-container {
-      height: 70px;
-    }
-  </style>
 </head>
 <body>
   <!-- Header -->
