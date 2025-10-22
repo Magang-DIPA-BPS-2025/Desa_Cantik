@@ -459,7 +459,7 @@
           </a>
           <div class="dropdown-menu">
             <a href="{{ route('galeri.user.index') }}" class="{{ request()->is('galeri*') ? 'active' : '' }}"><i class="fas fa-images"></i>Galeri Desa</a>
-            <a href="{{ route('sejarah') }}" class="{{ request()->is('sejarah') ? 'active' : '' }}"><i class="fas fa-history"></i>Sejarah Desa</a>
+            <a href="{{ route('SejarahDesa') }}" class="{{ request()->is('SejarahDesa') ? 'active' : '' }}"><i class="fas fa-history"></i>Sejarah Desa</a>
             <a href="{{ route('pemerintah') }}" class="{{ request()->is('pemerintah') ? 'active' : '' }}"><i class="fas fa-users"></i>Pemerintah Desa</a>
             <a href="{{ route('apbd') }}" class="{{ request()->is('apbd') ? 'active' : '' }}"><i class="fas fa-chart-pie"></i>APBD Desa</a>
           </div>
@@ -545,10 +545,12 @@
 
     <ul class="sidebar-menu">
       <li class="sidebar-item">
-        <a href="/" class="sidebar-link {{ request()->is('/') ? 'active' : '' }}">
-          <i class="fas fa-home"></i>BERANDA
-        </a>
-      </li>
+  <a href="/" class="sidebar-link {{ request()->is('/') ? 'active' : '' }}" 
+     style="display: flex; justify-content: center; align-items: center; text-align: center;">
+    <i class="fas fa-home" style="margin-right: 6px;"></i> BERANDA
+  </a>
+</li>
+
 
       <li class="sidebar-item">
         <a href="#" class="sidebar-link sidebar-dropdown-toggle {{ request()->is('galeri*', 'sejarah', 'pemerintah', 'apbd') ? 'active' : '' }}">
@@ -557,7 +559,7 @@
         </a>
         <div class="sidebar-dropdown">
           <a href="{{ route('galeri.user.index') }}" class="{{ request()->is('galeri*') ? 'active' : '' }}"><i class="fas fa-images"></i>Galeri Desa</a>
-          <a href="{{ route('sejarah') }}" class="{{ request()->is('sejarah') ? 'active' : '' }}"><i class="fas fa-history"></i>Sejarah Desa</a>
+          <a href="{{ route('SejarahDesa') }}" class="{{ request()->is('SejarahDesa') ? 'active' : '' }}"><i class="fas fa-history"></i>Sejarah Desa</a>
           <a href="{{ route('pemerintah') }}" class="{{ request()->is('pemerintah') ? 'active' : '' }}"><i class="fas fa-users"></i>Pemerintah Desa</a>
           <a href="{{ route('apbd') }}" class="{{ request()->is('apbd') ? 'active' : '' }}"><i class="fas fa-chart-pie"></i>APBD Desa</a>
         </div>
@@ -613,10 +615,12 @@
       </li>
 
       <li class="sidebar-item">
-        <a href="{{ route('bukutamu') }}" class="sidebar-link {{ request()->is('bukutamu*') ? 'active' : '' }}">
-          <i class="fas fa-book-open"></i>BUKU TAMU
-        </a>
-      </li>
+  <a href="{{ route('bukutamu') }}" 
+     class="sidebar-link {{ request()->is('bukutamu*') ? 'active' : '' }}" 
+     style="display: flex; justify-content: center; align-items: center; text-align: center;">
+    <i class="fas fa-book-open" style="margin-right: 6px;"></i> BUKU TAMU
+  </a>
+</li>
     </ul>
   </div>
 
@@ -624,79 +628,76 @@
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
   <!-- JavaScript -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const toggle = document.getElementById("nav-toggle");
-      const sidebar = document.getElementById("mobile-sidebar");
-      const closeSidebar = document.getElementById("close-sidebar");
-      const overlay = document.getElementById("sidebar-overlay");
-      const dropdownToggles = document.querySelectorAll(".sidebar-dropdown-toggle");
-      const header = document.getElementById("main-header");
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const toggle = document.getElementById("nav-toggle");
+  const sidebar = document.getElementById("mobile-sidebar");
+  const closeSidebar = document.getElementById("close-sidebar");
+  const overlay = document.getElementById("sidebar-overlay");
+  const dropdownToggles = document.querySelectorAll(".sidebar-dropdown-toggle");
+  const header = document.getElementById("main-header");
 
-      // Toggle sidebar
-      toggle.addEventListener("click", () => {
-        sidebar.classList.add("active");
-        overlay.classList.add("active");
-        document.body.style.overflow = "hidden";
-      });
+  // === Buka Sidebar ===
+  toggle.addEventListener("click", () => {
+    sidebar.classList.add("active");
+    overlay.classList.add("active");
+    document.body.style.overflow = "hidden";
+  });
 
-      // Close sidebar
-      function closeMobileSidebar() {
-        sidebar.classList.remove("active");
-        overlay.classList.remove("active");
-        document.body.style.overflow = "";
+  // === Tutup Sidebar ===
+  function closeMobileSidebar() {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+
+  closeSidebar.addEventListener("click", closeMobileSidebar);
+  overlay.addEventListener("click", closeMobileSidebar);
+
+  // === Dropdown Handler (bisa buka banyak tanpa menutup yang lain)
+  dropdownToggles.forEach(toggle => {
+    toggle.addEventListener("click", function(e) {
+      e.preventDefault();
+
+      const dropdown = this.nextElementSibling;
+      const chevron = this.querySelector(".fa-chevron-down");
+
+      // toggle buka/tutup dropdown yang diklik
+      dropdown.classList.toggle("active");
+
+      // ubah arah panah
+      if (dropdown.classList.contains("active")) {
+        chevron.style.transform = "rotate(180deg)";
+      } else {
+        chevron.style.transform = "rotate(0deg)";
       }
-
-      closeSidebar.addEventListener("click", closeMobileSidebar);
-      overlay.addEventListener("click", closeMobileSidebar);
-
-      // Mobile dropdown handling
-      dropdownToggles.forEach(toggle => {
-        toggle.addEventListener("click", function(e) {
-          e.preventDefault();
-          const dropdown = this.nextElementSibling;
-          const chevron = this.querySelector(".fa-chevron-down");
-          
-          // Tutup dropdown lainnya
-          document.querySelectorAll(".sidebar-dropdown").forEach(d => {
-            if (d !== dropdown) {
-              d.classList.remove("active");
-              d.previousElementSibling.querySelector(".fa-chevron-down").style.transform = "rotate(0deg)";
-            }
-          });
-          
-          // Toggle dropdown saat ini
-          dropdown.classList.toggle("active");
-          
-          if (dropdown.classList.contains("active")) {
-            chevron.style.transform = "rotate(180deg)";
-          } else {
-            chevron.style.transform = "rotate(0deg)";
-          }
-        });
-      });
-
-      // Header scroll effect
-      window.addEventListener("scroll", () => {
-        if (window.scrollY > 50) {
-          header.classList.add("scrolled");
-        } else {
-          header.classList.remove("scrolled");
-        }
-      });
-
-      // Close sidebar ketika klik link
-      document.querySelectorAll('.sidebar-link[href]').forEach(link => {
-        link.addEventListener('click', closeMobileSidebar);
-      });
-
-      // Keyboard escape to close sidebar
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && sidebar.classList.contains('active')) {
-          closeMobileSidebar();
-        }
-      });
     });
-  </script>
+  });
+
+  // === Scroll header efek
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) header.classList.add("scrolled");
+    else header.classList.remove("scrolled");
+  });
+
+  // === Tutup sidebar hanya jika klik link utama (bukan dropdown-toggle)
+document.querySelectorAll('.sidebar-link[href]').forEach(link => {
+  link.addEventListener('click', function(e) {
+    // kalau dia BUKAN toggle dropdown, baru tutup sidebar
+    if (!this.classList.contains('sidebar-dropdown-toggle')) {
+      closeMobileSidebar();
+    }
+  });
+});
+
+
+  // === Tekan ESC untuk menutup sidebar
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && sidebar.classList.contains('active')) {
+      closeMobileSidebar();
+    }
+  });
+});
+</script>
 </body>
 </html>

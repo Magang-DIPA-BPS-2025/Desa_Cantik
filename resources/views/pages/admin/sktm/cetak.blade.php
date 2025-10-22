@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surat Keterangan Usaha</title>
+    <title>Surat Keterangan Tidak Mampu</title>
     <style>
         /* Reset dan base styling */
         * {
@@ -162,7 +161,6 @@
         }
     </style>
 </head>
-
 <body>
     <div class="surat-container">
         <!-- Kop Surat -->
@@ -174,61 +172,50 @@
 
         <!-- Judul Surat -->
         <div class="judul-surat">
-            <h3>surat keterangan usaha</h3>
+            <h3>surat keterangan tidak mampu</h3>
             <p>Nomor: 
-                @if($sku->nomor_surat)
-                    {{ $sku->nomor_surat }}
+                @if($sktm->nomor_surat)
+                    {{ $sktm->nomor_surat }}
                 @else
-                    {{ $sku->id }}/SKU/{{ date('Y') }}
+                    {{ $sktm->id }}/SKTM/{{ date('Y') }}
                 @endif
             </p>
         </div>
 
         <!-- Isi Surat -->
         <div class="isi-surat">
-            <p>Yang bertanda tangan di bawah ini Kepala Desa Manggalung, Kecamatan Mandalle, Kabupaten Pangkajene dan
-                Kepulauan, dengan ini menerangkan bahwa:</p>
+            <p>Yang bertanda tangan di bawah ini Kepala Desa Manggalung, Kecamatan Mandalle, Kabupaten Pangkajene dan Kepulauan, dengan ini menerangkan bahwa:</p>
 
             <table class="tabel-data">
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td><strong>{{ $sku->nama }}</strong></td>
+                    <td><strong>{{ $sktm->nama }}</strong></td>
                 </tr>
                 <tr>
                     <td>NIK</td>
                     <td>:</td>
-                    <td><strong>{{ $sku->nik }}</strong></td>
+                    <td><strong>{{ $sktm->nik }}</strong></td>
                 </tr>
                 <tr>
                     <td>Alamat</td>
                     <td>:</td>
-                    <td><strong>{{ $sku->alamat }}</strong></td>
+                    <td><strong>{{ $sktm->alamat }}</strong></td>
                 </tr>
                 <tr>
                     <td>Pekerjaan</td>
                     <td>:</td>
-                    <td><strong>{{ $sku->pekerjaan ?? '-' }}</strong></td>
+                    <td><strong>{{ $sktm->pekerjaan }}</strong></td>
+                </tr>
+                <tr>
+                    <td>Agama</td>
+                    <td>:</td>
+                    <td><strong>{{ $sktm->agama }}</strong></td>
                 </tr>
             </table>
 
-            <p>Adalah benar yang bersangkutan memiliki usaha dengan keterangan sebagai berikut:</p>
-
-            <table class="tabel-data">
-                <tr>
-                    <td>Nama Usaha</td>
-                    <td>:</td>
-                    <td><strong>{{ $sku->nama_usaha }}</strong></td>
-                </tr>
-                <tr>
-                    <td>Alamat Usaha</td>
-                    <td>:</td>
-                    <td><strong>{{ $sku->alamat_usaha }}</strong></td>
-                </tr>
-            </table>
-
-            <p>Surat keterangan ini dibuat untuk keperluan
-                <strong><u>{{ $sku->keperluan ?? 'Administrasi' }}</u></strong>.</p>
+            <p>Adalah benar yang bersangkutan berasal dari keluarga kurang mampu dan memerlukan bantuan.</p>
+            <p>Surat keterangan ini dibuat untuk keperluan administrasi dan bantuan sosial.</p>
             <p>Demikian surat keterangan ini dibuat dengan sebenarnya agar dapat dipergunakan sebagaimana mestinya.</p>
         </div>
 
@@ -253,5 +240,4 @@
         <div class="clear"></div>
     </div>
 </body>
-
 </html>

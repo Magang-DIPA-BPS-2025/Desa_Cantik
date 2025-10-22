@@ -20,11 +20,15 @@ body {
     url('{{ asset("landing/images/slider-main/makassar.jpg") }}') center/cover no-repeat;
     color: white;
     text-align: center;
-    padding: 150px 20px;
+    padding: 120px 20px;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
     position: relative;
     overflow: hidden;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .hero-section::before {
@@ -41,10 +45,12 @@ body {
 .hero-content {
     position: relative;
     z-index: 2;
+    max-width: 800px;
+    width: 100%;
 }
 
 .hero-section h2 {
-    font-size: 24px;
+    font-size: 20px;
     margin-bottom: 10px;
     color: #e0f2f1;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
@@ -54,7 +60,7 @@ body {
 }
 
 .hero-section h1 {
-    font-size: 48px;
+    font-size: 36px;
     font-weight: 700;
     margin-bottom: 15px;
     color: #ffffff;
@@ -62,14 +68,15 @@ body {
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 0.8s ease 0.5s forwards;
+    line-height: 1.2;
 }
 
 .hero-section h3 {
     display: inline-block;
     background: linear-gradient(45deg, #7CB518, #4CAF50);
-    padding: 10px 22px;
+    padding: 8px 18px;
     border-radius: 30px;
-    font-size: 18px;
+    font-size: 16px;
     color: #fff;
     opacity: 0;
     transform: translateY(20px);
@@ -870,10 +877,34 @@ body {
     text-decoration: none;
     display: inline-block;
     text-align: center;
+    width: 100%; /* Pastikan tombol mengambil lebar penuh */
 }
 
 .umkm-btn:hover {
     background: #388e3c;
+    color: white;
+    text-decoration: none;
+}
+
+/* ---------------- Tombol WhatsApp ---------------- */
+.btn-outline-success {
+    background: transparent;
+    color: #28a745;
+    border: 2px solid #28a745;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    width: 100%; /* Pastikan tombol mengambil lebar penuh */
+}
+
+.btn-outline-success:hover {
+    background: #28a745;
     color: white;
     text-decoration: none;
 }
@@ -1027,10 +1058,6 @@ body {
         padding: 0 20px;
     }
     
-    .hero-section h1 {
-        font-size: 42px;
-    }
-    
     .jadwal-sholat-container {
         gap: 30px;
     }
@@ -1059,6 +1086,25 @@ body {
     
     .apbdesa-img img {
         max-width: 100%;
+    }
+
+    /* Hero Section Responsive untuk Tablet */
+    .hero-section {
+        padding: 100px 20px;
+        min-height: 350px;
+    }
+    
+    .hero-section h1 {
+        font-size: 32px;
+    }
+    
+    .hero-section h2 {
+        font-size: 18px;
+    }
+    
+    .hero-section h3 {
+        font-size: 15px;
+        padding: 7px 16px;
     }
 }
 
@@ -1105,24 +1151,27 @@ body {
         border-radius: 12px;
     }
     
+    /* Hero Section Responsive untuk Mobile */
     .hero-section {
         padding: 80px 20px;
+        min-height: 300px;
         border-bottom-left-radius: 30px;
         border-bottom-right-radius: 30px;
+        background-attachment: scroll; /* Hindari fixed background di mobile */
     }
     
     .hero-section h1 {
-        font-size: 32px;
+        font-size: 28px;
         line-height: 1.3;
     }
     
     .hero-section h2 {
-        font-size: 18px;
+        font-size: 16px;
     }
     
     .hero-section h3 {
         font-size: 14px;
-        padding: 8px 16px;
+        padding: 6px 14px;
     }
     
     .section-title {
@@ -1232,6 +1281,22 @@ body {
     .apb-card h3 {
         font-size: 20px;
     }
+
+    /* Perbaikan tombol UMKM untuk mobile */
+    .umkm-btn, .btn-outline-success {
+        width: 100%;
+        padding: 10px 16px;
+        font-size: 0.9rem;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Container tombol UMKM */
+    .d-grid.gap-2 {
+        gap: 12px !important;
+    }
 }
 
 @media (max-width: 576px) {
@@ -1243,18 +1308,25 @@ body {
         flex: 0 0 calc(100% - 10px);
     }
     
+    /* Hero Section Responsive untuk Small Mobile */
     .hero-section {
         padding: 60px 15px;
+        min-height: 250px;
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
     }
     
     .hero-section h1 {
-        font-size: 28px;
+        font-size: 24px;
     }
     
     .hero-section h2 {
-        font-size: 16px;
+        font-size: 14px;
+    }
+    
+    .hero-section h3 {
+        font-size: 13px;
+        padding: 5px 12px;
     }
     
     .section-title {
@@ -1354,16 +1426,32 @@ body {
     .search-result-item {
         padding: 15px;
     }
+
+    /* Perbaikan tambahan untuk tombol UMKM di mobile kecil */
+    .umkm-btn, .btn-outline-success {
+        padding: 12px 16px;
+        font-size: 0.85rem;
+    }
 }
 
 @media (max-width: 400px) {
+    /* Hero Section Responsive untuk Extra Small Mobile */
+    .hero-section {
+        padding: 50px 12px;
+        min-height: 220px;
+    }
+    
     .hero-section h1 {
-        font-size: 24px;
+        font-size: 22px;
+    }
+    
+    .hero-section h2 {
+        font-size: 13px;
     }
     
     .hero-section h3 {
-        font-size: 13px;
-        padding: 6px 12px;
+        font-size: 12px;
+        padding: 4px 10px;
     }
     
     .section-title {
@@ -1386,6 +1474,12 @@ body {
     .next-time {
         font-size: 24px;
     }
+
+    /* Perbaikan tombol UMKM untuk mobile sangat kecil */
+    .umkm-btn, .btn-outline-success {
+        padding: 10px 12px;
+        font-size: 0.8rem;
+    }
 }
 
 /* Optimize images for mobile */
@@ -1400,7 +1494,8 @@ img {
     .slider-btn,
     .btn-view-all,
     .apb-btn,
-    .umkm-btn {
+    .umkm-btn,
+    .btn-outline-success {
         min-height: 44px;
         display: flex;
         align-items: center;
@@ -1484,6 +1579,24 @@ img {
         </div>
     </div>
 </div>
+{{-- ---------------- Chart Section ---------------- --}}
+<div class="chart-section">
+    <h2>Visualisasi Statistik Penduduk</h2>
+    <div class="chart-wrapper">
+        <canvas id="chartPenduduk"></canvas>
+    </div>
+</div>
+
+{{-- ---------------- Profil Desa Section ---------------- --}}
+<div class="profil">
+    <div class="profil-text">
+        <h2>Tentang Kelurahan</h2>
+        <p>Kelurahan Maccini Sombala merupakan salah satu kelurahan di Kota Makassar yang memiliki potensi besar dalam pembangunan masyarakat. Dengan jumlah penduduk lebih dari <b>9.600 jiwa</b>, wilayah ini terus berkembang dengan berbagai program sosial, pendidikan, serta peningkatan infrastruktur.</p>
+    </div>
+    <div class="profil-img">
+        <img src="{{ asset('landing/images/slider-main/makassar.jpg') }}" alt="Kelurahan" onclick="openModal('{{ asset('landing/images/slider-main/kelurahan.jpg') }}')">
+    </div>
+</div>
 
 {{-- ---------------- Jadwal Sholat Section ---------------- --}}
 <div class="jadwal-sholat-section">
@@ -1516,25 +1629,6 @@ img {
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-{{-- ---------------- Profil Desa Section ---------------- --}}
-<div class="profil">
-    <div class="profil-text">
-        <h2>Tentang Kelurahan</h2>
-        <p>Kelurahan Maccini Sombala merupakan salah satu kelurahan di Kota Makassar yang memiliki potensi besar dalam pembangunan masyarakat. Dengan jumlah penduduk lebih dari <b>9.600 jiwa</b>, wilayah ini terus berkembang dengan berbagai program sosial, pendidikan, serta peningkatan infrastruktur.</p>
-    </div>
-    <div class="profil-img">
-        <img src="{{ asset('landing/images/slider-main/makassar.jpg') }}" alt="Kelurahan" onclick="openModal('{{ asset('landing/images/slider-main/kelurahan.jpg') }}')">
-    </div>
-</div>
-
-{{-- ---------------- Chart Section ---------------- --}}
-<div class="chart-section">
-    <h2>Visualisasi Statistik Penduduk</h2>
-    <div class="chart-wrapper">
-        <canvas id="chartPenduduk"></canvas>
     </div>
 </div>
 
@@ -1671,7 +1765,7 @@ img {
                         </a>
                         @if($umkm->wa)
                         <a href="https://wa.me/62{{ ltrim($umkm->wa, '0') }}?text=Halo%20{{ urlencode($umkm->pemilik) }},%20saya%20tertarik%20dengan%20{{ urlencode($umkm->judul) }}."
-                           target="_blank" class="btn btn-outline-success btn-sm" onclick="event.stopPropagation()">
+                           target="_blank" class="btn-outline-success" onclick="event.stopPropagation()">
                            <i class="fab fa-whatsapp me-2"></i>Chat WhatsApp
                         </a>
                         @endif

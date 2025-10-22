@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kalender;
 use App\Models\PemerintahDesa;
-use App\Models\Agenda; // pakai Agenda untuk kalender
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
+use Carbon\Carbon; // IMPORT CARBON DI SINI
 
 class PemerintahDesaController extends Controller
 {
@@ -90,27 +90,43 @@ class PemerintahDesaController extends Controller
     }
 
     // ===================== USER =====================
-    public function userIndex()
-    {
-        $pemerintahDesas = PemerintahDesa::all();
+public function userIndex()
+{
+    $pemerintahDesas = PemerintahDesa::all();
 
-        // Ambil bulan & tahun dari query string, default sekarang
-        $month = request('month', now()->month);
-        $year  = request('year', now()->year);
+    // Ambil bulan & tahun dari query string, default sekarang
+    $month = request('month', \Carbon\Carbon::now()->month);
+    $year  = request('year', \Carbon\Carbon::now()->year);
 
-        $events = Agenda::whereMonth('waktu_pelaksanaan', $month)
-                ->whereYear('waktu_pelaksanaan', $year)
-                ->get()
-                ->groupBy(function ($agenda) {
-                    return Carbon::parse($agenda->waktu_pelaksanaan)->day;
-                });
+    // Query events dari model Kalender - dengan namespace lengkap Carbon
+    $events = Kalender::whereMonth('tanggal_kegiatan', $month)
+            ->whereYear('tanggal_kegiatan', $year)
+            ->get()
+            ->groupBy(function ($kalender) {
+                return \Carbon\Carbon::parse($kalender->tanggal_kegiatan)->format('Y-m-d');
+            });
 
-        $firstDay = Carbon::create($year, $month, 1);
-        $daysInMonth = $firstDay->daysInMonth;
-        $startDayOfWeek = $firstDay->dayOfWeek; // Minggu=0, Senin=1, dst
+    $firstDay = \Carbon\Carbon::create($year, $month, 1);
+    $daysInMonth = $firstDay->daysInMonth;
+    $startDayOfWeek = $firstDay->dayOfWeek; // Minggu=0, Senin=1, dst
 
-        return view('pages.landing.profildesa.PemerintahDesa', compact(
-            'pemerintahDesas', 'month', 'year', 'events', 'daysInMonth', 'startDayOfWeek'
-        ));
-    }
+    // Data untuk navigasi
+    $prevMonth = $month == 1 ? 12 : $month - 1;
+    $prevYear = $month == 1 ? $year - 1 : $year;
+    $nextMonth = $month == 12 ? 1 : $month + 1;
+    $nextYear = $month == 12 ? $year + 1 : $year;
+
+    return view('pages.landing.profildesa.PemerintahDesa', compact(
+        'pemerintahDesas', 
+        'month', 
+        'year', 
+        'events', 
+        'daysInMonth', 
+        'startDayOfWeek',
+        'prevMonth',
+        'prevYear', 
+        'nextMonth',
+        'nextYear'
+    ));
+}
 }

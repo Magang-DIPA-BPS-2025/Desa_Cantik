@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 
 class BukuTamuController extends Controller
 {
-    // ✅ METHOD UNTUK TAMU (PUBLIC)
+  
     public function index()
     {
-        $bukutamus = BukuTamu::latest()->get();
+        $bukutamus = BukuTamu::orderBy('created_at', 'desc')->paginate(10);
         return view('pages.landing.bukutamu.Buku', compact('bukutamus'));
     }
 

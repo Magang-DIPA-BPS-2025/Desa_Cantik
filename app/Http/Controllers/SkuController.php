@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\URL;
 class SkuController extends Controller
 {
     /** -------------------------------
-     *  TAMPILKAN DATA SKU
+     *  TAMPILKAN DATA SKU - INDEX
      *  -------------------------------
      */
     public function index(Request $request)
@@ -35,7 +35,7 @@ class SkuController extends Controller
     }
 
     /** -------------------------------
-     *  TAMPILKAN FORM TAMBAH
+     *  TAMPILKAN FORM TAMBAH - CREATE
      *  -------------------------------
      */
     public function create()
@@ -47,28 +47,61 @@ class SkuController extends Controller
     }
 
     /** -------------------------------
-     *  SIMPAN DATA SKU BARU
+     *  SIMPAN DATA SKU BARU - STORE
      *  -------------------------------
      */
     public function store(Request $request)
+{$request->validate([
+    'nik' => 'required|string|max:20',
+    'nama' => 'required|string|max:100',
+    'alamat' => 'required|string',
+    'nama_usaha' => 'required|string|max:100',
+    'alamat_usaha' => 'required|string',
+    'no_hp' => 'nullable|string|max:20',
+    'email' => 'nullable|email|max:100',
+    'pekerjaan' => 'nullable|string|max:50',
+    'jenis_kelamin' => 'nullable|string',
+    'tanggal_dibuat' => 'required|date', 
+]);
+
+
+    // Cara 2: Explicitly define semua field
+    Sku::create([
+        'nik' => $request->nik,
+        'nama' => $request->nama,
+        'alamat' => $request->alamat,
+        'pekerjaan' => $request->pekerjaan,
+        'no_hp' => $request->no_hp,
+        'email' => $request->email,
+        'nama_usaha' => $request->nama_usaha,
+        'alamat_usaha' => $request->alamat_usaha,
+        'jenis_kelamin' => $request->jenis_kelamin,
+        'tanggal_dibuat' => $request->tanggal_dibuat ?? now(), 
+        'status_verifikasi' => 'Belum Diverifikasi',
+    ]);
+
+    return redirect()->route('pengantar')->with('success', 'Data SKU berhasil ditambahkan.');
+}
+
+    
+
+    /** -------------------------------
+     *  TAMPILKAN DETAIL SKU - SHOW
+     *  -------------------------------
+     */
+    public function show($id)
     {
-        $request->validate([
-            'nik' => 'required|string|max:20',
-            'nama' => 'required|string|max:100',
-            'alamat' => 'required|string',
-            'nama_usaha' => 'required|string|max:100',
-            'alamat_usaha' => 'required|string',
-            'no_hp' => 'nullable|string|max:20',
-            'email' => 'nullable|email|max:100',
+        $sku = Sku::findOrFail($id);
+        
+        return view('pages.admin.sku.show', [
+            'sku'   => $sku,
+            'title' => 'Detail SKU',
+            'menu'  => 'SKU',
         ]);
-
-        Sku::create($request->all());
-
-        return redirect()->route('sku.index')->with('success', 'Data SKU berhasil ditambahkan.');
     }
 
     /** -------------------------------
-     *  TAMPILKAN FORM EDIT
+     *  TAMPILKAN FORM EDIT - EDIT
      *  -------------------------------
      */
     public function edit($id)
@@ -83,30 +116,45 @@ class SkuController extends Controller
     }
 
     /** -------------------------------
-     *  UPDATE DATA SKU
+     *  UPDATE DATA SKU - UPDATE
      *  -------------------------------
      */
-    public function update(Request $request, $id)
+     public function update(Request $request, $id)
     {
-        $sku = Sku::findOrFail($id);
-
         $request->validate([
             'nik' => 'required|string|max:20',
             'nama' => 'required|string|max:100',
             'alamat' => 'required|string',
+            'pekerjaan' => 'nullable|string|max:50',
             'nama_usaha' => 'required|string|max:100',
             'alamat_usaha' => 'required|string',
-            'no_hp' => 'nullable|string|max:20',
-            'email' => 'nullable|email|max:100',
+            'no_hp' => 'nullable|string|max:15',
+            'email' => 'nullable|email',
+            'keperluan' => 'nullable|string',
+            'nomor_surat' => 'nullable|string|max:50', // Tambahan field nomor surat
         ]);
 
-        $sku->update($request->all());
+        $sku = SKU::findOrFail($id);
+        
+        $sku->update([
+            'nik' => $request->nik,
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'pekerjaan' => $request->pekerjaan,
+            'nama_usaha' => $request->nama_usaha,
+            'alamat_usaha' => $request->alamat_usaha,
+            'no_hp' => $request->no_hp,
+            'email' => $request->email,
+            'nomor_surat' => $request->nomor_surat, // Simpan nomor surat
+        ]);
 
-        return redirect()->route('sku.index')->with('success', 'Data SKU berhasil diperbarui.');
+
+        return redirect()->route('sku.index')
+            ->with('success', 'Data SKU berhasil diperbarui!');
     }
 
     /** -------------------------------
-     *  HAPUS DATA SKU
+     *  HAPUS DATA SKU - DESTROY
      *  -------------------------------
      */
     public function destroy($id)
@@ -114,11 +162,11 @@ class SkuController extends Controller
         $sku = Sku::findOrFail($id);
         $sku->delete();
 
-        return redirect()->back()->with('success', 'Data SKU berhasil dihapus.');
+        return redirect()->route('sku.index')->with('success', 'Data SKU berhasil dihapus.');
     }
 
     /** -------------------------------
-     *  VERIFIKASI SKU
+     *  VERIFIKASI SKU - CUSTOM METHOD
      *  -------------------------------
      */
     public function verifikasi($id)
@@ -131,7 +179,7 @@ class SkuController extends Controller
     }
 
     /** -------------------------------
-     *  CETAK SURAT SKU (PDF)
+     *  CETAK SURAT SKU (PDF) - CUSTOM METHOD
      *  -------------------------------
      */
     public function cetak($id)
@@ -142,36 +190,55 @@ class SkuController extends Controller
             return redirect()->back()->with('error', 'Data belum diverifikasi, tidak dapat dicetak.');
         }
 
-        // Generate link verifikasi untuk QR
-        $linkVerifikasi = URL::to('/verifikasi-surat/' . $sku->id);
+        $linkVerifikasi = route('verifikasi.surat', ['id' => $sku->id]);
+        
+        // Untuk sementara, kita skip QR code dulu
+        $qrCodeSuccess = false;
+        $qrCodeBase64 = '';
 
-        $pdf = Pdf::loadView('pages.admin.sku.cetak', compact('sku', 'linkVerifikasi'))
-            ->setPaper('A4', 'portrait');
+        $pdf = Pdf::loadView('pages.admin.sku.cetak', [
+            'sku' => $sku,
+            'linkVerifikasi' => $linkVerifikasi,
+            'qrCodeSuccess' => $qrCodeSuccess
+        ])->setPaper('A4', 'portrait')
+          ->setOptions([
+              'defaultFont' => 'Times New Roman',
+              'isHtml5ParserEnabled' => true,
+              'isRemoteEnabled' => true,
+          ]);
 
         return $pdf->stream('Surat-Keterangan-Usaha-' . $sku->nama . '.pdf');
     }
 
     /** -------------------------------
-     *  HALAMAN VERIFIKASI SURAT
+     *  HALAMAN VERIFIKASI SURAT - CUSTOM METHOD
      *  -------------------------------
      */
+    public function verifikasiSurat($id)
+    {
+        $sku = Sku::find($id);
 
+        if (!$sku) {
+            return response()->view('pages.admin.sku.verifikasi', [
+                'valid' => false,
+                'pesan' => 'Data surat tidak ditemukan dalam sistem.',
+            ], 404);
+        }
 
-    public function verifikasiQr($id)
-{
-    $sku = Sku::find($id);
-
-    if (!$sku) {
         return response()->view('pages.admin.sku.verifikasi', [
-            'valid' => false,
-            'pesan' => 'Data surat tidak ditemukan dalam sistem.',
+            'valid' => true,
+            'sku' => $sku,
         ]);
     }
 
-    return response()->view('pages.admin.sku.verifikasi', [
-        'valid' => true,
-        'sku' => $sku,
-    ]);
-}
-
+    /** -------------------------------
+     *  FORCE GD BACKEND UNTUK QR CODE
+     *  -------------------------------
+     */
+    private function forceGDBackend()
+    {
+        putenv('QR_CODE_BACKEND=gd');
+        config(['qrcode.imageBackend' => 'gd']);
+        \Log::info('Forced GD backend for QR Code generation');
+    }
 }

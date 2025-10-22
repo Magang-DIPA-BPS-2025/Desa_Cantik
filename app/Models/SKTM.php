@@ -10,6 +10,10 @@ class Sktm extends Model
 
     protected $fillable = [
         'nik', 'nama', 'alamat', 'pekerjaan', 'agama', 
-        'no_hp', 'email', 'tanggal_dibuat'
+        'no_hp', 'email', 'tanggal_dibuat', 'nomor_surat', 'status_verifikasi'
+    ];
+
+    protected $attributes = [
+        'status_verifikasi' => 'Belum Diverifikasi',
     ];
 }

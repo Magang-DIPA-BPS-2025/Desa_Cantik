@@ -12,16 +12,18 @@ class DataPendudukController extends Controller
         $datas = DataPenduduk::latest()->paginate(10);
         return view('pages.admin.dataPenduduk.index', [
             'datas' => $datas,
-            'menu'  => 'dataPenduduk',
-            'title'    => 'Data Penduduk',
+            'title' => 'Data Penduduk',
+            'activeMenu' => 'datapenduduk' 
         ]);
     }
 
     public function create()
     {
         return view('pages.admin.dataPenduduk.create', [
-            'menu' => 'data_penduduk'
+            'title' => 'Tambah Data Penduduk',
+                'activeMenu' => 'datapenduduk' 
         ]);
+        
     }
 
     public function store(Request $request)
@@ -58,7 +60,8 @@ class DataPendudukController extends Controller
         $dataPenduduk = DataPenduduk::findOrFail($nik);
         return view('pages.admin.dataPenduduk.show', [
             'dataPenduduk' => $dataPenduduk,
-            'menu'         => 'data_penduduk'
+            'title' => 'Detail Data Penduduk',
+              'activeMenu' => 'datapenduduk' 
         ]);
     }
 
@@ -67,7 +70,8 @@ class DataPendudukController extends Controller
         $dataPenduduk = DataPenduduk::findOrFail($id);
         return view('pages.admin.dataPenduduk.edit', [
             'dataPenduduk' => $dataPenduduk,
-            'menu'         => 'data_penduduk'
+            'title' => 'Edit Data Penduduk',
+                'activeMenu' => 'datapenduduk' 
         ]);
     }
 
@@ -111,17 +115,14 @@ class DataPendudukController extends Controller
             ->with('success', 'Data penduduk berhasil dihapus');
     }
 
-
     public function statistik(Request $request)
     {
         $query = DataPenduduk::query();
 
-        // Filter dusun jika ada
         if ($request->has('dusun') && $request->dusun) {
             $query->where('dusun', $request->dusun);
         }
 
-        // Filter tahun jika ada
         if ($request->has('tahun') && $request->tahun) {
             $query->where('tahun', $request->tahun);
         }
@@ -133,7 +134,6 @@ class DataPendudukController extends Controller
             ->where('disabilitas', '!=', 'Tidak Ada')->count();
         $kepalaKeluarga = (clone $query)->select('nokk')->distinct()->count('nokk');
 
-        // Data dusun untuk filter
         $dusunList = DataPenduduk::select('dusun')->distinct()->orderBy('dusun')->get();
 
         return view('pages.landing.datastatistikdesa.jumlahPenduduk', compact(
@@ -146,32 +146,24 @@ class DataPendudukController extends Controller
         ));
     }
 
-
-    /**
-     * Statistik data pendidikan
-     */
     public function statistikPendidikan(Request $request)
     {
         $query = DataPenduduk::selectRaw('pendidikan, COUNT(*) as jumlah')
             ->whereNotNull('pendidikan')
             ->where('pendidikan', '!=', '');
 
-        // Filter dusun jika ada
         if ($request->has('dusun') && $request->dusun) {
             $query->where('dusun', $request->dusun);
         }
 
-        // Filter tahun jika ada
         if ($request->has('tahun') && $request->tahun) {
             $query->where('tahun', $request->tahun);
         }
-
 
         $pendidikanStats = $query->groupBy('pendidikan')
             ->orderBy('jumlah', 'desc')
             ->get();
 
-        // Data dusun untuk filter
         $dusunList = DataPenduduk::select('dusun')->distinct()->orderBy('dusun')->get();
 
         return view('pages.landing.datastatistikdesa.DataPendidikan', [
@@ -180,31 +172,24 @@ class DataPendudukController extends Controller
         ]);
     }
 
-    /**
-     * Statistik data pekerjaan
-     */
     public function statistikPekerjaan(Request $request)
     {
         $query = DataPenduduk::selectRaw('pekerjaan, COUNT(*) as jumlah')
             ->whereNotNull('pekerjaan')
             ->where('pekerjaan', '!=', '');
 
-        // Filter dusun jika ada
         if ($request->has('dusun') && $request->dusun) {
             $query->where('dusun', $request->dusun);
         }
 
-        // Filter tahun jika ada
         if ($request->has('tahun') && $request->tahun) {
             $query->where('tahun', $request->tahun);
         }
-
 
         $pekerjaanStats = $query->groupBy('pekerjaan')
             ->orderBy('jumlah', 'desc')
             ->get();
 
-        // Data dusun untuk filter
         $dusunList = DataPenduduk::select('dusun')->distinct()->orderBy('dusun')->get();
 
         return view('pages.landing.datastatistikdesa.DataPekerjaan', [
@@ -213,31 +198,24 @@ class DataPendudukController extends Controller
         ]);
     }
 
-    /**
-     * Statistik data agama
-     */
     public function statistikAgama(Request $request)
     {
         $query = DataPenduduk::selectRaw('agama, COUNT(*) as jumlah')
             ->whereNotNull('agama')
             ->where('agama', '!=', '');
 
-        // Filter dusun jika ada
         if ($request->has('dusun') && $request->dusun) {
             $query->where('dusun', $request->dusun);
         }
 
-        // Filter tahun jika ada
         if ($request->has('tahun') && $request->tahun) {
             $query->where('tahun', $request->tahun);
         }
-
 
         $agamaStats = $query->groupBy('agama')
             ->orderBy('jumlah', 'desc')
             ->get();
 
-        // Data dusun untuk filter
         $dusunList = DataPenduduk::select('dusun')->distinct()->orderBy('dusun')->get();
 
         return view('pages.landing.datastatistikdesa.DataAgama', [

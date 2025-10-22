@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Sktm;
+use App\Models\SKU;
 use App\Models\Surat;
 use App\Models\JenisSurat;
 use App\Models\SuratPengantar;
@@ -155,38 +156,57 @@ class SuratController extends Controller
             'keterangan' => 'nullable|string',
         ]);
 
-        SuratPengantar::create(array_merge($validated, [
+        // Simpan ke model SKU
+        SKU::create(array_merge($validated, [
+            'status_verifikasi' => 'Belum Diverifikasi',
             'nomor_surat' => null,
-            'status' => 'Menunggu Verifikasi',
-            'qr_code' => null,
         ]));
 
         return redirect()->route('status')->with('success', 'Pengajuan surat diterima. Menunggu verifikasi admin.');
     }
 
-    public function userStatus(Request $request)
-    {
-        $nik = $request->query('nik');
-        $datas = !empty($nik)
-            ? SuratPengantar::where('nik', $nik)->latest()->get()
-            : collect();
+  public function userStatus(Request $request)
+{
+    $nik = $request->query('nik');
 
-        return view('pages.landing.layananonline.StatusPengantar', [
-            'datas' => $datas,
-            'nik' => $nik,
-        ]);
+    if (!empty($nik)) {
+        $skuData = SKU::where('nik', $nik)->latest()->get();
+        $sktmData = SKTM::where('nik', $nik)->latest()->get();
+        $datas = $skuData->merge($sktmData);
+    } else {
+        $datas = collect();
     }
 
-    public function userShowLetter($id)
-    {
-        $surat = SuratPengantar::findOrFail($id);
-        if ($surat->status !== 'Disetujui') {
-            abort(404);
-        }
+    return view('pages.landing.layananonline.StatusPengantar', [
+        'datas' => $datas,
+        'nik' => $nik,
+    ]);
+}
 
-        return view('pages.landing.layananonline.SuratView', [
-            'surat' => $surat,
-            'kepalaDesa' => 'Kepala Desa Contoh',
-        ]);
+   public function userShowLetter($id)
+{
+    // Coba cari di tabel SKU terlebih dahulu
+    $surat = SKU::find($id);
+
+    // Jika tidak ditemukan di SKU, coba di SKTM
+    if (!$surat) {
+        $surat = SKTM::find($id);
     }
+
+    // Jika tidak ada di keduanya, abort 404
+    if (!$surat) {
+        abort(404, 'Surat tidak ditemukan.');
+    }
+
+    // Periksa status verifikasi
+    if ($surat->status_verifikasi !== 'Terverifikasi') {
+        abort(404, 'Surat belum diverifikasi atau tidak ditemukan.');
+    }
+
+    return view('pages.landing.layananonline.SuratView', [
+        'surat' => $surat,
+        'kepalaDesa' => 'Kepala Desa Contoh',
+    ]);
+}
+
 }

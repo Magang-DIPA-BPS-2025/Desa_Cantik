@@ -1,1 +1,1 @@
-<div class="simple-footer">Copyright &copy; Desa Cantik</div>
+<div class="simple-footer">Copyright &copy; 2025 Powered by Magang Universitas Dipa Makassar</div>

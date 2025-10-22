@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kalender;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\DataPenduduk;
@@ -34,14 +35,20 @@ class AdminController extends Controller
             $dataPenduduk   = collect([0, 0, 0]);
         }
 
-        $latestPengaduan = class_exists(Pengaduan::class)
+        // Pengaduan terbaru
+        $latestPengaduan = class_exists(Pengaduan::class) && Schema::hasTable('pengaduans')
             ? Pengaduan::latest()->take(5)->get()
             : collect([]);
 
-        // Buat daftar tanggal pengaduan (sebagai tanda di kalender)
-        $agendaDates = class_exists(Pengaduan::class)
-            ? Pengaduan::selectRaw('DATE(created_at) as tanggal')->distinct()->pluck('tanggal')
-            : collect([]);
+        // Tanggal kegiatan dari tabel kalender
+        if (class_exists(Kalender::class) && Schema::hasTable('kalenders')) {
+            $agendaDates = Kalender::selectRaw('tanggal_kegiatan as tanggal')
+                ->whereNotNull('tanggal_kegiatan')
+                ->distinct()
+                ->pluck('tanggal');
+        } else {
+            $agendaDates = collect([]);
+        }
 
         return view('pages.admin.dashboard.index', [
             'menu'            => 'dashboard',
@@ -52,7 +59,7 @@ class AdminController extends Controller
             'labelsPenduduk'  => $labelsPenduduk,
             'dataPenduduk'    => $dataPenduduk,
             'latestPengaduan' => $latestPengaduan,
-            'agendaDates'     => $agendaDates, // untuk kalender
+            'agendaDates'     => $agendaDates,
         ]);
     }
 }

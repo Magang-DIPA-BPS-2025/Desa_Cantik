@@ -6,11 +6,16 @@ use App\Models\BelanjaDesa;
 use App\Models\Agenda;
 use App\Models\Berita;
 use App\Models\Galeri;
+use App\Models\Kalender;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\KalenderExport;
 
 class AgendaController extends Controller
 {
+    /* ======================= AGENDA DESA ======================= */
+
     public function index()
     {
         $datas = Agenda::all();
@@ -40,10 +45,9 @@ class AgendaController extends Controller
             'waktu_pelaksanaan' => 'required|date',
             'deskripsi'         => 'nullable|string',
             'kategori'          => 'required|string|in:Umum,Rapat,Pelatihan,Sosialisasi,Acara Resmi,Internal,Eksternal',
-            'foto'              => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // validasi foto
+            'foto'              => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        // Upload foto (jika ada)
         $fotoPath = null;
         if ($request->hasFile('foto')) {
             $fotoPath = $request->file('foto')->store('agenda_foto', 'public');
@@ -52,13 +56,12 @@ class AgendaController extends Controller
         Agenda::create([
             'nama_kegiatan'     => trim($request->nama_kegiatan),
             'waktu_pelaksanaan' => $request->waktu_pelaksanaan,
-            'deskripsi'         => $request->filled('deskripsi') ? trim($request->deskripsi) : null,
-            'kategori'          => trim($request->kategori),
+            'deskripsi'         => $request->deskripsi,
+            'kategori'          => $request->kategori,
             'foto'              => $fotoPath,
         ]);
 
-        return redirect()->route('AgendaDesa.index')
-            ->with('success', 'Agenda berhasil ditambahkan');
+        return redirect()->route('AgendaDesa.index')->with('success', 'Agenda berhasil ditambahkan');
     }
 
     public function edit($id)
@@ -81,52 +84,119 @@ class AgendaController extends Controller
             'waktu_pelaksanaan' => 'required|date',
             'deskripsi'         => 'nullable|string',
             'kategori'          => 'required|string|in:Umum,Rapat,Pelatihan,Sosialisasi,Acara Resmi,Internal,Eksternal',
-            'foto'              => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // validasi foto
+            'foto'              => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $agenda = Agenda::findOrFail($id);
 
-        // Update foto (jika ada foto baru)
         if ($request->hasFile('foto')) {
-            // hapus foto lama kalau ada
             if ($agenda->foto && Storage::disk('public')->exists($agenda->foto)) {
                 Storage::disk('public')->delete($agenda->foto);
             }
-            $fotoPath = $request->file('foto')->store('agenda_foto', 'public');
-            $agenda->foto = $fotoPath;
+            $agenda->foto = $request->file('foto')->store('agenda_foto', 'public');
         }
 
-        // Update data lain
         $agenda->update([
             'nama_kegiatan'     => trim($request->nama_kegiatan),
             'waktu_pelaksanaan' => $request->waktu_pelaksanaan,
-            'deskripsi'         => $request->filled('deskripsi') ? trim($request->deskripsi) : null,
-            'kategori'          => trim($request->kategori),
+            'deskripsi'         => $request->deskripsi,
+            'kategori'          => $request->kategori,
             'foto'              => $agenda->foto,
         ]);
 
-        return redirect()->route('AgendaDesa.index')
-            ->with('success', 'Agenda berhasil diperbarui');
+        return redirect()->route('AgendaDesa.index')->with('success', 'Agenda berhasil diperbarui');
     }
 
     public function destroy($id)
     {
         $agenda = Agenda::findOrFail($id);
-
-        // hapus foto dari storage
         if ($agenda->foto && Storage::disk('public')->exists($agenda->foto)) {
             Storage::disk('public')->delete($agenda->foto);
         }
-
         $agenda->delete();
 
-        return redirect()->route('AgendaDesa.index')
-            ->with('success', 'Agenda berhasil dihapus');
+        return redirect()->route('AgendaDesa.index')->with('success', 'Agenda berhasil dihapus');
     }
 
-    /**
-     * Menampilkan agenda untuk user landing page
-     */
+    /* ======================= KALENDER DESA ======================= */
+
+    public function kalenderIndex()
+    {
+        $kalenders = Kalender::latest()->paginate(10);
+
+        return view('pages.admin.KalenderDesa.index', [
+            'kalenders' => $kalenders,
+            'menu' => 'KalenderDesa',
+            'title' => 'Kalender Desa'
+        ]);
+    }
+
+    public function kalenderCreate()
+    {
+        return view('pages.admin.KalenderDesa.create', [
+            'menu' => 'KalenderDesa',
+            'title' => 'Tambah Kegiatan Kalender'
+        ]);
+    }
+
+    public function kalenderStore(Request $request)
+    {
+        $request->validate([
+            'nama_kegiatan' => 'required|string|max:255',
+            'tanggal' => 'required|date',
+        ]);
+
+        Kalender::create([
+            'nama_kegiatan' => $request->nama_kegiatan,
+            'tanggal' => $request->tanggal,
+        ]);
+
+        return redirect()->route('kalenderDesa.index')->with('success', 'Kegiatan berhasil ditambahkan ke kalender.');
+    }
+
+    public function kalenderEdit($id)
+    {
+        $kalender = Kalender::findOrFail($id);
+
+        return view('pages.admin.KalenderDesa.edit', [
+            'kalender' => $kalender,
+            'menu' => 'KalenderDesa',
+            'title' => 'Edit Kegiatan Kalender'
+        ]);
+    }
+
+    public function kalenderUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'nama_kegiatan' => 'required|string|max:255',
+            'tanggal' => 'required|date',
+        ]);
+
+        $kalender = Kalender::findOrFail($id);
+        $kalender->update([
+            'nama_kegiatan' => $request->nama_kegiatan,
+            'tanggal' => $request->tanggal,
+        ]);
+
+        return redirect()->route('kalenderDesa.index')->with('success', 'Kegiatan berhasil diperbarui.');
+    }
+
+    public function kalenderDestroy($id)
+    {
+        $kalender = Kalender::findOrFail($id);
+        $kalender->delete();
+
+        return redirect()->route('kalenderDesa.index')->with('success', 'Kegiatan berhasil dihapus.');
+    }
+
+    // ✅ Export Excel
+    public function kalenderExportExcel()
+    {
+        return Excel::download(new KalenderExport, 'kalender_desa.xlsx');
+    }
+
+    /* ======================= UNTUK USER LANDING ======================= */
+
     public function userIndex(Request $request)
     {
         $kategoriSelected = $request->query('kategori');
@@ -148,13 +218,9 @@ class AgendaController extends Controller
         ]);
     }
 
-    /**
-     * Menampilkan detail agenda untuk user
-     */
     public function userShow($id)
     {
         $agenda = Agenda::findOrFail($id);
-
         $agenda->increment('dilihat');
 
         $latest_agendas = Agenda::latest()->take(6)->get();
@@ -165,19 +231,21 @@ class AgendaController extends Controller
             'latest_post' => $latest_agendas
         ]);
     }
+
     public function userBeranda()
     {
         $beritas = Berita::with('kategori')->latest()->take(6)->get();
         $latest_agendas = Agenda::latest()->take(6)->get();
         $belanjas = BelanjaDesa::latest()->take(6)->get();
         $galeris = Galeri::latest()->take(6)->get();
+        $kalenders = Kalender::latest()->take(6)->get();
 
         return view('pages.landing.index', [
             'beritas' => $beritas,
             'latest_agendas' => $latest_agendas,
             'belanjas' => $belanjas,
             'galeris' => $galeris,
+            'kalenders' => $kalenders,
         ]);
     }
-
 }
