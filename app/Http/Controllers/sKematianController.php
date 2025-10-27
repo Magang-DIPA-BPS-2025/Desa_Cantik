@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\SKematian;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class sKematianController extends Controller
 {
@@ -11,15 +13,8 @@ class sKematianController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $kematians = SKematian::orderBy('created_at', 'desc')->paginate(10);
+        return view('pages.admin.skematian.index', compact('kematians'));
     }
 
     /**
@@ -27,7 +22,35 @@ class sKematianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $validated = $request->validate([
+                'nik' => 'required|string|max:16',
+                'nama' => 'required|string|max:255',
+                'alamat' => 'required|string',
+                'tempat_lahir' => 'required|string|max:255',
+                'tanggal_lahir' => 'required|date',
+                'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+                'pekerjaan' => 'nullable|string|max:255',
+                'no_hp' => 'nullable|string|max:15',
+                'email' => 'nullable|email',
+                'nomor_kk' => 'required|string|max:16',
+                'tanggal_kematian' => 'required|date',
+                'tanggal_dibuat' => 'required|date',
+                'nomor_surat' => 'nullable|string|max:100',
+            ]);
+
+            $validated['status_verifikasi'] = 'Belum Diverifikasi';
+
+            SKematian::create($validated);
+
+            return redirect()->route('pengantar')
+                ->with('success', 'Data surat kematian berhasil diajukan.');
+
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Terjadi kesalahan: ' . $e->getMessage())
+                ->withInput();
+        }
     }
 
     /**
@@ -35,7 +58,8 @@ class sKematianController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $kematian = SKematian::findOrFail($id);
+        return view('pages.admin.skematian.show', compact('kematian'));
     }
 
     /**
@@ -43,7 +67,8 @@ class sKematianController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $kematian = SKematian::findOrFail($id);
+        return view('pages.admin.skematian.edit', compact('kematian'));
     }
 
     /**
@@ -51,7 +76,27 @@ class sKematianController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $kematian = SKematian::findOrFail($id);
+
+        $validated = $request->validate([
+            'nik' => 'required|string|max:16',
+            'nama' => 'required|string|max:255',
+            'alamat' => 'required|string',
+            'tempat_lahir' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'pekerjaan' => 'nullable|string|max:255',
+            'no_hp' => 'nullable|string|max:15',
+            'email' => 'nullable|email',
+            'nomor_kk' => 'required|string|max:16',
+            'tanggal_kematian' => 'required|date',
+            'nomor_surat' => 'nullable|string|max:100',
+        ]);
+
+        $kematian->update($validated);
+
+        return redirect()->route('kematian.index')
+            ->with('success', 'Data surat kematian berhasil diperbarui.');
     }
 
     /**
@@ -59,6 +104,76 @@ class sKematianController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $kematian = SKematian::findOrFail($id);
+        $kematian->delete();
+
+        return redirect()->route('kematian.index')
+            ->with('success', 'Data surat kematian berhasil dihapus.');
+    }
+
+    /**
+     * Verifikasi surat kematian
+     */
+    public function verifikasi($id)
+    {
+        $kematian = SKematian::findOrFail($id);
+        $kematian->update([
+            'status_verifikasi' => 'Terverifikasi',
+            'nomor_surat' => $kematian->nomor_surat ?? $kematian->id . '/SKM/' . date('Y')
+        ]);
+
+        return redirect()->route('kematian.index')
+            ->with('success', 'Surat kematian berhasil diverifikasi.');
+    }
+
+    /**
+     * Cetak surat kematian
+     */
+    public function cetak($id)
+    {
+        $kematian = SKematian::findOrFail($id);
+
+        if ($kematian->status_verifikasi !== 'Terverifikasi') {
+            return redirect()->back()->with('error', 'Data belum diverifikasi, tidak dapat dicetak.');
+        }
+
+        $linkVerifikasi = route('verifikasi.surat.kematian', ['id' => $kematian->id]);
+
+        // Untuk sementara, kita skip QR code dulu
+        $qrCodeSuccess = false;
+        $qrCodeBase64 = '';
+
+        $pdf = Pdf::loadView('pages.admin.skematian.cetak', [
+            'kematian' => $kematian,
+            'linkVerifikasi' => $linkVerifikasi,
+            'qrCodeSuccess' => $qrCodeSuccess
+        ])->setPaper('A4', 'portrait')
+            ->setOptions([
+                'defaultFont' => 'Times New Roman',
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => true,
+            ]);
+
+        return $pdf->stream('Surat-Keterangan-Kematian-' . $kematian->nama . '.pdf');
+    }
+
+    /**
+     * Verifikasi surat untuk user (public)
+     */
+    public function verifikasiSurat($id)
+    {
+        $kematian = SKematian::find($id);
+
+        if (!$kematian) {
+            return view('pages.landing.verifikasi.kematian', [
+                'valid' => false,
+                'pesan' => 'Data surat kematian tidak ditemukan.'
+            ]);
+        }
+
+        return view('pages.landing.verifikasi.kematian', [
+            'valid' => true,
+            'kematian' => $kematian
+        ]);
     }
 }

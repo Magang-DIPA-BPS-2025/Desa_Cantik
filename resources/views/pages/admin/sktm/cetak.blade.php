@@ -129,7 +129,7 @@
         }
 
         .nama-jabatan {
-            margin-top: 60px;
+            margin-top: 10px;
         }
 
         .nama-jabatan p {
@@ -228,7 +228,6 @@
                 <!-- QR Code -->
                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data={{ urlencode($linkVerifikasi) }}"
                     alt="QR Code Verifikasi" class="qr-code">
-                <p style="font-size: 9px; color: #666;">Scan untuk verifikasi</p>
 
                 <div class="nama-jabatan">
                     <p><strong><u>Nama Kepala Desa</u></strong></p>

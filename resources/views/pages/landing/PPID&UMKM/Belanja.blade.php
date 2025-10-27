@@ -3,6 +3,35 @@
 @push('styles')
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;500;600&display=swap');
+
+/* Font Variables */
+:root {
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Open Sans', sans-serif;
+    --color-primary: #2E7D32;
+    --color-primary-hover: #1B5E20;
+}
+
+/* Apply Fonts */
+.umkm-heading {
+    font-family: var(--font-heading) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+}
+
+.umkm-text {
+    font-family: var(--font-body) !important;
+    font-weight: 400 !important;
+    line-height: 1.6 !important;
+}
+
+.umkm-card-title {
+    font-family: var(--font-heading) !important;
+    font-weight: 600 !important;
+}
+
 /* ========== GLOBAL ========== */
 .container { max-width: 1200px; }
 
@@ -12,6 +41,7 @@
     box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
     transition: all 0.3s ease;
     overflow: hidden;
+    font-family: var(--font-body);
 }
 
 .umkm-card {
@@ -31,7 +61,7 @@
     box-shadow: 0 0.75rem 1.5rem rgba(0,0,0,0.1);
 }
 
-.umkm-card:hover .card-title { color: #28a745; }
+.umkm-card:hover .card-title { color: var(--color-primary); }
 
 .umkm-image {
     height: 200px;
@@ -40,8 +70,15 @@
     border-bottom: 1px solid #e9ecef;
 }
 
-.badge { font-size: 0.75rem; font-weight: 600; border-radius: 6px; padding: 0.35em 0.65em; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-.badge-category { background: #28a745; color: #fff; }
+.badge { 
+    font-size: 0.75rem; 
+    font-weight: 600; 
+    border-radius: 6px; 
+    padding: 0.35em 0.65em; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-family: var(--font-body);
+}
+.badge-category { background: var(--color-primary); color: #fff; }
 .badge-rating { background: #ffc107; color: #212529; }
 .badge-wrapper { position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; padding: 0.75rem; z-index: 2; }
 
@@ -52,16 +89,43 @@
     flex-grow: 1;
 }
 
-.card-title { font-weight: 700; color: #2d3748; font-size: 1.1rem; margin-bottom: 0.5rem; }
-.card-text { color: #6c757d; font-size: 0.9rem; margin-bottom: 1rem; }
-.price { font-weight: 700; color: #28a745; font-size: 1.1rem; margin-bottom: 1rem; }
+.card-title { 
+    font-weight: 700; 
+    color: #2d3748; 
+    font-size: 1.1rem; 
+    margin-bottom: 0.5rem;
+    font-family: var(--font-heading);
+}
+.card-text { 
+    color: #6c757d; 
+    font-size: 0.9rem; 
+    margin-bottom: 1rem;
+    font-family: var(--font-body);
+}
+.price { 
+    font-weight: 700; 
+    color: var(--color-primary); 
+    font-size: 1.1rem; 
+    margin-bottom: 1rem;
+    font-family: var(--font-body);
+}
 
-.info-line { display: flex; align-items: center; gap: 6px; color: #6c757d; font-size: 0.9rem; margin-bottom: 6px; }
+.info-line { 
+    display: flex; 
+    align-items: center; 
+    gap: 6px; 
+    color: #6c757d; 
+    font-size: 0.9rem; 
+    margin-bottom: 6px;
+    font-family: var(--font-body);
+}
+
+.info-line i { color: var(--color-primary); }
 
 #umkmMap { border-radius: 0 0 12px 12px; height: 400px; }
 
 .custom-marker {
-    background: #28a745;
+    background: var(--color-primary);
     border: 3px solid #fff;
     border-radius: 50%;
     width: 40px;
@@ -72,13 +136,106 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-.stats-container { background: #f8f9fa; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+.stats-container { 
+    background: #f8f9fa; 
+    border-radius: 12px; 
+    padding: 2rem; 
+    margin-bottom: 2rem;
+    font-family: var(--font-body);
+}
 .stat-item { text-align: center; padding: 1rem; }
-.stat-number { font-size: 2.5rem; font-weight: 700; color: #28a745; margin-bottom: 0.5rem; }
-.stat-label { color: #6c757d; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; }
+.stat-number { 
+    font-size: 2.5rem; 
+    font-weight: 700; 
+    color: var(--color-primary); 
+    margin-bottom: 0.5rem;
+    font-family: var(--font-heading);
+}
+.stat-label { 
+    color: #6c757d; 
+    font-size: 0.9rem; 
+    font-weight: 600; 
+    text-transform: uppercase;
+    font-family: var(--font-body);
+}
 
-@media (max-width: 768px) { .page-title { font-size: 2rem; } #umkmMap { height: 300px; } }
-@media (max-width: 576px) { .page-title { font-size: 1.75rem; } #umkmMap { height: 250px; } }
+/* Header Styling */
+.page-header {
+    margin-bottom: 2rem;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+    font-family: var(--font-heading);
+}
+
+.page-subtitle {
+    font-size: 1.1rem;
+    color: #6c757d;
+    font-family: var(--font-body);
+    line-height: 1.6;
+}
+
+/* Map Header - Diubah menjadi hijau dengan teks putih */
+.map-container .card-header {
+    background: var(--color-primary);
+    border-bottom: 1px solid var(--color-primary);
+    padding: 1.25rem 1.5rem;
+}
+
+.map-container .card-header h5 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Jarak antara icon dan teks */
+}
+
+.map-container .card-header h5 i {
+    color: #ffffff;
+    font-size: 1.1em;
+}
+
+/* Button Styling */
+.btn-success {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    font-family: var(--font-body);
+    font-weight: 500;
+}
+
+.btn-success:hover {
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+}
+
+/* Pagination */
+.pagination {
+    font-family: var(--font-body);
+}
+
+.page-link {
+    color: var(--color-primary);
+}
+
+.page-item.active .page-link {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+@media (max-width: 768px) { 
+    .page-title { font-size: 2rem; } 
+    #umkmMap { height: 300px; } 
+}
+@media (max-width: 576px) { 
+    .page-title { font-size: 1.75rem; } 
+    #umkmMap { height: 250px; } 
+}
 </style>
 @endpush
 
@@ -87,8 +244,8 @@
 
     {{-- HEADER --}}
     <div class="page-header mb-4">
-        <h1 class="page-title"><i class="fas fa-store me-3"></i>UMKM Desa</h1>
-        <p class="page-subtitle">Temukan berbagai produk unggulan dan jasa dari UMKM desa kami</p>
+        <h1 class="page-title umkm-heading">UMKM Desa</h1>
+        <p class="page-subtitle umkm-text">Temukan berbagai produk unggulan dan jasa dari UMKM desa kami</p>
     </div>
 
     {{-- MAP --}}
@@ -96,7 +253,10 @@
         <div class="col-12">
             <div class="card map-container">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0"><i class="fas fa-map-marked-alt me-2"></i>Peta Lokasi UMKM Desa</h5>
+                    <h5 class="mb-0 umkm-heading">
+                        <i class="fas fa-map-marked-alt"></i>
+                        Peta Lokasi UMKM Desa
+                    </h5>
                 </div>
                 <div class="card-body p-0">
                     <div id="umkmMap"></div>
@@ -116,7 +276,7 @@
                     <div class="badge-wrapper">
                         <div>
                             @if($umkm->kategori)
-                                <span class="badge badge-category">
+                                <span class="badge badge-category umkm-text">
                                     <i class="fas fa-tag me-1"></i>{{ $umkm->kategori }}
                                 </span>
                             @endif
@@ -124,7 +284,7 @@
                         <div>
                             @php $rating = $umkm->averageRating(); @endphp
                             @if($rating > 0)
-                                <span class="badge badge-rating">
+                                <span class="badge badge-rating umkm-text">
                                     <i class="fas fa-star me-1"></i>{{ number_format($rating, 1) }}
                                 </span>
                             @endif
@@ -133,32 +293,30 @@
                 </div>
 
                 <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">{{ $umkm->judul }}</h5>
+                    <h5 class="card-title umkm-card-title">{{ $umkm->judul }}</h5>
                     @if($umkm->deskripsi)
-                        <p class="card-text">{{ Str::limit(strip_tags($umkm->deskripsi), 120) }}</p>
+                        <p class="card-text umkm-text">{{ Str::limit(strip_tags($umkm->deskripsi), 120) }}</p>
                     @endif
 
-                    <div class="info-line">
-                        <i class="fas fa-user text-success"></i>
+                    <div class="info-line umkm-text">
+                        <i class="fas fa-user"></i>
                         <small>{{ $umkm->pemilik }}</small>
                     </div>
 
                     @if($umkm->lokasi)
-                    <div class="info-line">
-                        <i class="fas fa-map-marker-alt text-success"></i>
+                    <div class="info-line umkm-text">
+                        <i class="fas fa-map-marker-alt"></i>
                         <small>{{ $umkm->lokasi }}</small>
                     </div>
                     @endif
 
-                    <div class="price">Rp {{ number_format($umkm->harga, 0, ',', '.') }}</div>
-
-                    {{-- Tombol WhatsApp dihapus --}}
+                    <div class="price umkm-text">Rp {{ number_format($umkm->harga, 0, ',', '.') }}</div>
                 </div>
             </a>
         </div>
         @empty
         <div class="col-12 text-center text-muted">
-            <p>Belum ada UMKM terdaftar.</p>
+            <p class="umkm-text">Belum ada UMKM terdaftar.</p>
         </div>
         @endforelse
     </div>
@@ -211,13 +369,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     umkmData.forEach(u => {
         const popup = `
-            <div style="min-width:280px;">
+            <div style="min-width:280px; font-family: 'Open Sans', sans-serif;">
                 <img src="${u.image}" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:8px;">
-                <h6 class="fw-bold text-success mb-1">${u.title}</h6>
-                <small class="text-muted d-block mb-1"><i class="fas fa-user me-1"></i>${u.pemilik}</small>
-                <small class="text-muted d-block mb-1"><i class="fas fa-tag me-1"></i>${u.kategori}</small>
-                <small class="text-muted d-block mb-2"><i class="fas fa-dollar-sign me-1"></i>Rp ${u.harga.toLocaleString('id-ID')}</small>
-                <a href="${u.url}" class="btn btn-success btn-sm w-100"><i class="fas fa-eye me-1"></i>Lihat Detail</a>
+                <h6 style="font-family: 'Poppins', sans-serif; font-weight: 700; color: #2E7D32; margin-bottom: 0.5rem;">${u.title}</h6>
+                <small style="color: #6c757d; display: block; margin-bottom: 0.25rem;"><i class="fas fa-user me-1"></i>${u.pemilik}</small>
+                <small style="color: #6c757d; display: block; margin-bottom: 0.25rem;"><i class="fas fa-tag me-1"></i>${u.kategori}</small>
+                <small style="color: #6c757d; display: block; margin-bottom: 1rem;"><i class="fas fa-dollar-sign me-1"></i>Rp ${u.harga.toLocaleString('id-ID')}</small>
+                <a href="${u.url}" class="btn btn-success btn-sm w-100" style="background-color: #2E7D32; border-color: #2E7D32; font-family: 'Open Sans', sans-serif;">
+                    <i class="fas fa-eye me-1"></i>Lihat Detail
+                </a>
             </div>`;
         L.marker([u.lat, u.lng], { icon: umkmIcon }).addTo(map).bindPopup(popup);
     });

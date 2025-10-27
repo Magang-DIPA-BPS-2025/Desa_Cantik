@@ -10,10 +10,10 @@
         @php
             // Dapatkan nama route saat ini
             $currentRouteName = request()->route()->getName();
-            
+
             // Tentukan menu aktif berdasarkan route
             $activeMenu = '';
-            
+
             // Dashboard
             if (str_contains($currentRouteName, 'dashboard')) {
                 $activeMenu = 'dashboard';
@@ -23,21 +23,29 @@
                 $activeMenu = 'datapenduduk';
             }
             // Profil Desa
-            elseif (str_contains($currentRouteName, 'galeriDesa') || 
-                    str_contains($currentRouteName, 'pemerintah-desa') || 
-                    str_contains($currentRouteName, 'apbd')) {
+            elseif (
+                str_contains($currentRouteName, 'galeriDesa') ||
+                str_contains($currentRouteName, 'pemerintah-desa') ||
+                str_contains($currentRouteName, 'apbd')
+            ) {
                 $activeMenu = 'profil';
             }
             // Agenda
-            elseif (str_contains($currentRouteName, 'AgendaDesa') || 
-                    str_contains($currentRouteName, 'berita') || 
-                    str_contains($currentRouteName, 'kategori') ||
-                    str_contains($currentRouteName, 'kalender')) {
+            elseif (
+                str_contains($currentRouteName, 'AgendaDesa') ||
+                str_contains($currentRouteName, 'berita') ||
+                str_contains($currentRouteName, 'kategori') ||
+                str_contains($currentRouteName, 'kalender')
+            ) {
                 $activeMenu = 'agenda';
             }
             // Persuratan
-            elseif (str_contains($currentRouteName, 'sku') || 
-                    str_contains($currentRouteName, 'sktm')) {
+            elseif (
+                str_contains($currentRouteName, 'sku') ||
+                str_contains($currentRouteName, 'sktm') ||
+                    str_contains($currentRouteName, 'izin') ||
+                str_contains($currentRouteName, 'kematian')
+            ) {
                 $activeMenu = 'persuratan';
             }
             // Pengaduan
@@ -45,8 +53,10 @@
                 $activeMenu = 'pengaduan';
             }
             // PPID & UMKM
-            elseif (str_contains($currentRouteName, 'ppid') || 
-                    str_contains($currentRouteName, 'belanja')) {
+            elseif (
+                str_contains($currentRouteName, 'ppid') ||
+                str_contains($currentRouteName, 'belanja')
+            ) {
                 $activeMenu = 'ppidumkm';
             }
             // Permohonan
@@ -61,7 +71,7 @@
             elseif (str_contains($currentRouteName, 'akun')) {
                 $activeMenu = 'akun';
             }
-            
+
             // Tentukan sub-menu aktif
             $activeSubmenu = '';
             if (str_contains($currentRouteName, 'galeriDesa')) {
@@ -82,12 +92,16 @@
                 $activeSubmenu = 'suratSku';
             } elseif (str_contains($currentRouteName, 'sktm')) {
                 $activeSubmenu = 'suratSktm';
+            } elseif (str_contains($currentRouteName, 'kematian')) {
+                $activeSubmenu = 'kematian';
+            } elseif (str_contains($currentRouteName, 'izin')) {
+                $activeSubmenu = 'izin';
             } elseif (str_contains($currentRouteName, 'ppid')) {
                 $activeSubmenu = 'ppid';
             } elseif (str_contains($currentRouteName, 'belanja')) {
                 $activeSubmenu = 'belanja';
             }
-            
+
             // Tentukan dropdown mana yang harus show
             $showProfil = in_array($activeMenu, ['profil']);
             $showAgenda = in_array($activeMenu, ['agenda']);
@@ -165,6 +179,12 @@
                         <li class="{{ $activeSubmenu == 'suratSktm' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('sktm.index') }}">Surat SKTM</a>
                         </li>
+                        <li class="{{ $activeSubmenu == 'kematian' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('kematian.index') }}">Surat Kematian</a>
+                        </li>
+                        <li class="{{ $activeSubmenu == 'izin' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('izin.index') }}">Surat Izin</a>
+                        </li>
                     </ul>
                 </li>
 
@@ -228,61 +248,61 @@
 
 <!-- JavaScript untuk interaktifitas dropdown -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Inisialisasi dropdown yang aktif
-    const activeDropdowns = document.querySelectorAll('.nav-item.dropdown.active');
-    activeDropdowns.forEach(dropdown => {
-        const dropdownMenu = dropdown.querySelector('.dropdown-menu');
-        if (dropdownMenu) {
-            dropdownMenu.classList.add('show');
-        }
-    });
-
-    // Handle klik pada dropdown toggle
-    const dropdownToggles = document.querySelectorAll('.nav-link.has-dropdown');
-    
-    dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const parent = this.parentElement;
-            const dropdownMenu = this.nextElementSibling;
-            
-            // Tutup semua dropdown lainnya
-            document.querySelectorAll('.nav-item.dropdown .dropdown-menu.show').forEach(menu => {
-                if (menu !== dropdownMenu) {
-                    menu.classList.remove('show');
-                }
-            });
-            
-            // Toggle dropdown saat ini
+    document.addEventListener('DOMContentLoaded', function () {
+        // Inisialisasi dropdown yang aktif
+        const activeDropdowns = document.querySelectorAll('.nav-item.dropdown.active');
+        activeDropdowns.forEach(dropdown => {
+            const dropdownMenu = dropdown.querySelector('.dropdown-menu');
             if (dropdownMenu) {
-                dropdownMenu.classList.toggle('show');
-                
-                // Tambah/remove class active pada parent
-                if (dropdownMenu.classList.contains('show')) {
-                    parent.classList.add('active');
-                } else {
-                    // Jangan remove active jika ini adalah menu yang memang aktif
-                    if (!parent.classList.contains('active')) {
-                        parent.classList.remove('active');
+                dropdownMenu.classList.add('show');
+            }
+        });
+
+        // Handle klik pada dropdown toggle
+        const dropdownToggles = document.querySelectorAll('.nav-link.has-dropdown');
+
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const parent = this.parentElement;
+                const dropdownMenu = this.nextElementSibling;
+
+                // Tutup semua dropdown lainnya
+                document.querySelectorAll('.nav-item.dropdown .dropdown-menu.show').forEach(menu => {
+                    if (menu !== dropdownMenu) {
+                        menu.classList.remove('show');
+                    }
+                });
+
+                // Toggle dropdown saat ini
+                if (dropdownMenu) {
+                    dropdownMenu.classList.toggle('show');
+
+                    // Tambah/remove class active pada parent
+                    if (dropdownMenu.classList.contains('show')) {
+                        parent.classList.add('active');
+                    } else {
+                        // Jangan remove active jika ini adalah menu yang memang aktif
+                        if (!parent.classList.contains('active')) {
+                            parent.classList.remove('active');
+                        }
                     }
                 }
+            });
+        });
+
+        // Tutup dropdown ketika klik di luar
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.nav-item.dropdown')) {
+                document.querySelectorAll('.nav-item.dropdown .dropdown-menu.show').forEach(menu => {
+                    // Jangan tutup menu yang memang aktif
+                    const parent = menu.closest('.nav-item.dropdown');
+                    if (!parent.classList.contains('active')) {
+                        menu.classList.remove('show');
+                    }
+                });
             }
         });
     });
-
-    // Tutup dropdown ketika klik di luar
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.nav-item.dropdown')) {
-            document.querySelectorAll('.nav-item.dropdown .dropdown-menu.show').forEach(menu => {
-                // Jangan tutup menu yang memang aktif
-                const parent = menu.closest('.nav-item.dropdown');
-                if (!parent.classList.contains('active')) {
-                    menu.classList.remove('show');
-                }
-            });
-        }
-    });
-});
 </script>

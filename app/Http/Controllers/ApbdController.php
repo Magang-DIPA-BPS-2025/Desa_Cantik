@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ApbdController extends Controller
 {
     /**
-     * Menampilkan semua data APBD Desa
+     * Menampilkan semua data APBD Desa (Admin)
      */
     public function index()
     {
@@ -38,7 +38,7 @@ class ApbdController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tahun' => 'required|integer|min:2020|max:2030',
+            'tahun' => 'required|integer|min:2020|max:2030|unique:apbds,tahun',
             'total_pendapatan' => 'required|numeric|min:0',
             'total_belanja' => 'required|numeric|min:0',
             'penerimaan' => 'required|numeric|min:0',
@@ -120,8 +120,10 @@ class ApbdController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $apbd = Apbd::findOrFail($id);
+
         $request->validate([
-            'tahun' => 'required|integer|min:2020|max:2030',
+            'tahun' => 'required|integer|min:2020|max:2030|unique:apbds,tahun,' . $id,
             'total_pendapatan' => 'required|numeric|min:0',
             'total_belanja' => 'required|numeric|min:0',
             'penerimaan' => 'required|numeric|min:0',
@@ -138,8 +140,6 @@ class ApbdController extends Controller
             'pembiayaan_penerimaan' => 'required|numeric|min:0',
             'pembiayaan_pengeluaran' => 'required|numeric|min:0',
         ]);
-
-        $apbd = Apbd::findOrFail($id);
 
         // Hitung persentase otomatis
         $data = $request->all();
@@ -199,14 +199,49 @@ class ApbdController extends Controller
     }
 
     /**
-     * Menampilkan data APBD untuk user landing page
+     * Menampilkan data APBD untuk user landing page dengan fitur filtering
      */
-    public function userIndex()
+    public function show(Request $request)
     {
-        $apbds = Apbd::orderBy('tahun', 'desc')->get();
+        // Ambil tahun yang dipilih dari request
+        $selectedYear = $request->get('tahun');
+        
+        // Query untuk mendapatkan data APBD berdasarkan tahun
+        $apbdQuery = Apbd::query();
+        
+        if ($selectedYear) {
+            $apbdQuery->where('tahun', $selectedYear);
+        } else {
+            // Jika tidak ada tahun yang dipilih, ambil tahun terbaru
+            $selectedYear = Apbd::max('tahun');
+            $apbdQuery->where('tahun', $selectedYear);
+        }
+        
+        $apbd = $apbdQuery->first();
+        
+        // Ambil daftar tahun yang tersedia untuk dropdown
+        $years = Apbd::distinct()->orderBy('tahun', 'desc')->pluck('tahun');
+        
+        return view('pages.landing.profildesa.APBDDesa', compact('apbd', 'years', 'selectedYear'));
+    }
 
-        return view('pages.landing.profildesa.ApbdDesa', [
-            'apbds' => $apbds,
+    /**
+     * API untuk mendapatkan data APBD berdasarkan tahun (untuk AJAX requests)
+     */
+    public function getByYear($year)
+    {
+        $apbd = Apbd::where('tahun', $year)->first();
+        
+        if (!$apbd) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data APBD tidak ditemukan untuk tahun ' . $year
+            ], 404);
+        }
+        
+        return response()->json([
+            'success' => true,
+            'data' => $apbd
         ]);
     }
 }

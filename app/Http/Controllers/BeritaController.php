@@ -14,7 +14,7 @@ class BeritaController extends Controller
 {
     public function index()
     {
-        $datas = Berita::with('kategori')->latest()->paginate(5);
+        $datas = Berita::with('kategori')->latest();
 
         return view('pages.admin.berita.index', [
             'datas' => $datas,

@@ -14,10 +14,10 @@ body {
     overflow-x: hidden;
 }
 
-/* ---------------- Hero Section ---------------- */
+/* ---------------- Hero Section dengan Search ---------------- */
 .hero-section {
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)),
-    url('{{ asset("landing/images/slider-main/makassar.jpg") }}') center/cover no-repeat;
+                url('{{ asset("landing/images/slider-main/makassar.jpg") }}') center/cover no-repeat;
     color: white;
     text-align: center;
     padding: 120px 20px;
@@ -25,7 +25,7 @@ body {
     border-bottom-right-radius: 50px;
     position: relative;
     overflow: hidden;
-    min-height: 400px;
+    min-height: 500px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -62,7 +62,7 @@ body {
 .hero-section h1 {
     font-size: 36px;
     font-weight: 700;
-    margin-bottom: 15px;
+    margin-bottom: 40px;
     color: #ffffff;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
     opacity: 0;
@@ -73,7 +73,7 @@ body {
 
 .hero-section h3 {
     display: inline-block;
-    background: linear-gradient(45deg, #7CB518, #4CAF50);
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
     padding: 8px 18px;
     border-radius: 30px;
     font-size: 16px;
@@ -84,121 +84,67 @@ body {
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-/* Animasi untuk teks muncul satu per satu */
-.typing-text {
-    overflow: hidden;
-    white-space: nowrap;
+/* ---------------- Search Box di Hero ---------------- */
+.hero-search {
+    max-width: 500px;
     margin: 0 auto;
-    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+    position: relative;
 }
 
-@keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
-}
-
-@keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: #7CB518 }
-}
-
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Efek partikel di background */
-.particles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
-
-.particle {
-    position: absolute;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    animation: float 15s infinite linear;
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-100px) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-/* ---------------- Search Section ---------------- */
-.search-section {
-    background: linear-gradient(135deg, #C0D09D, #2E7D32);
-    padding: 40px 20px;
-    margin: 40px auto;
-    border-radius: 20px;
-    max-width: 1200px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-}
-
-.search-container {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.search-title {
-    color: white;
-    font-size: 28px;
-    margin-bottom: 20px;
-    font-weight: 600;
-}
-
-.search-box {
+.hero-search-box {
     display: flex;
-    gap: 10px;
-    max-width: 600px;
-    margin: 0 auto;
+    gap: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50px;
+    padding: 5px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
-.search-input {
+.hero-search-input {
     flex: 1;
     padding: 15px 20px;
     border: none;
-    border-radius: 50px;
+    border-radius: 50px 0 0 50px;
     font-size: 16px;
     outline: none;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    background: transparent;
+    color: #333;
 }
 
-.search-btn {
-    background: #1B5E20;
+.hero-search-input::placeholder {
+    color: #666;
+}
+
+.hero-search-btn {
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
     color: white;
     border: none;
-    padding: 15px 25px;
+    padding: 15px 20px;
     border-radius: 50px;
     cursor: pointer;
     font-size: 16px;
     font-weight: 600;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    min-width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.search-btn:hover {
-    background: #0D3D1A;
-    transform: translateY(-2px);
+.hero-search-btn:hover {
+    background: linear-gradient(135deg, #388e3c, #1b5e20);
+    transform: scale(1.05);
+}
+
+/* Animasi untuk teks muncul satu per satu */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ---------------- Search Results ---------------- */
@@ -209,6 +155,8 @@ body {
     padding: 30px;
     margin-top: 20px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 .search-results.active {
@@ -309,116 +257,9 @@ body {
     margin-bottom: 10px;
 }
 
-/* ---------------- Jadwal Sholat Section ---------------- */
-.jadwal-sholat-section {
-    padding: 80px 20px;
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-}
-
-.jadwal-sholat-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: start;
-}
-
-.jadwal-sholat-card {
-    background: white;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-}
-
-.jadwal-sholat-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.jadwal-sholat-header h3 {
-    color: #2E7D32;
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-.jadwal-date {
-    color: #666;
-    font-size: 16px;
-    font-weight: 500;
-}
-
-.jadwal-location {
-    color: #888;
-    font-size: 14px;
-    margin-top: 5px;
-}
-
-.jadwal-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.jadwal-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background: #f8f9fa;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-}
-
-.jadwal-item:hover {
-    background: #e9ecef;
-    transform: translateX(5px);
-}
-
-.jadwal-item.next-prayer {
-    background: linear-gradient(135deg, #4CAF50, #2E7D32);
-    color: white;
-    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-}
-
-.jadwal-name {
-    font-weight: 600;
-    font-size: 16px;
-}
-
-.jadwal-time {
-    font-weight: 700;
-    font-size: 18px;
-}
-
-.jadwal-next {
-    background: linear-gradient(135deg, #4CAF50, #2E7D32);
-    color: white;
-    text-align: center;
-    padding: 25px;
-    border-radius: 15px;
-    margin-top: 20px;
-}
-
-.next-prayer {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.next-time {
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-
-.countdown {
-    font-size: 14px;
-    color: #e0f2f1;
-}
-
 /* ---------------- Statistik Slider ---------------- */
 .statistik {
-    background: linear-gradient(135deg, #C0D09D, #A5C37A);
+    background: linear-gradient(135deg, #C0D09D, #4CAF50);
     padding: 70px 20px;
     text-align: center;
     border-radius: 40px;
@@ -432,7 +273,7 @@ body {
     margin-bottom: 40px; 
     font-size: 28px; 
     font-weight: 700; 
-    color: #1b5e20; 
+    color: #ffffffff; 
 }
 
 #slider {
@@ -674,6 +515,385 @@ body {
     font-weight:700; 
 }
 
+/* ---------------- Jadwal Sholat Section ---------------- */
+.jadwal-sholat-section {
+    background: #f9fafb;
+    padding: 80px 20px;
+}
+
+.jadwal-sholat-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.jadwal-sholat-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    /* Shadow dikurangi */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.jadwal-sholat-card:hover {
+    transform: translateY(-3px);
+    /* Shadow hover juga dikurangi */
+    box-shadow: 0 8px 15px rgba(0,0,0,0.08);
+}
+
+.jadwal-sholat-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 25px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.jadwal-sholat-header h3 {
+    color: #2E7D32;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.jadwal-date {
+    font-size: 18px;
+    color: #4CAF50;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.jadwal-location {
+    font-size: 14px;
+    color: #666;
+    background: #f8f9fa;
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.current-time {
+    font-size: 14px;
+    color: #4CAF50;
+    font-weight: 600;
+    background: #f8f9fa;
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#live-clock {
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    color: #2E7D32;
+}
+
+.jadwal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.jadwal-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border-left: 5px solid #e9ecef;
+    position: relative;
+    overflow: hidden;
+}
+
+.jadwal-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.jadwal-item:hover::before {
+    left: 100%;
+}
+
+/* Perbaikan untuk sholat aktif */
+.jadwal-item.active {
+    background: linear-gradient(135deg, #4CAF50, #2E7D32) !important;
+    color: white !important;
+    border-left-color: #1b5e20 !important;
+    transform: translateX(5px);
+    /* Shadow dikurangi untuk sholat aktif */
+    box-shadow: 0 3px 10px rgba(76, 175, 80, 0.3);
+}
+
+.jadwal-item.active .jadwal-name,
+.jadwal-item.active .jadwal-time {
+    color: white !important;
+}
+
+.jadwal-item.active .jadwal-time {
+    background: rgba(255,255,255,0.2) !important;
+    color: white !important;
+    border-color: rgba(255,255,255,0.3) !important;
+}
+
+/* Pastikan sholat yang sudah lewat tetap terlihat */
+.jadwal-item.passed {
+    opacity: 0.7;
+    background: #f1f3f4 !important;
+    color: #666 !important;
+}
+
+.jadwal-item.passed .jadwal-time {
+    background: #e9ecef !important;
+    color: #666 !important;
+}
+
+.jadwal-name {
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.jadwal-name i {
+    font-size: 18px;
+    width: 20px;
+    text-align: center;
+}
+
+.jadwal-time {
+    font-weight: 700;
+    font-size: 18px;
+    font-family: 'Courier New', monospace;
+    background: rgba(255,255,255,0.9);
+    padding: 8px 14px;
+    border-radius: 8px;
+    color: #2E7D32;
+    border: 2px solid #e9ecef;
+}
+
+.jadwal-item.active .jadwal-time {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border-color: rgba(255,255,255,0.3);
+}
+
+.jadwal-item.passed .jadwal-time {
+    background: #e9ecef;
+    color: #666;
+}
+
+/* Card Sholat Berikutnya */
+.jadwal-next {
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    border-radius: 16px;
+    padding: 30px 25px;
+    color: white;
+    text-align: center;
+    margin-bottom: 25px;
+    /* Shadow dikurangi */
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.jadwal-next::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.05); opacity: 0.7; }
+}
+
+.next-prayer-label {
+    font-size: 16px;
+    margin-bottom: 15px;
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.next-prayer-info {
+    position: relative;
+    z-index: 2;
+}
+
+.next-prayer-name {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #FFEB3B;
+}
+
+.next-time {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    font-family: 'Courier New', monospace;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    color: white;
+}
+
+.countdown-container {
+    background: rgba(255,255,255,0.2);
+    padding: 12px 16px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.countdown-label {
+    font-size: 12px;
+    margin-bottom: 5px;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.countdown {
+    font-size: 18px;
+    font-weight: 700;
+    color: #FFEB3B;
+    font-family: 'Courier New', monospace;
+}
+
+.jadwal-info {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 2px solid #e9ecef;
+}
+
+.jadwal-info h4 {
+    color: #2E7D32;
+    font-size: 18px;
+    margin-bottom: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.jadwal-info p {
+    color: #666;
+    line-height: 1.6;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Responsive Design untuk Jadwal Sholat */
+@media (max-width: 1024px) {
+    .jadwal-sholat-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .jadwal-sholat-section {
+        padding: 50px 20px;
+    }
+    
+    .jadwal-sholat-card {
+        padding: 20px;
+    }
+    
+    .jadwal-sholat-header h3 {
+        font-size: 20px;
+    }
+    
+    .jadwal-item {
+        padding: 15px 18px;
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+    
+    .jadwal-name {
+        font-size: 15px;
+    }
+    
+    .jadwal-time {
+        font-size: 16px;
+    }
+    
+    .next-time {
+        font-size: 32px;
+    }
+    
+    .countdown {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 576px) {
+    .jadwal-sholat-section {
+        padding: 40px 15px;
+    }
+    
+    .jadwal-sholat-card {
+        padding: 20px;
+    }
+    
+    .jadwal-sholat-header h3 {
+        font-size: 18px;
+    }
+    
+    .jadwal-item {
+        padding: 12px 15px;
+    }
+    
+    .jadwal-name {
+        font-size: 14px;
+    }
+    
+    .jadwal-time {
+        font-size: 15px;
+        padding: 6px 12px;
+    }
+    
+    .jadwal-next {
+        padding: 20px 15px;
+        margin-bottom: 20px;
+    }
+    
+    .next-prayer-name {
+        font-size: 18px;
+    }
+    
+    .next-time {
+        font-size: 28px;
+    }
+    
+    .countdown {
+        font-size: 14px;
+    }
+}
+
 /* ---------------- CONTAINER GRID UNIFORM ---------------- */
 .uniform-grid-container {
     max-width: 1200px;
@@ -867,7 +1087,7 @@ body {
     background: #4CAF50;
     color: white;
     border: none;
-    padding: 8px 16px;
+    padding: 12px 16px;
     border-radius: 6px;
     font-size: 0.85rem;
     font-weight: 500;
@@ -877,7 +1097,8 @@ body {
     text-decoration: none;
     display: inline-block;
     text-align: center;
-    width: 100%; /* Pastikan tombol mengambil lebar penuh */
+    width: 100%;
+    margin-bottom: 10px; /* Jarak antara tombol */
 }
 
 .umkm-btn:hover {
@@ -891,7 +1112,7 @@ body {
     background: transparent;
     color: #28a745;
     border: 2px solid #28a745;
-    padding: 8px 16px;
+    padding: 12px 16px;
     border-radius: 6px;
     font-size: 0.85rem;
     font-weight: 500;
@@ -900,7 +1121,7 @@ body {
     text-decoration: none;
     display: inline-block;
     text-align: center;
-    width: 100%; /* Pastikan tombol mengambil lebar penuh */
+    width: 100%;
 }
 
 .btn-outline-success:hover {
@@ -1059,7 +1280,7 @@ body {
     }
     
     .jadwal-sholat-container {
-        gap: 30px;
+        gap: 25px;
     }
 }
 
@@ -1091,7 +1312,7 @@ body {
     /* Hero Section Responsive untuk Tablet */
     .hero-section {
         padding: 100px 20px;
-        min-height: 350px;
+        min-height: 450px;
     }
     
     .hero-section h1 {
@@ -1105,6 +1326,14 @@ body {
     .hero-section h3 {
         font-size: 15px;
         padding: 7px 16px;
+    }
+    
+    .hero-search {
+        max-width: 450px;
+    }
+    
+    .jadwal-sholat-container {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -1141,28 +1370,35 @@ body {
         gap: 25px;
     }
     
-    .search-box {
+    .hero-search-box {
         flex-direction: column;
-        gap: 15px;
+        gap: 0;
+        border-radius: 25px;
     }
     
-    .search-input, .search-btn {
-        width: 100%;
-        border-radius: 12px;
+    .hero-search-input {
+        border-radius: 25px 25px 0 0;
+        padding: 12px 20px;
+    }
+    
+    .hero-search-btn {
+        border-radius: 0 0 25px 25px;
+        padding: 12px 20px;
+        min-height: 50px;
     }
     
     /* Hero Section Responsive untuk Mobile */
     .hero-section {
         padding: 80px 20px;
-        min-height: 300px;
+        min-height: 400px;
         border-bottom-left-radius: 30px;
         border-bottom-right-radius: 30px;
-        background-attachment: scroll; /* Hindari fixed background di mobile */
     }
     
     .hero-section h1 {
         font-size: 28px;
         line-height: 1.3;
+        margin-bottom: 30px;
     }
     
     .hero-section h2 {
@@ -1214,26 +1450,16 @@ body {
         padding: 50px 0;
     }
     
-    .search-section {
-        margin: 30px auto;
-        padding: 30px 20px;
-        border-radius: 15px;
-    }
-    
-    .search-title {
-        font-size: 24px;
-    }
-    
     .jadwal-sholat-section {
         padding: 50px 20px;
     }
     
     .jadwal-item {
-        padding: 12px 15px;
+        padding: 15px 18px;
     }
     
     .jadwal-name {
-        font-size: 14px;
+        font-size: 15px;
     }
     
     .jadwal-time {
@@ -1241,7 +1467,11 @@ body {
     }
     
     .next-time {
-        font-size: 28px;
+        font-size: 32px;
+    }
+    
+    .countdown {
+        font-size: 16px;
     }
     
     .galeri-modal-content {
@@ -1311,13 +1541,14 @@ body {
     /* Hero Section Responsive untuk Small Mobile */
     .hero-section {
         padding: 60px 15px;
-        min-height: 250px;
+        min-height: 350px;
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
     }
     
     .hero-section h1 {
         font-size: 24px;
+        margin-bottom: 25px;
     }
     
     .hero-section h2 {
@@ -1327,6 +1558,10 @@ body {
     .hero-section h3 {
         font-size: 13px;
         padding: 5px 12px;
+    }
+    
+    .hero-search {
+        max-width: 100%;
     }
     
     .section-title {
@@ -1378,16 +1613,6 @@ body {
         font-size: 24px;
     }
     
-    .search-section {
-        padding: 25px 15px;
-        margin: 25px auto;
-    }
-    
-    .search-title {
-        font-size: 20px;
-        margin-bottom: 15px;
-    }
-    
     .jadwal-sholat-section {
         padding: 40px 15px;
     }
@@ -1398,6 +1623,39 @@ body {
     
     .jadwal-sholat-header h3 {
         font-size: 20px;
+    }
+    
+    .jadwal-item {
+        padding: 12px 15px;
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+    
+    .jadwal-name {
+        font-size: 14px;
+    }
+    
+    .jadwal-time {
+        font-size: 15px;
+        padding: 6px 12px;
+    }
+    
+    .jadwal-next {
+        padding: 20px 15px;
+        margin-bottom: 20px;
+    }
+    
+    .next-prayer-name {
+        font-size: 18px;
+    }
+    
+    .next-time {
+        font-size: 28px;
+    }
+    
+    .countdown {
+        font-size: 14px;
     }
     
     .berita-section,
@@ -1438,11 +1696,12 @@ body {
     /* Hero Section Responsive untuk Extra Small Mobile */
     .hero-section {
         padding: 50px 12px;
-        min-height: 220px;
+        min-height: 300px;
     }
     
     .hero-section h1 {
         font-size: 22px;
+        margin-bottom: 20px;
     }
     
     .hero-section h2 {
@@ -1470,10 +1729,6 @@ body {
     .jadwal-sholat-header h3 {
         font-size: 18px;
     }
-    
-    .next-time {
-        font-size: 24px;
-    }
 
     /* Perbaikan tombol UMKM untuk mobile sangat kecil */
     .umkm-btn, .btn-outline-success {
@@ -1490,7 +1745,7 @@ img {
 
 /* Improve touch targets for mobile */
 @media (max-width: 768px) {
-    .search-btn,
+    .hero-search-btn,
     .slider-btn,
     .btn-view-all,
     .apb-btn,
@@ -1526,59 +1781,105 @@ img {
 </style>
 @endpush
 
-{{-- ---------------- Hero Section ---------------- --}}
+{{-- ---------------- Hero Section dengan Search ---------------- --}}
 <div class="hero-section">
-    <div class="particles" id="particles"></div>
     <div class="hero-content">
         <h2 class="typing-text">Selamat Datang di Website Resmi</h2>
         <h1>Desa Cantik Desa Manggalung</h1>
         <h3>Badan Pusat Statistik Sulsel</h3>
+        
+        {{-- Search Box di Hero --}}
+        <div class="hero-search">
+            <div class="hero-search-box">
+                <input type="text" class="hero-search-input" placeholder="Cari berita, agenda, UMKM, statistik...">
+                <button class="hero-search-btn">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+            
+            {{-- Search Results --}}
+            <div class="search-results" id="searchResults">
+                <div class="search-results-header">
+                    <h3 class="search-results-title">Hasil Pencarian</h3>
+                    <span class="search-results-count" id="resultsCount">0 hasil</span>
+                </div>
+                <div class="search-results-list" id="resultsList">
+                    {{-- Hasil pencarian akan ditampilkan di sini --}}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-{{-- ---------------- Search Section ---------------- --}}
-<div class="search-section">
-    <div class="search-container">
-        <h2 class="search-title">Cari Informasi Desa</h2>
-        <div class="search-box">
-            <input type="text" class="search-input" placeholder="Ketik kata kunci pencarian...">
-            <button class="search-btn">
-                <i class="fa fa-search"></i> Cari
-            </button>
-        </div>
-        
-        {{-- Search Results --}}
-        <div class="search-results" id="searchResults">
-            <div class="search-results-header">
-                <h3 class="search-results-title">Hasil Pencarian</h3>
-                <span class="search-results-count" id="resultsCount">0 hasil</span>
-            </div>
-            <div class="search-results-list" id="resultsList">
-                {{-- Hasil pencarian akan ditampilkan di sini --}}
-            </div>
-        </div>
-    </div>
-</div>
+
+<?php
+if (!isset($stats)) {
+    $stats = [
+        'tahun' => date('Y'),
+        'dusun' => 7,
+        'rt' => 23,
+        'rw' => 12,
+        'kepala_keluarga' => 2463,
+        'laki_laki' => 4952,
+        'perempuan' => 4716,
+        'disabilitas' => 4,
+        'total_penduduk' => 9668
+    ];
+}
+?>
 
 {{-- ---------------- Statistik Section ---------------- --}}
 <div class="statistik">
-    <h2>Statistik Penduduk Kelurahan Maccini Sombala Tahun 2025</h2>
+    <h2>Statistik Penduduk Kelurahan Maccini Sombala Tahun {{ $stats['tahun'] ?? date('Y') }}</h2>
     <button class="slider-btn left" id="slideLeft"><i class="fa fa-chevron-left"></i></button>
     <button class="slider-btn right" id="slideRight"><i class="fa fa-chevron-right"></i></button>
     <div class="slider-wrapper overflow-hidden">
         <div id="slider">
             {{-- Statistik Items --}}
-            <div class="item"><img src="{{ asset('landing/images/icon-image/dusun.png') }}" alt="Dusun"><p class="angka">7</p><p class="label">Dusun</p></div>
-            <div class="item"><img src="{{ asset('landing/images/icon-image/rt.png') }}" alt="RT"><p class="angka">23</p><p class="label">RT</p></div>
-            <div class="item"><img src="{{ asset('landing/images/icon-image/rw.png') }}" alt="RW"><p class="angka">12</p><p class="label">RW</p></div>
-            <div class="item"><img src="{{ asset('landing/images/icon-image/kepalaKeluarga.png') }}" alt="Kepala Keluarga"><p class="angka">2.463</p><p class="label">Kepala Keluarga</p></div>
-            <div class="item"><img src="{{ asset('landing/images/icon-image/male.png') }}" alt="Laki-laki"><p class="angka">4.952</p><p class="label">Laki-laki</p></div>
-            <div class="item"><img src="{{ asset('landing/images/icon-image/women.png') }}" alt="Perempuan"><p class="angka">4.716</p><p class="label">Perempuan</p></div>
-            <div class="item"><img src="{{ asset('landing/images/icon-image/disabi.png') }}" alt="Disabilitas"><p class="angka">4</p><p class="label">Disabilitas</p></div>
-            <div class="item"><img src="{{ asset('landing/images/icon-image/family.png') }}" alt="Jumlah Penduduk"><p class="angka">9.668</p><p class="label">Jumlah Penduduk</p></div>
+            <div class="item">
+                <img src="{{ asset('landing/images/icon-image/dusun.png') }}" alt="Dusun">
+                <p class="angka">{{ $stats['dusun'] ?? 7 }}</p>
+                <p class="label">Dusun</p>
+            </div>
+            <div class="item">
+                <img src="{{ asset('landing/images/icon-image/rt.png') }}" alt="RT">
+                <p class="angka">{{ $stats['rt'] ?? 23 }}</p>
+                <p class="label">RT</p>
+            </div>
+            <div class="item">
+                <img src="{{ asset('landing/images/icon-image/rw.png') }}" alt="RW">
+                <p class="angka">{{ $stats['rw'] ?? 12 }}</p>
+                <p class="label">RW</p>
+            </div>
+            <div class="item">
+                <img src="{{ asset('landing/images/icon-image/kepalaKeluarga.png') }}" alt="Kepala Keluarga">
+                <p class="angka">{{ number_format($stats['kepala_keluarga'] ?? 2463) }}</p>
+                <p class="label">Kepala Keluarga</p>
+            </div>
+            <div class="item">
+                <img src="{{ asset('landing/images/icon-image/male.png') }}" alt="Laki-laki">
+                <p class="angka">{{ number_format($stats['laki_laki'] ?? 4952) }}</p>
+                <p class="label">Laki-laki</p>
+            </div>
+            <div class="item">
+                <img src="{{ asset('landing/images/icon-image/women.png') }}" alt="Perempuan">
+                <p class="angka">{{ number_format($stats['perempuan'] ?? 4716) }}</p>
+                <p class="label">Perempuan</p>
+            </div>
+            <div class="item">
+                <img src="{{ asset('landing/images/icon-image/disabi.png') }}" alt="Disabilitas">
+                <p class="angka">{{ $stats['disabilitas'] ?? 4 }}</p>
+                <p class="label">Disabilitas</p>
+            </div>
+            <div class="item">
+                <img src="{{ asset('landing/images/icon-image/family.png') }}" alt="Jumlah Penduduk">
+                <p class="angka">{{ number_format($stats['total_penduduk'] ?? 9668) }}</p>
+                <p class="label">Jumlah Penduduk</p>
+            </div>
         </div>
     </div>
 </div>
+
 {{-- ---------------- Chart Section ---------------- --}}
 <div class="chart-section">
     <h2>Visualisasi Statistik Penduduk</h2>
@@ -1603,29 +1904,44 @@ img {
     <div class="uniform-grid-container">
         <h2 class="section-title">Jadwal Sholat</h2>
         <div class="jadwal-sholat-container">
+            {{-- Card Jadwal Sholat --}}
             <div class="jadwal-sholat-card">
                 <div class="jadwal-sholat-header">
                     <h3>Jadwal Sholat Hari Ini</h3>
-                    <div class="jadwal-date" id="current-date">Senin, 18 Maret 2024</div>
-                    <div class="jadwal-location">Lokasi: Desa Manggalung, Kabupaten Pangkep</div>
+                    <div class="jadwal-date" id="current-date">Loading...</div>
+                    <div class="jadwal-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Lokasi: Desa Manggalung, Kabupaten Pangkep (WITA)
+                    </div>
+                    <div class="current-time" id="current-time">
+                        <i class="fas fa-clock"></i>
+                        Jam Sekarang: <span id="live-clock">--:--:--</span>
+                    </div>
                 </div>
                 <div class="jadwal-list" id="prayer-times">
                     <!-- Jadwal sholat akan diisi oleh JavaScript -->
                 </div>
             </div>
+
+            {{-- Card Sholat Berikutnya --}}
             <div class="jadwal-sholat-card">
                 <div class="jadwal-next">
-                    <div class="next-prayer">Sholat Berikutnya</div>
-                    <div class="next-time" id="next-prayer-time">--:--</div>
-                    <div class="next-prayer" id="next-prayer-name">-</div>
-                    <div class="countdown" id="countdown">--:--:--</div>
+                    <div class="next-prayer-label">
+                        <i class="fas fa-pray"></i>
+                        Sholat Berikutnya
+                    </div>
+                    <div class="next-prayer-info">
+                        <div class="next-prayer-name" id="next-prayer-name">-</div>
+                        <div class="next-time" id="next-prayer-time">--:--</div>
+                        <div class="countdown-container">
+                            <div class="countdown-label">Menuju Sholat</div>
+                            <div class="countdown" id="countdown">--:--:--</div>
+                        </div>
+                    </div>
                 </div>
-                <div style="margin-top: 30px;">
-                    <h4 style="color: #2E7D32; margin-bottom: 15px;">Informasi</h4>
-                    <p style="color: #666; line-height: 1.6; font-size: 14px;">
-                        Jadwal sholat ini dihitung berdasarkan koordinat lokasi Desa Manggalung, Kabupaten Pangkep. 
-                        Waktu dapat berbeda ±2 menit tergantung kondisi cuaca dan observasi.
-                    </p>
+                <div class="jadwal-info">
+                    <h4><i class="fas fa-info-circle"></i> Informasi</h4>
+                    <p>Jadwal sholat ini dihitung berdasarkan koordinat lokasi Desa Manggalung, Kabupaten Pangkep. Waktu dapat berbeda ±2 menit tergantung kondisi cuaca dan observasi.</p>
                 </div>
             </div>
         </div>
@@ -1935,274 +2251,334 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-// ---------------- Efek Partikel di Hero Section ----------------
-function createParticles() {
-    const particlesContainer = document.getElementById('particles');
-    const particleCount = window.innerWidth < 768 ? 15 : 20;
-    
-    // Clear existing particles
-    particlesContainer.innerHTML = '';
-    
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        
-        // Random size and position
-        const size = Math.random() * 8 + 3;
-        const left = Math.random() * 100;
-        const animationDuration = Math.random() * 20 + 10;
-        const animationDelay = Math.random() * 5;
-        
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        particle.style.left = `${left}%`;
-        particle.style.animationDuration = `${animationDuration}s`;
-        particle.style.animationDelay = `${animationDelay}s`;
-        
-        particlesContainer.appendChild(particle);
-    }
+// ---------------- Jadwal Sholat Functions ---------------- 
+function updateLiveClock() {
+    const now = new Date();
+    const options = { 
+        timeZone: 'Asia/Makassar',
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    };
+    const timeString = now.toLocaleTimeString('id-ID', options);
+    document.getElementById('live-clock').textContent = timeString;
 }
 
-// ---------------- UMKM Card Click Handler ----------------
-document.addEventListener('DOMContentLoaded', function() {
-    // Handle klik pada card UMKM
-    const umkmCards = document.querySelectorAll('.umkm-card');
-    
-    umkmCards.forEach(card => {
-        card.addEventListener('click', function(e) {
-            // Cek jika yang diklik adalah tombol atau link
-            if (e.target.tagName === 'A' || e.target.closest('a') || 
-                e.target.tagName === 'BUTTON' || e.target.closest('button')) {
-                return; // Biarkan event default untuk tombol/link
-            }
-            
-            // Cari link detail di dalam card
-            const detailLink = this.querySelector('a[href*="belanja"]');
-            if (detailLink) {
-                window.location.href = detailLink.href;
-            }
-        });
-        
-        // Tambahkan efek keyboard accessibility
-        card.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                const detailLink = this.querySelector('a[href*="belanja"]');
-                if (detailLink) {
-                    window.location.href = detailLink.href;
-                }
-            }
-        });
-    });
-});
+// Update jam setiap detik
+setInterval(updateLiveClock, 1000);
+updateLiveClock(); // Panggil sekali saat pertama kali load
 
-// ---------------- Jadwal Sholat Functionality untuk Kabupaten Pangkep ----------------
-async function updatePrayerTimes() {
-    const now = new Date();
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    document.getElementById('current-date').textContent = now.toLocaleDateString('id-ID', options);
-
-    // Koordinat untuk Kabupaten Pangkep, Desa Manggalung
-    const latitude = -4.7686;  // Latitude Kabupaten Pangkep
-    const longitude = 119.5578; // Longitude Kabupaten Pangkep
-    const method = 2; // Muslim World League
-    const timezone = 'Asia/Makassar'; // WITA
-
-    // Format tanggal untuk API: DD-MM-YYYY
-    const day = String(now.getDate()).padStart(2, '0');
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const year = now.getFullYear();
-    const dateString = `${day}-${month}-${year}`;
-
-    // API URL untuk Kabupaten Pangkep
-    const apiUrl = `https://api.aladhan.com/v1/timings/${dateString}?latitude=${latitude}&longitude=${longitude}&method=${method}&timezonestring=${timezone}`;
-
+async function fetchPrayerTimes() {
     try {
-        const response = await fetch(apiUrl);
+        // Koordinat Desa Manggalung, Kabupaten Pangkep
+        const latitude = -4.8051;
+        const longitude = 119.5542;
+        const today = new Date();
+        const dateString = today.toISOString().split('T')[0];
         
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
+        // Menggunakan API Aladhan
+        const response = await fetch(`https://api.aladhan.com/v1/timings/${dateString}?latitude=${latitude}&longitude=${longitude}&method=2&timezonestring=Asia/Makassar`);
         const data = await response.json();
         
-        if (data.code === 200 && data.data && data.data.timings) {
-            const timings = data.data.timings;
-
-            const prayerOrder = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
-            const prayerNames = {
-                'Fajr': 'Subuh',
-                'Sunrise': 'Syuruq', 
-                'Dhuhr': 'Dzuhur',
-                'Asr': 'Ashar',
-                'Maghrib': 'Maghrib',
-                'Isha': 'Isya'
-            };
-
-            const prayerTimes = prayerOrder.map((key) => {
-                const time = timings[key];
-                const [hours, minutes] = time.split(':').map(Number);
-                const totalMinutes = hours * 60 + minutes;
-
-                const nowMinutes = now.getHours() * 60 + now.getMinutes();
-                const passed = nowMinutes >= totalMinutes;
-
-                return {
-                    name: prayerNames[key],
-                    time: time,
-                    passed: passed,
-                    totalMinutes: totalMinutes
-                };
-            });
-
-            displayPrayerTimes(prayerTimes);
-            updateNextPrayer(prayerTimes);
-            
+        if (data.code === 200) {
+            return data.data;
         } else {
-            throw new Error('Data jadwal sholat tidak valid');
+            throw new Error('Failed to fetch prayer times');
         }
     } catch (error) {
-        console.error('Gagal mengambil jadwal sholat:', error);
-        // Fallback ke jadwal statis untuk Pangkep
-        displayFallbackPrayerTimes();
+        console.error('Error fetching prayer times:', error);
+        // Fallback ke jadwal default jika API gagal
+        return getDefaultPrayerTimes();
     }
 }
 
-function displayPrayerTimes(prayerTimes) {
-    const container = document.getElementById('prayer-times');
-    container.innerHTML = ''; // Clear existing list
-
-    // Hapus class 'next-prayer' dari semua item sebelumnya
-    const existingItems = document.querySelectorAll('.jadwal-item');
-    existingItems.forEach(item => item.classList.remove('next-prayer'));
-
-    // Cari sholat berikutnya
-    const now = new Date();
-    const nowMinutes = now.getHours() * 60 + now.getMinutes();
-    let nextPrayerFound = false;
-
-    prayerTimes.forEach(prayer => {
-        const div = document.createElement('div');
-        div.className = `jadwal-item`;
-        
-        // Tandai sholat berikutnya dengan warna hijau
-        if (!nextPrayerFound && !prayer.passed) {
-            div.classList.add('next-prayer');
-            nextPrayerFound = true;
+function getDefaultPrayerTimes() {
+    const today = new Date();
+    const timings = {
+        Fajr: '04:40',
+        Sunrise: '05:39',
+        Dhuhr: '11:46',
+        Asr: '15:00',
+        Maghrib: '17:53',
+        Isha: '18:52'
+    };
+    
+    return {
+        timings: timings,
+        date: {
+            readable: today.toLocaleDateString('id-ID', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            })
         }
-        
-        const nameSpan = document.createElement('span');
-        nameSpan.className = 'jadwal-name';
-        nameSpan.textContent = prayer.name;
-        
-        const timeSpan = document.createElement('span');
-        timeSpan.className = 'jadwal-time';
-        timeSpan.textContent = prayer.time;
-        
-        div.appendChild(nameSpan);
-        div.appendChild(timeSpan);
-        container.appendChild(div);
-    });
+    };
 }
 
-function updateNextPrayer(prayerTimes) {
-    const now = new Date();
-    const nowMinutes = now.getHours() * 60 + now.getMinutes();
-    
-    // Cari sholat berikutnya yang belum lewat
-    const nextPrayer = prayerTimes.find(prayer => {
-        return !prayer.passed;
-    });
+function convertToWITA(time24) {
+    // API sudah mengembalikan waktu dalam WITA karena timezone Asia/Makassar
+    return time24;
+}
 
+function updatePrayerTimesDisplay(prayerData) {
+    const prayerTimesContainer = document.getElementById('prayer-times');
+    const currentDateElement = document.getElementById('current-date');
+    
+    // Update tanggal
+    currentDateElement.textContent = prayerData.date.readable;
+    
+    // Daftar sholat dengan nama Indonesia dan icon
+    const prayers = [
+        { key: 'Fajr', name: 'Subuh', icon: 'fas fa-moon' },
+        { key: 'Sunrise', name: 'Terbit', icon: 'fas fa-sun' },
+        { key: 'Dhuhr', name: 'Dzuhur', icon: 'fas fa-sun' },
+        { key: 'Asr', name: 'Ashar', icon: 'fas fa-cloud-sun' },
+        { key: 'Maghrib', name: 'Maghrib', icon: 'fas fa-sun' },
+        { key: 'Isha', name: 'Isya', icon: 'fas fa-moon' }
+    ];
+    
+    // Kosongkan container
+    prayerTimesContainer.innerHTML = '';
+    
+    // Tambahkan setiap waktu sholat
+    prayers.forEach(prayer => {
+        const time = convertToWITA(prayerData.timings[prayer.key]);
+        const prayerElement = document.createElement('div');
+        prayerElement.className = 'jadwal-item';
+        prayerElement.id = `prayer-${prayer.key.toLowerCase()}`;
+        prayerElement.innerHTML = `
+            <span class="jadwal-name">
+                <i class="${prayer.icon}"></i>
+                ${prayer.name}
+            </span>
+            <span class="jadwal-time">${time}</span>
+        `;
+        prayerTimesContainer.appendChild(prayerElement);
+    });
+    
+    // Update sholat aktif dan sholat berikutnya
+    updateActivePrayerAndNext(prayerData.timings);
+}
+
+function updateActivePrayerAndNext(timings) {
+    const now = new Date();
+    const currentTime = now.getHours().toString().padStart(2, '0') + ':' + 
+                       now.getMinutes().toString().padStart(2, '0');
+    
+    const prayers = [
+        { key: 'Fajr', name: 'Subuh', time: convertToWITA(timings.Fajr) },
+        { key: 'Sunrise', name: 'Terbit', time: convertToWITA(timings.Sunrise) },
+        { key: 'Dhuhr', name: 'Dzuhur', time: convertToWITA(timings.Dhuhr) },
+        { key: 'Asr', name: 'Ashar', time: convertToWITA(timings.Asr) },
+        { key: 'Maghrib', name: 'Maghrib', time: convertToWITA(timings.Maghrib) },
+        { key: 'Isha', name: 'Isya', time: convertToWITA(timings.Isha) }
+    ];
+    
+    // Reset semua item
+    document.querySelectorAll('.jadwal-item').forEach(item => {
+        item.classList.remove('active', 'passed');
+    });
+    
+    let nextPrayer = null;
+    let activePrayer = null;
+    let foundActive = false;
+    
+    // Cari sholat aktif dan sholat berikutnya
+    for (let i = 0; i < prayers.length; i++) {
+        const prayer = prayers[i];
+        const prayerTime = prayer.time;
+        const prayerElement = document.getElementById(`prayer-${prayer.key.toLowerCase()}`);
+        
+        if (currentTime < prayerTime) {
+            // Waktu sholat belum datang
+            if (!nextPrayer) {
+                nextPrayer = prayer;
+            }
+            
+            // Tandai semua sholat yang belum datang sebagai normal
+            if (prayerElement) {
+                prayerElement.classList.remove('active', 'passed');
+            }
+        } else {
+            // Waktu sholat sudah lewat
+            if (prayerElement) {
+                prayerElement.classList.add('passed');
+                prayerElement.classList.remove('active');
+            }
+            
+            // Sholat terakhir yang sudah lewat adalah sholat aktif
+            activePrayer = prayer;
+            foundActive = true;
+        }
+    }
+    
+    // Jika tidak ada sholat berikutnya (sudah lewat Isya), set ke Subuh besok
+    if (!nextPrayer) {
+        nextPrayer = prayers[0];
+    }
+    
+    // Tandai sholat aktif dengan warna hijau (hanya satu sholat yang aktif)
+    if (foundActive && activePrayer) {
+        const activeElement = document.getElementById(`prayer-${activePrayer.key.toLowerCase()}`);
+        if (activeElement) {
+            activeElement.classList.add('active');
+            activeElement.classList.remove('passed');
+        }
+    }
+    
+    // Update info sholat berikutnya
     if (nextPrayer) {
         document.getElementById('next-prayer-name').textContent = nextPrayer.name;
         document.getElementById('next-prayer-time').textContent = nextPrayer.time;
         
         // Hitung countdown
-        const [hours, minutes] = nextPrayer.time.split(':').map(Number);
-        const nextPrayerDate = new Date();
-        nextPrayerDate.setHours(hours, minutes, 0, 0);
-        
-        if (nextPrayerDate < now) {
-            nextPrayerDate.setDate(nextPrayerDate.getDate() + 1);
-        }
-        
-        updateCountdown(nextPrayerDate);
-    } else {
-        // Jika semua sholat hari ini sudah lewat, tampilkan sholat pertama besok
-        document.getElementById('next-prayer-name').textContent = 'Subuh';
-        document.getElementById('next-prayer-time').textContent = prayerTimes[0].time;
-        
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        tomorrow.setHours(0, 0, 0, 0);
-        
-        updateCountdown(tomorrow);
+        updateCountdown(nextPrayer.time);
     }
 }
 
-function updateCountdown(targetDate) {
-    function update() {
-        const now = new Date();
-        const diff = targetDate - now;
-        
-        if (diff <= 0) {
-            // Waktu sholat sudah tiba
-            document.getElementById('countdown').textContent = 'Waktu sholat telah tiba';
-            updatePrayerTimes(); // Refresh data
-            return;
-        }
-        
-        const hours = Math.floor(diff / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+function updateCountdown(nextPrayerTime) {
+    const now = new Date();
+    const [hours, minutes] = nextPrayerTime.split(':');
+    const prayerTime = new Date();
+    prayerTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+    
+    // Jika waktu sholat sudah lewat hari ini, set untuk besok
+    if (prayerTime <= now) {
+        prayerTime.setDate(prayerTime.getDate() + 1);
+    }
+    
+    const diff = prayerTime - now;
+    
+    if (diff > 0) {
+        const hoursLeft = Math.floor(diff / (1000 * 60 * 60));
+        const minutesLeft = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secondsLeft = Math.floor((diff % (1000 * 60)) / 1000);
         
         document.getElementById('countdown').textContent = 
-            `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    }
-    
-    update();
-    setInterval(update, 1000);
-}
-
-// Fallback jadwal sholat untuk Kabupaten Pangkep jika API tidak bekerja
-function displayFallbackPrayerTimes() {
-    const now = new Date();
-    const nowMinutes = now.getHours() * 60 + now.getMinutes();
-    
-    // Jadwal sholat estimasi untuk Kabupaten Pangkep
-    const fallbackTimes = [
-        { name: 'Subuh', time: '04:45', passed: nowMinutes >= (4*60+45), totalMinutes: 4*60+45 },
-        { name: 'Syuruq', time: '06:05', passed: nowMinutes >= (6*60+5), totalMinutes: 6*60+5 },
-        { name: 'Dzuhur', time: '12:10', passed: nowMinutes >= (12*60+10), totalMinutes: 12*60+10 },
-        { name: 'Ashar', time: '15:25', passed: nowMinutes >= (15*60+25), totalMinutes: 15*60+25 },
-        { name: 'Maghrib', time: '18:15', passed: nowMinutes >= (18*60+15), totalMinutes: 18*60+15 },
-        { name: 'Isya', time: '19:30', passed: nowMinutes >= (19*60+30), totalMinutes: 19*60+30 }
-    ];
-    
-    displayPrayerTimes(fallbackTimes);
-    updateNextPrayer(fallbackTimes);
-    
-    // Update informasi lokasi
-    document.querySelector('.jadwal-location').textContent = 'Lokasi: Desa Manggalung, Kabupaten Pangkep (Data Estimasi)';
-    
-    // Update informasi di card kanan
-    const infoElement = document.querySelector('.jadwal-sholat-card:last-child p');
-    if (infoElement) {
-        infoElement.innerHTML = 'Jadwal sholat ini dihitung berdasarkan koordinat lokasi Desa Manggalung, Kabupaten Pangkep. Waktu dapat berbeda ±2 menit tergantung kondisi cuaca dan observasi. <strong>Menggunakan data estimasi.</strong>';
+            `${hoursLeft.toString().padStart(2, '0')}:${minutesLeft.toString().padStart(2, '0')}:${secondsLeft.toString().padStart(2, '0')}`;
+    } else {
+        document.getElementById('countdown').textContent = '00:00:00';
     }
 }
 
-// ---------------- Search Functionality dengan jQuery ----------------
+// Inisialisasi jadwal sholat
+async function initializePrayerTimes() {
+    try {
+        const prayerData = await fetchPrayerTimes();
+        updatePrayerTimesDisplay(prayerData);
+        
+        // Update countdown setiap detik
+        setInterval(() => {
+            const nextPrayerTime = document.getElementById('next-prayer-time').textContent;
+            if (nextPrayerTime && nextPrayerTime !== '--:--') {
+                updateCountdown(nextPrayerTime);
+            }
+        }, 1000);
+        
+        // Update jadwal setiap 5 menit
+        setInterval(async () => {
+            const updatedData = await fetchPrayerTimes();
+            updatePrayerTimesDisplay(updatedData);
+        }, 300000); // Update setiap 5 menit
+    } catch (error) {
+        console.error('Error initializing prayer times:', error);
+    }
+}
+
+// Panggil fungsi inisialisasi ketika halaman dimuat
+document.addEventListener('DOMContentLoaded', function() {
+    initializePrayerTimes();
+});
+
+// ---------------- Search Functionality untuk Hero Search ---------------- 
 $(document).ready(function() {
-    const $searchInput = $('.search-input');
-    const $searchBtn = $('.search-btn');
+    const $searchInput = $('.hero-search-input');
+    const $searchBtn = $('.hero-search-btn');
     const $searchResults = $('#searchResults');
     const $resultsList = $('#resultsList');
     const $resultsCount = $('#resultsCount');
 
-    // Data untuk pencarian
+    // Data untuk pencarian - SEMUA KONTEN WEBSITE
     const searchData = {
+        // Data Statistik
+        statistik: [
+            {
+                id: 'stat-dusun',
+                title: 'Dusun',
+                content: 'Desa memiliki 7 dusun yang tersebar di wilayah kelurahan',
+                category: 'Statistik',
+                angka: '7',
+                url: '#statistik',
+                icon: 'dusun.png'
+            },
+            {
+                id: 'stat-rt',
+                title: 'RT',
+                content: 'Terdapat 23 RT di wilayah kelurahan untuk administrasi',
+                category: 'Statistik',
+                angka: '23',
+                url: '#statistik',
+                icon: 'rt.png'
+            },
+            {
+                id: 'stat-rw',
+                title: 'RW',
+                content: 'Wilayah kelurahan dibagi menjadi 12 RW',
+                category: 'Statistik',
+                angka: '12',
+                url: '#statistik',
+                icon: 'rw.png'
+            },
+            {
+                id: 'stat-kk',
+                title: 'Kepala Keluarga',
+                content: 'Jumlah kepala keluarga di kelurahan sebanyak 2.463 KK',
+                category: 'Statistik',
+                angka: '2.463',
+                url: '#statistik',
+                icon: 'kepalaKeluarga.png'
+            },
+            {
+                id: 'stat-laki',
+                title: 'Laki-laki',
+                content: 'Penduduk laki-laki berjumlah 4.952 jiwa',
+                category: 'Statistik',
+                angka: '4.952',
+                url: '#statistik',
+                icon: 'male.png'
+            },
+            {
+                id: 'stat-perempuan',
+                title: 'Perempuan',
+                content: 'Penduduk perempuan berjumlah 4.716 jiwa',
+                category: 'Statistik',
+                angka: '4.716',
+                url: '#statistik',
+                icon: 'women.png'
+            },
+            {
+                id: 'stat-disabilitas',
+                title: 'Disabilitas',
+                content: 'Warga dengan disabilitas berjumlah 4 orang',
+                category: 'Statistik',
+                angka: '4',
+                url: '#statistik',
+                icon: 'disabi.png'
+            },
+            {
+                id: 'stat-total',
+                title: 'Jumlah Penduduk',
+                content: 'Total penduduk kelurahan sebanyak 9.668 jiwa',
+                category: 'Statistik',
+                angka: '9.668',
+                url: '#statistik',
+                icon: 'family.png'
+            }
+        ],
+        
+        // Data dari controller
         beritas: [
             @foreach($beritas as $berita)
             {
@@ -2216,6 +2592,7 @@ $(document).ready(function() {
             },
             @endforeach
         ],
+        
         agendas: [
             @foreach($latest_agendas as $agenda)
             {
@@ -2229,6 +2606,7 @@ $(document).ready(function() {
             },
             @endforeach
         ],
+        
         umkms: [
             @foreach($belanjas as $umkm)
             {
@@ -2244,9 +2622,40 @@ $(document).ready(function() {
             },
             @endforeach
         ],
+        
+        // Data tambahan untuk APB Desa
+        apb: [
+            {
+                id: 'apb-pendapatan',
+                title: 'Pendapatan Desa 2024',
+                content: 'Total pendapatan desa tahun 2024 sebesar Rp4.802.205.800,00',
+                category: 'APB Desa',
+                angka: 'Rp4.802.205.800,00',
+                url: "{{ url('/apbd') }}"
+            },
+            {
+                id: 'apb-belanja',
+                title: 'Belanja Desa 2024',
+                content: 'Total belanja desa tahun 2024 sebesar Rp4.888.222.678,00',
+                category: 'APB Desa',
+                angka: 'Rp4.888.222.678,00',
+                url: "{{ url('/apbd') }}"
+            }
+        ],
+        
+        // Data profil desa
+        profil: [
+            {
+                id: 'profil-desa',
+                title: 'Profil Desa Manggalung',
+                content: 'Kelurahan Maccini Sombala merupakan salah satu kelurahan di Kota Makassar yang memiliki potensi besar dalam pembangunan masyarakat. Dengan jumlah penduduk lebih dari 9.600 jiwa',
+                category: 'Profil',
+                url: '#profil'
+            }
+        ]
     };
 
-    // Fungsi pencarian
+    // Fungsi pencarian yang lebih komprehensif
     function performSearch(query) {
         if (!query.trim()) {
             hideSearchResults();
@@ -2254,23 +2663,46 @@ $(document).ready(function() {
         }
 
         const results = [];
-        const searchTerms = query.toLowerCase().split(' ').filter(term => term.length > 2);
+        const searchTerms = query.toLowerCase().split(' ').filter(term => term.length > 1);
 
         // Cari di semua kategori
         Object.keys(searchData).forEach(category => {
             searchData[category].forEach(item => {
-                const searchableText = (item.title + ' ' + item.content + ' ' + (item.pemilik || '')).toLowerCase();
-                const matches = searchTerms.some(term => searchableText.includes(term));
+                const searchableText = (item.title + ' ' + item.content + ' ' + (item.pemilik || '') + ' ' + (item.angka || '')).toLowerCase();
+                
+                // Cek kecocokan dengan berbagai kriteria
+                let matches = false;
+                let relevance = 0;
+                
+                searchTerms.forEach(term => {
+                    // Exact match di title
+                    if (item.title.toLowerCase().includes(term)) {
+                        matches = true;
+                        relevance += 5;
+                    }
+                    // Match di content
+                    if (item.content.toLowerCase().includes(term)) {
+                        matches = true;
+                        relevance += 3;
+                    }
+                    // Match di angka/statistik
+                    if (item.angka && item.angka.toLowerCase().includes(term)) {
+                        matches = true;
+                        relevance += 4;
+                    }
+                    // Match di pemilik UMKM
+                    if (item.pemilik && item.pemilik.toLowerCase().includes(term)) {
+                        matches = true;
+                        relevance += 3;
+                    }
+                    // Match di kategori
+                    if (item.category.toLowerCase().includes(term)) {
+                        matches = true;
+                        relevance += 2;
+                    }
+                });
                 
                 if (matches) {
-                    // Hitung relevansi
-                    let relevance = 0;
-                    searchTerms.forEach(term => {
-                        if (item.title.toLowerCase().includes(term)) relevance += 3;
-                        if (item.content.toLowerCase().includes(term)) relevance += 1;
-                        if (item.pemilik && item.pemilik.toLowerCase().includes(term)) relevance += 2;
-                    });
-                    
                     results.push({
                         ...item,
                         relevance: relevance,
@@ -2294,7 +2726,7 @@ $(document).ready(function() {
                 <div class="no-results">
                     <i class="fas fa-search"></i>
                     <h4>Tidak ada hasil ditemukan</h4>
-                    <p>Tidak ada hasil untuk "<strong>${query}</strong>". Coba dengan kata kunci lain.</p>
+                    <p>Tidak ada hasil untuk "<strong>${query}</strong>". Coba dengan kata kunci lain seperti: kepala keluarga, berita, agenda, UMKM, dusun, RT, RW, pendapatan desa.</p>
                 </div>
             `);
         } else {
@@ -2307,6 +2739,7 @@ $(document).ready(function() {
                         <span class="search-result-category">${result.category}</span>
                         <h4 class="search-result-title">${highlightedTitle}</h4>
                         ${result.date ? `<small><i class="fas fa-calendar"></i> ${result.date}</small>` : ''}
+                        ${result.angka ? `<div class="search-result-highlight" style="margin: 5px 0; font-size: 16px; font-weight: bold;">${result.angka}</div>` : ''}
                         <p class="search-result-text">${highlightedContent}</p>
                         ${result.price ? `<div class="price">${result.price}</div>` : ''}
                     </div>
@@ -2317,16 +2750,11 @@ $(document).ready(function() {
 
         $resultsCount.text(`${results.length} hasil`);
         $searchResults.addClass('active');
-        
-        // Scroll ke hasil pencarian
-        $('html, body').animate({
-            scrollTop: $searchResults.offset().top - 100
-        }, 500);
     }
 
     // Fungsi untuk highlight teks
     function highlightText(text, query) {
-        const searchTerms = query.toLowerCase().split(' ').filter(term => term.length > 2);
+        const searchTerms = query.toLowerCase().split(' ').filter(term => term.length > 1);
         let highlightedText = text;
         
         searchTerms.forEach(term => {
@@ -2359,18 +2787,18 @@ $(document).ready(function() {
         const query = $(this).val().trim();
         if (query.length === 0) {
             hideSearchResults();
-        } else if (query.length >= 3) {
+        } else if (query.length >= 2) {
             // Debounce search
             clearTimeout($(this).data('timeout'));
             $(this).data('timeout', setTimeout(() => {
                 performSearch(query);
-            }, 500));
+            }, 300));
         }
     });
 
     // Klik di luar untuk menutup hasil pencarian
     $(document).on('click', function(e) {
-        if (!$(e.target).closest('.search-container').length) {
+        if (!$(e.target).closest('.hero-search').length) {
             hideSearchResults();
         }
     });
@@ -2383,23 +2811,8 @@ $(document).ready(function() {
 
 // Initialize everything when page loads
 document.addEventListener('DOMContentLoaded', function() {
-    createParticles();
-    updatePrayerTimes();
-    
-    // Recreate particles on resize
-    window.addEventListener('resize', createParticles);
+    // Bubble effect sudah dihapus sesuai permintaan
 });
-
-// Handle window resize for better responsiveness
-window.addEventListener('resize', function() {
-    // Update any layout-dependent calculations
-    if (typeof updateItemWidth === 'function') {
-        updateItemWidth();
-    }
-});
-
-// Auto refresh jadwal sholat setiap 1 menit
-setInterval(updatePrayerTimes, 60000);
 </script>
 @endpush
 @endsection

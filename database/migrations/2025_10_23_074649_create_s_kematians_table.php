@@ -6,9 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('skematians', function (Blueprint $table) {
+        Schema::create('s_kematians', function (Blueprint $table) {
             $table->id();
             $table->string('nik');
             $table->string('nama');
@@ -20,14 +23,19 @@ return new class extends Migration
             $table->string('no_hp')->nullable();
             $table->string('email')->nullable();
             $table->string('nomor_kk')->nullable();
-            $table->date('tanggal_kematian');
-            $table->date('tanggal_dibuat');
+            $table->date('tanggal_kematian')->nullable();
+            $table->date('tanggal_dibuat')->nullable();
+            $table->string('status_verifikasi')->default('Belum Diverifikasi');
+            $table->string('nomor_surat')->nullable();
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('skematians');
+        Schema::dropIfExists('s_kematians');
     }
 };

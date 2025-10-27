@@ -1,3 +1,4 @@
+<!-- resources/views/galeri/user/index.blade.php -->
 @extends('layouts.landing.app')
 
 @section('content')
@@ -58,19 +59,16 @@
     </div>
 </div>
 
- <!-- Google Fonts Modern -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-
 <style>
 /* Terapkan font modern */
-body, .gallery-section, .gallery-header, .gallery-card, .gallery-overlay, .galeri-modal, .galeri-close {
+.gallery-section, .gallery-header, .gallery-card, .gallery-overlay, .galeri-modal, .galeri-close {
     font-family: 'Poppins', 'Open Sans', sans-serif;
 }
 
 /* Header Galeri */
 .gallery-header {
     margin-bottom: 2rem;
-    margin-top: -1rem;
+    margin-top: 1rem;
 }
 .gallery-title {
     font-size: 2.8rem;
@@ -177,6 +175,9 @@ body, .gallery-section, .gallery-header, .gallery-card, .gallery-overlay, .galer
 
 @media (max-width: 768px) {
     .gallery-title { font-size: 2.2rem; }
+    .gallery-header {
+        margin-top: 2rem;
+    }
 }
 </style>
 
@@ -208,6 +209,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 @endsection

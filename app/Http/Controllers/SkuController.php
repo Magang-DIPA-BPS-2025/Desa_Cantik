@@ -145,7 +145,7 @@ class SkuController extends Controller
             'alamat_usaha' => $request->alamat_usaha,
             'no_hp' => $request->no_hp,
             'email' => $request->email,
-            'nomor_surat' => $request->nomor_surat, // Simpan nomor surat
+            'nomor_surat' => $request->nomor_surat,
         ]);
 
 

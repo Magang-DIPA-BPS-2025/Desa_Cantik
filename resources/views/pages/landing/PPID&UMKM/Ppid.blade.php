@@ -2,6 +2,33 @@
 
 @section('content')
 <style>
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;500;600&display=swap');
+
+/* Font Variables */
+:root {
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Open Sans', sans-serif;
+}
+
+/* Apply Fonts */
+.ppid-heading {
+    font-family: var(--font-heading) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+}
+
+.ppid-text-content {
+    font-family: var(--font-body) !important;
+    font-weight: 400 !important;
+    line-height: 1.6 !important;
+}
+
+.ppid-card-title {
+    font-family: var(--font-heading) !important;
+    font-weight: 600 !important;
+}
+
 /* === BAGIAN ATAS: TEKS KIRI + ICON KANAN === */
 .ppid-top {
     display: flex;
@@ -21,8 +48,9 @@
 .ppid-text h2 {
     font-size: 3rem;
     font-weight: 800;
-    color: #1b7d48;
+    color: #2E7D32;
     margin-bottom: 15px;
+    font-family: var(--font-heading);
 }
 
 .ppid-text p {
@@ -30,6 +58,7 @@
     font-size: 1.15rem;
     line-height: 1.8;
     text-align: justify;
+    font-family: var(--font-body);
 }
 
 .ppid-text .btn {
@@ -38,27 +67,30 @@
     font-size: 1.05rem;
     font-weight: 600;
     border-radius: 10px;
+    font-family: var(--font-body);
 }
 
 .ppid-text .btn-primary {
-    background-color: #1b7d48;
+    background-color: #2E7D32;
     border: none;
 }
 
 .ppid-text .btn-primary:hover {
-    background-color: #146c3a;
+    background-color: #2E7D32;
 }
 
 /* === KANAN: 3 ICON SEJEJAR === */
 .ppid-icons {
     display: flex;
-    justify-content: space-between; /* agar 3 card merata */
+    justify-content: space-between;
     gap: 20px;
     flex-wrap: nowrap;
+    width: 100%;
+    max-width: 600px;
 }
 
 .ppid-icon-card {
-    flex: 1 1 30%; /* 3 card = 30% each */
+    flex: 1 1 30%;
     max-width: 200px;
     min-width: 180px;
     background: #fff;
@@ -88,6 +120,7 @@
     font-size: 1rem;
     color: #1b7d48;
     line-height: 1.4;
+    font-family: var(--font-heading);
 }
 
 /* === INFORMASI PUBLIK TERBARU === */
@@ -97,16 +130,21 @@
 }
 
 .ppid-header {
-    color: #1b7d48;
+    color: #2E7D32;
     font-weight: 800;
     font-size: 2.2rem;
     margin-bottom: 10px;
+    font-family: var(--font-heading);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .ppid-subtitle {
     color: #4b4b4b;
     font-size: 1rem;
     margin-bottom: 40px;
+    font-family: var(--font-body);
 }
 
 .ppid-card {
@@ -131,19 +169,22 @@
 .ppid-title {
     font-size: 1.3rem;
     font-weight: 700;
-    color: #1b7d48;
+    color: #2E7D32;
     margin-bottom: 10px;
+    font-family: var(--font-heading);
 }
 
 .ppid-desc {
     color: #444;
     font-size: 1rem;
     margin-bottom: 15px;
+    font-family: var(--font-body);
 }
 
 .ppid-date {
     font-size: 0.9rem;
     color: #6c757d;
+    font-family: var(--font-body);
 }
 
 /* === TOMBOL === */
@@ -156,28 +197,39 @@
     transition: 0.2s;
     width: 180px;
     text-align: center;
+    font-family: var(--font-body);
 }
 
 .btn-view {
-    background-color: #1b7d48;
+    background-color: #2E7D32;
     color: #fff;
     border: none;
 }
 
 .btn-view:hover {
-    background-color: #146c3a;
+    background-color: #2E7D32;
     color: #fff;
 }
 
 .btn-download {
-    border: 2px solid #1b7d48;
-    color: #1b7d48;
+    border: 2px solid #2E7D32;
+    color: #2E7D32;
     background: #fff;
 }
 
 .btn-download:hover {
-    background: #1b7d48;
+    background: #2E7D32;
     color: #fff;
+}
+
+/* === CARD AJUKAN PERMOHONAN === */
+.permohonan-card {
+    font-family: var(--font-body);
+}
+
+.permohonan-card .card-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
 }
 
 /* === RESPONSIF === */
@@ -191,11 +243,69 @@
 @media (max-width: 992px) {
     .ppid-top {
         flex-direction: column;
-        align-items: center;
-        text-align: center;
+        align-items: flex-start;
+        text-align: left;
+        gap: 40px;
     }
+    
     .ppid-text {
         max-width: 100%;
+        text-align: left;
+    }
+    
+    .ppid-icons {
+        justify-content: flex-start;
+        max-width: 100%;
+    }
+    
+    .ppid-header {
+        white-space: normal;
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .ppid-top {
+        gap: 30px;
+    }
+    
+    .ppid-text h2 {
+        font-size: 2.2rem;
+    }
+    
+    .ppid-icons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .ppid-icon-card {
+        min-width: 250px;
+        max-width: 300px;
+        width: 100%;
+    }
+    
+    .ppid-header {
+        font-size: 1.6rem;
+        line-height: 1.3;
+    }
+}
+
+@media (max-width: 576px) {
+    .ppid-text h2 {
+        font-size: 1.8rem;
+    }
+    
+    .ppid-text p {
+        font-size: 1rem;
+        text-align: left;
+    }
+    
+    .ppid-card {
+        padding: 25px 20px;
+    }
+    
+    .ppid-header {
+        font-size: 1.4rem;
     }
 }
 </style>
@@ -205,29 +315,29 @@
     <div class="ppid-top">
         <!-- KIRI -->
         <div class="ppid-text">
-            <h2>PPID</h2>
-            <p>
+            <h2 class="ppid-heading">PPID</h2>
+            <p class="ppid-text-content">
                 Pejabat Pengelola Informasi dan Dokumentasi (PPID) adalah pejabat yang bertanggung jawab di bidang penyimpanan,
                 pendokumentasian, penyediaan, dan/atau pelayanan informasi di badan publik.
             </p>
-            <a href="{{ route('ppid.dasar-hukum') }}" target="_blank" class="btn btn-primary">Dasar Hukum PPID</a>
+            <a href="{{ route('ppid.dasar-hukum') }}" target="_blank" class="btn btn-primary ppid-text-content">Dasar Hukum PPID</a>
         </div>
 
         <!-- KANAN: 3 ICON SEJEJAR -->
         <div class="ppid-icons">
             <a href="{{ route('ppid.berkala') }}" class="ppid-icon-card">
                 <img src="{{ asset('img/berkala.png') }}" alt="Informasi Berkala">
-                <h5>INFORMASI SECARA BERKALA</h5>
+                <h5 class="ppid-card-title">INFORMASI SECARA BERKALA</h5>
             </a>
 
             <a href="{{ route('ppid.serta') }}" class="ppid-icon-card">
                 <img src="{{ asset('img/serta.png') }}" alt="Informasi Serta Merta">
-                <h5>INFORMASI SERTA MERTA</h5>
+                <h5 class="ppid-card-title">INFORMASI SERTA MERTA</h5>
             </a>
 
             <a href="{{ route('ppid.setiap') }}" class="ppid-icon-card">
                 <img src="{{ asset('img/setiap.png') }}" alt="Informasi Setiap Saat">
-                <h5>INFORMASI SETIAP SAAT</h5>
+                <h5 class="ppid-card-title">INFORMASI SETIAP SAAT</h5>
             </a>
         </div>
     </div>
@@ -249,41 +359,37 @@
                 </div>
                 <div class="d-flex flex-column align-items-end gap-2">
                     @if($ppid->file)
-                        <button class="btn btn-view mb-2" data-toggle="modal" data-target="#fileModal" data-file="{{ asset('storage/' . $ppid->file) }}">
+                        <button class="btn btn-view mb-2 ppid-text-content" data-toggle="modal" data-target="#fileModal" data-file="{{ asset('storage/' . $ppid->file) }}">
                             <i class="fas fa-file-pdf"></i> Lihat Berkas
                         </button>
-                        <a href="{{ asset('storage/' . $ppid->file) }}" download class="btn btn-download">
+                        <a href="{{ asset('storage/' . $ppid->file) }}" download class="btn btn-download ppid-text-content">
                             <i class="fas fa-download"></i> Unduh
                         </a>
                     @else
-                        <span class="text-muted">Tidak ada berkas</span>
+                        <span class="text-muted ppid-text-content">Tidak ada berkas</span>
                     @endif
                 </div>
             </div>
             @endforeach
         @else
-            <div class="alert alert-info text-center mt-4">
+            <div class="alert alert-info text-center mt-4 ppid-text-content">
                 Belum ada data PPID yang ditambahkan.
             </div>
         @endif
     </div>
     
     <div class="container my-5 d-flex justify-content-center">
-    <div class="card shadow-sm border-0 text-center" style="max-width: 500px;">
-        <div class="card-body">
-            <h5 class="card-title mb-4" style="font-size: 1.5rem;">📄 Ingin mengajukan permohonan informasi?</h5>
-            <a href="{{ route('userindex') }}" 
-               class="btn btn-success btn-lg"
-               style="background-color: #1b7d48; border-color: #1b7d48;">
-                Ajukan Permohonan
-            </a>
+        <div class="card shadow-sm border-0 text-center permohonan-card" style="max-width: 500px;">
+            <div class="card-body">
+                <h5 class="card-title mb-4 ppid-heading" style="font-size: 1.5rem;">📄 Ingin mengajukan permohonan informasi?</h5>
+                <a href="{{ route('userindex') }}" 
+                   class="btn btn-success btn-lg ppid-text-content"
+                   style="background-color: #2E7D32; border-color: #2E7D32;">
+                    Ajukan Permohonan
+                </a>
+            </div>
         </div>
     </div>
-</div>
-
-
-
-
 </div>
 
 <!-- === MODAL PRATINJAU FILE === -->
@@ -291,7 +397,7 @@
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">📄 Pratinjau Berkas PPID</h5>
+        <h5 class="modal-title ppid-heading">📄 Pratinjau Berkas PPID</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" style="font-size: 1.5rem;">&times;</span>
         </button>

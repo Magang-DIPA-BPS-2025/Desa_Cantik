@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surat Keterangan Usaha</title>
+    <title>Surat Izin Kegiatan</title>
     <style>
         /* Reset dan base styling */
         * {
@@ -93,6 +92,7 @@
         .tabel-data {
             margin: 15px 0 15px 40px;
             border-collapse: collapse;
+            width: 100%;
         }
 
         .tabel-data td {
@@ -147,6 +147,8 @@
             body {
                 padding: 0;
                 margin: 0;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
 
             .surat-container {
@@ -154,15 +156,20 @@
                 margin: 0;
                 max-width: none;
                 min-height: auto;
+                page-break-after: avoid;
             }
 
             .no-print {
                 display: none;
             }
+
+            @page {
+                size: A4;
+                margin: 0;
+            }
         }
     </style>
 </head>
-
 <body>
     <div class="surat-container">
         <!-- Kop Surat -->
@@ -174,62 +181,75 @@
 
         <!-- Judul Surat -->
         <div class="judul-surat">
-            <h3>surat keterangan usaha</h3>
+            <h3>surat izin kegiatan</h3>
             <p>Nomor: 
-                @if($sku->nomor_surat)
-                    {{ $sku->nomor_surat }}
+                @if($izin->nomor_surat)
+                    {{ $izin->nomor_surat }}
                 @else
-                    {{ $sku->id }}/SKU/{{ date('Y') }}
+                    {{ $izin->id }}/SIZ/{{ date('Y') }}
                 @endif
             </p>
         </div>
 
         <!-- Isi Surat -->
         <div class="isi-surat">
-            <p>Yang bertanda tangan di bawah ini Kepala Desa Manggalung, Kecamatan Mandalle, Kabupaten Pangkajene dan
-                Kepulauan, dengan ini menerangkan bahwa:</p>
+            <p>Yang bertanda tangan di bawah ini Kepala Desa Manggalung, Kecamatan Mandalle, Kabupaten Pangkajene dan Kepulauan, dengan ini menerangkan bahwa:</p>
 
             <table class="tabel-data">
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td><strong>{{ $sku->nama }}</strong></td>
+                    <td><strong>{{ $izin->nama }}</strong></td>
                 </tr>
                 <tr>
                     <td>NIK</td>
                     <td>:</td>
-                    <td><strong>{{ $sku->nik }}</strong></td>
+                    <td><strong>{{ $izin->nik }}</strong></td>
                 </tr>
                 <tr>
                     <td>Alamat</td>
                     <td>:</td>
-                    <td><strong>{{ $sku->alamat }}</strong></td>
+                    <td><strong>{{ $izin->alamat }}</strong></td>
                 </tr>
                 <tr>
                     <td>Pekerjaan</td>
                     <td>:</td>
-                    <td><strong>{{ $sku->pekerjaan ?? '-' }}</strong></td>
+                    <td><strong>{{ $izin->pekerjaan ?? '-' }}</strong></td>
                 </tr>
             </table>
 
-            <p>Adalah benar yang bersangkutan memiliki usaha dengan keterangan sebagai berikut:</p>
+            <p>Telah mengajukan permohonan izin untuk melaksanakan kegiatan dengan rincian sebagai berikut:</p>
 
             <table class="tabel-data">
                 <tr>
-                    <td>Nama Usaha</td>
+                    <td>Jenis Kegiatan</td>
                     <td>:</td>
-                    <td><strong>{{ $sku->nama_usaha }}</strong></td>
+                    <td><strong>{{ $izin->jenis_acara }}</strong></td>
                 </tr>
                 <tr>
-                    <td>Alamat Usaha</td>
+                    <td>Hari</td>
                     <td>:</td>
-                    <td><strong>{{ $sku->alamat_usaha }}</strong></td>
+                    <td><strong>{{ $izin->hari }}</strong></td>
+                </tr>
+                <tr>
+                    <td>Tanggal</td>
+                    <td>:</td>
+                    <td><strong>{{ \Carbon\Carbon::parse($izin->tanggal)->translatedFormat('d F Y') }}</strong></td>
+                </tr>
+                <tr>
+                    <td>Tempat</td>
+                    <td>:</td>
+                    <td><strong>{{ $izin->tempat }}</strong></td>
                 </tr>
             </table>
 
-            <p>Surat keterangan ini dibuat untuk keperluan
-                <strong><u>{{ $sku->keperluan ?? 'Administrasi' }}</u></strong>.</p>
-            <p>Demikian surat keterangan ini dibuat dengan sebenarnya agar dapat dipergunakan sebagaimana mestinya.</p>
+            <p>Dengan ini memberikan izin kepada yang bersangkutan untuk melaksanakan kegiatan tersebut dengan ketentuan:</p>
+            <p>1. Wajib menjaga ketertiban dan keamanan selama kegiatan berlangsung</p>
+            <p>2. Bertanggung jawab penuh terhadap kebersihan lokasi kegiatan</p>
+            <p>3. Menjaga hubungan baik dengan masyarakat sekitar</p>
+            <p>4. Mematuhi semua peraturan yang berlaku</p>
+
+            <p>Demikian surat izin ini dibuat untuk dapat dipergunakan sebagaimana mestinya.</p>
         </div>
 
         <!-- Tanda Tangan -->
@@ -239,9 +259,13 @@
                 <p><strong>Kepala Desa</strong></p>
 
                 <!-- QR Code -->
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data={{ urlencode($linkVerifikasi) }}"
-                    alt="QR Code Verifikasi" class="qr-code">
-            
+                @if($qrCodeSuccess && !empty($qrCodeBase64))
+                    <img src="data:image/png;base64,{{ $qrCodeBase64 }}" alt="QR Code Verifikasi" class="qr-code">
+                @else
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data={{ urlencode($linkVerifikasi) }}" alt="QR Code Verifikasi" class="qr-code">
+                @endif
+                <p style="font-size: 9px; color: #666;">Scan untuk verifikasi</p>
+
                 <div class="nama-jabatan">
                     <p><strong><u>Nama Kepala Desa</u></strong></p>
                     <p>NIP. 123456789</p>
@@ -252,5 +276,4 @@
         <div class="clear"></div>
     </div>
 </body>
-
 </html>

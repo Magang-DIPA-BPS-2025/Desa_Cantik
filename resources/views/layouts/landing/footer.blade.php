@@ -8,7 +8,7 @@
                 <div class="logo-container">
                     <img src="{{ asset('landing/images/footer/logobps.png') }}"
                          alt="BPS Logo" class="footer-logo">
-                    <img src="{{ asset('landing/images/footer/pangkep.png') }}"
+                    <img src="{{ asset('landing/images/footer/pangkepp.png') }}"
                          alt="BPS Logo" class="footer-logo">
                 </div>
                 <p>
@@ -368,8 +368,8 @@
     }
     
     #landing-footer .footer-logo {
-        width: 95px;
-        height: 95px;
+        width: 120px;
+        height: 120px;
     }
     
     #landing-footer .map-info {

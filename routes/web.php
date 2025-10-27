@@ -1,5 +1,6 @@
 <?php
 use App\Models\Berita;
+use App\Http\Controllers\TTSController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\PemerintahDesaController;
@@ -18,11 +19,15 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\BukuTamuController;
 use App\Http\Controllers\SkuController;
+use App\Http\Controllers\sKematianController;
+use App\Http\Controllers\IzinController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\Landing\ApbdDesaController;
 use App\Models\Agenda;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+
+
 
 //
 // ===================== USER ROUTES ===================== //
@@ -34,11 +39,9 @@ Route::group(
         // Redirect root
         Route::redirect('/', '/');
 
-        // Landing pages
-        Route::get('/', 'UserController@index')->name('user.index');
-        Route::get('/kontak', 'UserController@kontak')->name('user.kontak');
-        Route::get('/eksternal', 'UserController@guru')->name('user.guru');
-
+        //hom
+       
+       
         // Galeri Desa (static view)
         Route::get('/galeri', [GaleriController::class, 'userIndex'])->name('galeri.user.index');
 
@@ -49,15 +52,17 @@ Route::group(
         Route::get('/pemerintah', [PemerintahDesaController::class, 'userIndex'])->name('pemerintah');
 
         // APBD Desa (single data view)
-        Route::get('/apbd', [ApbdDesaController::class, 'show'])->name('apbd');
+        Route::get('/apbd', [ApbdController::class, 'show'])->name('apbd');
+        Route::get('/apbd-desa/{year}', [ApbdController::class, 'getByYear']);
 
         // APBD Desa (list view)
         Route::get('/apbd-list', [ApbdController::class, 'userIndex'])->name('apbd.list');
 
         Route::get('/', [BeritaController::class, 'userBeranda'])->name('home');
-        Route::get('/', [AgendaController::class, 'userBeranda'])->name('agenda');
+        Route::get('/', [AgendaController::class, 'userBeranda'])->name('home');
         Route::get('/', [BelanjaDesaController::class, 'userBeranda'])->name('home');
         Route::get('/', [GaleriController::class, 'userBeranda'])->name('home');
+        
 
         Route::get('/berita', [BeritaController::class, 'userIndex'])->name('berita');
         Route::get('/berita/{id}', [BeritaController::class, 'userShow'])->name('berita.show');
@@ -89,17 +94,19 @@ Route::group(
         // Pengajuan surat berdasarkan jenis
         Route::post('/sku', [SkuController::class, 'store'])->name('sku.store');
         Route::post('/sktm', [SktmController::class, 'store'])->name('sktm.store');
-        Route::post('/kematian', [KematianController::class, 'store'])->name('kematian.store');
+        Route::post('/kematian', [sKematianController::class, 'store'])->name('kematian.store');
         Route::post('/izin', [IzinController::class, 'store'])->name('izin.store');
 
 
         //Status Surat (by NIK) & view approved letter
         Route::get('/pengantar', [SuratController::class, 'userIndex'])->name('pengantar');
-        Route::post('/pengantar', [SuratController::class, 'userStore'])->name('pengantar.store');
+        Route::post('/pengantar', [SkuController::class, 'userStore'])->name('pengantar.store');
 
 
         Route::get('/verifikasi-surat/{id}', [SkuController::class, 'verifikasiSurat'])->name('verifikasi.surat');
-         Route::get('/verifikasi-surat-sktm/{id}', [SktmController::class, 'verifikasiSurat'])->name('verifikasi.surat.sktm');
+        Route::get('/verifikasi-surat-sktm/{id}', [SktmController::class, 'verifikasiSurat'])->name('verifikasi.surat.sktm');
+        Route::get('/verifikasi-surat-kematian/{id}', [sKematianController::class, 'verifikasiSurat'])->name('verifikasi.surat.kematian');
+         Route::get('/verifikasi-surat-izin/{id}', [IzinController::class, 'verifikasiSurat'])->name('verifikasi.surat.izin');
 
 
         //Pengaduan (dynamic view)
@@ -109,6 +116,8 @@ Route::group(
 
         //Surat Pengaduan (dynamic view)
         Route::get('/statuspengaduan', [PengaduanController::class, 'userStatus'])->name('statuspengaduan');
+        Route::post('/pengantar/sku', [SkuController::class, 'store'])->name('pengantar.sku.store');
+
 
         //Penyandang (static view)
         Route::get('/penyandang', function () {
@@ -146,14 +155,6 @@ Route::group(
         Route::post('/bukutamu', [BukuTamuController::class, 'store'])->name('bukutamu.store');
 
 
-
-                // routes/web.php
-        Route::get('/tts', [TextToSpeechController::class, 'showForm']);
-        Route::post('/tts/convert', [TextToSpeechController::class, 'convertTextToSpeech']);
-        Route::get('/tts/download/{filename}', [TextToSpeechController::class, 'downloadAudio']);
-        Route::get('/tts/stream/{filename}', [TextToSpeechController::class, 'streamAudio']);
-
-    
     }
 );
 
@@ -177,14 +178,14 @@ Route::group(
 
 
             Route::prefix('kalender')->group(function () {
-            Route::get('/', [KalenderController::class, 'index'])->name('kalender.index');
-            Route::post('/', [KalenderController::class, 'store'])->name('kalender.store');
-            Route::get('/create', [KalenderController::class, 'create'])->name('kalenderDesa.create');
-            Route::get('/{id}/edit', [KalenderController::class, 'edit'])->name('kalender.edit');
-            Route::get('/events', [KalenderController::class, 'getEvents'])->name('kalender.events');
-            Route::put('/{id}', [KalenderController::class, 'update'])->name('kalender.update');
-            Route::delete('/{id}', [KalenderController::class, 'destroy'])->name('kalender.destroy');
-        });
+                Route::get('/', [KalenderController::class, 'index'])->name('kalender.index');
+                Route::post('/', [KalenderController::class, 'store'])->name('kalender.store');
+                Route::get('/create', [KalenderController::class, 'create'])->name('kalenderDesa.create');
+                Route::get('/{id}/edit', [KalenderController::class, 'edit'])->name('kalender.edit');
+                Route::get('/events', [KalenderController::class, 'getEvents'])->name('kalender.events');
+                Route::put('/{id}', [KalenderController::class, 'update'])->name('kalender.update');
+                Route::delete('/{id}', [KalenderController::class, 'destroy'])->name('kalender.destroy');
+            });
 
             Route::get('/getByKegiatan', 'AdminController@getByKegiatan')->name('dashboard.jadwal.getByKegiatan')->withoutMiddleware(['ValidasiUser']);
             Route::get('/getByKegiatanUser', 'AdminController@getByKegiatanUser')->name('dashboard.jadwal.getByKegiatanUser')->withoutMiddleware(['ValidasiUser']);
@@ -272,19 +273,11 @@ Route::group(
             Route::resource('pengaduan', PengaduanController::class);
 
             Route::put('/pengaduan/{id}/status', [PengaduanController::class, 'updateStatus'])->name('pengaduan.updateStatus');
-
-            Route::resource('surat', AdminSuratController::class)->only(['index', 'show', 'destroy', 'create', 'store']);
-            Route::post('surat/{id}/approve', [AdminSuratController::class, 'approve'])->name('admin.surat.approve');
-            Route::post('surat/{id}/reject', [AdminSuratController::class, 'reject'])->name('admin.surat.reject');
-
-
             // Route admin SKU
             Route::middleware(['ValidasiUser'])->group(function () {
                 // Resource route untuk CRUD dasar
                 Route::resource('admin/sku', SkuController::class)->names([
                     'index' => 'sku.index',
-                    'create' => 'sku.create',
-                    'store' => 'sku.store',
                     'show' => 'sku.show',
                     'edit' => 'sku.edit',
                     'update' => 'sku.update',
@@ -309,10 +302,26 @@ Route::group(
 
             Route::get('/sktm/verifikasi/{id}', [SktmController::class, 'verifikasi'])->name('sktm.verifikasi');
             Route::get('/sktm/cetak/{id}', [SktmController::class, 'cetak'])->name('sktm.cetak');
-           
 
-            Route::resource('admin/kematian', KematianController::class);
-            Route::resource('admin/izin', IzinController::class);
+
+            Route::resource('admin/kematian', sKematianController::class);
+
+
+            Route::get('/kematian/verifikasi/{id}', [sKematianController::class, 'verifikasi'])->name('kematian.verifikasi');
+            Route::get('/kematian/cetak/{id}', [sKematianController::class, 'cetak'])->name('kematian.cetak');
+
+
+
+            Route::prefix('admin')->group(function () {
+                Route::get('/izin', [IzinController::class, 'index'])->name('izin.index');
+                Route::get('/izin/{id}/edit', [IzinController::class, 'edit'])->name('izin.edit');
+                Route::put('/izin/{id}', [IzinController::class, 'update'])->name('izin.update');
+                Route::delete('/izin/{id}', [IzinController::class, 'destroy'])->name('izin.destroy');
+                Route::get('/izin/verifikasi/{id}', [IzinController::class, 'verifikasi'])->name('izin.verifikasi');
+                Route::get('/izin/cetak/{id}', [IzinController::class, 'cetak'])->name('izin.cetak');
+            });
+
+
 
 
             Route::resource('ppid', PPIDController::class);
@@ -327,13 +336,7 @@ Route::group(
                 Route::delete('/belanja/{id}', [BelanjaDesaController::class, 'destroy'])->name('belanja.destroy');
             });
 
-            // Surat Pengantar (kolom lengkap dari form user)
-            Route::prefix('surat-pengantar')->group(function () {
-                Route::get('/', [AdminSuratPengantarController::class, 'index'])->name('admin.surat_pengantar.index');
-                Route::get('/{id}', [AdminSuratPengantarController::class, 'show'])->name('admin.surat_pengantar.show');
-                Route::delete('/{id}', [AdminSuratPengantarController::class, 'destroy'])->name('admin.surat_pengantar.destroy');
-                Route::post('/{id}/approve', [AdminSuratPengantarController::class, 'approve'])->name('admin.surat_pengantar.approve');
-            });
+
         });
     }
 );

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surat Keterangan Usaha</title>
+    <title>Surat Keterangan Kematian</title>
     <style>
         /* Reset dan base styling */
         * {
@@ -93,6 +93,7 @@
         .tabel-data {
             margin: 15px 0 15px 40px;
             border-collapse: collapse;
+            width: 100%;
         }
 
         .tabel-data td {
@@ -147,6 +148,8 @@
             body {
                 padding: 0;
                 margin: 0;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
 
             .surat-container {
@@ -154,10 +157,16 @@
                 margin: 0;
                 max-width: none;
                 min-height: auto;
+                page-break-after: avoid;
             }
 
             .no-print {
                 display: none;
+            }
+
+            @page {
+                size: A4;
+                margin: 0;
             }
         }
     </style>
@@ -174,61 +183,69 @@
 
         <!-- Judul Surat -->
         <div class="judul-surat">
-            <h3>surat keterangan usaha</h3>
+            <h3>surat keterangan kematian</h3>
             <p>Nomor: 
-                @if($sku->nomor_surat)
-                    {{ $sku->nomor_surat }}
+                @if($kematian->nomor_surat)
+                    {{ $kematian->nomor_surat }}
                 @else
-                    {{ $sku->id }}/SKU/{{ date('Y') }}
+                    {{ $kematian->id }}/SKM/{{ date('Y') }}
                 @endif
             </p>
         </div>
 
         <!-- Isi Surat -->
         <div class="isi-surat">
-            <p>Yang bertanda tangan di bawah ini Kepala Desa Manggalung, Kecamatan Mandalle, Kabupaten Pangkajene dan
-                Kepulauan, dengan ini menerangkan bahwa:</p>
+            <p>Yang bertanda tangan di bawah ini Kepala Desa Manggalung, Kecamatan Mandalle, Kabupaten Pangkajene dan Kepulauan, dengan ini menerangkan bahwa:</p>
 
             <table class="tabel-data">
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td><strong>{{ $sku->nama }}</strong></td>
+                    <td><strong>{{ $kematian->nama }}</strong></td>
                 </tr>
                 <tr>
                     <td>NIK</td>
                     <td>:</td>
-                    <td><strong>{{ $sku->nik }}</strong></td>
+                    <td><strong>{{ $kematian->nik }}</strong></td>
+                </tr>
+                <tr>
+                    <td>Nomor KK</td>
+                    <td>:</td>
+                    <td><strong>{{ $kematian->nomor_kk }}</strong></td>
+                </tr>
+                <tr>
+                    <td>Tempat/Tgl Lahir</td>
+                    <td>:</td>
+                    <td><strong>{{ $kematian->tempat_lahir }}, {{ \Carbon\Carbon::parse($kematian->tanggal_lahir)->translatedFormat('d F Y') }}</strong></td>
+                </tr>
+                <tr>
+                    <td>Jenis Kelamin</td>
+                    <td>:</td>
+                    <td><strong>{{ $kematian->jenis_kelamin }}</strong></td>
                 </tr>
                 <tr>
                     <td>Alamat</td>
                     <td>:</td>
-                    <td><strong>{{ $sku->alamat }}</strong></td>
+                    <td><strong>{{ $kematian->alamat }}</strong></td>
                 </tr>
                 <tr>
                     <td>Pekerjaan</td>
                     <td>:</td>
-                    <td><strong>{{ $sku->pekerjaan ?? '-' }}</strong></td>
+                    <td><strong>{{ $kematian->pekerjaan ?? '-' }}</strong></td>
                 </tr>
             </table>
 
-            <p>Adalah benar yang bersangkutan memiliki usaha dengan keterangan sebagai berikut:</p>
+            <p>Telah meninggal dunia pada:</p>
 
             <table class="tabel-data">
                 <tr>
-                    <td>Nama Usaha</td>
+                    <td>Tanggal Kematian</td>
                     <td>:</td>
-                    <td><strong>{{ $sku->nama_usaha }}</strong></td>
-                </tr>
-                <tr>
-                    <td>Alamat Usaha</td>
-                    <td>:</td>
-                    <td><strong>{{ $sku->alamat_usaha }}</strong></td>
+                    <td><strong>{{ \Carbon\Carbon::parse($kematian->tanggal_kematian)->translatedFormat('d F Y') }}</strong></td>
                 </tr>
             </table>
 
-            <p>Surat keterangan ini dibuat untuk keperluan
-                <strong><u>{{ $sku->keperluan ?? 'Administrasi' }}</u></strong>.</p>
+            <p>Surat keterangan ini dibuat untuk keperluan administrasi kependudukan dan lainnya.</p>
             <p>Demikian surat keterangan ini dibuat dengan sebenarnya agar dapat dipergunakan sebagaimana mestinya.</p>
         </div>
 
@@ -241,7 +258,7 @@
                 <!-- QR Code -->
                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data={{ urlencode($linkVerifikasi) }}"
                     alt="QR Code Verifikasi" class="qr-code">
-            
+
                 <div class="nama-jabatan">
                     <p><strong><u>Nama Kepala Desa</u></strong></p>
                     <p>NIP. 123456789</p>

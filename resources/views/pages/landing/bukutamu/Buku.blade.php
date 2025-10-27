@@ -4,7 +4,7 @@
 @push('styles')
 <style>
 body {
-    background-color: #edf7f0;
+    background-color: #ffffffff;
     font-family: 'Poppins', sans-serif;
     color: #16a34a;
 }

@@ -10,7 +10,7 @@ use App\Models\Agenda;
 use App\Models\Galeri;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class HomeController extends Controller
 {
 
 }
