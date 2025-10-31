@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\HomeController;
 use App\Models\Berita;
 use App\Http\Controllers\TTSController;
 use App\Http\Controllers\AgendaController;
@@ -39,8 +40,9 @@ Route::group(
         // Redirect root
         Route::redirect('/', '/');
 
-        //hom
-       
+        //home 
+        Route::get('/', [HomeController::class, 'userBeranda'])->name('home');
+    
        
         // Galeri Desa (static view)
         Route::get('/galeri', [GaleriController::class, 'userIndex'])->name('galeri.user.index');
@@ -57,12 +59,6 @@ Route::group(
 
         // APBD Desa (list view)
         Route::get('/apbd-list', [ApbdController::class, 'userIndex'])->name('apbd.list');
-
-        Route::get('/', [BeritaController::class, 'userBeranda'])->name('home');
-        Route::get('/', [AgendaController::class, 'userBeranda'])->name('home');
-        Route::get('/', [BelanjaDesaController::class, 'userBeranda'])->name('home');
-        Route::get('/', [GaleriController::class, 'userBeranda'])->name('home');
-        
 
         Route::get('/berita', [BeritaController::class, 'userIndex'])->name('berita');
         Route::get('/berita/{id}', [BeritaController::class, 'userShow'])->name('berita.show');
@@ -92,9 +88,6 @@ Route::group(
 
 
         // Pengajuan surat berdasarkan jenis
-        Route::post('/sku', [SkuController::class, 'store'])->name('sku.store');
-        Route::post('/sktm', [SktmController::class, 'store'])->name('sktm.store');
-        Route::post('/kematian', [sKematianController::class, 'store'])->name('kematian.store');
         Route::post('/izin', [IzinController::class, 'store'])->name('izin.store');
 
 

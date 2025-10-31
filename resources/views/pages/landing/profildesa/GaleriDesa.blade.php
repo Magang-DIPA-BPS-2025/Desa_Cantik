@@ -54,8 +54,10 @@
 {{-- Modal Popup Gambar --}}
 <div id="galeriModal" class="galeri-modal">
     <div class="galeri-modal-content">
-        <span class="galeri-close" onclick="closeModal()">&times;</span>
-        <img class="galeri-modal-image" id="modalImage" alt="Foto Galeri">
+        <div class="image-container">
+            <span class="galeri-close" onclick="closeModal()">&times;</span>
+            <img class="galeri-modal-image" id="modalImage" alt="Foto Galeri">
+        </div>
     </div>
 </div>
 
@@ -117,7 +119,7 @@
     opacity: 1;
 }
 
-/* Modal Popup */
+/* Modal Popup - DIPERBAIKI */
 .galeri-modal {
     display: none;
     position: fixed;
@@ -139,6 +141,14 @@
     justify-content: center;
     min-height: 95vh;
 }
+
+/* Container untuk gambar dan tombol close - DIPERBAIKI */
+.image-container {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+}
+
 .galeri-modal-image {
     max-width: 100%;
     max-height: 90vh;
@@ -147,25 +157,33 @@
     object-fit: contain;
     cursor: zoom-in;
     transition: transform 0.3s ease;
+    display: block;
 }
 .galeri-modal-image.zoomed {
     transform: scale(1.8);
     cursor: zoom-out;
 }
+
+/* Tombol Close - DIPERBAIKI POSISINYA */
 .galeri-close {
     position: absolute;
-    top: -50px; right: -10px;
+    top: 15px;
+    right: 15px;
     color: #fff;
-    font-size: 45px;
+    font-size: 35px;
     font-weight: bold;
     cursor: pointer;
-    background: rgba(255,255,255,0.2);
-    width: 60px; height: 60px;
+    background: rgba(0, 0, 0, 0.6);
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all 0.3s ease;
     border: 2px solid #fff;
     z-index: 10000;
+    margin: 0;
 }
 .galeri-close:hover {
     background: #ff4444;
@@ -173,10 +191,28 @@
     border-color: #ff4444;
 }
 
+/* Responsive untuk tombol close */
 @media (max-width: 768px) {
     .gallery-title { font-size: 2.2rem; }
     .gallery-header {
         margin-top: 2rem;
+    }
+    .galeri-close {
+        top: 10px;
+        right: 10px;
+        width: 45px;
+        height: 45px;
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 576px) {
+    .galeri-close {
+        top: 5px;
+        right: 5px;
+        width: 40px;
+        height: 40px;
+        font-size: 25px;
     }
 }
 </style>
@@ -188,6 +224,9 @@ function openModal(imageSrc) {
     modal.style.display = 'block';
     modalImage.src = imageSrc;
     document.body.style.overflow = 'hidden';
+    
+    // Reset zoom state ketika modal dibuka
+    modalImage.classList.remove('zoomed');
 }
 function closeModal() {
     const modal = document.getElementById('galeriModal');

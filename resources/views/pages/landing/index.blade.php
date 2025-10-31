@@ -7,7 +7,7 @@
 /* ---------------- Body ---------------- */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f9fafb;
+    background-color: #f8fafc;
     color: #333;
     margin: 0;
     max-width: 100%;
@@ -16,8 +16,9 @@ body {
 
 /* ---------------- Hero Section dengan Search ---------------- */
 .hero-section {
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)),
-                url('{{ asset("landing/images/slider-main/makassar.jpg") }}') center/cover no-repeat;
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+        url('{{ asset("landing/images/slider-main/makassar.png") }}') center/cover no-repeat;
     color: white;
     text-align: center;
     padding: 120px 20px;
@@ -31,17 +32,6 @@ body {
     justify-content: center;
 }
 
-.hero-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(124, 181, 24, 0.2), rgba(76, 175, 80, 0.2));
-    z-index: 1;
-}
-
 .hero-content {
     position: relative;
     z-index: 2;
@@ -52,11 +42,12 @@ body {
 .hero-section h2 {
     font-size: 20px;
     margin-bottom: 10px;
-    color: #e0f2f1;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    color: #f8fafc;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.6);
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 0.8s ease forwards;
+    font-weight: 600;
 }
 
 .hero-section h1 {
@@ -64,7 +55,7 @@ body {
     font-weight: 700;
     margin-bottom: 40px;
     color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+    text-shadow: 3px 3px 12px rgba(0,0,0,0.9), 0 0 30px rgba(0,0,0,0.7);
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 0.8s ease 0.5s forwards;
@@ -73,7 +64,7 @@ body {
 
 .hero-section h3 {
     display: inline-block;
-    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    background: linear-gradient(135deg, #2E7D32, #2E7D32);
     padding: 8px 18px;
     border-radius: 30px;
     font-size: 16px;
@@ -119,7 +110,7 @@ body {
 }
 
 .hero-search-btn {
-    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    background: linear-gradient(135deg, #2E7D32, #2E7D32);
     color: white;
     border: none;
     padding: 15px 20px;
@@ -132,10 +123,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    aspect-ratio: 1/1;
 }
 
 .hero-search-btn:hover {
-    background: linear-gradient(135deg, #388e3c, #1b5e20);
+    background: linear-gradient(135deg, #2E7D32, #2E7D32);
     transform: scale(1.05);
 }
 
@@ -170,7 +162,7 @@ body {
     align-items: center;
     margin-bottom: 20px;
     padding-bottom: 15px;
-    border-bottom: 2px solid #e9ecef;
+    border-bottom: 2px solid #f8fafc;
 }
 
 .search-results-title {
@@ -181,7 +173,7 @@ body {
 }
 
 .search-results-count {
-    background: #4CAF50;
+    background: #2E7D32;
     color: white;
     padding: 5px 12px;
     border-radius: 20px;
@@ -196,14 +188,14 @@ body {
 }
 
 .search-result-item {
-    background: #f8f9fa;
+    background: #f8fafc;
     border-radius: 10px;
     padding: 20px;
-    border-left: 4px solid #4CAF50;
+    border-left: 4px solid #2E7D32;
     transition: all 0.3s ease;
     cursor: pointer;
 }
-
+    
 .search-result-item:hover {
     background: #e9ecef;
     transform: translateX(5px);
@@ -218,7 +210,7 @@ body {
 
 .search-result-category {
     display: inline-block;
-    background: #4CAF50;
+    background: #2E7D32;
     color: white;
     padding: 4px 12px;
     border-radius: 15px;
@@ -259,7 +251,7 @@ body {
 
 /* ---------------- Statistik Slider ---------------- */
 .statistik {
-    background: linear-gradient(135deg, #C0D09D, #4CAF50);
+    background: linear-gradient(135deg, #C0D09D, #2E7D32);
     padding: 70px 20px;
     text-align: center;
     border-radius: 40px;
@@ -298,7 +290,7 @@ body {
     width: 100%;
     padding: 20px;
     border-radius: 16px;
-    background: #fff;
+    background: #f8fafc;
     box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     transition: transform .25s ease, box-shadow .25s ease;
     text-align: center;
@@ -338,15 +330,15 @@ body {
     height: 45px;
     cursor: pointer;
     font-size: 22px;
-    color: #1b5e20;
+    color: #2E7D32;
     box-shadow: 0 3px 8px rgba(0,0,0,0.2);
     transition: all 0.3s;
     z-index: 10;
 }
 
 .slider-btn:hover { 
-    background: #1b5e20; 
-    color: #fff; 
+    background: #2E7D32; 
+    color: #f8fafc; 
 }
 
 .slider-btn.left { 
@@ -400,7 +392,7 @@ body {
 /* ---------------- Chart ---------------- */
 .chart-section { 
     padding: 60px 20px; 
-    background: #fff; 
+    background: #f8fafc; 
     text-align: center; 
 }
 
@@ -418,7 +410,7 @@ body {
 /* ---------------- APB Desa ---------------- */
 .apb-desa { 
     padding: 80px 20px; 
-    background: #fff; 
+    background: #f8fafc; 
 }
 
 .apb-container { 
@@ -441,6 +433,11 @@ body {
     max-width: 400px; 
     width: 100%;
     cursor: pointer; 
+    transition: all 0.3s ease;
+}
+
+.apbdesa-img img:hover {
+    transform: scale(1.05);
 }
 
 .apb-info { 
@@ -462,7 +459,7 @@ body {
 }
 
 .apb-card { 
-    background: #f9f9f9; 
+    background: #f8fafc; 
     border-radius: 12px; 
     padding: 18px 25px; 
     margin-bottom: 15px; 
@@ -482,7 +479,7 @@ body {
 }
 
 .apb-card.pendapatan { 
-    background: linear-gradient(135deg, #4CAF50, #81C784); 
+    background: linear-gradient(135deg, #2E7D32, #2E7D32); 
     color: white; 
 }
 
@@ -494,7 +491,7 @@ body {
 .apb-btn { 
     display:inline-block; 
     text-decoration:none; 
-    background:#4CAF50; 
+    background:#2E7D32; 
     color:#fff; 
     padding:12px 22px; 
     border-radius:8px; 
@@ -503,7 +500,7 @@ body {
 }
 
 .apb-btn:hover { 
-    background:#388e3c; 
+    background:#2E7D32; 
 }
 
 /* ---------------- Section Title ---------------- */
@@ -517,7 +514,7 @@ body {
 
 /* ---------------- Jadwal Sholat Section ---------------- */
 .jadwal-sholat-section {
-    background: #f9fafb;
+    background: #f8fafc;
     padding: 80px 20px;
 }
 
@@ -530,10 +527,9 @@ body {
 }
 
 .jadwal-sholat-card {
-    background: #fff;
+    background: #f8fafc;
     border-radius: 20px;
     padding: 30px;
-    /* Shadow dikurangi */
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     border: 1px solid #e9ecef;
     transition: all 0.3s ease;
@@ -541,7 +537,6 @@ body {
 
 .jadwal-sholat-card:hover {
     transform: translateY(-3px);
-    /* Shadow hover juga dikurangi */
     box-shadow: 0 8px 15px rgba(0,0,0,0.08);
 }
 
@@ -561,7 +556,7 @@ body {
 
 .jadwal-date {
     font-size: 18px;
-    color: #4CAF50;
+    color: #2E7D32;
     font-weight: 600;
     margin-bottom: 10px;
 }
@@ -580,7 +575,7 @@ body {
 
 .current-time {
     font-size: 14px;
-    color: #4CAF50;
+    color: #2E7D32;
     font-weight: 600;
     background: #f8f9fa;
     padding: 8px 16px;
@@ -622,7 +617,7 @@ body {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.1), transparent);
+    background: linear-gradient(90deg, transparent, rgba(46, 125, 50, 0.1), transparent);
     transition: left 0.5s ease;
 }
 
@@ -632,12 +627,11 @@ body {
 
 /* Perbaikan untuk sholat aktif */
 .jadwal-item.active {
-    background: linear-gradient(135deg, #4CAF50, #2E7D32) !important;
+    background: linear-gradient(135deg, #2E7D32, #2E7D32) !important;
     color: white !important;
-    border-left-color: #1b5e20 !important;
+    border-left-color: #2E7D32 !important;
     transform: translateX(5px);
-    /* Shadow dikurangi untuk sholat aktif */
-    box-shadow: 0 3px 10px rgba(76, 175, 80, 0.3);
+    box-shadow: 0 3px 10px rgba(46, 125, 50, 0.3);
 }
 
 .jadwal-item.active .jadwal-name,
@@ -701,14 +695,13 @@ body {
 
 /* Card Sholat Berikutnya */
 .jadwal-next {
-    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    background: linear-gradient(135deg, #2E7D32, #2E7D32);
     border-radius: 16px;
     padding: 30px 25px;
     color: white;
     text-align: center;
     margin-bottom: 25px;
-    /* Shadow dikurangi */
-    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
+    box-shadow: 0 5px 15px rgba(46, 125, 50, 0.2);
     position: relative;
     overflow: hidden;
 }
@@ -806,94 +799,6 @@ body {
     margin: 0;
 }
 
-/* Responsive Design untuk Jadwal Sholat */
-@media (max-width: 1024px) {
-    .jadwal-sholat-container {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    .jadwal-sholat-section {
-        padding: 50px 20px;
-    }
-    
-    .jadwal-sholat-card {
-        padding: 20px;
-    }
-    
-    .jadwal-sholat-header h3 {
-        font-size: 20px;
-    }
-    
-    .jadwal-item {
-        padding: 15px 18px;
-        flex-direction: column;
-        gap: 8px;
-        text-align: center;
-    }
-    
-    .jadwal-name {
-        font-size: 15px;
-    }
-    
-    .jadwal-time {
-        font-size: 16px;
-    }
-    
-    .next-time {
-        font-size: 32px;
-    }
-    
-    .countdown {
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 576px) {
-    .jadwal-sholat-section {
-        padding: 40px 15px;
-    }
-    
-    .jadwal-sholat-card {
-        padding: 20px;
-    }
-    
-    .jadwal-sholat-header h3 {
-        font-size: 18px;
-    }
-    
-    .jadwal-item {
-        padding: 12px 15px;
-    }
-    
-    .jadwal-name {
-        font-size: 14px;
-    }
-    
-    .jadwal-time {
-        font-size: 15px;
-        padding: 6px 12px;
-    }
-    
-    .jadwal-next {
-        padding: 20px 15px;
-        margin-bottom: 20px;
-    }
-    
-    .next-prayer-name {
-        font-size: 18px;
-    }
-    
-    .next-time {
-        font-size: 28px;
-    }
-    
-    .countdown {
-        font-size: 14px;
-    }
-}
-
 /* ---------------- CONTAINER GRID UNIFORM ---------------- */
 .uniform-grid-container {
     max-width: 1200px;
@@ -985,7 +890,7 @@ body {
 .umkm-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    border-color: #4CAF50;
+    border-color: #ffffffff;
 }
 
 .umkm-card:active {
@@ -1028,14 +933,14 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(76, 175, 80, 0);
+    background: rgba(46, 125, 50, 0);
     transition: background 0.3s ease;
     border-radius: 12px;
     pointer-events: none;
 }
 
 .umkm-card:hover::after {
-    background: rgba(76, 175, 80, 0.05);
+    background: rgba(46, 125, 50, 0.05);
 }
 
 .badge {
@@ -1047,7 +952,7 @@ body {
 }
 
 .badge-category {
-    background: #28a745;
+    background: #2E7D32;
     color: #fff;
 }
 
@@ -1078,13 +983,13 @@ body {
 
 .price {
     font-weight: 700;
-    color: #28a745;
+    color: #2E7D32;
     font-size: 1.1rem;
     margin-bottom: 1rem;
 }
 
 .umkm-btn {
-    background: #4CAF50;
+    background: #2E7D32;
     color: white;
     border: none;
     padding: 12px 16px;
@@ -1098,11 +1003,11 @@ body {
     display: inline-block;
     text-align: center;
     width: 100%;
-    margin-bottom: 10px; /* Jarak antara tombol */
+    margin-bottom: 10px;
 }
 
 .umkm-btn:hover {
-    background: #388e3c;
+    background: #2E7D32;
     color: white;
     text-decoration: none;
 }
@@ -1110,8 +1015,8 @@ body {
 /* ---------------- Tombol WhatsApp ---------------- */
 .btn-outline-success {
     background: transparent;
-    color: #28a745;
-    border: 2px solid #28a745;
+    color: #2E7D32;
+    border: 2px solid #2E7D32;
     padding: 12px 16px;
     border-radius: 6px;
     font-size: 0.85rem;
@@ -1125,7 +1030,7 @@ body {
 }
 
 .btn-outline-success:hover {
-    background: #28a745;
+    background: #2E7D32;
     color: white;
     text-decoration: none;
 }
@@ -1158,7 +1063,7 @@ body {
 }
 
 .btn-view-all { 
-    background: #4CAF50;
+    background: #2E7D32;
     color: #fff;
     padding: 14px 32px;
     border-radius: 8px;
@@ -1172,7 +1077,7 @@ body {
 }
 
 .btn-view-all:hover { 
-    background: #388e3c;
+    background: #2E7D32;
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
@@ -1273,17 +1178,9 @@ body {
     transform: rotate(90deg);
 }
 
-/* ---------------- Responsive Design ---------------- */
-@media (max-width: 1200px) {
-    .uniform-grid-container {
-        padding: 0 20px;
-    }
-    
-    .jadwal-sholat-container {
-        gap: 25px;
-    }
-}
+/* ---------------- PERBAIKAN RESPONSIVE MOBILE ---------------- */
 
+/* Tablet dan Mobile Landscape */
 @media (max-width: 1024px) { 
     .uniform-grid { 
         grid-template-columns: repeat(2, 1fr); 
@@ -1296,13 +1193,13 @@ body {
     
     .profil {
         flex-direction: column;
-        text-align: center;
+        text-align: left;
         gap: 30px;
     }
     
     .apb-container {
         flex-direction: column;
-        text-align: center;
+        text-align: left;
     }
     
     .apbdesa-img img {
@@ -1332,11 +1229,20 @@ body {
         max-width: 450px;
     }
     
+    /* PERBAIKAN TOMBOL PENCARIAN TABLET - TOMBOL BULAT */
+    .hero-search-btn {
+        border-radius: 50% !important;
+        min-width: 50px !important;
+        aspect-ratio: 1/1;
+        padding: 12px !important;
+    }
+    
     .jadwal-sholat-container {
         grid-template-columns: 1fr;
     }
 }
 
+/* Mobile Portrait */
 @media (max-width: 768px) { 
     .uniform-grid { 
         grid-template-columns: 1fr; 
@@ -1370,21 +1276,33 @@ body {
         gap: 25px;
     }
     
+    /* PERBAIKAN HERO SEARCH MOBILE - Tombol Bulat */
     .hero-search-box {
-        flex-direction: column;
-        gap: 0;
-        border-radius: 25px;
+        flex-direction: row !important;
+        gap: 0 !important;
+        border-radius: 50px !important;
+        padding: 4px !important;
     }
     
     .hero-search-input {
-        border-radius: 25px 25px 0 0;
-        padding: 12px 20px;
+        border-radius: 50px 0 0 50px !important;
+        padding: 12px 16px !important;
+        font-size: 14px !important;
     }
     
     .hero-search-btn {
-        border-radius: 0 0 25px 25px;
-        padding: 12px 20px;
-        min-height: 50px;
+        border-radius: 50% !important;
+        padding: 12px !important;
+        min-height: auto !important;
+        min-width: 50px !important;
+        aspect-ratio: 1/1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .hero-search-btn i {
+        font-size: 14px !important;
     }
     
     /* Hero Section Responsive untuk Mobile */
@@ -1427,22 +1345,77 @@ body {
         margin-bottom: 30px;
     }
     
+    /* PERBAIKAN PROFIL MOBILE - Rata Kiri */
     .profil {
         padding: 50px 20px;
+        text-align: left;
+    }
+    
+    .profil-text {
+        text-align: left;
     }
     
     .profil-text h2 {
         font-size: 28px;
+        text-align: left;
     }
     
+    .profil-text p {
+        text-align: left;
+        line-height: 1.6;
+    }
+    
+    .profil-img {
+        text-align: center;
+    }
+    
+    /* PERBAIKAN APB DESA MOBILE - Side by Side */
     .apb-desa {
         padding: 50px 20px;
     }
     
-    .apb-info h2 {
-        font-size: 28px;
+    .apb-container {
+        flex-direction: row !important;
+        align-items: flex-start;
+        gap: 20px;
+        text-align: left;
     }
     
+    .apbdesa-img {
+        flex: 0 0 120px;
+        min-width: 120px;
+        text-align: center;
+    }
+    
+    .apbdesa-img img {
+        max-width: 100px;
+        height: auto;
+        border-radius: 10px;
+    }
+    
+    .apb-info {
+        flex: 1;
+        min-width: 0;
+        text-align: left;
+    }
+    
+    .apb-info h2 {
+        font-size: 28px;
+        text-align: left;
+    }
+    
+    .apb-info p {
+        text-align: left;
+    }
+    
+    .apb-card {
+        padding: 15px 20px;
+    }
+    
+    .apb-card h3 {
+        font-size: 20px;
+    }
+
     .berita-section,
     .agenda-section,
     .umkm-section,
@@ -1503,14 +1476,6 @@ body {
     .uniform-card-title {
         font-size: 1rem;
     }
-    
-    .apb-card {
-        padding: 15px 20px;
-    }
-    
-    .apb-card h3 {
-        font-size: 20px;
-    }
 
     /* Perbaikan tombol UMKM untuk mobile */
     .umkm-btn, .btn-outline-success {
@@ -1529,6 +1494,7 @@ body {
     }
 }
 
+/* Mobile Small */
 @media (max-width: 576px) {
     .uniform-grid-container {
         padding: 0 10px;
@@ -1564,6 +1530,19 @@ body {
         max-width: 100%;
     }
     
+    /* PERBAIKAN HERO SEARCH MOBILE KECIL - Tombol Tetap Bulat */
+    .hero-search-input {
+        padding: 10px 14px !important;
+        font-size: 13px !important;
+    }
+    
+    .hero-search-btn {
+        padding: 10px !important;
+        min-width: 45px !important;
+        border-radius: 50% !important;
+        aspect-ratio: 1/1;
+    }
+    
     .section-title {
         font-size: 24px;
         margin-bottom: 25px;
@@ -1596,6 +1575,7 @@ body {
         width: 50px;
     }
     
+    /* PERBAIKAN PROFIL MOBILE KECIL */
     .profil {
         padding: 40px 15px;
         gap: 25px;
@@ -1603,14 +1583,47 @@ body {
     
     .profil-text h2 {
         font-size: 24px;
+        text-align: left;
     }
     
+    /* PERBAIKAN APB DESA MOBILE KECIL */
     .apb-desa {
         padding: 40px 15px;
     }
     
+    .apb-container {
+        flex-direction: row;
+        gap: 15px;
+    }
+    
+    .apbdesa-img {
+        flex: 0 0 100px;
+    }
+    
+    .apbdesa-img img {
+        max-width: 90px;
+    }
+    
     .apb-info h2 {
         font-size: 24px;
+        text-align: left;
+    }
+    
+    .apb-info p {
+        font-size: 14px;
+        text-align: left;
+    }
+    
+    .apb-card {
+        padding: 12px 15px;
+    }
+    
+    .apb-card span {
+        font-size: 13px;
+    }
+    
+    .apb-card h3 {
+        font-size: 18px;
     }
     
     .jadwal-sholat-section {
@@ -1692,6 +1705,7 @@ body {
     }
 }
 
+/* Mobile Extra Small */
 @media (max-width: 400px) {
     /* Hero Section Responsive untuk Extra Small Mobile */
     .hero-section {
@@ -1713,6 +1727,23 @@ body {
         padding: 4px 10px;
     }
     
+    /* PERBAIKAN HERO SEARCH MOBILE SANGAT KECIL - Tombol Tetap Bulat */
+    .hero-search-input {
+        padding: 8px 12px !important;
+        font-size: 12px !important;
+    }
+    
+    .hero-search-btn {
+        padding: 8px !important;
+        min-width: 40px !important;
+        border-radius: 50% !important;
+        aspect-ratio: 1/1;
+    }
+    
+    .hero-search-btn i {
+        font-size: 12px !important;
+    }
+    
     .section-title {
         font-size: 22px;
     }
@@ -1721,9 +1752,45 @@ body {
         font-size: 18px;
     }
     
+    /* PERBAIKAN PROFIL MOBILE SANGAT KECIL */
     .profil-text h2,
     .apb-info h2 {
         font-size: 22px;
+        text-align: left;
+    }
+    
+    /* PERBAIKAN APB DESA MOBILE SANGAT KECIL */
+    .apb-container {
+        flex-direction: row;
+        gap: 12px;
+    }
+    
+    .apbdesa-img {
+        flex: 0 0 80px;
+    }
+    
+    .apbdesa-img img {
+        max-width: 70px;
+    }
+    
+    .apb-info h2 {
+        font-size: 20px;
+    }
+    
+    .apb-info p {
+        font-size: 13px;
+    }
+    
+    .apb-card {
+        padding: 10px 12px;
+    }
+    
+    .apb-card span {
+        font-size: 12px;
+    }
+    
+    .apb-card h3 {
+        font-size: 16px;
     }
     
     .jadwal-sholat-header h3 {
@@ -1811,7 +1878,6 @@ img {
     </div>
 </div>
 
-
 <?php
 if (!isset($stats)) {
     $stats = [
@@ -1828,59 +1894,59 @@ if (!isset($stats)) {
 }
 ?>
 
-{{-- ---------------- Statistik Section ---------------- --}}
+{{-- ---------------- Statistik Section dengan Data Dinamis ---------------- --}}
 <div class="statistik">
-    <h2>Statistik Penduduk Kelurahan Maccini Sombala Tahun {{ $stats['tahun'] ?? date('Y') }}</h2>
+    <h2>Statistik Penduduk Desa Manggalung Tahun {{ $stats['tahun'] ?? date('Y') }}</h2>
     <button class="slider-btn left" id="slideLeft"><i class="fa fa-chevron-left"></i></button>
     <button class="slider-btn right" id="slideRight"><i class="fa fa-chevron-right"></i></button>
     <div class="slider-wrapper overflow-hidden">
         <div id="slider">
-            {{-- Statistik Items --}}
+            {{-- Statistik Items dengan Data Dinamis --}}
             <div class="item">
                 <img src="{{ asset('landing/images/icon-image/dusun.png') }}" alt="Dusun">
-                <p class="angka">{{ $stats['dusun'] ?? 7 }}</p>
+                <p class="angka">{{ $stats['dusun'] ?? 0 }}</p>
                 <p class="label">Dusun</p>
             </div>
             <div class="item">
                 <img src="{{ asset('landing/images/icon-image/rt.png') }}" alt="RT">
-                <p class="angka">{{ $stats['rt'] ?? 23 }}</p>
+                <p class="angka">{{ $stats['rt'] ?? 0 }}</p>
                 <p class="label">RT</p>
             </div>
             <div class="item">
                 <img src="{{ asset('landing/images/icon-image/rw.png') }}" alt="RW">
-                <p class="angka">{{ $stats['rw'] ?? 12 }}</p>
+                <p class="angka">{{ $stats['rw'] ?? 0 }}</p>
                 <p class="label">RW</p>
             </div>
             <div class="item">
                 <img src="{{ asset('landing/images/icon-image/kepalaKeluarga.png') }}" alt="Kepala Keluarga">
-                <p class="angka">{{ number_format($stats['kepala_keluarga'] ?? 2463) }}</p>
+                <p class="angka">{{ number_format($stats['kepala_keluarga'] ?? 0) }}</p>
                 <p class="label">Kepala Keluarga</p>
             </div>
             <div class="item">
                 <img src="{{ asset('landing/images/icon-image/male.png') }}" alt="Laki-laki">
-                <p class="angka">{{ number_format($stats['laki_laki'] ?? 4952) }}</p>
+                <p class="angka">{{ number_format($stats['laki_laki'] ?? 0) }}</p>
                 <p class="label">Laki-laki</p>
             </div>
             <div class="item">
                 <img src="{{ asset('landing/images/icon-image/women.png') }}" alt="Perempuan">
-                <p class="angka">{{ number_format($stats['perempuan'] ?? 4716) }}</p>
+                <p class="angka">{{ number_format($stats['perempuan'] ?? 0) }}</p>
                 <p class="label">Perempuan</p>
             </div>
             <div class="item">
                 <img src="{{ asset('landing/images/icon-image/disabi.png') }}" alt="Disabilitas">
-                <p class="angka">{{ $stats['disabilitas'] ?? 4 }}</p>
+                <p class="angka">{{ $stats['disabilitas'] ?? 0 }}</p>
                 <p class="label">Disabilitas</p>
             </div>
             <div class="item">
                 <img src="{{ asset('landing/images/icon-image/family.png') }}" alt="Jumlah Penduduk">
-                <p class="angka">{{ number_format($stats['total_penduduk'] ?? 9668) }}</p>
+                <p class="angka">{{ number_format($stats['total_penduduk'] ?? 0) }}</p>
                 <p class="label">Jumlah Penduduk</p>
             </div>
         </div>
     </div>
 </div>
 
-{{-- ---------------- Chart Section ---------------- --}}
+{{-- ---------------- Chart Section dengan Data Dinamis ---------------- --}}
 <div class="chart-section">
     <h2>Visualisasi Statistik Penduduk</h2>
     <div class="chart-wrapper">
@@ -1902,7 +1968,7 @@ if (!isset($stats)) {
 {{-- ---------------- Jadwal Sholat Section ---------------- --}}
 <div class="jadwal-sholat-section">
     <div class="uniform-grid-container">
-        <h2 class="section-title">Jadwal Sholat</h2>
+
         <div class="jadwal-sholat-container">
             {{-- Card Jadwal Sholat --}}
             <div class="jadwal-sholat-card">
@@ -2133,37 +2199,63 @@ if (!isset($stats)) {
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-// ---------------- Chart Penduduk ----------------
-const ctx = document.getElementById('chartPenduduk');
-new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: ['Kepala Keluarga','Laki-laki', 'Perempuan', 'Disabilitas','Jumlah Penduduk'],
+// ---------------- Chart Penduduk dengan Data Dinamis ----------------
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('chartPenduduk');
+    
+    // Data dari controller (PHP akan meng-inject data ini)
+    const chartData = {
+        labels: ['Kepala Keluarga', 'Laki-laki', 'Perempuan', 'Disabilitas', 'Jumlah Penduduk'],
         datasets: [{
-            data: [2463,4952,4716,4,9668],
+            data: [
+                {{ $stats['kepala_keluarga'] ?? 0 }},
+                {{ $stats['laki_laki'] ?? 0 }},
+                {{ $stats['perempuan'] ?? 0 }},
+                {{ $stats['disabilitas'] ?? 0 }},
+                {{ $stats['total_penduduk'] ?? 0 }}
+            ],
             backgroundColor: ['#22c55e', '#60a5fa', '#f97316', '#a78bfa', '#ef4444'],
             borderColor: '#ffffff',
             borderWidth: 2,
             hoverOffset: 8,
             borderRadius: 6
         }]
-    },
-    options: {
-        plugins: { 
-            legend: { 
-                position: 'bottom', 
-                labels: { 
-                    usePointStyle: true, 
-                    padding: 16,
-                    font: {
-                        size: window.innerWidth < 768 ? 12 : 14
-                    }
-                } 
-            } 
-        },
-        cutout: '65%',
-        responsive: true,
-        maintainAspectRatio: true
+    };
+
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: chartData,
+            options: {
+                plugins: { 
+                    legend: { 
+                        position: 'bottom', 
+                        labels: { 
+                            usePointStyle: true, 
+                            padding: 16,
+                            font: {
+                                size: window.innerWidth < 768 ? 12 : 14
+                            }
+                        },
+                        // Menambahkan tooltip untuk legend
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.parsed;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = Math.round((value / total) * 100);
+                                    return `${label}: ${value} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    } 
+                },
+                cutout: '65%',
+                responsive: true,
+                maintainAspectRatio: true
+            }
+        });
     }
 });
 
@@ -2269,6 +2361,17 @@ function updateLiveClock() {
 setInterval(updateLiveClock, 1000);
 updateLiveClock(); // Panggil sekali saat pertama kali load
 
+// Fungsi untuk format tanggal Indonesia
+function formatTanggalIndonesia(date) {
+    const options = { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    };
+    return date.toLocaleDateString('id-ID', options);
+}
+
 async function fetchPrayerTimes() {
     try {
         // Koordinat Desa Manggalung, Kabupaten Pangkep
@@ -2282,39 +2385,21 @@ async function fetchPrayerTimes() {
         const data = await response.json();
         
         if (data.code === 200) {
-            return data.data;
+            return {
+                timings: data.data.timings,
+                date: {
+                    readable: formatTanggalIndonesia(today)
+                }
+            };
         } else {
             throw new Error('Failed to fetch prayer times');
         }
     } catch (error) {
         console.error('Error fetching prayer times:', error);
-        // Fallback ke jadwal default jika API gagal
-        return getDefaultPrayerTimes();
+        // Jika API gagal, coba lagi setelah 10 detik
+        setTimeout(fetchPrayerTimes, 10000);
+        throw error; // Tetap throw error agar proses berhenti
     }
-}
-
-function getDefaultPrayerTimes() {
-    const today = new Date();
-    const timings = {
-        Fajr: '04:40',
-        Sunrise: '05:39',
-        Dhuhr: '11:46',
-        Asr: '15:00',
-        Maghrib: '17:53',
-        Isha: '18:52'
-    };
-    
-    return {
-        timings: timings,
-        date: {
-            readable: today.toLocaleDateString('id-ID', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            })
-        }
-    };
 }
 
 function convertToWITA(time24) {
@@ -2326,7 +2411,7 @@ function updatePrayerTimesDisplay(prayerData) {
     const prayerTimesContainer = document.getElementById('prayer-times');
     const currentDateElement = document.getElementById('current-date');
     
-    // Update tanggal
+    // Update tanggal dengan format Indonesia
     currentDateElement.textContent = prayerData.date.readable;
     
     // Daftar sholat dengan nama Indonesia dan icon
@@ -2358,11 +2443,11 @@ function updatePrayerTimesDisplay(prayerData) {
         prayerTimesContainer.appendChild(prayerElement);
     });
     
-    // Update sholat aktif dan sholat berikutnya
-    updateActivePrayerAndNext(prayerData.timings);
+    // Update sholat berikutnya
+    updateNextPrayer(prayerData.timings);
 }
 
-function updateActivePrayerAndNext(timings) {
+function updateNextPrayer(timings) {
     const now = new Date();
     const currentTime = now.getHours().toString().padStart(2, '0') + ':' + 
                        now.getMinutes().toString().padStart(2, '0');
@@ -2382,49 +2467,45 @@ function updateActivePrayerAndNext(timings) {
     });
     
     let nextPrayer = null;
-    let activePrayer = null;
-    let foundActive = false;
+    let foundNext = false;
     
-    // Cari sholat aktif dan sholat berikutnya
+    // Tandai sholat yang sudah lewat dengan warna abu-abu
+    prayers.forEach(prayer => {
+        const prayerElement = document.getElementById(`prayer-${prayer.key.toLowerCase()}`);
+        if (currentTime >= prayer.time) {
+            if (prayerElement) {
+                prayerElement.classList.add('passed');
+            }
+        }
+    });
+    
+    // Cari sholat berikutnya (yang belum datang)
     for (let i = 0; i < prayers.length; i++) {
         const prayer = prayers[i];
         const prayerTime = prayer.time;
-        const prayerElement = document.getElementById(`prayer-${prayer.key.toLowerCase()}`);
         
         if (currentTime < prayerTime) {
-            // Waktu sholat belum datang
-            if (!nextPrayer) {
-                nextPrayer = prayer;
-            }
+            // Waktu sholat belum datang - ini adalah sholat berikutnya
+            nextPrayer = prayer;
+            foundNext = true;
             
-            // Tandai semua sholat yang belum datang sebagai normal
+            // Tandai sholat berikutnya dengan warna hijau
+            const prayerElement = document.getElementById(`prayer-${prayer.key.toLowerCase()}`);
             if (prayerElement) {
-                prayerElement.classList.remove('active', 'passed');
+                prayerElement.classList.add('active');
             }
-        } else {
-            // Waktu sholat sudah lewat
-            if (prayerElement) {
-                prayerElement.classList.add('passed');
-                prayerElement.classList.remove('active');
-            }
-            
-            // Sholat terakhir yang sudah lewat adalah sholat aktif
-            activePrayer = prayer;
-            foundActive = true;
+            break; // Hentikan loop setelah menemukan sholat berikutnya
         }
     }
     
     // Jika tidak ada sholat berikutnya (sudah lewat Isya), set ke Subuh besok
-    if (!nextPrayer) {
-        nextPrayer = prayers[0];
-    }
-    
-    // Tandai sholat aktif dengan warna hijau (hanya satu sholat yang aktif)
-    if (foundActive && activePrayer) {
-        const activeElement = document.getElementById(`prayer-${activePrayer.key.toLowerCase()}`);
-        if (activeElement) {
-            activeElement.classList.add('active');
-            activeElement.classList.remove('passed');
+    if (!foundNext) {
+        nextPrayer = prayers[0]; // Subuh besok
+        
+        // Tandai Subuh sebagai sholat berikutnya
+        const subuhElement = document.getElementById('prayer-fajr');
+        if (subuhElement) {
+            subuhElement.classList.add('active');
         }
     }
     
@@ -2479,11 +2560,17 @@ async function initializePrayerTimes() {
         
         // Update jadwal setiap 5 menit
         setInterval(async () => {
-            const updatedData = await fetchPrayerTimes();
-            updatePrayerTimesDisplay(updatedData);
+            try {
+                const updatedData = await fetchPrayerTimes();
+                updatePrayerTimesDisplay(updatedData);
+            } catch (error) {
+                console.error('Error updating prayer times:', error);
+            }
         }, 300000); // Update setiap 5 menit
     } catch (error) {
         console.error('Error initializing prayer times:', error);
+        // Coba lagi setelah 30 detik jika gagal
+        setTimeout(initializePrayerTimes, 30000);
     }
 }
 
@@ -2501,82 +2588,82 @@ $(document).ready(function() {
     const $resultsCount = $('#resultsCount');
 
     // Data untuk pencarian - SEMUA KONTEN WEBSITE
-    const searchData = {
-        // Data Statistik
-        statistik: [
-            {
-                id: 'stat-dusun',
-                title: 'Dusun',
-                content: 'Desa memiliki 7 dusun yang tersebar di wilayah kelurahan',
-                category: 'Statistik',
-                angka: '7',
-                url: '#statistik',
-                icon: 'dusun.png'
-            },
-            {
-                id: 'stat-rt',
-                title: 'RT',
-                content: 'Terdapat 23 RT di wilayah kelurahan untuk administrasi',
-                category: 'Statistik',
-                angka: '23',
-                url: '#statistik',
-                icon: 'rt.png'
-            },
-            {
-                id: 'stat-rw',
-                title: 'RW',
-                content: 'Wilayah kelurahan dibagi menjadi 12 RW',
-                category: 'Statistik',
-                angka: '12',
-                url: '#statistik',
-                icon: 'rw.png'
-            },
-            {
-                id: 'stat-kk',
-                title: 'Kepala Keluarga',
-                content: 'Jumlah kepala keluarga di kelurahan sebanyak 2.463 KK',
-                category: 'Statistik',
-                angka: '2.463',
-                url: '#statistik',
-                icon: 'kepalaKeluarga.png'
-            },
-            {
-                id: 'stat-laki',
-                title: 'Laki-laki',
-                content: 'Penduduk laki-laki berjumlah 4.952 jiwa',
-                category: 'Statistik',
-                angka: '4.952',
-                url: '#statistik',
-                icon: 'male.png'
-            },
-            {
-                id: 'stat-perempuan',
-                title: 'Perempuan',
-                content: 'Penduduk perempuan berjumlah 4.716 jiwa',
-                category: 'Statistik',
-                angka: '4.716',
-                url: '#statistik',
-                icon: 'women.png'
-            },
-            {
-                id: 'stat-disabilitas',
-                title: 'Disabilitas',
-                content: 'Warga dengan disabilitas berjumlah 4 orang',
-                category: 'Statistik',
-                angka: '4',
-                url: '#statistik',
-                icon: 'disabi.png'
-            },
-            {
-                id: 'stat-total',
-                title: 'Jumlah Penduduk',
-                content: 'Total penduduk kelurahan sebanyak 9.668 jiwa',
-                category: 'Statistik',
-                angka: '9.668',
-                url: '#statistik',
-                icon: 'family.png'
-            }
-        ],
+   const searchData = {
+    // Data Statistik Dinamis
+    statistik: [
+        {
+            id: 'stat-dusun',
+            title: 'Dusun',
+            content: 'Desa memiliki {{ $stats["dusun"] ?? 0 }} dusun yang tersebar di wilayah kelurahan',
+            category: 'Statistik',
+            angka: '{{ $stats["dusun"] ?? 0 }}',
+            url: '#statistik',
+            icon: 'dusun.png'
+        },
+        {
+            id: 'stat-rt',
+            title: 'RT',
+            content: 'Terdapat {{ $stats["rt"] ?? 0 }} RT di wilayah kelurahan untuk administrasi',
+            category: 'Statistik',
+            angka: '{{ $stats["rt"] ?? 0 }}',
+            url: '#statistik',
+            icon: 'rt.png'
+        },
+        {
+            id: 'stat-rw',
+            title: 'RW',
+            content: 'Wilayah kelurahan dibagi menjadi {{ $stats["rw"] ?? 0 }} RW',
+            category: 'Statistik',
+            angka: '{{ $stats["rw"] ?? 0 }}',
+            url: '#statistik',
+            icon: 'rw.png'
+        },
+        {
+            id: 'stat-kk',
+            title: 'Kepala Keluarga',
+            content: 'Jumlah kepala keluarga di kelurahan sebanyak {{ number_format($stats["kepala_keluarga"] ?? 0) }} KK',
+            category: 'Statistik',
+            angka: '{{ number_format($stats["kepala_keluarga"] ?? 0) }}',
+            url: '#statistik',
+            icon: 'kepalaKeluarga.png'
+        },
+        {
+            id: 'stat-laki',
+            title: 'Laki-laki',
+            content: 'Penduduk laki-laki berjumlah {{ number_format($stats["laki_laki"] ?? 0) }} jiwa',
+            category: 'Statistik',
+            angka: '{{ number_format($stats["laki_laki"] ?? 0) }}',
+            url: '#statistik',
+            icon: 'male.png'
+        },
+        {
+            id: 'stat-perempuan',
+            title: 'Perempuan',
+            content: 'Penduduk perempuan berjumlah {{ number_format($stats["perempuan"] ?? 0) }} jiwa',
+            category: 'Statistik',
+            angka: '{{ number_format($stats["perempuan"] ?? 0) }}',
+            url: '#statistik',
+            icon: 'women.png'
+        },
+        {
+            id: 'stat-disabilitas',
+            title: 'Disabilitas',
+            content: 'Warga dengan disabilitas berjumlah {{ $stats["disabilitas"] ?? 0 }} orang',
+            category: 'Statistik',
+            angka: '{{ $stats["disabilitas"] ?? 0 }}',
+            url: '#statistik',
+            icon: 'disabi.png'
+        },
+        {
+            id: 'stat-total',
+            title: 'Jumlah Penduduk',
+            content: 'Total penduduk kelurahan sebanyak {{ number_format($stats["total_penduduk"] ?? 0) }} jiwa',
+            category: 'Statistik',
+            angka: '{{ number_format($stats["total_penduduk"] ?? 0) }}',
+            url: '#statistik',
+            icon: 'family.png'
+        }
+    ],
         
         // Data dari controller
         beritas: [

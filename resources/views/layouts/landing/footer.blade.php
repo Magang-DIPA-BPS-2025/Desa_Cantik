@@ -91,6 +91,19 @@
             </div>
         </div>
     </div>
+
+    <!-- Tombol WhatsApp Chat Sekdes -->
+    <div class="whatsapp-chat-sekdes">
+        <a href="https://wa.me/6285244648513" target="_blank" class="whatsapp-btn">
+            <div class="whatsapp-icon">
+                <i class="fab fa-whatsapp"></i>
+            </div>
+            <div class="whatsapp-text">
+                <span class="whatsapp-title">Chat Sekdes</span>
+                <span class="whatsapp-subtitle">Sekretaris Desa</span>
+            </div>
+        </a>
+    </div>
 </footer>
 
 <!-- Script Aksesibilitas -->
@@ -100,7 +113,7 @@
 #landing-footer {
     background: linear-gradient(135deg, #ffffff, #f8f9fa);
     padding: 50px 0 0;
-    border-top: 3px solid #C0D09D;
+    border-top: 3px solid #2E7D32;
     color: #444;
     font-size: 15px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -134,7 +147,7 @@
     font-weight: bold;
     margin-bottom: 20px;
     padding-left: 10px;
-    border-left: 4px solid #C0D09D;
+    border-left: 4px solid #2E7D32;
     color: #222;
 }
 
@@ -169,7 +182,7 @@
     font-weight: 500;
 }
 #landing-footer a:hover {
-    color: #C0D09D;
+    color: #2E7D32;
     text-decoration: underline;
 }
 
@@ -218,7 +231,7 @@
     background: #f8f9fa;
     padding: 15px;
     border-radius: 8px;
-    border-left: 4px solid #C0D09D;
+    border-left: 4px solid #2E7D32;
 }
 
 #landing-footer .map-info strong {
@@ -231,7 +244,7 @@
 /* Garis Horizontal */
 #landing-footer .footer-divider {
     height: 1px;
-    background: linear-gradient(to right, transparent, #C0D09D, transparent);
+    background: linear-gradient(to right, transparent, #2E7D32, transparent);
     margin: 20px 0 15px;
     width: 100%;
 }
@@ -274,6 +287,83 @@
 #landing-footer .footer-social .social.fb:hover { background: #3b5998; }
 #landing-footer .footer-social .social.ig:hover { background: #E1306C; }
 #landing-footer .footer-social .social.yt:hover { background: #FF0000; }
+
+/* ==================== */
+/* TOMBOL WHATSAPP SEKDES */
+/* ==================== */
+#landing-footer .whatsapp-chat-sekdes {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+}
+
+#landing-footer .whatsapp-chat-sekdes .whatsapp-btn {
+    display: flex;
+    align-items: center;
+    background: #25D366;
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    transition: all 0.3s ease;
+    animation: pulse-whatsapp 2s infinite;
+}
+
+#landing-footer .whatsapp-chat-sekdes .whatsapp-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+    text-decoration: none;
+    color: white;
+}
+
+#landing-footer .whatsapp-chat-sekdes .whatsapp-icon {
+    font-size: 28px;
+    margin-right: 10px;
+    animation: bounce 2s infinite;
+}
+
+#landing-footer .whatsapp-chat-sekdes .whatsapp-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+#landing-footer .whatsapp-chat-sekdes .whatsapp-title {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+#landing-footer .whatsapp-chat-sekdes .whatsapp-subtitle {
+    font-size: 11px;
+    opacity: 0.9;
+}
+
+/* Animasi untuk tombol WhatsApp */
+@keyframes pulse-whatsapp {
+    0% {
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    }
+    50% {
+        box-shadow: 0 4px 25px rgba(37, 211, 102, 0.7);
+    }
+    100% {
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-5px);
+    }
+    60% {
+        transform: translateY(-3px);
+    }
+}
 
 /* Responsive Design */
 @media (max-width: 992px) {
@@ -321,6 +411,29 @@
     #landing-footer .footer-copyright {
         margin-bottom: 0;
     }
+
+    /* Tombol WhatsApp untuk mobile */
+    #landing-footer .whatsapp-chat-sekdes {
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    #landing-footer .whatsapp-chat-sekdes .whatsapp-btn {
+        padding: 10px 16px;
+    }
+    
+    #landing-footer .whatsapp-chat-sekdes .whatsapp-icon {
+        font-size: 24px;
+        margin-right: 8px;
+    }
+    
+    #landing-footer .whatsapp-chat-sekdes .whatsapp-title {
+        font-size: 13px;
+    }
+    
+    #landing-footer .whatsapp-chat-sekdes .whatsapp-subtitle {
+        font-size: 10px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -356,6 +469,38 @@
         height: 32px;
         font-size: 14px;
     }
+
+    /* Tombol WhatsApp untuk mobile kecil */
+    #landing-footer .whatsapp-chat-sekdes {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    #landing-footer .whatsapp-chat-sekdes .whatsapp-btn {
+        padding: 8px 14px;
+    }
+    
+    #landing-footer .whatsapp-chat-sekdes .whatsapp-icon {
+        font-size: 22px;
+        margin-right: 6px;
+    }
+    
+    #landing-footer .whatsapp-chat-sekdes .whatsapp-text {
+        display: none; /* Sembunyikan teks di mobile sangat kecil */
+    }
+    
+    #landing-footer .whatsapp-chat-sekdes .whatsapp-btn:hover .whatsapp-text {
+        display: flex; /* Tampilkan teks saat hover */
+        position: absolute;
+        right: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #25D366;
+        padding: 8px 12px;
+        border-radius: 8px;
+        margin-right: 10px;
+        white-space: nowrap;
+    }
 }
 
 @media (max-width: 360px) {
@@ -375,6 +520,30 @@
     #landing-footer .map-info {
         font-size: 13px;
         padding: 12px;
+    }
+
+    /* Tombol WhatsApp untuk mobile sangat kecil */
+    #landing-footer .whatsapp-chat-sekdes .whatsapp-btn {
+        padding: 10px;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    #landing-footer .whatsapp-chat-sekdes .whatsapp-icon {
+        margin-right: 0;
+        font-size: 24px;
+    }
+}
+
+/* Untuk perangkat dengan layar sangat kecil (portrait) */
+@media (max-width: 320px) {
+    #landing-footer .whatsapp-chat-sekdes {
+        bottom: 10px;
+        right: 10px;
     }
 }
 </style>

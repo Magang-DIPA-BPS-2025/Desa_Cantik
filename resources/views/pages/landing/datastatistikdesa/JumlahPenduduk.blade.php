@@ -22,7 +22,7 @@ h1, h2, h3, h4, h5, h6, .gallery-title, .filter-toggle, .btn-download, .table th
 
 body { 
     color: #000; 
-    background: #fff; 
+    background: #f8fafc; 
 }
 
 .container-main { 

@@ -2,8 +2,6 @@
 
 @push('styles')
 <style>
-    
-
     .product-header h2 {
         font-weight: 700;
         font-size: 2rem;
@@ -76,13 +74,11 @@
         position: relative;
     }
 
-    /* Bintang default transparan */
     .star-transparent {
         opacity: 0.3 !important;
         color: #6c757d !important;
     }
 
-    /* Bintang saat dipilih */
     .star-selected {
         opacity: 1 !important;
         color: #ffc107 !important;
@@ -90,7 +86,6 @@
         filter: drop-shadow(0 0 4px rgba(255, 193, 7, 0.5));
     }
 
-    /* Bintang saat hover */
     .star-hover {
         opacity: 0.7 !important;
         color: #ffc107 !important;
@@ -111,6 +106,26 @@
         margin-left: 8px;
     }
 
+    /* PERBAIKAN: Styling untuk tombol dengan jarak */
+    .button-group {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px; /* Jarak antara tombol */
+        margin-top: 1rem;
+    }
+
+    /* PERBAIKAN: Badge kategori dengan teks putih */
+    .category-badge {
+        background: #28a745 !important;
+        color: white !important;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        margin-bottom: 1rem;
+        display: inline-block;
+    }
+
     @media (max-width: 576px) {
         .product-header h2 {
             font-size: 1.5rem;
@@ -122,6 +137,17 @@
         
         .star-rating {
             gap: 6px;
+        }
+
+        /* PERBAIKAN: Responsive tombol di mobile */
+        .button-group {
+            gap: 8px;
+            justify-content: flex-start;
+        }
+
+        .button-group .btn {
+            flex: 1;
+            min-width: 140px;
         }
     }
 </style>
@@ -147,7 +173,6 @@
                     Rp {{ number_format($belanja->harga, 0, ',', '.') }}
                 </div>
                 <div class="text-warning fw-bold d-flex align-items-center gap-1">
-                    {{-- Tampilkan bintang rata-rata rating --}}
                     @php
                         $avg = $belanja->averageRating();
                         $fullStars = floor($avg);
@@ -171,23 +196,25 @@
                 </div>
             </div>
 
-            {{-- Kategori --}}
+            {{-- Kategori - PERBAIKAN: Teks putih --}}
             @if($belanja->kategori)
-                <span class="badge bg-success mb-3">{{ $belanja->kategori }}</span>
+                <span class="category-badge">
+                    <i class="fas fa-tag me-1"></i>{{ $belanja->kategori }}
+                </span>
             @endif
 
             {{-- Deskripsi --}}
             <p class="text-muted mb-4">{{ $belanja->deskripsi }}</p>
 
-            {{-- Tombol --}}
-            <div class="d-flex flex-wrap align-items-center gap-2">
+            {{-- Tombol - PERBAIKAN: Dengan jarak --}}
+            <div class="button-group">
                 @if($belanja->wa)
                     <a href="https://wa.me/{{ $belanja->wa }}" target="_blank" class="btn btn-success">
                         <i class="fab fa-whatsapp me-1"></i> Hubungi via WhatsApp
                     </a>
                 @endif
                 <a href="{{ route('belanja') }}" class="btn btn-outline-success">
-                    <i class="fas fa-arrow-left me-1"></i> Kembali
+                    <i class="fas fa-arrow-left me-1"></i> Kembali ke UMKM
                 </a>
             </div>
         </div>
@@ -199,59 +226,57 @@
             <i class="fas fa-star me-2"></i>Beri Rating Produk Ini
         </h5>
 
-        @if(Auth::check())
-            {{-- Tampilkan pesan error --}}
-            @if($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            @if(session('error'))
-                <div class="alert alert-danger">{{ session('error') }}</div>
-            @endif
-
-            <form action="{{ route('belanja.rating', $belanja->id) }}" method="POST" id="ratingForm">
-                @csrf
-                <div class="mb-3">
-                    <label class="form-label fw-semibold">Pilih Rating:</label>
-                    <div class="d-flex align-items-center flex-wrap gap-3">
-                        <div class="star-rating">
-                            @for($i = 1; $i <= 5; $i++)
-                                <span class="star star-transparent" data-value="{{ $i }}">⭐</span>
-                            @endfor
-                        </div>
-                        <span class="rating-value" id="ratingValue"></span>
-                    </div>
-                    <div class="rating-hint" id="ratingHint">Klik bintang untuk memilih rating</div>
-                    <input type="hidden" name="rating" id="ratingInput" required>
-                    @error('rating')
-                        <div class="text-danger small mt-1">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label fw-semibold">Komentar (opsional):</label>
-                    <textarea name="komentar" class="form-control" rows="3" placeholder="Bagaimana pendapat Anda tentang produk ini?">{{ old('komentar') }}</textarea>
-                    @error('komentar')
-                        <div class="text-danger small mt-1">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <button type="submit" class="btn btn-success" id="submitBtn" disabled>
-                    <i class="fas fa-paper-plane me-1"></i> Kirim Rating
-                </button>
-            </form>
-        @else
-            <div class="alert alert-info">
-                <i class="fas fa-info-circle me-2"></i>
-                Silakan <a href="{{ route('login') }}" class="alert-link">login</a> untuk memberi rating.
+        {{-- Tampilkan pesan error --}}
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
         @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+
+        <form action="{{ route('belanja.rating', $belanja->id) }}" method="POST" id="ratingForm">
+            @csrf
+            <div class="mb-3">
+                <label for="nama_user" class="form-label">Nama Anda</label>
+                <input type="text" name="nama_user" class="form-control" placeholder="Masukkan nama" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Pilih Rating:</label>
+                <div class="d-flex align-items-center flex-wrap gap-3">
+                    <div class="star-rating">
+                        @for($i = 1; $i <= 5; $i++)
+                            <span class="star star-transparent" data-value="{{ $i }}">⭐</span>
+                        @endfor
+                    </div>
+                    <span class="rating-value" id="ratingValue"></span>
+                </div>
+                <div class="rating-hint" id="ratingHint">Klik bintang untuk memilih rating</div>
+                <input type="hidden" name="rating" id="ratingInput" required>
+                @error('rating')
+                    <div class="text-danger small mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Komentar (opsional):</label>
+                <textarea name="komentar" class="form-control" rows="3" placeholder="Bagaimana pendapat Anda tentang produk ini?">{{ old('komentar') }}</textarea>
+                @error('komentar')
+                    <div class="text-danger small mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <button type="submit" class="btn btn-success" id="submitBtn" disabled>
+                <i class="fas fa-paper-plane me-1"></i> Kirim Rating
+            </button>
+        </form>
 
         @if(session('success'))
             <div class="alert alert-success mt-3">
@@ -271,7 +296,7 @@
             <div class="review-item">
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <div>
-                        <strong class="text-dark">{{ $r->user->name ?? 'Anonim' }}</strong>
+                        <strong class="text-dark">{{ $r->nama_user ?? 'nama_user' }}</strong>
                         <small class="text-muted ms-2">{{ $r->created_at->diffForHumans() }}</small>
                     </div>
                     <div class="rating-stars">
@@ -309,7 +334,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const submitBtn = document.getElementById('submitBtn');
     let selectedRating = 0;
 
-    // Teks untuk setiap rating
     const ratingTexts = {
         1: 'Tidak Puas - Produk tidak sesuai harapan',
         2: 'Kurang Puas - Ada beberapa kekurangan',
@@ -318,7 +342,6 @@ document.addEventListener('DOMContentLoaded', function() {
         5: 'Sangat Puas - Produk luar biasa!'
     };
 
-    // Emoji untuk nilai rating
     const ratingEmojis = {
         1: '😞',
         2: '😐', 
@@ -331,7 +354,6 @@ document.addEventListener('DOMContentLoaded', function() {
         stars.forEach(star => {
             const starValue = parseInt(star.dataset.value);
             
-            // Reset semua class
             star.classList.remove('star-transparent', 'star-selected', 'star-hover');
             
             if (starValue <= rating) {
@@ -367,19 +389,15 @@ document.addEventListener('DOMContentLoaded', function() {
         ratingValue.textContent = `${value}/5 ${ratingEmojis[value] || ''}`;
         ratingValue.style.opacity = '1';
         submitBtn.disabled = false;
-        
-        console.log('Rating selected:', value);
     }
 
     stars.forEach(star => {
         const value = parseInt(star.dataset.value);
 
-        // Klik bintang
         star.addEventListener('click', function() {
             setRating(value);
         });
 
-        // Hover bintang
         star.addEventListener('mouseover', function() {
             if (selectedRating === 0) {
                 updateStars(value, true);
@@ -389,7 +407,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Mouse out dari bintang
         star.addEventListener('mouseout', function() {
             if (selectedRating === 0) {
                 resetStars();
@@ -402,21 +419,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Reset form setelah submit (untuk UX yang lebih baik)
     document.getElementById('ratingForm').addEventListener('submit', function(e) {
         console.log('Submitting rating:', ratingInput.value);
-        
-        // Optional: Tampilkan loading state
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Mengirim...';
         submitBtn.disabled = true;
-        
-        // Biarkan form submit normal
     });
 
-    // Inisialisasi awal
     resetStars();
     
-    // Tambahkan efek subtle animation pada bintang
     stars.forEach((star, index) => {
         star.style.animationDelay = `${index * 0.1}s`;
     });

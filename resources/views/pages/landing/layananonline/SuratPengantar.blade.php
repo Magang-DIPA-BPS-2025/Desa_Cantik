@@ -10,46 +10,48 @@
         color: #333;
     }
     
-    /* Header Section */
-    .form-header-section {
-        padding: 40px 0 20px;
+    /* Header Section - DIPERBAIKI seperti halaman status surat */
+    .container-main { 
+        max-width: 1400px; 
+        margin: auto; 
+        padding: 20px; 
     }
-    
-    .form-header {
-        text-align: left;
-        max-width: 1200px;
-        margin: 0 auto 30px;
-        padding: 0 20px;
+
+    .gallery-header {
+        margin-bottom: 2rem;
+        margin-top: -1rem;
     }
-    
-    .form-title {
-        font-weight: 700;
-        color: #2E7D32;
+
+    .gallery-title {
         font-size: 2.8rem;
+        font-weight: 600;
+        color: #2E7D32;
         line-height: 1.1;
-        margin-bottom: 15px;
-        text-align: left;
+        margin-bottom: 0.5rem;
         font-family: 'Poppins', sans-serif;
     }
-    
-    .form-subtitle {
+
+    .gallery-header p {
+        font-size: 1.1rem;
         color: #666;
-        font-size: 1.2rem;
         margin-bottom: 0;
-        text-align: left;
         font-family: 'Open Sans', sans-serif;
     }
 
-    /* Form Container */
-    .form-box { 
+    /* Card Style - DIPERBAIKI seperti halaman status surat */
+    .card { 
         background: #fff; 
-        max-width: 1200px; 
-        margin: auto; 
-        padding: 50px; 
-        border-radius: 12px; 
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); 
-        margin-bottom: 60px; 
-        border: 1px solid #eaeaea;
+        border-radius: 14px; 
+        padding: 25px; 
+        box-shadow: 0 8px 20px rgba(0,0,0,0.06); 
+        transition: .25s; 
+        border: none;
+        margin-bottom: 25px;
+    }
+
+    .card:hover { 
+        transform: translateY(-3px); 
+        box-shadow: 0 12px 28px rgba(0,0,0,0.12); 
     }
     
     .form-group { 
@@ -135,32 +137,6 @@
         border-left: 4px solid #dc3545;
     }
     
-    /* Card Styles untuk form sections */
-    .form-section {
-        background: #f8fafc;
-        border-radius: 8px;
-        padding: 25px;
-        margin-bottom: 25px;
-        border-left: 4px solid #2E7D32;
-        text-align: left;
-    }
-    
-    .form-section-title {
-        color: #2E7D32;
-        font-weight: 600;
-        margin-bottom: 20px;
-        font-size: 1.3rem;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        text-align: left;
-        font-family: 'Poppins', sans-serif;
-    }
-    
-    .form-section-title i {
-        font-size: 1.2rem;
-    }
-
     /* Row dan Column Layout */
     .form-row {
         display: flex;
@@ -173,8 +149,8 @@
     }
     
     @media (max-width: 768px) {
-        .form-box {
-            padding: 30px 20px;
+        .card {
+            padding: 20px;
         }
         
         .form-row {
@@ -182,8 +158,26 @@
             gap: 0;
         }
         
-        .form-title {
+        .gallery-title {
             font-size: 2.2rem;
+        }
+        
+        .container-main {
+            padding: 15px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .gallery-title { 
+            font-size: 1.8rem; 
+        }
+        
+        .gallery-header p {
+            font-size: 1rem;
+        }
+        
+        .card {
+            padding: 15px;
         }
     }
 </style>
@@ -192,40 +186,39 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
 
-<div class="form-header-section">
-    <div class="form-header">
-        <h2 class="form-title">FORMULIR LAYANAN ADMINISTRASI</h2>
-        <p class="form-subtitle">
+<!-- DIPERBAIKI: Menggunakan struktur seperti halaman status surat -->
+<div class="container-main">
+    <!-- Judul Halaman - Mengikuti gaya dari halaman status surat -->
+    <div class="text-start mb-4 mt-2 px-2 gallery-header">
+        <h2 class="fw-semibold display-4 mb-2 gallery-title">
+            FORMULIR LAYANAN ADMINISTRASI
+        </h2>
+        <p class="text-secondary fs-5 mb-0">
             Pilih jenis surat untuk menampilkan form sesuai kebutuhan administrasi Desa Manggalung
         </p>
     </div>
-</div>
 
-<div class="form-box">
-    @if (session('success'))
-        <div class="alert alert-success">
-            <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
-        </div>
-    @endif
-    @if (session('error'))
-        <div class="alert alert-danger">
-            <i class="bi bi-exclamation-circle-fill me-2"></i>{{ session('error') }}
-        </div>
-    @endif
-
-    {{-- Form utama --}}
-    <form id="formLayanan" method="POST" action="#">
-        @csrf
-        <input type="hidden" name="tanggal_dibuat" value="{{ date('Y-m-d') }}">
-
-        {{-- Jenis Surat --}}
-        <div class="form-section">
-            <div class="form-section-title">
-                <i class="bi bi-card-checklist"></i>
-                Jenis Layanan Surat
+    <!-- Card Formulir - Menggunakan card style seperti halaman status surat -->
+    <div class="card">
+        @if (session('success'))
+            <div class="alert alert-success">
+                <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
             </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                <i class="bi bi-exclamation-circle-fill me-2"></i>{{ session('error') }}
+            </div>
+        @endif
+
+        {{-- Form utama --}}
+        <form id="formLayanan" method="POST" action="#">
+            @csrf
+            <input type="hidden" name="tanggal_dibuat" value="{{ date('Y-m-d') }}">
+
+            {{-- Jenis Surat --}}
             <div class="form-group">
-                <label>Pilih Jenis Surat</label>
+                <label>Pilih Jenis Surat <span class="text-danger">*</span></label>
                 <select id="jenisSurat" name="jenis_surat" required>
                     <option value="">-- Pilih Jenis Surat --</option>
                     <option value="SURAT KETERANGAN USAHA (SKU)">SURAT KETERANGAN USAHA (SKU)</option>
@@ -234,16 +227,9 @@
                     <option value="SURAT IZIN KEGIATAN">SURAT IZIN KEGIATAN</option>
                 </select>
             </div>
-        </div>
 
-        {{-- Form Umum --}}
-        <div id="formUmum" class="hidden">
-            <div class="form-section">
-                <div class="form-section-title">
-                    <i class="bi bi-person-vcard"></i>
-                    Data Pribadi Pemohon
-                </div>
-                
+            {{-- Form Umum --}}
+            <div id="formUmum" class="hidden">
                 <div class="form-row">
                     <div class="form-col">
                         <div class="form-group">
@@ -314,15 +300,9 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        {{-- Form SKU --}}
-        <div id="formSKU" class="hidden">
-            <div class="form-section">
-                <div class="form-section-title">
-                    <i class="bi bi-shop"></i>
-                    Data Usaha
-                </div>
+            {{-- Form SKU --}}
+            <div id="formSKU" class="hidden">
                 <div class="form-group">
                     <label>Nama Usaha</label>
                     <input type="text" placeholder="Masukkan nama usaha/perusahaan" name="nama_usaha">
@@ -332,47 +312,35 @@
                     <input type="text" placeholder="Masukkan alamat lengkap usaha" name="alamat_usaha">
                 </div>
             </div>
-        </div>
 
-        {{-- Form SKTM --}}
-        <div id="formSKTM" class="hidden">
-            <div class="form-section">
-                <div class="form-section-title">
-                    <i class="bi bi-heart-pulse"></i>
-                    Data Tambahan SKTM
-                </div>
+            {{-- Form SKTM --}}
+            <div id="formSKTM" class="hidden">
                 <div class="form-group">
                     <label>Agama</label>
                     <input type="text" placeholder="Masukkan agama" name="agama">
                 </div>
             </div>
-        </div>
 
-        {{-- Form SK Kematian --}}
-        <div id="formKematian" class="hidden">
-            <div class="form-section">
-                <div class="form-section-title">
-                    <i class="bi bi-flower1"></i>
-                    Data Kematian
-                </div>
-                <div class="form-group">
-                    <label>Nomor Kartu Keluarga</label>
-                    <input type="text" placeholder="Masukkan Nomor KK" name="nomor_kk">
-                </div>
-                <div class="form-group">
-                    <label>Tanggal Kematian</label>
-                    <input type="date" name="tanggal_kematian">
+            {{-- Form SK Kematian --}}
+            <div id="formKematian" class="hidden">
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label>Nomor Kartu Keluarga</label>
+                            <input type="text" placeholder="Masukkan Nomor KK" name="nomor_kk">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label>Tanggal Kematian</label>
+                            <input type="date" name="tanggal_kematian">
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        {{-- Form Surat Izin Kegiatan --}}
-        <div id="formIzin" class="hidden">
-            <div class="form-section">
-                <div class="form-section-title">
-                    <i class="bi bi-calendar-event"></i>
-                    Data Kegiatan
-                </div>
+            {{-- Form Surat Izin Kegiatan --}}
+            <div id="formIzin" class="hidden">
                 <div class="form-row">
                     <div class="form-col">
                         <div class="form-group">
@@ -396,12 +364,12 @@
                     <input type="text" name="jenis_acara" placeholder="Jenis acara/kegiatan yang akan dilaksanakan">
                 </div>
             </div>
-        </div>
 
-        <button class="btn-submit" type="submit">
-            <i class="bi bi-send-check me-2"></i> Kirim Permohonan Surat
-        </button>
-    </form>
+            <button class="btn-submit" type="submit">
+                <i class="bi bi-send-check me-2"></i> Kirim Permohonan Surat
+            </button>
+        </form>
+    </div>
 </div>
 
 <script>

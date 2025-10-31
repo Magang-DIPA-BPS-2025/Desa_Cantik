@@ -94,12 +94,19 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-md-3">Dusun</label>
-                                        <div class="col-md-7">
-                                            <input type="text" name="dusun" class="form-control" value="{{ old('dusun') }}">
-                                        </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-3">Dusun</label>
+                                    <div class="col-md-7">
+                                        <select name="dusun" class="form-control">
+                                            <option value="">-- Pilih Dusun --</option>
+                                            <option value="Manggalung" {{ old('dusun') == 'Manggalung' ? 'selected' : '' }}>Manggalung</option>
+                                            <option value="Lokae" {{ old('dusun') == 'Lokae' ? 'selected' : '' }}>Lokae</option>
+                                            <option value="Kattena" {{ old('dusun') == 'Kattena' ? 'selected' : '' }}>Kattena</option>
+                                            <option value="Mallawa" {{ old('dusun') == 'Mallawa' ? 'selected' : '' }}>Mallawa</option>
+                                        </select>
                                     </div>
+                                </div>
+
 
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-3">RT</label>
@@ -115,13 +122,18 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-md-3">Kel/Desa</label>
-                                        <div class="col-md-7">
-                                            <input required type="text" name="keldesa" class="form-control"
-                                                value="{{ old('keldesa') }}">
-                                        </div>
+                                  <div class="form-group row">
+                                    <label class="col-form-label col-md-3">Desa</label>
+                                    <div class="col-md-7">
+                                        <input 
+                                            type="text" 
+                                            name="keldesa" 
+                                            class="form-control" 
+                                            value="Manggalung" 
+                                            readonly>
                                     </div>
+                                </div>
+
 
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-3">Kecamatan</label>

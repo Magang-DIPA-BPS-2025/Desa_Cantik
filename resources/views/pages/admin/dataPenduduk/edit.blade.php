@@ -92,13 +92,19 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-md-3">Dusun</label>
-                                        <div class="col-md-7">
-                                            <input type="text" name="dusun" class="form-control"
-                                                value="{{ old('dusun', $dataPenduduk->dusun) }}">
-                                        </div>
+                                   <div class="form-group row">
+                                    <label class="col-form-label col-md-3">Dusun</label>
+                                    <div class="col-md-7">
+                                        <select name="dusun" class="form-control">
+                                            <option value="">-- Pilih Dusun --</option>
+                                            <option value="Manggalung" {{ old('dusun', $dataPenduduk->dusun) == 'Manggalung' ? 'selected' : '' }}>Manggalung</option>
+                                            <option value="Lokae" {{ old('dusun', $dataPenduduk->dusun) == 'Lokae' ? 'selected' : '' }}>Lokae</option>
+                                            <option value="Kattena" {{ old('dusun', $dataPenduduk->dusun) == 'Kattena' ? 'selected' : '' }}>Kattena</option>
+                                            <option value="Mallawa" {{ old('dusun', $dataPenduduk->dusun) == 'Mallawa' ? 'selected' : '' }}>Mallawa</option>
+                                        </select>
                                     </div>
+                                </div>
+
 
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-3">RT</label>
@@ -113,14 +119,20 @@
                                                 value="{{ old('rw', $dataPenduduk->rw) }}" required>
                                         </div>
                                     </div>
-
+                                    
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-3">Kel/Desa</label>
                                         <div class="col-md-7">
-                                            <input type="text" name="keldesa" class="form-control"
-                                                value="{{ old('keldesa', $dataPenduduk->keldesa) }}" required>
+                                            <input 
+                                                type="text" 
+                                                name="keldesa" 
+                                                class="form-control" 
+                                                value="{{ old('keldesa', $dataPenduduk->keldesa ?? 'Manggalung') }}" 
+                                                readonly 
+                                                required>
                                         </div>
                                     </div>
+
 
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-3">Kecamatan</label>

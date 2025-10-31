@@ -197,26 +197,35 @@ class AgendaController extends Controller
 
     /* ======================= UNTUK USER LANDING ======================= */
 
-    public function userIndex(Request $request)
-    {
-        $kategoriSelected = $request->query('kategori');
 
-        $query = Agenda::query()->latest();
-        if (!empty($kategoriSelected)) {
-            $query->where('kategori', $kategoriSelected);
-        }
+public function userIndex(Request $request)
+{
+    $kategoriSelected = $request->query('kategori');
+    $search = $request->query('search');
 
-        $agendas = $query->paginate(5)->appends($request->query());
-        $latest_agendas = Agenda::latest()->take(5)->get();
-        $kategoriList = Agenda::select('kategori')->distinct()->orderBy('kategori')->pluck('kategori');
-
-        return view('pages.landing.berita&agenda.AgendaDesa', [
-            'agendas' => $agendas,
-            'latest_agendas' => $latest_agendas,
-            'kategoriList' => $kategoriList,
-            'kategoriSelected' => $kategoriSelected,
-        ]);
+    $query = Agenda::query()->latest();
+    
+    if (!empty($kategoriSelected)) {
+        $query->where('kategori', $kategoriSelected);
     }
+    
+    if (!empty($search)) {
+        $query->where('nama_kegiatan', 'like', '%' . $search . '%');
+    }
+
+    $agendas = $query->paginate(9)->appends($request->query());
+    
+    $latest_agendas = Agenda::latest()->take(5)->get();
+    $kategoriList = Agenda::select('kategori')->distinct()->orderBy('kategori')->pluck('kategori');
+
+    return view('pages.landing.berita&agenda.AgendaDesa', [
+        'agendas' => $agendas,
+        'latest_agendas' => $latest_agendas,
+        'kategoriList' => $kategoriList,
+        'kategoriSelected' => $kategoriSelected,
+        'search' => $search,
+    ]);
+}
 
     public function userShow($id)
     {

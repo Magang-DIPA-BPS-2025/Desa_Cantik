@@ -12,6 +12,11 @@
         vertical-align: middle;
     }
 
+    .dataTables_length,
+    .dataTables_filter {
+        margin-bottom: 15px;
+    }
+
     td.deskripsi-col, td.alamat-col {
         max-width: 200px;
         white-space: nowrap;
@@ -26,6 +31,7 @@
         text-overflow: ellipsis;
     }
 
+    /* Hover tampilkan full */
     td.deskripsi-col:hover,
     td.alamat-col:hover,
     td.judul-col:hover {
@@ -33,7 +39,12 @@
         overflow: visible;
     }
 
-    /* Pagination Laravel di kanan bawah */
+    /* Tabel responsif */
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
     .pagination {
         justify-content: flex-end !important;
     }
@@ -50,9 +61,8 @@
             <div class="card shadow-sm border-0">
                 <div class="card-body">
 
-                    {{-- Table --}}
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered" id="table-pengaduan">
+                        <table class="table table-striped table-bordered display nowrap" id="table-pengaduan" style="width: 100%">
                             <thead class="thead-dark">
                                 <tr>
                                     <th>No</th>
@@ -114,7 +124,6 @@
                         </table>
                     </div>
 
-                    {{-- Pagination Laravel di kanan --}}
                     <div class="d-flex justify-content-end mt-3">
                         {{ $datas->links('pagination::bootstrap-4') }}
                     </div>
@@ -126,7 +135,6 @@
 </div>
 
 @push('scripts')
-<!-- jQuery & DataTables -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
@@ -134,20 +142,26 @@
 <script>
 $(document).ready(function () {
     $('#table-pengaduan').DataTable({
-        paging: false,       // pagination Laravel, bukan bawaan DataTables
-        searching: true,     // aktifkan search
-        ordering: true,      // aktifkan sorting
-        info: false,         // nonaktifkan info bawah
-        autoWidth: false,
+        paging: false,       // tetap pakai pagination laravel
+        searching: true,
+        ordering: true,
         scrollX: true,
+        info: false,
+        autoWidth: false,
+        lengthMenu: [10, 25, 50, 100],
         language: {
-            url: 'https://cdn.datatables.net/plug-ins/2.1.0/i18n/id.json'
+            url: 'https://cdn.datatables.net/plug-ins/2.1.0/i18n/id.json',
+            lengthMenu: "Tampilkan _MENU_ entri"
         },
         columnDefs: [
-            { orderable: false, targets: -1 } // kolom aksi tidak bisa diurutkan
+            { orderable: false, targets: -1 },
+            { orderable: false, targets: -3 }
         ],
         dom:
-            '<"d-flex justify-content-end mb-2"f>' + // search di kanan atas
+            '<"row mb-3"' +
+                '<"col-md-6 d-flex align-items-center"l>' +
+                '<"col-md-6 d-flex justify-content-end"f>' +
+            '>' +
             'rt'
     });
 });

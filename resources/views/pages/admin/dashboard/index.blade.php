@@ -397,26 +397,26 @@
         </div>
     </div>
 
-    {{-- STATISTIK CARDS --}}
-    <div class="row mb-4">
-        @php
-            $stats = [
-                ['icon'=>'users','label'=>'Total Penduduk','value'=>$totalPenduduk ?? 0,'color'=>'warning'],
-                ['icon'=>'exclamation-circle','label'=>'Pengaduan','value'=>$totalPengaduan ?? 0,'color'=>'primary'],
-                ['icon'=>'file-alt','label'=>'Surat','value'=>$totalSurat ?? 0,'color'=>'success'],
-                ['icon'=>'newspaper','label'=>'Berita','value'=>$totalBerita ?? 0,'color'=>'info'],
-            ];
-        @endphp
-        @foreach($stats as $stat)
-        <div class="col-lg-3 col-md-6 col-12 mb-3">
-            <div class="card stat-card shadow-sm border-0">
-                <div class="text-{{ $stat['color'] }}"><i class="fas fa-{{ $stat['icon'] }}"></i></div>
-                <h6>{{ $stat['label'] }}</h6>
-                <h3>{{ $stat['value'] }}</h3>
-            </div>
+   {{-- STATISTIK CARDS --}}
+<div class="row mb-4">
+    @php
+        $stats = [
+            ['icon'=>'users','label'=>'Total Penduduk','value'=>$totalPenduduk ?? 0,'color'=>'warning'],
+            ['icon'=>'exclamation-circle','label'=>'Pengaduan','value'=>$totalPengaduan ?? 0,'color'=>'primary'],
+            ['icon'=>'file-alt','label'=>'Surat','value'=>$totalSurat ?? 0,'color'=>'success'],
+            ['icon'=>'newspaper','label'=>'Berita','value'=>$totalBerita ?? 0,'color'=>'info'],
+        ];
+    @endphp
+    @foreach($stats as $stat)
+    <div class="col-lg-3 col-md-6 col-12 mb-3">
+        <div class="card stat-card shadow-sm border-0">
+            <div class="text-{{ $stat['color'] }}"><i class="fas fa-{{ $stat['icon'] }}"></i></div>
+            <h6>{{ $stat['label'] }}</h6>
+            <h3>{{ $stat['value'] }}</h3>
         </div>
-        @endforeach
     </div>
+    @endforeach
+</div>
 
     {{-- CHART & CALENDAR --}}
     <div class="row mb-4">

@@ -430,6 +430,30 @@
   display: none;
 }
 
+/* JUDUL SAMA SEPERTI HALAMAN JUMLAH PENDUDUK - DIPERBAIKI POSISINYA */
+.gallery-header {
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
+}
+
+.gallery-title {
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: #2E7D32;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+}
+
+.gallery-header p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 0;
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
   .berita-grid { 
@@ -472,6 +496,10 @@
   .sidebar {
     order: 3;
   }
+  
+  .gallery-header {
+    padding: 0 15px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -510,6 +538,21 @@
   .berita-terbaru-item {
     padding: 12px;
   }
+  
+  /* Responsive judul */
+  .gallery-title { 
+    font-size: 2.2rem; 
+  }
+}
+
+@media (max-width: 576px) {
+  .gallery-title { 
+    font-size: 1.8rem; 
+  }
+  
+  .gallery-header p {
+    font-size: 1rem;
+  }
 }
 </style>
 
@@ -537,10 +580,19 @@
   </div>
 </div>
 
+<!-- JUDUL SAMA SEPERTI HALAMAN JUMLAH PENDUDUK - SUDAH DIPERBAIKI POSISINYA -->
+<div class="text-start mb-4 mt-2 px-2 gallery-header">
+    <h2 class="fw-semibold display-4 mb-2 gallery-title">
+        BERITA DESA
+    </h2>
+    <p class="text-secondary fs-5 mb-0">
+        Informasi terbaru dan terupdate seputar kegiatan Desa Manggalung
+    </p>
+</div>
+
 <div class="container-berita">
   <!-- Bagian kiri: Berita -->
   <div>
-    <h2 style="margin-bottom:20px; font-weight:700;">Berita Desa</h2>
     <div class="berita-grid" id="berita-container">
       @forelse($beritas as $berita)
       <a href="{{ route('berita.show', $berita->id) }}" style="text-decoration: none; color: inherit;">

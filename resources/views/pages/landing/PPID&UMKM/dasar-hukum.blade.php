@@ -3,13 +3,8 @@
 @section('content')
 <div class="container py-5">
     <h2 class="text-success mb-4">📜 Dasar Hukum PPID</h2>
-
-    {{-- Tombol Kembali --}}
-    <a href="{{ route('ppid') }}" class="btn btn-secondary mb-4">
-        <i class="fas fa-arrow-left"></i> Kembali ke PPID
-    </a>
     
-    <div class="card p-4 shadow-sm">
+    <div class="card p-4 shadow-sm mb-4"> <!-- Ditambahkan mb-4 untuk jarak -->
         <h4>Undang-Undang No. 14 Tahun 2008 tentang Keterbukaan Informasi Publik</h4>
         <p>
             Pejabat Pengelola Informasi dan Dokumentasi (PPID) diatur dalam Undang-Undang ini untuk memastikan badan publik menyediakan informasi kepada masyarakat secara transparan.
@@ -23,8 +18,13 @@
             <li>Pasal 4: Prosedur permintaan informasi</li>
             <li>... dan seterusnya</li>
         </ul>
-
+    
         <p>Untuk dokumen lengkap, bisa <a href="{{ asset('files/UUD-PPID.pdf') }}" target="_blank">unduh di sini</a>.</p>
     </div>
+    
+    {{-- Tombol Kembali dengan warna hijau --}}
+    <a href="{{ route('ppid') }}" class="btn btn-success"> <!-- Diubah menjadi btn-success -->
+        <i class="fas fa-arrow-left"></i> Kembali ke PPID
+    </a>
 </div>
 @endsection

@@ -14,6 +14,7 @@ class Rating extends Model
     protected $fillable = [
         'belanja_desa_id',
         'user_id',
+        'nama_user',
         'rating',
         'komentar',
     ];

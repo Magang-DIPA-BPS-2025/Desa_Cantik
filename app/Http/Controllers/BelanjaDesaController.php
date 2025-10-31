@@ -50,7 +50,7 @@ class BelanjaDesaController extends Controller
         ]);
     }
 
-    // ... method lainnya tetap sama ...
+  
 
     public function create()
     {
@@ -175,29 +175,30 @@ class BelanjaDesaController extends Controller
     // SIMPAN RATING PRODUK (BISA BERKALI-KALI - FIXED)
     // ===========================
     public function storeRating(Request $request, $id)
-    {
-        $request->validate([
-            'rating'   => 'required|integer|min:1|max:5',
-            'komentar' => 'nullable|string|max:500',
-        ]);
+{
+    $request->validate([
+        'nama_user' => 'required|string|max:100', // ✅ tambahkan validasi nama
+        'rating'    => 'required|integer|min:1|max:5',
+        'komentar'  => 'nullable|string|max:500',
+    ]);
 
-        $belanja = BelanjaDesa::findOrFail($id);
+    $belanja = BelanjaDesa::findOrFail($id);
 
-        // Cek apakah user sudah login
-        $userId = auth()->check() ? auth()->id() : null;
+    // user_id tetap null jika tidak login
+    $userId = auth()->check() ? auth()->id() : null;
 
-        // **HAPUS SEMUA PEMBATASAN - BIARKAN USER RATING BERKALI-KALI**
-        // Create new rating every time without checking existing ratings
-        Rating::create([
-            'belanja_desa_id' => $belanja->id,
-            'user_id'         => $userId,
-            'rating'          => $request->rating,
-            'komentar'        => $request->komentar,
-        ]);
+    Rating::create([
+        'belanja_desa_id' => $belanja->id,
+        'user_id'         => $userId,
+        'nama_user'       => $request->nama_user, // ✅ ambil nama dari input
+        'rating'          => $request->rating,
+        'komentar'        => $request->komentar,
+    ]);
 
-        return redirect()->route('belanja.usershow', $belanja->id)
-             ->with('success', 'Terima kasih atas rating Anda! Rating berhasil disimpan.');
-    }
+    return redirect()->route('belanja.usershow', $belanja->id)
+        ->with('success', 'Terima kasih atas rating Anda! Rating berhasil disimpan.');
+}
+
 
     public function userBeranda()
     {

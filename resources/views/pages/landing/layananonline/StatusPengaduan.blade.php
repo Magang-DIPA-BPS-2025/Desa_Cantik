@@ -52,12 +52,12 @@
 }
 
 .form-control-lg:focus {
-    border-color: #198754;
+    border-color: #2E7D32;
     box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.15);
 }
 
 .btn-success {
-    background: linear-gradient(135deg, #198754, #157347);
+    background: #2E7D32;
     border: none;
     border-radius: 10px;
     padding: 14px 20px;
@@ -66,7 +66,7 @@
 }
 
 .btn-success:hover {
-    background: linear-gradient(135deg, #157347, #13653f);
+    background: #2E7D32;
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(25, 135, 84, 0.3);
 }
@@ -104,23 +104,44 @@
     background-color: #f8f9fa;
 }
 
-/* Badge styling dengan font putih */
+/* PERBAIKAN: Badge styling dengan font putih untuk SEMUA status */
 .badge {
     font-size: 0.8rem;
     font-weight: 600;
     padding: 8px 12px;
     border-radius: 8px;
-    color: white !important; /* Pastikan font putih */
+    color: white !important; /* Pastikan font putih untuk SEMUA badge */
     min-width: 80px;
     display: inline-block;
     text-align: center;
+    border: none;
 }
 
-.badge.bg-primary { background: linear-gradient(135deg, #0d6efd, #0b5ed7) !important; }
-.badge.bg-warning { background: linear-gradient(135deg, #ffc107, #e0a800) !important; color: #212529 !important; }
-.badge.bg-success { background: linear-gradient(135deg, #198754, #157347) !important; }
-.badge.bg-danger { background: linear-gradient(135deg, #dc3545, #c82333) !important; }
-.badge.bg-secondary { background: linear-gradient(135deg, #6c757d, #5a6268) !important; }
+/* PERBAIKAN: Semua badge menggunakan warna background dengan kontras yang baik untuk teks putih */
+.badge.bg-primary { 
+    background: linear-gradient(135deg, #0d6efd, #0b5ed7) !important; 
+    color: white !important;
+}
+
+.badge.bg-warning { 
+    background: linear-gradient(135deg, #ff9800, #f57c00) !important; /* Orange yang lebih gelap untuk kontras putih */
+    color: white !important; /* PASTIKAN PUTIH */
+}
+
+.badge.bg-success { 
+    background: linear-gradient(135deg, #198754, #157347) !important; 
+    color: white !important;
+}
+
+.badge.bg-danger { 
+    background: linear-gradient(135deg, #dc3545, #c82333) !important; 
+    color: white !important;
+}
+
+.badge.bg-secondary { 
+    background: linear-gradient(135deg, #6c757d, #5a6268) !important; 
+    color: white !important;
+}
 
 /* Text muted untuk empty state */
 .text-muted {
@@ -270,7 +291,7 @@
                                     @if($data->status == 'baru')
                                         <span class="badge bg-primary">Baru</span>
                                     @elseif($data->status == 'diproses')
-                                        <span class="badge bg-warning text-dark">Diproses</span>
+                                        <span class="badge bg-warning">Diproses</span>
                                     @elseif($data->status == 'selesai')
                                         <span class="badge bg-success">Selesai</span>
                                     @elseif($data->status == 'ditolak')

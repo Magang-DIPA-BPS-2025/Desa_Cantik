@@ -10,7 +10,7 @@
             .card {
                 border: none;
                 border-radius: 12px;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             }
 
             /* Tabel lebih rapi */
@@ -111,22 +111,25 @@
                                                     <td>{{ $index + 1 }}</td>
                                                     <td>
                                                         @if ($agenda->foto)
-                                                            <img src="{{ asset('storage/' . $agenda->foto) }}"
-                                                                 alt="Foto Agenda"
-                                                                 class="foto-agenda">
+                                                            <img src="{{ asset('storage/' . $agenda->foto) }}" alt="Foto Agenda"
+                                                                class="foto-agenda">
                                                         @else
                                                             <span class="text-muted">Tidak ada</span>
                                                         @endif
                                                     </td>
                                                     <td>{{ $agenda->nama_kegiatan }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($agenda->waktu_pelaksanaan)->format('d-m-Y H:i') }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($agenda->waktu_pelaksanaan)->format('d-m-Y H:i') }}
+                                                    </td>
                                                     <td>{{ $agenda->deskripsi }}</td>
                                                     <td>{{ $agenda->kategori }}</td>
                                                     <td class="action-buttons">
-                                                        <a href="{{ route('AgendaDesa.edit', $agenda->id) }}" class="btn btn-warning">
+                                                        <a href="{{ route('AgendaDesa.edit', $agenda->id) }}"
+                                                            class="btn btn-warning">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
-                                                        <form action="{{ route('AgendaDesa.destroy', $agenda->id) }}" method="POST" onsubmit="return confirm('Yakin ingin hapus agenda ini?')">
+                                                        <form action="{{ route('AgendaDesa.destroy', $agenda->id) }}"
+                                                            method="POST"
+                                                            onsubmit="return confirm('Yakin ingin hapus agenda ini?')">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="btn btn-danger">
@@ -152,12 +155,28 @@
         <script src="{{ asset('library/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
         <script src="{{ asset('library/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
         <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
+        <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('library/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+        <script src="{{ asset('library/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
+        <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
 
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#table-agenda').DataTable({
                     paging: true,
                     searching: true,
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/2.1.0/i18n/id.json',
+                    },
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#table-agenda').DataTable({
+                    paging: true,
+                    searching: true,
+                    pageLength: 5,
                     language: {
                         url: 'https://cdn.datatables.net/plug-ins/2.1.0/i18n/id.json',
                     },

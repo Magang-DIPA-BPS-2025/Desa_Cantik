@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
 /* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap');
 
 /* Font Variables */
 :root {
@@ -33,15 +33,47 @@
 }
 
 /* ========== GLOBAL ========== */
-.container { max-width: 1200px; }
+.container-main { 
+    max-width: 1400px; 
+    margin: auto; 
+    padding: 20px; 
+}
+
+/* Header Section - Sama seperti halaman jumlah penduduk */
+.gallery-header {
+    margin-bottom: 2rem;
+    margin-top: -1rem;
+}
+
+.gallery-title {
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: #2E7D32;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.gallery-header p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 0;
+    font-family: 'Open Sans', sans-serif;
+}
 
 .card {
     border: none;
-    border-radius: 12px;
-    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
-    transition: all 0.3s ease;
-    overflow: hidden;
-    font-family: var(--font-body);
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    transition: .25s;
+    border: none;
+    margin-bottom: 25px;
+    background: #fff;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
 }
 
 .umkm-card {
@@ -54,11 +86,13 @@
     background-color: #fff;
     transition: all 0.3s ease;
     cursor: pointer;
+    border-radius: 14px;
+    overflow: hidden;
 }
 
 .umkm-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 0.75rem 1.5rem rgba(0,0,0,0.1);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.15);
 }
 
 .umkm-card:hover .card-title { color: var(--color-primary); }
@@ -122,7 +156,11 @@
 
 .info-line i { color: var(--color-primary); }
 
-#umkmMap { border-radius: 0 0 12px 12px; height: 400px; }
+#umkmMap { 
+    border-radius: 0 0 12px 12px; 
+    height: 400px; 
+    width: 100%;
+}
 
 .custom-marker {
     background: var(--color-primary);
@@ -136,54 +174,12 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-.stats-container { 
-    background: #f8f9fa; 
-    border-radius: 12px; 
-    padding: 2rem; 
-    margin-bottom: 2rem;
-    font-family: var(--font-body);
-}
-.stat-item { text-align: center; padding: 1rem; }
-.stat-number { 
-    font-size: 2.5rem; 
-    font-weight: 700; 
-    color: var(--color-primary); 
-    margin-bottom: 0.5rem;
-    font-family: var(--font-heading);
-}
-.stat-label { 
-    color: #6c757d; 
-    font-size: 0.9rem; 
-    font-weight: 600; 
-    text-transform: uppercase;
-    font-family: var(--font-body);
-}
-
-/* Header Styling */
-.page-header {
-    margin-bottom: 2rem;
-}
-
-.page-title {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: var(--color-primary);
-    margin-bottom: 0.5rem;
-    font-family: var(--font-heading);
-}
-
-.page-subtitle {
-    font-size: 1.1rem;
-    color: #6c757d;
-    font-family: var(--font-body);
-    line-height: 1.6;
-}
-
-/* Map Header - Diubah menjadi hijau dengan teks putih */
+/* Map Header - Hijau dengan teks putih seperti semula */
 .map-container .card-header {
     background: var(--color-primary);
     border-bottom: 1px solid var(--color-primary);
     padding: 1.25rem 1.5rem;
+    border-radius: 12px 12px 0 0;
 }
 
 .map-container .card-header h5 {
@@ -193,7 +189,7 @@
     margin: 0;
     display: flex;
     align-items: center;
-    gap: 10px; /* Jarak antara icon dan teks */
+    gap: 10px;
 }
 
 .map-container .card-header h5 i {
@@ -228,47 +224,70 @@
     border-color: var(--color-primary);
 }
 
-@media (max-width: 768px) { 
-    .page-title { font-size: 2rem; } 
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .gallery-title { 
+        font-size: 2.2rem; 
+    }
+    
+    .container-main {
+        padding: 15px;
+    }
+    
+    .card {
+        padding: 0;
+    }
+    
     #umkmMap { height: 300px; } 
 }
-@media (max-width: 576px) { 
-    .page-title { font-size: 1.75rem; } 
+
+@media (max-width: 576px) {
+    .gallery-title { 
+        font-size: 1.8rem; 
+    }
+    
+    .gallery-header p {
+        font-size: 1rem;
+    }
+    
+    .container-main {
+        padding: 15px;
+    }
+    
     #umkmMap { height: 250px; } 
 }
 </style>
 @endpush
 
 @section('content')
-<div class="container py-4">
-
-    {{-- HEADER --}}
-    <div class="page-header mb-4">
-        <h1 class="page-title umkm-heading">UMKM Desa</h1>
-        <p class="page-subtitle umkm-text">Temukan berbagai produk unggulan dan jasa dari UMKM desa kami</p>
+<div class="container-main">
+    <!-- Judul Halaman - Sama seperti halaman jumlah penduduk -->
+    <div class="text-start mb-4 mt-2 px-2 gallery-header">
+        <h2 class="fw-semibold display-4 mb-2 gallery-title">
+            UMKM DESA MANGGAlUNG
+        </h2>
+        <p class="text-secondary fs-5 mb-0">
+            Temukan berbagai produk unggulan dan jasa dari UMKM desa kami
+        </p>
     </div>
 
-    {{-- MAP --}}
-    <div class="row mb-5">
-        <div class="col-12">
-            <div class="card map-container">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0 umkm-heading">
-                        <i class="fas fa-map-marked-alt"></i>
-                        Peta Lokasi UMKM Desa
-                    </h5>
-                </div>
-                <div class="card-body p-0">
-                    <div id="umkmMap"></div>
-                </div>
-            </div>
+    {{-- MAP - CARD DENGAN HEADER HIJAU SEPERTI SEMULA --}}
+    <div class="card map-container">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 umkm-heading">
+                <i class="fas fa-map-marked-alt"></i>
+                Peta Lokasi UMKM Desa
+            </h5>
+        </div>
+        <div class="card-body p-0">
+            <div id="umkmMap"></div>
         </div>
     </div>
 
     {{-- UMKM LIST --}}
-    <div class="row g-4">
+    <div class="row">
         @forelse($belanjas as $umkm)
-        <div class="col-12 col-sm-6 col-lg-4">
+        <div class="col-12 col-sm-6 col-lg-4 mb-4">
             <a href="{{ route('belanja.usershow', $umkm->id) }}" class="umkm-card">
                 <div class="position-relative">
                     <img src="{{ $umkm->foto ? asset('storage/' . $umkm->foto) : asset('img/default-product.png') }}"
@@ -369,15 +388,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     umkmData.forEach(u => {
         const popup = `
-            <div style="min-width:280px; font-family: 'Open Sans', sans-serif;">
-                <img src="${u.image}" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:8px;">
-                <h6 style="font-family: 'Poppins', sans-serif; font-weight: 700; color: #2E7D32; margin-bottom: 0.5rem;">${u.title}</h6>
-                <small style="color: #6c757d; display: block; margin-bottom: 0.25rem;"><i class="fas fa-user me-1"></i>${u.pemilik}</small>
-                <small style="color: #6c757d; display: block; margin-bottom: 0.25rem;"><i class="fas fa-tag me-1"></i>${u.kategori}</small>
-                <small style="color: #6c757d; display: block; margin-bottom: 1rem;"><i class="fas fa-dollar-sign me-1"></i>Rp ${u.harga.toLocaleString('id-ID')}</small>
-                <a href="${u.url}" class="btn btn-success btn-sm w-100" style="background-color: #2E7D32; border-color: #2E7D32; font-family: 'Open Sans', sans-serif;">
-                    <i class="fas fa-eye me-1"></i>Lihat Detail
-                </a>
+            <div style="min-width:280px; font-family: 'Open Sans', sans-serif; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.06);">
+                <img src="${u.image}" style="width:100%;height:120px;object-fit:cover;margin-bottom:0;">
+                <div style="padding: 1.25rem 1.5rem;">
+                    <h6 style="font-family: 'Poppins', sans-serif; font-weight: 700; color: #2d3748; margin-bottom: 0.5rem; font-size: 1.1rem;">${u.title}</h6>
+                    
+                    <div style="display: flex; align-items: center; gap: 6px; color: #6c757d; font-size: 0.9rem; margin-bottom: 6px;">
+                        <i class="fas fa-user" style="color: #2E7D32;"></i>
+                        <small>${u.pemilik}</small>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 6px; color: #6c757d; font-size: 0.9rem; margin-bottom: 6px;">
+                        <i class="fas fa-tag" style="color: #2E7D32;"></i>
+                        <small>${u.kategori}</small>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 6px; color: #6c757d; font-size: 0.9rem; margin-bottom: 1rem;">
+                        <i class="fas fa-dollar-sign" style="color: #2E7D32;"></i>
+                        <small>Rp ${u.harga.toLocaleString('id-ID')}</small>
+                    </div>
+                    
+                    <a href="${u.url}" style="display:block; text-align:center; background-color: #2E7D32; color: white; padding: 0.5rem 1rem; border-radius: 8px; text-decoration: none; font-family: 'Open Sans', sans-serif; font-weight: 500; border: none; font-size: 0.9rem; line-height: 1.5; transition: all 0.3s ease;">
+                        <i class="fas fa-eye me-1"></i>Lihat Detail
+                    </a>
+                </div>
             </div>`;
         L.marker([u.lat, u.lng], { icon: umkmIcon }).addTo(map).bindPopup(popup);
     });

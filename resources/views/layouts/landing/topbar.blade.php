@@ -59,6 +59,7 @@
                     <a href="{{ route('status') }}"><i class="fas fa-tasks dropdown-icon"></i>Status Pengantar</a>
                     <a href="{{ route('pengaduan') }}"><i class="fas fa-exclamation-circle dropdown-icon"></i>Pengaduan</a>
                     <a href="{{ route('pengaduan.userStatus') }}"><i class="fas fa-question-circle dropdown-icon"></i>Status Pengaduan</a>
+                    <a href="{{ route('bukutamu') }}"><i class="fas fa-book-open sidebar-icon"></i>Buku Tamu</a>              
                 </div>
             </li>
 
@@ -70,31 +71,27 @@
                     <a href="{{ route('ppid') }}"><i class="fas fa-info-circle dropdown-icon"></i>PPID</a>
                     <a href="{{ route('belanja') }}"><i class="fas fa-shopping-bag dropdown-icon"></i>UMKM</a>
                     <a href="{{ route('permohonan.userStatus') }}"><i class="fas fa-file-contract dropdown-icon"></i>Status Permohonan</a>
+                    
                 </div>
             </li>
 
-            <li class="nav-item">
-                <a href="{{ route('bukutamu') }}" class="nav-link {{ request()->is('bukutamu*') ? 'active' : '' }}">
-                    <i class="fas fa-book-open nav-icon"></i>BUKU TAMU
-                </a>
-            </li>
         </ul>
 
         <!-- Mobile Toggle Button -->
-        <button class="nav-toggle" id="nav-toggle">
+        <button class="nav-toggle" id="nav-toggle" aria-label="Buka menu">
             <i class="fas fa-bars"></i>
         </button>
     </div>
 </header>
 
 <!-- Mobile Sidebar -->
-<div class="mobile-sidebar" id="mobile-sidebar">
+<div class="mobile-sidebar" id="mobile-sidebar" aria-hidden="true">
     <div class="sidebar-header">
         <div class="sidebar-logo">
             <img src="{{ asset('landing/images/footer/desaCanti.png') }}" alt="Logo Desa Cantik" />
             <span class="sidebar-brand">DESA CANTIK</span>
         </div>
-        <button class="close-sidebar" id="close-sidebar">
+        <button class="close-sidebar" id="close-sidebar" aria-label="Tutup menu">
             <i class="fas fa-times"></i>
         </button>
     </div>
@@ -160,6 +157,7 @@
                     <a href="{{ route('status') }}"><i class="fas fa-tasks dropdown-icon"></i>Status Pengantar</a>
                     <a href="{{ route('pengaduan') }}"><i class="fas fa-exclamation-circle dropdown-icon"></i>Pengaduan</a>
                     <a href="{{ route('pengaduan.userStatus') }}"><i class="fas fa-question-circle dropdown-icon"></i>Status Pengaduan</a>
+                    <a href="{{ route('bukutamu') }}"><i class="fas fa-book-open sidebar-icon"></i>Buku Tamu</a>
                 </div>
             </li>
 
@@ -175,13 +173,6 @@
                     <a href="{{ route('permohonan.userStatus') }}"><i class="fas fa-file-contract dropdown-icon"></i>Status Permohonan</a>
                 </div>
             </li>
-
-            <li class="sidebar-item">
-                <a href="{{ route('bukutamu') }}" class="sidebar-link {{ request()->is('bukutamu*') ? 'active' : '' }}">
-                    <i class="fas fa-book-open sidebar-icon"></i>
-                    <span>BUKU TAMU</span>
-                </a>
-            </li>
         </ul>
     </div>
 </div>
@@ -196,23 +187,11 @@
 /* Terapkan font modern ke seluruh navbar */
 * {
     font-family: 'Poppins', 'Open Sans', sans-serif;
+    box-sizing: border-box;
 }
 
 body {
     padding-top: 80px !important;
-    font-family: 'Open Sans', sans-serif;
-}
-
-#main-header {
-    z-index: 9999 !important;
-    font-family: 'Poppins', sans-serif;
-}
-
-.main-content {
-    margin-top: 80px !important;
-    position: relative;
-    z-index: 1;
-    font-family: 'Open Sans', sans-serif;
 }
 
 /* Header */
@@ -239,7 +218,7 @@ body {
     transition: height 0.3s ease;
 }
 
-/* Logo dengan font modern */
+/* Logo */
 .logo-area {
     display: flex;
     align-items: center;
@@ -257,11 +236,10 @@ body {
     font-weight: 700;
     color: #2E7D32;
     line-height: 1;
-    font-family: 'Poppins', sans-serif;
     letter-spacing: -0.5px;
 }
 
-/* Navigation Menu dengan font modern */
+/* Navigation Menu */
 .nav-menu {
     display: flex;
     gap: 6px;
@@ -270,14 +248,14 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: 'Poppins', sans-serif;
 }
 
 .nav-item { 
-    position: relative; 
-    height: 100%; 
-    display: flex; 
-    align-items: center; 
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    overflow: visible !important; /* penting supaya dropdown tidak terpotong */
 }
 
 .nav-link {
@@ -294,7 +272,6 @@ body {
     white-space: nowrap;
     height: 44px;
     line-height: 1;
-    font-family: 'Poppins', sans-serif;
     letter-spacing: -0.2px;
 }
 
@@ -310,7 +287,7 @@ body {
     box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
 }
 
-/* Ikon Navbar - WARNA HIJAU */
+/* Ikon Navbar */
 .nav-icon {
     font-size: 14px; 
     width: 16px; 
@@ -319,16 +296,11 @@ body {
     transition: all 0.3s ease;
 }
 
-.nav-link:hover .nav-icon {
-    color: #2E7D32 !important;
-    transform: scale(1.1);
-}
-
 .nav-link.active .nav-icon {
     color: white !important;
 }
 
-/* Dropdown dengan font modern */
+/* Dropdown (DESKTOP) - perbaikan agar tidak cepat tertutup */
 .dropdown-menu {
     position: absolute;
     top: 100%;
@@ -338,29 +310,35 @@ body {
     box-shadow: 0 15px 40px rgba(0,0,0,0.12);
     padding: 8px 0;
     min-width: 220px;
-    display: none;
-    z-index: 1000;
-    margin-top: 8px;
-    border: none;
-    font-family: 'Open Sans', sans-serif;
-    backdrop-filter: blur(20px);
     border: 1px solid rgba(0,0,0,0.05);
+    z-index: 1000;
+
+    /* Appearance control for smooth show/hide */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    pointer-events: none; /* jangan ganggu hover sebelum tampil */
 }
 
-.nav-item:hover .dropdown-menu { 
-    display: block; 
-    animation: fadeInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* Show dropdown on hover, plus keep visible when hovering dropdown itself */
+.nav-item:hover > .dropdown-menu,
+.dropdown-menu:hover {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Small delay before hiding to avoid flicker when moving mouse */
+.nav-item:not(:hover) > .dropdown-menu {
+    transition-delay: 0.15s;
 }
 
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .dropdown-menu a {
@@ -373,7 +351,6 @@ body {
     font-size: 14px;
     transition: all 0.3s ease;
     font-weight: 400;
-    font-family: 'Open Sans', sans-serif;
 }
 
 .dropdown-menu a:hover {
@@ -382,18 +359,13 @@ body {
     padding-left: 24px;
 }
 
-/* Ikon Dropdown - WARNA HIJAU */
+/* Dropdown icon */
 .dropdown-icon {
     width: 16px; 
     text-align: center; 
     font-size: 13px;
     color: #2E7D32 !important;
     transition: all 0.3s ease;
-}
-
-.dropdown-menu a:hover .dropdown-icon {
-    color: #2E7D32 !important;
-    transform: scale(1.1);
 }
 
 /* Mobile Toggle */
@@ -418,7 +390,7 @@ body {
     box-shadow: 0 6px 16px rgba(46, 125, 50, 0.4);
 }
 
-/* Mobile Sidebar dengan font modern */
+/* Mobile Sidebar */
 .mobile-sidebar {
     position: fixed;
     top: 0;
@@ -433,50 +405,31 @@ body {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    font-family: 'Poppins', sans-serif;
 }
 
-.mobile-sidebar.active { 
-    left: 0; 
-}
+.mobile-sidebar.active { left: 0; }
 
 .sidebar-header {
     padding: 25px 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    background: linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%);
-    flex-shrink: 0;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    background: white !important;
+    position: relative;
 }
 
-.sidebar-logo { 
-    display: flex; 
-    align-items: center; 
-    gap: 12px; 
-}
-
-.sidebar-logo img { 
-    height: 40px; 
-    width: 40px; 
-    filter: brightness(0) invert(1);
-}
-
-.sidebar-brand { 
-    font-size: 18px; 
-    font-weight: 700; 
-    color: white; 
-    font-family: 'Poppins', sans-serif;
-    letter-spacing: -0.3px;
-}
+.sidebar-logo { display: flex; align-items: center; gap: 12px; }
+.sidebar-logo img { height: 40px; width: 40px; object-fit: contain; filter: none !important; }
+.sidebar-brand { font-size: 18px; font-weight: 700; color: #2E7D32 !important; }
 
 .close-sidebar {
     position: absolute;
     top: 20px;
     right: 20px;
-    background: rgba(255,255,255,0.15);
+    background: rgba(46, 125, 50, 0.1);
     border: none;
     border-radius: 50%;
     width: 38px;
     height: 38px;
-    color: white;
+    color: #2E7D32 !important;
     cursor: pointer;
     font-size: 16px;
     display: flex;
@@ -485,246 +438,76 @@ body {
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
 }
+.close-sidebar:hover { transform: rotate(90deg); background: rgba(46,125,50,0.2); color:#1b5e20 !important; }
 
-.close-sidebar:hover {
-    background: rgba(255,255,255,0.25);
-    transform: rotate(90deg);
-}
-
-/* Menu di Sidebar dengan font modern */
-.sidebar-menu-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 20px 0;
-}
-
-.sidebar-menu { 
-    padding: 0; 
-    list-style: none;
-    width: 100%;
-}
-
-.sidebar-item { 
-    position: relative; 
-    margin-bottom: 4px;
-}
-
+/* Sidebar menu */
+.sidebar-menu-container { flex: 1; display: flex; flex-direction: column; padding: 20px 0; }
+.sidebar-menu { padding: 0; list-style: none; width: 100%; }
+.sidebar-item { position: relative; margin-bottom: 4px; }
 .sidebar-link {
-    display: flex;
-    align-items: center;
-    padding: 16px 25px;
-    color: #2D3748;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 15px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex; align-items: center; padding: 16px 25px; color: #2D3748;
+    text-decoration: none; font-weight: 500; font-size: 15px; transition: all .3s;
     border-left: 4px solid transparent;
-    font-family: 'Poppins', sans-serif;
 }
+.sidebar-icon { margin-right: 15px; width: 20px; text-align: center; font-size: 16px; color: #2E7D32 !important; }
+.chevron-icon { margin-left: auto; font-size: 12px; transition: transform .3s; color:#666; }
 
-/* Ikon Sidebar - WARNA HIJAU */
-.sidebar-icon {
-    margin-right: 15px; 
-    width: 20px; 
-    text-align: center; 
-    font-size: 16px; 
-    color: #2E7D32 !important;
-    transition: all 0.3s ease;
-}
-
-.sidebar-link:hover .sidebar-icon,
-.sidebar-link.active .sidebar-icon {
-    color: #2E7D32 !important;
-    transform: scale(1.1);
-}
-
-.chevron-icon {
-    margin-left: auto;
-    font-size: 12px;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    color: #666;
-}
-
-.sidebar-link:hover,
-.sidebar-link.active { 
-    background: rgba(76,175,80,0.08); 
-    color: #2E7D32; 
+.sidebar-link:hover, .sidebar-link.active {
+    background: rgba(76,175,80,0.08);
+    color: #2E7D32;
     border-left-color: #2E7D32;
     padding-left: 28px;
 }
 
-.sidebar-dropdown-toggle.active .chevron-icon {
-    transform: rotate(180deg);
-    color: #2E7D32;
-}
-
-.sidebar-dropdown { 
-    background: rgba(248, 249, 250, 0.8); 
-    display: none; 
-    border-left: 4px solid #4CAF50;
-    backdrop-filter: blur(10px);
-}
-
-.sidebar-dropdown.active { 
-    display: block; 
-    animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        max-height: 0;
-    }
-    to {
-        opacity: 1;
-        max-height: 500px;
-    }
-}
+.sidebar-dropdown { background: rgba(248,249,250,0.8); display: none; border-left: 4px solid #4CAF50; }
+.sidebar-dropdown.active { display: block; animation: slideDown .3s cubic-bezier(.4,0,.2,1) forwards; }
+@keyframes slideDown { from { opacity:0; max-height:0 } to { opacity:1; max-height:500px } }
 
 .sidebar-dropdown a {
-    display: flex; 
-    align-items: center;
-    padding: 14px 25px 14px 60px;
-    color: #5a6268; 
-    text-decoration: none;
-    font-size: 14px; 
-    transition: all 0.3s ease;
-    border-bottom: 1px solid rgba(233, 236, 239, 0.5); 
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 400;
+    display:flex; align-items:center; padding:14px 25px 14px 60px; color:#5a6268;
+    text-decoration:none; font-size:14px; transition: all 0.3s ease; font-weight:400;
+    border-bottom: 1px solid rgba(233,236,239,0.5);
 }
-
-.sidebar-dropdown a:last-child { 
-    border-bottom: none; 
-}
-
-.sidebar-dropdown a:hover { 
-    background: rgba(76,175,80,0.1); 
-    color: #2E7D32; 
-    padding-left: 64px;
-}
-
-/* Ikon di dropdown sidebar juga hijau */
-.sidebar-dropdown a .dropdown-icon {
-    margin-right: 12px; 
-    width: 16px; 
-    text-align: center; 
-    font-size: 13px; 
-    color: #2E7D32 !important;
-}
-
-.sidebar-dropdown a:hover .dropdown-icon {
-    color: #2E7D32 !important;
-    transform: scale(1.1);
-}
+.sidebar-dropdown a:last-child { border-bottom: none; }
+.sidebar-dropdown a:hover { background: rgba(76,175,80,0.1); color:#2E7D32; padding-left: 64px; }
+.sidebar-dropdown a .dropdown-icon { margin-right: 12px; width:16px; text-align:center; font-size:13px; color:#2E7D32 !important; }
 
 /* Overlay */
 .sidebar-overlay {
-    position: fixed;
-    top: 0; 
-    left: 0;
-    width: 100%; 
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    z-index: 9998;
-    display: none;
-    backdrop-filter: blur(5px);
+    position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5);
+    z-index: 9998; display: none; backdrop-filter: blur(5px);
 }
-
-.sidebar-overlay.active { 
-    display: block; 
-    animation: fadeIn 0.3s ease;
-}
+.sidebar-overlay.active { display: block; animation: fadeIn .3s ease; }
+@keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
 
 /* Scroll Effect */
-#main-header.scrolled { 
-    height: 70px; 
-    background: rgba(255,255,255,0.98); 
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1); 
-    backdrop-filter: blur(30px);
-}
+#main-header.scrolled { height: 70px; background: rgba(255,255,255,0.98); box-shadow: 0 4px 20px rgba(0,0,0,0.1); backdrop-filter: blur(30px); }
+#main-header.scrolled .navbar-container { height: 70px; }
 
-#main-header.scrolled .navbar-container { 
-    height: 70px; 
-}
-
-/* Responsive Styles dengan font konsisten */
+/* Responsive */
 @media (max-width: 1200px) {
-    .nav-link {
-        font-size: 13px;
-        padding: 10px 14px;
-    }
-    
-    .brand-text {
-        font-size: 20px;
-    }
+    .nav-link { font-size: 13px; padding: 10px 14px; }
+    .brand-text { font-size: 20px; }
 }
-
 @media (max-width: 1024px) {
-    .nav-menu {
-        gap: 4px;
-    }
-    
-    .nav-link {
-        font-size: 12px;
-        padding: 10px 12px;
-    }
-    
-    .brand-text {
-        font-size: 18px;
-    }
-    
-    .dropdown-menu {
-        min-width: 200px;
-    }
+    .nav-menu { gap: 4px; }
+    .nav-link { font-size: 12px; padding: 10px 12px; }
+    .brand-text { font-size: 18px; }
+    .dropdown-menu { min-width: 200px; }
 }
-
 @media (max-width: 900px) {
-    .nav-menu {
-        display: none;
-    }
-    
-    .nav-toggle {
-        display: flex;
-    }
-    
-    .navbar-container {
-        padding: 0 20px;
-    }
-    
-    .brand-text {
-        font-size: 18px;
-    }
-    
-    .logo-area img {
-        height: 40px;
-        width: 40px;
-    }
+    .nav-menu { display: none; }
+    .nav-toggle { display: flex; }
+    .navbar-container { padding: 0 20px; }
+    .brand-text { font-size: 18px; }
+    .logo-area img { height: 40px; width: 40px; }
 }
-
 @media (max-width: 480px) {
-    .navbar-container {
-        padding: 0 15px;
-    }
-    
-    .brand-text {
-        font-size: 16px;
-    }
-    
-    .mobile-sidebar {
-        width: 85%;
-    }
-    
-    .sidebar-link {
-        padding: 14px 20px;
-        font-size: 14px;
-    }
-    
-    .sidebar-dropdown a {
-        padding: 12px 20px 12px 55px;
-        font-size: 13px;
-    }
+    .navbar-container { padding: 0 15px; }
+    .brand-text { font-size: 16px; }
+    .mobile-sidebar { width: 85%; }
+    .sidebar-link { padding: 14px 20px; font-size: 14px; }
+    .sidebar-dropdown a { padding: 12px 20px 12px 55px; font-size: 13px; }
 }
 </style>
 
@@ -742,6 +525,7 @@ document.addEventListener('DOMContentLoaded', function() {
         toggle.addEventListener("click", () => {
             sidebar.classList.add("active");
             overlay.classList.add("active");
+            sidebar.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = "hidden";
         });
     }
@@ -750,6 +534,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function closeMobileSidebar() {
         sidebar.classList.remove("active");
         overlay.classList.remove("active");
+        sidebar.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = "";
         
         // Tutup semua dropdown saat sidebar ditutup
@@ -770,7 +555,7 @@ document.addEventListener('DOMContentLoaded', function() {
         overlay.addEventListener("click", closeMobileSidebar);
     }
 
-    // === Dropdown Handler ===
+    // === Dropdown Handler (sidebar mobile) ===
     if (dropdownToggles) {
         dropdownToggles.forEach(toggle => {
             toggle.addEventListener("click", function(e) {
@@ -825,6 +610,35 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.key === 'Escape' && sidebar.classList.contains('active')) {
             closeMobileSidebar();
         }
+    });
+
+    // Accessibility: allow focusing dropdown via keyboard on desktop
+    document.querySelectorAll('.nav-item > .nav-link').forEach(link => {
+        link.addEventListener('focus', () => {
+            const parent = link.closest('.nav-item');
+            const dropdown = parent ? parent.querySelector('.dropdown-menu') : null;
+            if (dropdown) {
+                dropdown.style.opacity = '1';
+                dropdown.style.visibility = 'visible';
+                dropdown.style.transform = 'translateY(0)';
+                dropdown.style.pointerEvents = 'auto';
+            }
+        });
+        link.addEventListener('blur', () => {
+            const parent = link.closest('.nav-item');
+            const dropdown = parent ? parent.querySelector('.dropdown-menu') : null;
+            if (dropdown) {
+                // small timeout to allow focusing on dropdown items
+                setTimeout(() => {
+                    if (!parent.matches(':hover') && !dropdown.matches(':hover')) {
+                        dropdown.style.opacity = '';
+                        dropdown.style.visibility = '';
+                        dropdown.style.transform = '';
+                        dropdown.style.pointerEvents = '';
+                    }
+                }, 150);
+            }
+        });
     });
 });
 </script>

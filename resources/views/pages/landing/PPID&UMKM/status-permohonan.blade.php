@@ -1,228 +1,428 @@
 @extends('layouts.landing.app')
 
 @section('content')
+<title>Status Permohonan Informasi Publik</title>
+
 <style>
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap');
+    body { 
+        background-color: #f8fafc; 
+        font-family: 'Poppins', 'Segoe UI', Arial, sans-serif; 
+        color: #333;
+    }
+    
+    /* Header Section - Mengikuti gaya dari halaman jumlah penduduk */
+    .container-main { 
+        max-width: 1400px; 
+        margin: auto; 
+        padding: 20px; 
+    }
 
-/* Font Variables */
-:root {
-    --font-heading: 'Poppins', sans-serif;
-    --font-body: 'Open Sans', sans-serif;
-    --color-success: #2E7D32;
-}
+    .gallery-header {
+        margin-bottom: 2rem;
+        margin-top: -1rem;
+    }
 
-/* Apply Fonts */
-.modern-title {
-    font-family: var(--font-heading) !important;
-    font-weight: 700 !important;
-    letter-spacing: -0.02em !important;
-}
+    .gallery-title {
+        font-size: 2.8rem;
+        font-weight: 600;
+        color: #2E7D32;
+        line-height: 1.1;
+        margin-bottom: 0.5rem;
+        font-family: 'Poppins', sans-serif;
+    }
 
-.modern-text {
-    font-family: var(--font-body) !important;
-    font-weight: 400 !important;
-    line-height: 1.6 !important;
-}
+    .gallery-header p {
+        font-size: 1.1rem;
+        color: #666;
+        margin-bottom: 0;
+        font-family: 'Open Sans', sans-serif;
+    }
 
-.modern-btn {
-    font-family: var(--font-body) !important;
-    font-weight: 500 !important;
-}
+    /* Card Style - Mengikuti gaya dari halaman jumlah penduduk */
+    .card { 
+        background: #fff; 
+        border-radius: 14px; 
+        padding: 25px; 
+        box-shadow: 0 8px 20px rgba(0,0,0,0.06); 
+        transition: .25s; 
+        border: none;
+        margin-bottom: 25px;
+    }
 
-.modern-input {
-    font-family: var(--font-body) !important;
-}
+    .card:hover { 
+        transform: translateY(-3px); 
+        box-shadow: 0 12px 28px rgba(0,0,0,0.12); 
+    }
 
-.modern-table {
-    font-family: var(--font-body) !important;
-}
+    /* Form Styles */
+    .form-group { 
+        margin-bottom: 25px; 
+        text-align: left;
+    }
+    
+    label { 
+        font-weight: 600; 
+        margin-bottom: 10px; 
+        display: block; 
+        color: #2c3e50; 
+        font-size: 15px;
+        text-align: left;
+        font-family: 'Open Sans', sans-serif;
+    }
+    
+    .form-control-email { 
+        width: 100%; 
+        padding: 14px 16px; 
+        border: 2px solid #e2e8f0; 
+        border-radius: 8px; 
+        font-size: 15px; 
+        transition: all 0.3s ease;
+        background: #f8fafc;
+        text-align: left;
+        font-family: 'Open Sans', sans-serif;
+        height: 52px; /* TINGGI SAMA DENGAN TOMBOL */
+        box-sizing: border-box;
+    }
+    
+    .form-control-email:focus {
+        outline: none;
+        border-color: #2E7D32;
+        box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+        background: #fff;
+    }
+    
+    .btn-submit { 
+        background: linear-gradient(135deg, #2E7D32, #4CAF50); 
+        color: #fff; 
+        border: none; 
+        padding: 16px 30px; 
+        border-radius: 8px; 
+        font-size: 16px; 
+        cursor: pointer; 
+        width: 100%; 
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-align: center;
+        font-family: 'Poppins', sans-serif;
+        height: 52px; /* TINGGI SAMA DENGAN INPUT */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+    
+    .btn-submit:hover { 
+        background: linear-gradient(135deg, #1B5E20, #388E3C);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(46, 125, 50, 0.2);
+    }
 
-/* Custom Styling */
-.page-header {
-    text-align: left !important;
-    margin-bottom: 2rem;
-}
+    .btn-download {
+        background: transparent;
+        color: #2E7D32;
+        border: 2px solid #2E7D32;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 14px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+        text-decoration: none;
+        display: inline-block;
+    }
 
-.page-title {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: var(--color-success);
-    margin-bottom: 0.5rem;
-}
+    .btn-download:hover {
+        background: #2E7D32;
+        color: #fff;
+        text-decoration: none;
+    }
 
-.page-subtitle {
-    font-size: 1.1rem;
-    color: #6c757d;
-    margin-bottom: 0;
-}
+    /* Table Styles */
+    .table { 
+        width: 100%; 
+        border-collapse: collapse; 
+        margin-top: 18px; 
+        font-size: 15px; 
+        font-family: 'Open Sans', sans-serif; 
+    }
 
-.card {
-    border-radius: 12px;
-    overflow: hidden;
-}
+    .table th, .table td { 
+        padding: 12px; 
+        text-align: center; 
+        border-bottom: 1px solid #e5e7eb; 
+    }
 
-.form-control {
-    border-radius: 10px;
-    border: 2px solid #e9ecef;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-}
+    .table thead { 
+        background: linear-gradient(90deg, #16a34a, #16a34a); 
+        color: #fff; 
+        font-weight: 600; 
+        font-family: 'Poppins', sans-serif; 
+    }
 
-.form-control:focus {
-    border-color: var(--color-success);
-    box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25);
-}
+    /* Badge Styles */
+    .badge {
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-weight: 500;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
+    }
 
-.btn-success {
-    background-color: var(--color-success);
-    border-color: var(--color-success);
-    border-radius: 10px;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-}
+    .badge-warning {
+        background: #f59e0b;
+        color: white;
+    }
 
-.btn-success:hover {
-    background-color: #1B5E20;
-    border-color: #1B5E20;
-}
+    .badge-success {
+        background: #22c55e;
+        color: white;
+    }
 
-.table th {
-    font-family: var(--font-heading);
-    font-weight: 600;
-    background-color: #f8f9fa;
-    border-bottom: 2px solid #dee2e6;
-}
+    .badge-danger {
+        background: #ef4444;
+        color: white;
+    }
 
-.badge {
-    font-family: var(--font-body);
-    font-weight: 500;
-    font-size: 0.8rem;
-    padding: 0.5em 0.75em;
-    border-radius: 6px;
-}
+    .badge-secondary {
+        background: #6b7280;
+        color: white;
+    }
 
-.badge.bg-warning {
-    color: #212529 !important;
-}
+    /* Row dan Column Layout - PERBAIKAN UTAMA */
+    .form-row {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 0;
+        align-items: flex-start;
+    }
+    
+    .form-col {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .form-col-email {
+        flex: 3;
+    }
+    
+    .form-col-button {
+        flex: 1;
+        max-width: 200px;
+    }
 
-.badge.bg-success,
-.badge.bg-danger,
-.badge.bg-secondary {
-    color: #fff !important;
-}
+    /* Loading State */
+    .loading {
+        display: none;
+    }
+    
+    /* Memastikan input dan tombol memiliki tinggi yang sama */
+    .input-group {
+        display: flex;
+        align-items: stretch;
+    }
+    
+    @media (max-width: 768px) {
+        .card {
+            padding: 20px;
+        }
+        
+        .form-row {
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .form-col-button {
+            max-width: 100%;
+            width: 100%;
+        }
+        
+        .gallery-title {
+            font-size: 2.2rem;
+        }
+        
+        .table {
+            font-size: 14px;
+        }
+        
+        .table th, .table td {
+            padding: 8px;
+        }
+        
+        .btn-submit {
+            margin-top: 0;
+        }
+        
+        .form-control-email,
+        .btn-submit {
+            height: 48px; /* Sesuaikan tinggi untuk mobile */
+        }
+    }
 
-.btn-outline-primary {
-    font-family: var(--font-body);
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
-}
+    @media (max-width: 576px) {
+        .gallery-title { 
+            font-size: 1.8rem; 
+        }
+        
+        .gallery-header p {
+            font-size: 1rem;
+        }
+        
+        .container-main {
+            padding: 15px;
+        }
+        
+        .card {
+            padding: 15px;
+        }
+        
+        .btn-submit {
+            padding: 14px 20px;
+            font-size: 14px;
+        }
+        
+        .form-control-email {
+            padding: 12px 14px;
+        }
+    }
 </style>
 
-<div class="container mt-5 mb-5">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
 
-    {{-- HEADER --}}
-    <div class="page-header">
-        <h2 class="page-title modern-title">Status Permohonan Informasi Publik</h2>
-        <p class="page-subtitle modern-text">Masukkan email Anda untuk melihat status permohonan informasi publik yang telah diajukan</p>
+<div class="container-main">
+    <!-- Judul Halaman - Mengikuti gaya dari halaman jumlah penduduk -->
+    <div class="text-start mb-4 mt-2 px-2 gallery-header">
+        <h2 class="fw-semibold display-4 mb-2 gallery-title">
+            STATUS PERMOHONAN INFORMASI PUBLIK
+        </h2>
+        <p class="text-secondary fs-5 mb-0">
+            Masukkan email Anda untuk melihat status permohonan informasi publik yang telah diajukan
+        </p>
     </div>
 
-    {{-- CARD FORM PENCARIAN --}}
-    <div class="card shadow-lg border-0 mx-auto mb-4" style="max-width: 1200px;">
-        <div class="card-body p-4">
-            <form id="statusForm" action="{{ route('permohonan.userStatus') }}" method="GET">
-                <div class="row g-3 align-items-center">
-                    <div class="col-md-9 col-sm-12">
-                        <input type="email" name="email" class="form-control form-control-lg modern-input"
-                               placeholder="Masukkan email Anda untuk melihat status permohonan..."
+    <!-- Card Form Pencarian - PERBAIKAN UTAMA -->
+    <div class="card">
+        <form id="statusForm" action="{{ route('permohonan.userStatus') }}" method="GET">
+            <div class="form-group">
+                <label>Alamat Email <span class="text-danger">*</span></label>
+                <div class="form-row">
+                    <div class="form-col form-col-email">
+                        <input type="email" name="email" class="form-control-email" 
+                               placeholder="Masukkan email Anda untuk melihat status permohonan..." 
                                value="{{ request('email') }}" required>
                     </div>
-                    <div class="col-md-3 col-sm-12">
-                        <button class="btn btn-success btn-lg w-100 modern-btn" type="submit" id="cekStatusBtn">
-                            <span id="cekStatusText"><i class="fas fa-search"></i> Cek Status</span>
-                            <span id="cekStatusLoading" class="d-none">
-                                <i class="fas fa-spinner fa-spin"></i> Memproses...
+                    <div class="form-col form-col-button">
+                        <button class="btn-submit" type="submit" id="cekStatusBtn">
+                            <span id="cekStatusText">
+                                <i class="bi bi-search me-2"></i> Cek Status
+                            </span>
+                            <span id="cekStatusLoading" class="loading">
+                                <i class="bi bi-arrow-repeat me-2"></i> Memproses...
                             </span>
                         </button>
                     </div>
                 </div>
-            </form>
-        </div>
-    </div>
-
-    {{-- CARD TABEL DATA --}}
-    <div class="card shadow-lg border-0 mx-auto" style="max-width: 1200px;">
-        <div class="card-body p-4">
-            <div class="table-responsive modern-table">
-                <table class="table table-bordered table-hover align-middle mb-0">
-                    <thead class="table-success text-center">
-                        <tr>
-                            <th>No</th>
-                            <th>Nama Pemohon</th>
-                            <th>Email</th>
-                            <th>Permohonan</th>
-                            <th>Status</th>
-                            <th>File</th>
-                            <th>Tanggal Permohonan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse((request('email') ? $permohonans : []) as $index => $data)
-                            <tr>
-                                <td class="text-center modern-text">{{ $index + 1 }}</td>
-                                <td class="modern-text">{{ $data->nama }}</td>
-                                <td class="modern-text">{{ $data->alamat_email }}</td>
-                                <td class="modern-text">{{ Str::limit($data->permohonan, 60) }}</td>
-                                <td class="text-center">
-                                    @if($data->status == 'diproses')
-                                        <span class="badge bg-warning text-white modern-text">Diproses</span>
-                                    @elseif($data->status == 'selesai')
-                                        <span class="badge bg-success text-white modern-text">Selesai</span>
-                                    @elseif($data->status == 'ditolak')
-                                        <span class="badge bg-danger text-white modern-text">Ditolak</span>
-                                    @else
-                                        <span class="badge bg-secondary text-white modern-text">Belum Ditetapkan</span>
-                                    @endif
-                                </td>
-                                <td class="text-center">
-                                    @if($data->file_path)
-                                        <a href="{{ asset('storage/' . $data->file_path) }}"
-                                           class="btn btn-outline-primary btn-sm modern-text" target="_blank">
-                                           <i class="fas fa-download"></i> Download
-                                        </a>
-                                    @else
-                                        <span class="text-muted modern-text">Tidak ada file</span>
-                                    @endif
-                                </td>
-                                <td class="text-center modern-text">
-                                    {{ \Carbon\Carbon::parse($data->created_at)->translatedFormat('d F Y') }}
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7" class="text-center text-muted modern-text">
-                                    @if(request('email'))
-                                        Tidak ada permohonan ditemukan untuk email ini.
-                                    @else
-                                        Silakan masukkan email Anda untuk melihat status.
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
             </div>
-        </div>
+        </form>
     </div>
 
+    <!-- Card Tabel Data -->
+    <div class="card">
+        <div class="form-group">
+            <h5 style="color: #2E7D32; font-weight: 600; margin-bottom: 20px; font-family: 'Poppins', sans-serif;">
+                <i class="bi bi-table me-2"></i>
+                Data Permohonan Informasi Publik
+            </h5>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Pemohon</th>
+                        <th>Email</th>
+                        <th>Permohonan</th>
+                        <th>Status</th>
+                        <th>File</th>
+                        <th>Tanggal Permohonan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse((request('email') ? $permohonans : []) as $index => $data)
+                        <tr>
+                            <td class="fw-bold">{{ $index + 1 }}</td>
+                            <td>{{ $data->nama }}</td>
+                            <td>{{ $data->alamat_email }}</td>
+                            <td>{{ Str::limit($data->permohonan, 60) }}</td>
+                            <td>
+                                @if($data->status == 'diproses')
+                                    <span class="badge badge-warning">Diproses</span>
+                                @elseif($data->status == 'selesai')
+                                    <span class="badge badge-success">Selesai</span>
+                                @elseif($data->status == 'ditolak')
+                                    <span class="badge badge-danger">Ditolak</span>
+                                @else
+                                    <span class="badge badge-secondary">Belum Ditetapkan</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if($data->file_path)
+                                    <a href="{{ asset('storage/' . $data->file_path) }}" 
+                                       class="btn-download" target="_blank">
+                                        <i class="bi bi-download me-1"></i> Download
+                                    </a>
+                                @else
+                                    <span class="text-muted">Tidak ada file</span>
+                                @endif
+                            </td>
+                            <td>
+                                {{ \Carbon\Carbon::parse($data->created_at)->translatedFormat('d F Y') }}
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" class="text-center text-muted py-4">
+                                @if(request('email'))
+                                    <i class="bi bi-search display-4 d-block mb-2"></i>
+                                    Tidak ada permohonan ditemukan untuk email ini.
+                                @else
+                                    <i class="bi bi-envelope display-4 d-block mb-2"></i>
+                                    Silakan masukkan email Anda untuk melihat status.
+                                @endif
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-{{-- Script Loading Tombol --}}
 <script>
-document.getElementById('statusForm').addEventListener('submit', function() {
-    document.getElementById('cekStatusBtn').disabled = true;
-    document.getElementById('cekStatusText').classList.add('d-none');
-    document.getElementById('cekStatusLoading').classList.remove('d-none');
+document.addEventListener('DOMContentLoaded', function() {
+    const statusForm = document.getElementById('statusForm');
+    const cekStatusBtn = document.getElementById('cekStatusBtn');
+    const cekStatusText = document.getElementById('cekStatusText');
+    const cekStatusLoading = document.getElementById('cekStatusLoading');
+
+    if (statusForm) {
+        statusForm.addEventListener('submit', function() {
+            cekStatusBtn.disabled = true;
+            cekStatusText.style.display = 'none';
+            cekStatusLoading.style.display = 'inline';
+        });
+    }
+
+    // Reset loading state jika halaman direfresh
+    if (cekStatusBtn) {
+        cekStatusBtn.disabled = false;
+        cekStatusText.style.display = 'inline';
+        cekStatusLoading.style.display = 'none';
+    }
 });
 </script>
 @endsection
