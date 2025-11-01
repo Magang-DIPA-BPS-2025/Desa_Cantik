@@ -9,8 +9,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ppids', function (Blueprint $table) {
-            $table->engine = 'InnoDB'; // pastikan engine mendukung foreign key
-            $table->id(); // otomatis unsignedBigInteger + autoIncrement
+            $table->engine = 'InnoDB';
+            $table->id(); 
             $table->string('judul');
             $table->text('deskripsi')->nullable();
             $table->string('kategori')->nullable();
@@ -25,3 +25,4 @@ return new class extends Migration
         Schema::dropIfExists('ppids');
     }
 };
+

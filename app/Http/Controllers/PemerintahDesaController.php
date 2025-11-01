@@ -11,13 +11,27 @@ use Carbon\Carbon; // IMPORT CARBON DI SINI
 class PemerintahDesaController extends Controller
 {
     // ===================== ADMIN =====================
-    public function index()
-    {
-        $datas = PemerintahDesa::all();
-        return view('pages.admin.pemerintahDesa.index', compact('datas'))
-            ->with(['menu' => 'pemerintah-desa', 'title' => 'Pemerintah Desa']);
+    public function index(Request $request)
+{
+    $perPage = $request->get('perPage', 10);
+    $search = $request->get('search', '');
+
+    $query = PemerintahDesa::query();
+
+    // Filter berdasarkan pencarian
+    if ($search) {
+        $query->where(function($q) use ($search) {
+            $q->where('nama', 'like', '%' . $search . '%')
+              ->orWhere('jabatan', 'like', '%' . $search . '%')
+              ->orWhere('tupoksi', 'like', '%' . $search . '%');
+        });
     }
 
+    $datas = $query->paginate($perPage);
+
+    return view('pages.admin.pemerintahDesa.index', compact('datas', 'search', 'perPage'))
+        ->with(['menu' => 'pemerintah-desa', 'title' => 'Pemerintah Desa']);
+}
     public function create()
     {
         return view('pages.admin.pemerintahDesa.create')
@@ -117,14 +131,14 @@ public function userIndex()
     $nextYear = $month == 12 ? $year + 1 : $year;
 
     return view('pages.landing.profildesa.PemerintahDesa', compact(
-        'pemerintahDesas', 
-        'month', 
-        'year', 
-        'events', 
-        'daysInMonth', 
+        'pemerintahDesas',
+        'month',
+        'year',
+        'events',
+        'daysInMonth',
         'startDayOfWeek',
         'prevMonth',
-        'prevYear', 
+        'prevYear',
         'nextMonth',
         'nextYear'
     ));

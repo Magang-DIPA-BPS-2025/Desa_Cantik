@@ -40,10 +40,10 @@ Route::group(
         // Redirect root
         Route::redirect('/', '/');
 
-        //home 
+        //home
         Route::get('/', [HomeController::class, 'userBeranda'])->name('home');
-    
-       
+
+
         // Galeri Desa (static view)
         Route::get('/galeri', [GaleriController::class, 'userIndex'])->name('galeri.user.index');
 
@@ -80,7 +80,7 @@ Route::group(
         //Data Agama (dynamic view)
         Route::get('/agama', [DataPendudukController::class, 'statistikAgama'])->name('agama');
         // Halaman form pengajuan umum
-    
+
 
 
         Route::get('/status', [SuratController::class, 'userStatus'])->name('status');
@@ -99,7 +99,7 @@ Route::group(
         Route::get('/verifikasi-surat/{id}', [SkuController::class, 'verifikasiSurat'])->name('verifikasi.surat');
         Route::get('/verifikasi-surat-sktm/{id}', [SktmController::class, 'verifikasiSurat'])->name('verifikasi.surat.sktm');
         Route::get('/verifikasi-surat-kematian/{id}', [sKematianController::class, 'verifikasiSurat'])->name('verifikasi.surat.kematian');
-         Route::get('/verifikasi-surat-izin/{id}', [IzinController::class, 'verifikasiSurat'])->name('verifikasi.surat.izin');
+        Route::get('/verifikasi-surat-izin/{id}', [IzinController::class, 'verifikasiSurat'])->name('verifikasi.surat.izin');
 
 
         //Pengaduan (dynamic view)
@@ -237,8 +237,6 @@ Route::group(
 
 
             // routes/web.php
-            Route::get('/admin/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])
-                ->name('admin.dashboard');
 
             Route::prefix('admin')->group(function () {
                 Route::get('/buku-tamu', [BukuTamuController::class, 'adminIndex'])->name('admin.buku.index');
@@ -248,6 +246,7 @@ Route::group(
             });
 
             Route::resource('pemerintah-desa', PemerintahDesaController::class);
+            
 
             Route::resource('apbd', ApbdController::class);
 

@@ -34,6 +34,130 @@
     .pagination {
         justify-content: flex-end !important;
     }
+
+    /* Styling untuk control bar */
+    .control-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    .left-controls {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .right-controls {
+        display: flex;
+        align-items: center;
+    }
+    .entries-control {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* Styling untuk search box */
+    .search-container {
+        position: relative;
+        width: 300px;
+    }
+    .search-container .form-control {
+        padding-right: 40px;
+    }
+    .clear-search {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #999;
+        cursor: pointer;
+        display: none;
+    }
+    .clear-search:hover {
+        color: #333;
+    }
+
+    /* ===== RESPONSIVE STYLES ===== */
+    /* Tablet */
+    @media (max-width: 991.98px) {
+        .control-bar {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .left-controls {
+            order: 1;
+        }
+        .right-controls {
+            order: 2;
+            justify-content: flex-start;
+            margin-top: 10px;
+        }
+        .search-container {
+            width: 100%;
+            max-width: 400px;
+        }
+    }
+
+    /* Mobile */
+    @media (max-width: 767.98px) {
+        .entries-control {
+            flex-wrap: wrap;
+        }
+        .table-responsive {
+            font-size: 14px;
+        }
+        .search-container {
+            max-width: 100%;
+        }
+    }
+
+    /* Small Mobile */
+    @media (max-width: 575.98px) {
+        .left-controls {
+            gap: 8px;
+        }
+        .entries-control {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px;
+        }
+        #entries-select {
+            width: 100px !important;
+        }
+        .action-buttons {
+            flex-direction: column;
+            gap: 3px;
+        }
+        .action-buttons .btn {
+            width: 35px;
+            height: 35px;
+            font-size: 14px;
+        }
+        .table-responsive {
+            font-size: 13px;
+        }
+    }
+
+    /* Extra Small Mobile */
+    @media (max-width: 400px) {
+        .search-container {
+            width: 100%;
+        }
+        .btn {
+            font-size: 14px;
+            padding: 8px 12px;
+        }
+        .entries-control label,
+        .entries-control span {
+            font-size: 14px;
+        }
+    }
 </style>
 @endpush
 
@@ -46,9 +170,44 @@
         <div class="section-body">
             <div class="card shadow-sm border-0">
                 <div class="card-body">
-                    <a href="{{ route('dataPenduduk.create') }}" class="btn btn-primary mb-3">
-                        <i class="fas fa-plus"></i> Tambah Data Penduduk
-                    </a>
+                    <!-- Control Bar: 3 Fitur Vertikal di Kiri, Pencarian di Kanan -->
+                    <div class="control-bar">
+                        <!-- Kiri: 3 Fitur Vertikal (Tambah Data, Export Excel, Entri) -->
+                        <div class="left-controls">
+                            <!-- Tambah Data -->
+                            <a href="{{ route('dataPenduduk.create') }}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Tambah Data Penduduk
+                            </a>
+
+                            <!-- Export Excel -->
+                            <button class="btn btn-success" id="export-excel-btn">
+                                <i class="fas fa-file-excel"></i> Export Excel
+                            </button>
+
+                            <!-- Entri Data -->
+                            <div class="entries-control">
+                                <label for="entries-select" class="mb-0">Tampilkan</label>
+                                <select id="entries-select" class="form-control form-control-sm" style="width: auto;">
+                                    <option value="10" {{ request('perPage') == 10 ? 'selected' : '' }}>10</option>
+                                    <option value="25" {{ request('perPage') == 25 ? 'selected' : '' }}>25</option>
+                                    <option value="50" {{ request('perPage') == 50 ? 'selected' : '' }}>50</option>
+                                    <option value="100" {{ request('perPage') == 100 ? 'selected' : '' }}>100</option>
+                                </select>
+                                <span>entri</span>
+                            </div>
+                        </div>
+
+                        <!-- Kanan: Pencarian sejajar dengan Entri Data -->
+                        <div class="right-controls">
+                            <div class="search-container">
+                                <input type="text" class="form-control" id="custom-search"
+                                       placeholder="Cari data...">
+                                <button class="clear-search" id="clear-search" type="button">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="table-responsive">
                         <table class="table table-striped table-hover" id="table-penduduk">
@@ -118,9 +277,14 @@
                         </table>
                     </div>
 
-                    {{-- Pagination Laravel di kanan --}}
-                    <div class="d-flex justify-content-end mt-3">
-                        {{ $datas->links('pagination::bootstrap-4') }}
+                    {{-- Pagination dan Info --}}
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <div>
+                            Menampilkan {{ $datas->firstItem() ?? 0 }} hingga {{ $datas->lastItem() ?? 0 }} dari {{ $datas->total() }} entri
+                        </div>
+                        <div>
+                            {{ $datas->links('pagination::bootstrap-4') }}
+                        </div>
                     </div>
 
                 </div>
@@ -130,43 +294,41 @@
 </div>
 
 @push('scripts')
-<!-- jQuery & DataTables -->
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
-
-<!-- Buttons Export -->
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-
+<!-- Script Sidebar Responsif -->
 <script>
-$(document).ready(function() {
-    $('#table-penduduk').DataTable({
-        paging: false, // nonaktifkan pagination bawaan DataTable
-        searching: true,
-        ordering: true,
-        info: false,
-        autoWidth: false,
-        language: {
-            url: 'https://cdn.datatables.net/plug-ins/2.1.0/i18n/id.json'
-        },
-        columnDefs: [
-            { orderable: false, targets: -1 }
-        ],
-        dom:
-            '<"d-flex justify-content-between align-items-center mb-2"Bf>' + // kiri: export, kanan: search
-            'rt',
-        buttons: [
-            {
-                extend: 'excelHtml5',
-                text: '<i class="fas fa-file-excel"></i> Export Excel',
-                className: 'btn btn-success btn-sm'
+document.addEventListener("DOMContentLoaded", function() {
+    const body = document.body;
+    const toggle = document.querySelector('.nav-link.toggle-sidebar');
+
+    // 🔒 Kunci toggle sidebar di desktop
+    function handleSidebarMode() {
+        if (window.innerWidth > 991) {
+            // Sidebar selalu terbuka
+            body.classList.add('sidebar-mini');
+            // Nonaktifkan tombol toggle (tidak bisa diklik)
+            if (toggle) toggle.style.pointerEvents = 'none';
+        } else {
+            // Aktifkan toggle di HP
+            if (toggle) toggle.style.pointerEvents = 'auto';
+        }
+    }
+
+    handleSidebarMode();
+    window.addEventListener('resize', handleSidebarMode);
+
+    // 📱 Tutup sidebar otomatis di HP ketika klik di luar
+    document.addEventListener('click', function(e) {
+        const sidebar = document.querySelector('.main-sidebar');
+        if (!sidebar || !toggle) return;
+
+        if (window.innerWidth <= 991) {
+            if (!sidebar.contains(e.target) && !toggle.contains(e.target)) {
+                body.classList.remove('sidebar-show');
             }
-        ]
+        }
     });
 });
 </script>
 @endpush
+
 @endsection

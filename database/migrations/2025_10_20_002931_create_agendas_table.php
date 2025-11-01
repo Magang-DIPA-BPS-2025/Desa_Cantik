@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Jalankan migrasi.
      */
     public function up(): void
     {
@@ -17,18 +17,17 @@ return new class extends Migration
             $table->dateTime('waktu_pelaksanaan');
             $table->text('deskripsi')->nullable();
             $table->string('kategori')->nullable();
-            $table->string('foto')->nullable(); 
-            $table->unsignedBigInteger('dilihat')->default(0)->after('foto'); 
+            $table->string('foto')->nullable();
+            $table->unsignedBigInteger('dilihat')->default(0);
             $table->timestamps();
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Batalkan migrasi.
      */
     public function down(): void
     {
         Schema::dropIfExists('agendas');
-        $table->dropColumn('dilihat');
     }
 };

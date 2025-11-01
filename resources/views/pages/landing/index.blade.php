@@ -16,7 +16,7 @@ body {
 
 /* ---------------- Hero Section dengan Search ---------------- */
 .hero-section {
-    background: 
+    background:
         linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
         url('{{ asset("landing/images/slider-main/makassar.png") }}') center/cover no-repeat;
     color: white;
@@ -195,7 +195,7 @@ body {
     transition: all 0.3s ease;
     cursor: pointer;
 }
-    
+
 .search-result-item:hover {
     background: #e9ecef;
     transform: translateX(5px);
@@ -249,7 +249,7 @@ body {
     margin-bottom: 10px;
 }
 
-/* ---------------- Statistik Slider ---------------- */
+/* ---------------- PERBAIKAN Statistik Slider ---------------- */
 .statistik {
     background: linear-gradient(135deg, #C0D09D, #2E7D32);
     padding: 70px 20px;
@@ -259,13 +259,17 @@ body {
     width: 95%;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     position: relative;
+    overflow: visible; /* PERUBAHAN: dari hidden ke visible */
 }
 
-.statistik h2 { 
-    margin-bottom: 40px; 
-    font-size: 28px; 
-    font-weight: 700; 
-    color: #ffffffff; 
+.statistik h2 {
+    margin-bottom: 40px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+    position: relative; /* PERUBAHAN: tambahkan ini */
+    z-index: 3; /* PERUBAHAN: pastikan teks di atas card */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
 
 #slider {
@@ -273,166 +277,175 @@ body {
     gap: 20px;
     scroll-behavior: smooth;
     overflow-x: auto;
-    padding-bottom: 10px;
+    padding: 20px 10px 10px 10px; /* PERUBAHAN: tambah padding atas */
+    position: relative;
+    z-index: 2;
 }
 
-#slider::-webkit-scrollbar { 
-    display: none; 
+#slider::-webkit-scrollbar {
+    display: none;
 }
 
-#slider > .item { 
-    flex: 0 0 calc(25% - 15px); 
-    box-sizing: border-box; 
+#slider > .item {
+    flex: 0 0 calc(25% - 15px);
+    box-sizing: border-box;
 }
 
 .statistik .item {
     flex: 0 0 auto;
     width: 100%;
-    padding: 20px;
+    padding: 25px 20px; /* PERUBAHAN: tambah padding atas bawah */
     border-radius: 16px;
-    background: #f8fafc;
+    background: #ffffff;
     box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     transition: transform .25s ease, box-shadow .25s ease;
     text-align: center;
+    position: relative;
+    z-index: 2;
+    border: 1px solid rgba(255,255,255,0.3); /* PERUBAHAN: tambahkan border */
 }
 
-.statistik .item:hover { 
-    transform: translateY(-6px); 
-    box-shadow: 0 12px 26px rgba(0,0,0,0.12); 
+.statistik .item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 26px rgba(0,0,0,0.12);
 }
 
-.statistik img { 
-    width: 64px; 
-    margin-bottom: 12px; 
+.statistik img {
+    width: 64px;
+    margin-bottom: 12px;
 }
 
-.statistik .angka { 
-    font-size: 26px; 
-    font-weight: 800; 
-    color: #2e7d32; 
-    margin: 6px 0; 
+.statistik .angka {
+    font-size: 26px;
+    font-weight: 800;
+    color: #2e7d32;
+    margin: 6px 0;
 }
 
-.statistik .label { 
-    font-size: 14px; 
-    color: #555; 
+.statistik .label {
+    font-size: 14px;
+    color: #555;
 }
 
-/* Tombol Navigasi Carousel */
+/* PERBAIKAN Tombol Navigasi Carousel - HIJAU & PUTIH */
 .slider-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.8);
-    border: none;
+    background: rgba(255, 255, 255, 0.95); /* PERUBAHAN: putih dengan transparansi */
+    border: 2px solid #2E7D32; /* PERUBAHAN: border hijau */
     border-radius: 50%;
     width: 45px;
     height: 45px;
     cursor: pointer;
     font-size: 22px;
-    color: #2E7D32;
+    color: #2E7D32; /* PERUBAHAN: warna hijau */
     box-shadow: 0 3px 8px rgba(0,0,0,0.2);
     transition: all 0.3s;
     z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.slider-btn:hover { 
-    background: #2E7D32; 
-    color: #f8fafc; 
+.slider-btn:hover {
+    background: #2E7D32; /* PERUBAHAN: hijau saat hover */
+    color: #ffffff; /* PERUBAHAN: putih saat hover */
+    border-color: #2E7D32; /* PERUBAHAN: border hijau saat hover */
 }
 
-.slider-btn.left { 
-    left: -20px; 
+.slider-btn.left {
+    left: -20px;
 }
 
-.slider-btn.right { 
-    right: -20px; 
+.slider-btn.right {
+    right: -20px;
 }
 
 /* ---------------- Profil Desa ---------------- */
-.profil { 
-    padding: 70px 20px; 
-    display: flex; 
-    flex-wrap: wrap; 
-    align-items: center; 
-    gap: 40px; 
-    max-width: 1100px; 
-    margin: auto; 
+.profil {
+    padding: 70px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 40px;
+    max-width: 1100px;
+    margin: auto;
 }
 
-.profil-text { 
-    flex: 1; 
+.profil-text {
+    flex: 1;
     min-width: 300px;
 }
 
-.profil-text h2 { 
-    font-size: 32px; 
-    margin-bottom: 20px; 
-    color: #2e7d32; 
+.profil-text h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #2e7d32;
 }
 
-.profil-text p { 
-    line-height: 1.8; 
+.profil-text p {
+    line-height: 1.8;
     font-size: 16px;
 }
 
-.profil-img { 
-    flex: 1; 
-    text-align: center; 
+.profil-img {
+    flex: 1;
+    text-align: center;
     min-width: 300px;
 }
 
-.profil-img img { 
-    width: 100%; 
-    max-width: 450px; 
-    border-radius: 20px; 
-    cursor: pointer; 
+.profil-img img {
+    width: 100%;
+    max-width: 450px;
+    border-radius: 20px;
+    cursor: pointer;
 }
 
 /* ---------------- Chart ---------------- */
-.chart-section { 
-    padding: 60px 20px; 
-    background: #f8fafc; 
-    text-align: center; 
+.chart-section {
+    padding: 60px 20px;
+    background: #f8fafc;
+    text-align: center;
 }
 
-.chart-section h2 { 
-    margin-bottom: 30px; 
-    color: #2e7d32; 
+.chart-section h2 {
+    margin-bottom: 30px;
+    color: #2e7d32;
     font-size: 32px;
 }
 
-.chart-wrapper { 
-    max-width: 450px; 
-    margin: auto; 
+.chart-wrapper {
+    max-width: 450px;
+    margin: auto;
 }
 
 /* ---------------- APB Desa ---------------- */
-.apb-desa { 
-    padding: 80px 20px; 
-    background: #f8fafc; 
+.apb-desa {
+    padding: 80px 20px;
+    background: #f8fafc;
 }
 
-.apb-container { 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    gap: 40px; 
-    flex-wrap: wrap; 
-    max-width: 1200px; 
-    margin: auto; 
+.apb-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: auto;
 }
 
-.apbdesa-img { 
+.apbdesa-img {
     flex: 1;
     min-width: 300px;
     text-align: center;
 }
 
-.apbdesa-img img { 
-    max-width: 400px; 
+.apbdesa-img img {
+    max-width: 400px;
     width: 100%;
-    cursor: pointer; 
+    cursor: pointer;
     transition: all 0.3s ease;
 }
 
@@ -440,76 +453,76 @@ body {
     transform: scale(1.05);
 }
 
-.apb-info { 
-    flex: 1; 
-    min-width: 300px; 
+.apb-info {
+    flex: 1;
+    min-width: 300px;
 }
 
-.apb-info h2 { 
-    color: #2e7d32; 
-    font-size: 32px; 
-    font-weight: 700; 
-    margin-bottom: 15px; 
+.apb-info h2 {
+    color: #2e7d32;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 15px;
 }
 
-.apb-info p { 
-    font-size: 16px; 
-    margin-bottom: 25px; 
+.apb-info p {
+    font-size: 16px;
+    margin-bottom: 25px;
     line-height: 1.6;
 }
 
-.apb-card { 
-    background: #f8fafc; 
-    border-radius: 12px; 
-    padding: 18px 25px; 
-    margin-bottom: 15px; 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+.apb-card {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 18px 25px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-.apb-card span { 
-    font-size: 14px; 
-    color: #fff; 
+.apb-card span {
+    font-size: 14px;
+    color: #fff;
 }
 
-.apb-card h3 { 
-    font-size: 22px; 
-    font-weight: 700; 
-    margin-top: 8px; 
-    color: #fff; 
+.apb-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 8px;
+    color: #fff;
 }
 
-.apb-card.pendapatan { 
-    background: linear-gradient(135deg, #2E7D32, #2E7D32); 
-    color: white; 
+.apb-card.pendapatan {
+    background: linear-gradient(135deg, #2E7D32, #2E7D32);
+    color: white;
 }
 
-.apb-card.belanja { 
-    background: linear-gradient(135deg, #E53935, #EF5350); 
-    color: white; 
+.apb-card.belanja {
+    background: linear-gradient(135deg, #E53935, #EF5350);
+    color: white;
 }
 
-.apb-btn { 
-    display:inline-block; 
-    text-decoration:none; 
-    background:#2E7D32; 
-    color:#fff; 
-    padding:12px 22px; 
-    border-radius:8px; 
-    font-weight:600; 
-    transition: 0.3s; 
+.apb-btn {
+    display:inline-block;
+    text-decoration:none;
+    background:#2E7D32;
+    color:#fff;
+    padding:12px 22px;
+    border-radius:8px;
+    font-weight:600;
+    transition: 0.3s;
 }
 
-.apb-btn:hover { 
-    background:#2E7D32; 
+.apb-btn:hover {
+    background:#2E7D32;
 }
 
 /* ---------------- Section Title ---------------- */
-.section-title { 
-    text-align:center; 
-    color:#2e7d32; 
-    margin-bottom:40px; 
-    font-size:32px; 
-    font-weight:700; 
+.section-title {
+    text-align:center;
+    color:#2e7d32;
+    margin-bottom:40px;
+    font-size:32px;
+    font-weight:700;
 }
 
 /* ---------------- Jadwal Sholat Section ---------------- */
@@ -814,7 +827,7 @@ body {
 }
 
 /* ---------------- CARD UNIFORM ---------------- */
-.uniform-card { 
+.uniform-card {
     background: #fff;
     border-radius: 12px;
     overflow: hidden;
@@ -827,7 +840,7 @@ body {
     border: 1px solid #e9ecef;
 }
 
-.uniform-card:hover { 
+.uniform-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
@@ -914,7 +927,7 @@ body {
     z-index: 2;
 }
 
-/* Style untuk tombol agar terlihat lebih interaktif */
+/* PERBAIKAN Style untuk tombol agar terlihat lebih interaktif - HIJAU & PUTIH */
 .umkm-btn, .btn-outline-success {
     position: relative;
     z-index: 3;
@@ -1012,7 +1025,7 @@ body {
     text-decoration: none;
 }
 
-/* ---------------- Tombol WhatsApp ---------------- */
+/* ---------------- PERBAIKAN Tombol WhatsApp - HIJAU & PUTIH ---------------- */
 .btn-outline-success {
     background: transparent;
     color: #2E7D32;
@@ -1056,13 +1069,13 @@ body {
     padding: 80px 0;
 }
 
-/* ---------------- Tombol Lihat Semua ---------------- */
-.btn-view-all-container { 
-    text-align: center; 
+/* ---------------- PERBAIKAN Tombol Lihat Semua - HIJAU & PUTIH ---------------- */
+.btn-view-all-container {
+    text-align: center;
     margin-top: 50px;
 }
 
-.btn-view-all { 
+.btn-view-all {
     background: #2E7D32;
     color: #fff;
     padding: 14px 32px;
@@ -1074,10 +1087,12 @@ body {
     border: none;
     cursor: pointer;
     font-size: 1rem;
+    border: 2px solid #2E7D32; /* PERUBAHAN: tambah border */
 }
 
-.btn-view-all:hover { 
-    background: #2E7D32;
+.btn-view-all:hover {
+    background: #ffffff; /* PERUBAHAN: putih saat hover */
+    color: #2E7D32; /* PERUBAHAN: hijau saat hover */
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
@@ -1181,27 +1196,27 @@ body {
 /* ---------------- PERBAIKAN RESPONSIVE MOBILE ---------------- */
 
 /* Tablet dan Mobile Landscape */
-@media (max-width: 1024px) { 
-    .uniform-grid { 
-        grid-template-columns: repeat(2, 1fr); 
+@media (max-width: 1024px) {
+    .uniform-grid {
+        grid-template-columns: repeat(2, 1fr);
         gap: 25px;
     }
-    
-    #slider > .item { 
-        flex: 0 0 calc(33.33% - 15px); 
-    } 
-    
+
+    #slider > .item {
+        flex: 0 0 calc(33.33% - 15px);
+    }
+
     .profil {
         flex-direction: column;
         text-align: left;
         gap: 30px;
     }
-    
+
     .apb-container {
         flex-direction: column;
         text-align: left;
     }
-    
+
     .apbdesa-img img {
         max-width: 100%;
     }
@@ -1211,24 +1226,24 @@ body {
         padding: 100px 20px;
         min-height: 450px;
     }
-    
+
     .hero-section h1 {
         font-size: 32px;
     }
-    
+
     .hero-section h2 {
         font-size: 18px;
     }
-    
+
     .hero-section h3 {
         font-size: 15px;
         padding: 7px 16px;
     }
-    
+
     .hero-search {
         max-width: 450px;
     }
-    
+
     /* PERBAIKAN TOMBOL PENCARIAN TABLET - TOMBOL BULAT */
     .hero-search-btn {
         border-radius: 50% !important;
@@ -1236,46 +1251,55 @@ body {
         aspect-ratio: 1/1;
         padding: 12px !important;
     }
-    
+
     .jadwal-sholat-container {
         grid-template-columns: 1fr;
+    }
+
+    /* PERBAIKAN STATISTIK TABLET */
+    .statistik {
+        padding: 60px 20px;
+    }
+
+    .statistik .item {
+        padding: 22px 18px;
     }
 }
 
 /* Mobile Portrait */
-@media (max-width: 768px) { 
-    .uniform-grid { 
-        grid-template-columns: 1fr; 
+@media (max-width: 768px) {
+    .uniform-grid {
+        grid-template-columns: 1fr;
         gap: 20px;
     }
-    
+
     .uniform-grid-container {
         padding: 0 15px;
     }
-    
-    #slider > .item { 
-        flex: 0 0 calc(50% - 10px); 
+
+    #slider > .item {
+        flex: 0 0 calc(50% - 10px);
     }
-    
+
     .slider-btn {
         width: 40px;
         height: 40px;
         font-size: 18px;
     }
-    
-    .slider-btn.left { 
-        left: 5px; 
+
+    .slider-btn.left {
+        left: 5px;
     }
-    
-    .slider-btn.right { 
-        right: 5px; 
+
+    .slider-btn.right {
+        right: 5px;
     }
-    
+
     .jadwal-sholat-container {
         grid-template-columns: 1fr;
         gap: 25px;
     }
-    
+
     /* PERBAIKAN HERO SEARCH MOBILE - Tombol Bulat */
     .hero-search-box {
         flex-direction: row !important;
@@ -1283,13 +1307,13 @@ body {
         border-radius: 50px !important;
         padding: 4px !important;
     }
-    
+
     .hero-search-input {
         border-radius: 50px 0 0 50px !important;
         padding: 12px 16px !important;
         font-size: 14px !important;
     }
-    
+
     .hero-search-btn {
         border-radius: 50% !important;
         padding: 12px !important;
@@ -1300,11 +1324,11 @@ body {
         align-items: center;
         justify-content: center;
     }
-    
+
     .hero-search-btn i {
         font-size: 14px !important;
     }
-    
+
     /* Hero Section Responsive untuk Mobile */
     .hero-section {
         padding: 80px 20px;
@@ -1312,106 +1336,106 @@ body {
         border-bottom-left-radius: 30px;
         border-bottom-right-radius: 30px;
     }
-    
+
     .hero-section h1 {
         font-size: 28px;
         line-height: 1.3;
         margin-bottom: 30px;
     }
-    
+
     .hero-section h2 {
         font-size: 16px;
     }
-    
+
     .hero-section h3 {
         font-size: 14px;
         padding: 6px 14px;
     }
-    
+
     .section-title {
         font-size: 28px;
         margin-bottom: 30px;
     }
-    
+
     .statistik {
         padding: 50px 15px;
         border-radius: 25px;
         margin: 40px auto;
         width: 90%;
     }
-    
+
     .statistik h2 {
         font-size: 24px;
         margin-bottom: 30px;
     }
-    
+
     /* PERBAIKAN PROFIL MOBILE - Rata Kiri */
     .profil {
         padding: 50px 20px;
         text-align: left;
     }
-    
+
     .profil-text {
         text-align: left;
     }
-    
+
     .profil-text h2 {
         font-size: 28px;
         text-align: left;
     }
-    
+
     .profil-text p {
         text-align: left;
         line-height: 1.6;
     }
-    
+
     .profil-img {
         text-align: center;
     }
-    
+
     /* PERBAIKAN APB DESA MOBILE - Side by Side */
     .apb-desa {
         padding: 50px 20px;
     }
-    
+
     .apb-container {
         flex-direction: row !important;
         align-items: flex-start;
         gap: 20px;
         text-align: left;
     }
-    
+
     .apbdesa-img {
         flex: 0 0 120px;
         min-width: 120px;
         text-align: center;
     }
-    
+
     .apbdesa-img img {
         max-width: 100px;
         height: auto;
         border-radius: 10px;
     }
-    
+
     .apb-info {
         flex: 1;
         min-width: 0;
         text-align: left;
     }
-    
+
     .apb-info h2 {
         font-size: 28px;
         text-align: left;
     }
-    
+
     .apb-info p {
         text-align: left;
     }
-    
+
     .apb-card {
         padding: 15px 20px;
     }
-    
+
     .apb-card h3 {
         font-size: 20px;
     }
@@ -1422,36 +1446,36 @@ body {
     .galeri-section {
         padding: 50px 0;
     }
-    
+
     .jadwal-sholat-section {
         padding: 50px 20px;
     }
-    
+
     .jadwal-item {
         padding: 15px 18px;
     }
-    
+
     .jadwal-name {
         font-size: 15px;
     }
-    
+
     .jadwal-time {
         font-size: 16px;
     }
-    
+
     .next-time {
         font-size: 32px;
     }
-    
+
     .countdown {
         font-size: 16px;
     }
-    
+
     .galeri-modal-content {
         width: 95%;
         margin: 15% auto;
     }
-    
+
     .galeri-close {
         top: -35px;
         right: 5px;
@@ -1459,20 +1483,20 @@ body {
         height: 35px;
         font-size: 25px;
     }
-    
+
     .btn-view-all {
         padding: 12px 25px;
         font-size: 14px;
     }
-    
+
     .uniform-card-img {
         height: 180px;
     }
-    
+
     .uniform-card-content {
         padding: 1rem 1.25rem;
     }
-    
+
     .uniform-card-title {
         font-size: 1rem;
     }
@@ -1499,11 +1523,11 @@ body {
     .uniform-grid-container {
         padding: 0 10px;
     }
-    
+
     #slider > .item {
         flex: 0 0 calc(100% - 10px);
     }
-    
+
     /* Hero Section Responsive untuk Small Mobile */
     .hero-section {
         padding: 60px 15px;
@@ -1511,189 +1535,189 @@ body {
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
     }
-    
+
     .hero-section h1 {
         font-size: 24px;
         margin-bottom: 25px;
     }
-    
+
     .hero-section h2 {
         font-size: 14px;
     }
-    
+
     .hero-section h3 {
         font-size: 13px;
         padding: 5px 12px;
     }
-    
+
     .hero-search {
         max-width: 100%;
     }
-    
+
     /* PERBAIKAN HERO SEARCH MOBILE KECIL - Tombol Tetap Bulat */
     .hero-search-input {
         padding: 10px 14px !important;
         font-size: 13px !important;
     }
-    
+
     .hero-search-btn {
         padding: 10px !important;
         min-width: 45px !important;
         border-radius: 50% !important;
         aspect-ratio: 1/1;
     }
-    
+
     .section-title {
         font-size: 24px;
         margin-bottom: 25px;
     }
-    
+
     .statistik {
         padding: 40px 10px;
         border-radius: 20px;
         width: 95%;
     }
-    
+
     .statistik h2 {
         font-size: 20px;
         margin-bottom: 25px;
     }
-    
+
     .statistik .item {
-        padding: 15px;
+        padding: 18px 15px;
     }
-    
+
     .statistik .angka {
         font-size: 22px;
     }
-    
+
     .statistik .label {
         font-size: 13px;
     }
-    
+
     .statistik img {
         width: 50px;
     }
-    
+
     /* PERBAIKAN PROFIL MOBILE KECIL */
     .profil {
         padding: 40px 15px;
         gap: 25px;
     }
-    
+
     .profil-text h2 {
         font-size: 24px;
         text-align: left;
     }
-    
+
     /* PERBAIKAN APB DESA MOBILE KECIL */
     .apb-desa {
         padding: 40px 15px;
     }
-    
+
     .apb-container {
         flex-direction: row;
         gap: 15px;
     }
-    
+
     .apbdesa-img {
         flex: 0 0 100px;
     }
-    
+
     .apbdesa-img img {
         max-width: 90px;
     }
-    
+
     .apb-info h2 {
         font-size: 24px;
         text-align: left;
     }
-    
+
     .apb-info p {
         font-size: 14px;
         text-align: left;
     }
-    
+
     .apb-card {
         padding: 12px 15px;
     }
-    
+
     .apb-card span {
         font-size: 13px;
     }
-    
+
     .apb-card h3 {
         font-size: 18px;
     }
-    
+
     .jadwal-sholat-section {
         padding: 40px 15px;
     }
-    
+
     .jadwal-sholat-card {
         padding: 20px;
     }
-    
+
     .jadwal-sholat-header h3 {
         font-size: 20px;
     }
-    
+
     .jadwal-item {
         padding: 12px 15px;
         flex-direction: column;
         gap: 8px;
         text-align: center;
     }
-    
+
     .jadwal-name {
         font-size: 14px;
     }
-    
+
     .jadwal-time {
         font-size: 15px;
         padding: 6px 12px;
     }
-    
+
     .jadwal-next {
         padding: 20px 15px;
         margin-bottom: 20px;
     }
-    
+
     .next-prayer-name {
         font-size: 18px;
     }
-    
+
     .next-time {
         font-size: 28px;
     }
-    
+
     .countdown {
         font-size: 14px;
     }
-    
+
     .berita-section,
     .agenda-section,
     .umkm-section,
     .galeri-section {
         padding: 40px 0;
     }
-    
+
     .uniform-card-img {
         height: 160px;
     }
-    
+
     .btn-view-all-container {
         margin-top: 35px;
     }
-    
+
     .search-results {
         padding: 20px;
     }
-    
+
     .search-results-title {
         font-size: 20px;
     }
-    
+
     .search-result-item {
         padding: 15px;
     }
@@ -1712,87 +1736,87 @@ body {
         padding: 50px 12px;
         min-height: 300px;
     }
-    
+
     .hero-section h1 {
         font-size: 22px;
         margin-bottom: 20px;
     }
-    
+
     .hero-section h2 {
         font-size: 13px;
     }
-    
+
     .hero-section h3 {
         font-size: 12px;
         padding: 4px 10px;
     }
-    
+
     /* PERBAIKAN HERO SEARCH MOBILE SANGAT KECIL - Tombol Tetap Bulat */
     .hero-search-input {
         padding: 8px 12px !important;
         font-size: 12px !important;
     }
-    
+
     .hero-search-btn {
         padding: 8px !important;
         min-width: 40px !important;
         border-radius: 50% !important;
         aspect-ratio: 1/1;
     }
-    
+
     .hero-search-btn i {
         font-size: 12px !important;
     }
-    
+
     .section-title {
         font-size: 22px;
     }
-    
+
     .statistik h2 {
         font-size: 18px;
     }
-    
+
     /* PERBAIKAN PROFIL MOBILE SANGAT KECIL */
     .profil-text h2,
     .apb-info h2 {
         font-size: 22px;
         text-align: left;
     }
-    
+
     /* PERBAIKAN APB DESA MOBILE SANGAT KECIL */
     .apb-container {
         flex-direction: row;
         gap: 12px;
     }
-    
+
     .apbdesa-img {
         flex: 0 0 80px;
     }
-    
+
     .apbdesa-img img {
         max-width: 70px;
     }
-    
+
     .apb-info h2 {
         font-size: 20px;
     }
-    
+
     .apb-info p {
         font-size: 13px;
     }
-    
+
     .apb-card {
         padding: 10px 12px;
     }
-    
+
     .apb-card span {
         font-size: 12px;
     }
-    
+
     .apb-card h3 {
         font-size: 16px;
     }
-    
+
     .jadwal-sholat-header h3 {
         font-size: 18px;
     }
@@ -1831,7 +1855,7 @@ img {
         font-size: 14px;
         line-height: 1.5;
     }
-    
+
     .uniform-card-text,
     .profil-text p {
         font-size: 14px;
@@ -1854,7 +1878,7 @@ img {
         <h2 class="typing-text">Selamat Datang di Website Resmi</h2>
         <h1>Desa Cantik Desa Manggalung</h1>
         <h3>Badan Pusat Statistik Sulsel</h3>
-        
+
         {{-- Search Box di Hero --}}
         <div class="hero-search">
             <div class="hero-search-box">
@@ -1863,7 +1887,7 @@ img {
                     <i class="fa fa-search"></i>
                 </button>
             </div>
-            
+
             {{-- Search Results --}}
             <div class="search-results" id="searchResults">
                 <div class="search-results-header">
@@ -2038,8 +2062,8 @@ if (!isset($stats)) {
             @foreach($beritas->take(6) as $berita)
             <a href="{{ route('berita.show', $berita->id) }}" class="uniform-card-link">
                 <div class="uniform-card">
-                    <img src="{{ $berita->foto ? asset('storage/'.$berita->foto) : asset('img/example-image.jpg') }}" 
-                         alt="{{ $berita->judul }}" 
+                    <img src="{{ $berita->foto ? asset('storage/'.$berita->foto) : asset('img/example-image.jpg') }}"
+                         alt="{{ $berita->judul }}"
                          class="uniform-card-img">
                     <div class="uniform-card-content">
                         <h4 class="uniform-card-title">{{ Str::limit($berita->judul,50) }}</h4>
@@ -2066,13 +2090,13 @@ if (!isset($stats)) {
             @foreach($latest_agendas->take(6) as $agenda)
             <a href="{{ route('agenda.show', $agenda->id) }}" class="uniform-card-link">
                 <div class="uniform-card">
-                    <img src="{{ $agenda->foto ? asset('storage/'.$agenda->foto) : asset('img/example-image.jpg') }}" 
-                         alt="{{ $agenda->nama_kegiatan }}" 
+                    <img src="{{ $agenda->foto ? asset('storage/'.$agenda->foto) : asset('img/example-image.jpg') }}"
+                         alt="{{ $agenda->nama_kegiatan }}"
                          class="uniform-card-img">
                     <div class="uniform-card-content">
                         <h4 class="uniform-card-title">{{ Str::limit($agenda->nama_kegiatan,50) }}</h4>
                         <small class="uniform-card-date">
-                            {{ $agenda->waktu_pelaksanaan ? \Carbon\Carbon::parse($agenda->waktu_pelaksanaan)->translatedFormat('d M Y') : '' }} 
+                            {{ $agenda->waktu_pelaksanaan ? \Carbon\Carbon::parse($agenda->waktu_pelaksanaan)->translatedFormat('d M Y') : '' }}
                             @if($agenda->kategori) | {{ $agenda->kategori }} @endif
                         </small>
                         <p class="uniform-card-text">{{ Str::limit(strip_tags($agenda->deskripsi), 80) }}</p>
@@ -2096,7 +2120,7 @@ if (!isset($stats)) {
             <div class="uniform-card umkm-card" onclick="window.location.href='{{ route('belanja.usershow', $umkm->id) }}'" style="cursor: pointer;" tabindex="0">
                 <div class="position-relative">
                     <img src="{{ $umkm->foto ? asset('storage/' . $umkm->foto) : asset('img/default-product.png') }}"
-                         alt="{{ $umkm->judul }}" 
+                         alt="{{ $umkm->judul }}"
                          class="uniform-card-img">
 
                     {{-- Kategori & Rating sejajar --}}
@@ -2170,7 +2194,7 @@ if (!isset($stats)) {
             @foreach($galeris->take(6) as $galeri)
             <div class="uniform-card position-relative">
                 <div class="gallery-item" onclick="openModal('{{ asset('storage/' . $galeri->gambar) }}')" style="cursor: pointer;">
-                    <img src="{{ $galeri->gambar ? asset('storage/'.$galeri->gambar) : asset('img/default-image.png') }}" 
+                    <img src="{{ $galeri->gambar ? asset('storage/'.$galeri->gambar) : asset('img/default-image.png') }}"
                          alt="Galeri Desa"
                          class="uniform-card-img">
                     <div class="gallery-overlay">
@@ -2202,7 +2226,7 @@ if (!isset($stats)) {
 // ---------------- Chart Penduduk dengan Data Dinamis ----------------
 document.addEventListener('DOMContentLoaded', function() {
     const ctx = document.getElementById('chartPenduduk');
-    
+
     // Data dari controller (PHP akan meng-inject data ini)
     const chartData = {
         labels: ['Kepala Keluarga', 'Laki-laki', 'Perempuan', 'Disabilitas', 'Jumlah Penduduk'],
@@ -2227,11 +2251,11 @@ document.addEventListener('DOMContentLoaded', function() {
             type: 'doughnut',
             data: chartData,
             options: {
-                plugins: { 
-                    legend: { 
-                        position: 'bottom', 
-                        labels: { 
-                            usePointStyle: true, 
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
                             padding: 16,
                             font: {
                                 size: window.innerWidth < 768 ? 12 : 14
@@ -2249,7 +2273,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 }
                             }
                         }
-                    } 
+                    }
                 },
                 cutout: '65%',
                 responsive: true,
@@ -2293,9 +2317,9 @@ function autoSlide(){
     },3000);
 }
 
-function resetAutoSlide(){ 
-    clearInterval(autoSlideInterval); 
-    autoSlide(); 
+function resetAutoSlide(){
+    clearInterval(autoSlideInterval);
+    autoSlide();
 }
 
 // Initialize slider
@@ -2312,10 +2336,10 @@ window.addEventListener('resize', () => {
 function openModal(imageSrc) {
     const modal = document.getElementById('galeriModal');
     const modalImage = document.getElementById('modalImage');
-    
+
     modal.style.display = 'block';
     modalImage.src = imageSrc;
-    
+
     // Prevent body scroll when modal is open
     document.body.style.overflow = 'hidden';
 }
@@ -2323,7 +2347,7 @@ function openModal(imageSrc) {
 function closeModal() {
     const modal = document.getElementById('galeriModal');
     modal.style.display = 'none';
-    
+
     // Restore body scroll
     document.body.style.overflow = 'auto';
 }
@@ -2343,10 +2367,10 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-// ---------------- Jadwal Sholat Functions ---------------- 
+// ---------------- Jadwal Sholat Functions ----------------
 function updateLiveClock() {
     const now = new Date();
-    const options = { 
+    const options = {
         timeZone: 'Asia/Makassar',
         hour12: false,
         hour: '2-digit',
@@ -2363,11 +2387,11 @@ updateLiveClock(); // Panggil sekali saat pertama kali load
 
 // Fungsi untuk format tanggal Indonesia
 function formatTanggalIndonesia(date) {
-    const options = { 
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
+    const options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
     };
     return date.toLocaleDateString('id-ID', options);
 }
@@ -2379,11 +2403,11 @@ async function fetchPrayerTimes() {
         const longitude = 119.5542;
         const today = new Date();
         const dateString = today.toISOString().split('T')[0];
-        
+
         // Menggunakan API Aladhan
         const response = await fetch(`https://api.aladhan.com/v1/timings/${dateString}?latitude=${latitude}&longitude=${longitude}&method=2&timezonestring=Asia/Makassar`);
         const data = await response.json();
-        
+
         if (data.code === 200) {
             return {
                 timings: data.data.timings,
@@ -2410,10 +2434,10 @@ function convertToWITA(time24) {
 function updatePrayerTimesDisplay(prayerData) {
     const prayerTimesContainer = document.getElementById('prayer-times');
     const currentDateElement = document.getElementById('current-date');
-    
+
     // Update tanggal dengan format Indonesia
     currentDateElement.textContent = prayerData.date.readable;
-    
+
     // Daftar sholat dengan nama Indonesia dan icon
     const prayers = [
         { key: 'Fajr', name: 'Subuh', icon: 'fas fa-moon' },
@@ -2423,10 +2447,10 @@ function updatePrayerTimesDisplay(prayerData) {
         { key: 'Maghrib', name: 'Maghrib', icon: 'fas fa-sun' },
         { key: 'Isha', name: 'Isya', icon: 'fas fa-moon' }
     ];
-    
+
     // Kosongkan container
     prayerTimesContainer.innerHTML = '';
-    
+
     // Tambahkan setiap waktu sholat
     prayers.forEach(prayer => {
         const time = convertToWITA(prayerData.timings[prayer.key]);
@@ -2442,16 +2466,16 @@ function updatePrayerTimesDisplay(prayerData) {
         `;
         prayerTimesContainer.appendChild(prayerElement);
     });
-    
+
     // Update sholat berikutnya
     updateNextPrayer(prayerData.timings);
 }
 
 function updateNextPrayer(timings) {
     const now = new Date();
-    const currentTime = now.getHours().toString().padStart(2, '0') + ':' + 
+    const currentTime = now.getHours().toString().padStart(2, '0') + ':' +
                        now.getMinutes().toString().padStart(2, '0');
-    
+
     const prayers = [
         { key: 'Fajr', name: 'Subuh', time: convertToWITA(timings.Fajr) },
         { key: 'Sunrise', name: 'Terbit', time: convertToWITA(timings.Sunrise) },
@@ -2460,15 +2484,15 @@ function updateNextPrayer(timings) {
         { key: 'Maghrib', name: 'Maghrib', time: convertToWITA(timings.Maghrib) },
         { key: 'Isha', name: 'Isya', time: convertToWITA(timings.Isha) }
     ];
-    
+
     // Reset semua item
     document.querySelectorAll('.jadwal-item').forEach(item => {
         item.classList.remove('active', 'passed');
     });
-    
+
     let nextPrayer = null;
     let foundNext = false;
-    
+
     // Tandai sholat yang sudah lewat dengan warna abu-abu
     prayers.forEach(prayer => {
         const prayerElement = document.getElementById(`prayer-${prayer.key.toLowerCase()}`);
@@ -2478,17 +2502,17 @@ function updateNextPrayer(timings) {
             }
         }
     });
-    
+
     // Cari sholat berikutnya (yang belum datang)
     for (let i = 0; i < prayers.length; i++) {
         const prayer = prayers[i];
         const prayerTime = prayer.time;
-        
+
         if (currentTime < prayerTime) {
             // Waktu sholat belum datang - ini adalah sholat berikutnya
             nextPrayer = prayer;
             foundNext = true;
-            
+
             // Tandai sholat berikutnya dengan warna hijau
             const prayerElement = document.getElementById(`prayer-${prayer.key.toLowerCase()}`);
             if (prayerElement) {
@@ -2497,23 +2521,23 @@ function updateNextPrayer(timings) {
             break; // Hentikan loop setelah menemukan sholat berikutnya
         }
     }
-    
+
     // Jika tidak ada sholat berikutnya (sudah lewat Isya), set ke Subuh besok
     if (!foundNext) {
         nextPrayer = prayers[0]; // Subuh besok
-        
+
         // Tandai Subuh sebagai sholat berikutnya
         const subuhElement = document.getElementById('prayer-fajr');
         if (subuhElement) {
             subuhElement.classList.add('active');
         }
     }
-    
+
     // Update info sholat berikutnya
     if (nextPrayer) {
         document.getElementById('next-prayer-name').textContent = nextPrayer.name;
         document.getElementById('next-prayer-time').textContent = nextPrayer.time;
-        
+
         // Hitung countdown
         updateCountdown(nextPrayer.time);
     }
@@ -2524,20 +2548,20 @@ function updateCountdown(nextPrayerTime) {
     const [hours, minutes] = nextPrayerTime.split(':');
     const prayerTime = new Date();
     prayerTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
-    
+
     // Jika waktu sholat sudah lewat hari ini, set untuk besok
     if (prayerTime <= now) {
         prayerTime.setDate(prayerTime.getDate() + 1);
     }
-    
+
     const diff = prayerTime - now;
-    
+
     if (diff > 0) {
         const hoursLeft = Math.floor(diff / (1000 * 60 * 60));
         const minutesLeft = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const secondsLeft = Math.floor((diff % (1000 * 60)) / 1000);
-        
-        document.getElementById('countdown').textContent = 
+
+        document.getElementById('countdown').textContent =
             `${hoursLeft.toString().padStart(2, '0')}:${minutesLeft.toString().padStart(2, '0')}:${secondsLeft.toString().padStart(2, '0')}`;
     } else {
         document.getElementById('countdown').textContent = '00:00:00';
@@ -2549,7 +2573,7 @@ async function initializePrayerTimes() {
     try {
         const prayerData = await fetchPrayerTimes();
         updatePrayerTimesDisplay(prayerData);
-        
+
         // Update countdown setiap detik
         setInterval(() => {
             const nextPrayerTime = document.getElementById('next-prayer-time').textContent;
@@ -2557,7 +2581,7 @@ async function initializePrayerTimes() {
                 updateCountdown(nextPrayerTime);
             }
         }, 1000);
-        
+
         // Update jadwal setiap 5 menit
         setInterval(async () => {
             try {
@@ -2579,7 +2603,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializePrayerTimes();
 });
 
-// ---------------- Search Functionality untuk Hero Search ---------------- 
+// ---------------- Search Functionality untuk Hero Search ----------------
 $(document).ready(function() {
     const $searchInput = $('.hero-search-input');
     const $searchBtn = $('.hero-search-btn');
@@ -2664,7 +2688,7 @@ $(document).ready(function() {
             icon: 'family.png'
         }
     ],
-        
+
         // Data dari controller
         beritas: [
             @foreach($beritas as $berita)
@@ -2679,7 +2703,7 @@ $(document).ready(function() {
             },
             @endforeach
         ],
-        
+
         agendas: [
             @foreach($latest_agendas as $agenda)
             {
@@ -2693,7 +2717,7 @@ $(document).ready(function() {
             },
             @endforeach
         ],
-        
+
         umkms: [
             @foreach($belanjas as $umkm)
             {
@@ -2709,7 +2733,7 @@ $(document).ready(function() {
             },
             @endforeach
         ],
-        
+
         // Data tambahan untuk APB Desa
         apb: [
             {
@@ -2729,7 +2753,7 @@ $(document).ready(function() {
                 url: "{{ url('/apbd') }}"
             }
         ],
-        
+
         // Data profil desa
         profil: [
             {
@@ -2756,11 +2780,11 @@ $(document).ready(function() {
         Object.keys(searchData).forEach(category => {
             searchData[category].forEach(item => {
                 const searchableText = (item.title + ' ' + item.content + ' ' + (item.pemilik || '') + ' ' + (item.angka || '')).toLowerCase();
-                
+
                 // Cek kecocokan dengan berbagai kriteria
                 let matches = false;
                 let relevance = 0;
-                
+
                 searchTerms.forEach(term => {
                     // Exact match di title
                     if (item.title.toLowerCase().includes(term)) {
@@ -2788,7 +2812,7 @@ $(document).ready(function() {
                         relevance += 2;
                     }
                 });
-                
+
                 if (matches) {
                     results.push({
                         ...item,
@@ -2807,7 +2831,7 @@ $(document).ready(function() {
     // Tampilkan hasil pencarian
     function displaySearchResults(results, query) {
         $resultsList.empty();
-        
+
         if (results.length === 0) {
             $resultsList.html(`
                 <div class="no-results">
@@ -2820,7 +2844,7 @@ $(document).ready(function() {
             results.forEach(result => {
                 const highlightedTitle = highlightText(result.title, query);
                 const highlightedContent = highlightText(result.content.substring(0, 150) + '...', query);
-                
+
                 const resultItem = `
                     <div class="search-result-item" onclick="window.location.href='${result.url}'" style="cursor: pointer;">
                         <span class="search-result-category">${result.category}</span>
@@ -2843,12 +2867,12 @@ $(document).ready(function() {
     function highlightText(text, query) {
         const searchTerms = query.toLowerCase().split(' ').filter(term => term.length > 1);
         let highlightedText = text;
-        
+
         searchTerms.forEach(term => {
             const regex = new RegExp(`(${term})`, 'gi');
             highlightedText = highlightedText.replace(regex, '<span class="search-result-highlight">$1</span>');
         });
-        
+
         return highlightedText;
     }
 

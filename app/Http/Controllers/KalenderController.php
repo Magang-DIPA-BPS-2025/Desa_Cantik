@@ -12,8 +12,8 @@ class KalenderController extends Controller
     // Menampilkan halaman index
     public function index()
     {
-        $kalenders = Kalender::latest()->paginate(12);
-        return view('pages.admin.kalender.index', compact('kalenders'));
+        $kegiatans = Kalender::latest()->paginate(12);
+        return view('pages.admin.kalender.index', compact('kegiatans'));
     }
 
     // Menampilkan form create
@@ -92,5 +92,5 @@ class KalenderController extends Controller
 }
 
 
-    
+
 }
