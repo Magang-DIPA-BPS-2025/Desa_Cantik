@@ -17,15 +17,22 @@ class SkuController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->input('keyword');
-
-        $skus = Sku::when($keyword, function ($query, $keyword) {
+        
+        $query = Sku::when($keyword, function ($query, $keyword) {
             $query->where('nik', 'like', "%{$keyword}%")
                 ->orWhere('nama', 'like', "%{$keyword}%")
                 ->orWhere('nama_usaha', 'like', "%{$keyword}%");
-        })
-            ->latest()
-            ->paginate(10)
-            ->withQueryString();
+        });
+
+        // Pagination dengan custom per_page
+        $perPage = $request->get('per_page', 10);
+        $skus = $query->latest()->paginate($perPage);
+        
+        // Tambahkan parameter ke pagination links
+        $skus->appends([
+            'keyword' => $keyword,
+            'per_page' => $perPage
+        ]);
 
         return view('pages.admin.sku.index', [
             'skus'  => $skus,
@@ -51,39 +58,37 @@ class SkuController extends Controller
      *  -------------------------------
      */
     public function store(Request $request)
-{$request->validate([
-    'nik' => 'required|string|max:20',
-    'nama' => 'required|string|max:100',
-    'alamat' => 'required|string',
-    'nama_usaha' => 'required|string|max:100',
-    'alamat_usaha' => 'required|string',
-    'no_hp' => 'nullable|string|max:20',
-    'email' => 'nullable|email|max:100',
-    'pekerjaan' => 'nullable|string|max:50',
-    'jenis_kelamin' => 'nullable|string',
-    'tanggal_dibuat' => 'required|date', 
-]);
+    {
+        $request->validate([
+            'nik' => 'required|string|max:20',
+            'nama' => 'required|string|max:100',
+            'alamat' => 'required|string',
+            'nama_usaha' => 'required|string|max:100',
+            'alamat_usaha' => 'required|string',
+            'no_hp' => 'nullable|string|max:20',
+            'email' => 'nullable|email|max:100',
+            'pekerjaan' => 'nullable|string|max:50',
+            'jenis_kelamin' => 'nullable|string',
+            'tanggal_dibuat' => 'required|date', 
+        ]);
 
+        // Cara 2: Explicitly define semua field
+        Sku::create([
+            'nik' => $request->nik,
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'pekerjaan' => $request->pekerjaan,
+            'no_hp' => $request->no_hp,
+            'email' => $request->email,
+            'nama_usaha' => $request->nama_usaha,
+            'alamat_usaha' => $request->alamat_usaha,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'tanggal_dibuat' => $request->tanggal_dibuat ?? now(), 
+            'status_verifikasi' => 'Belum Diverifikasi',
+        ]);
 
-    // Cara 2: Explicitly define semua field
-    Sku::create([
-        'nik' => $request->nik,
-        'nama' => $request->nama,
-        'alamat' => $request->alamat,
-        'pekerjaan' => $request->pekerjaan,
-        'no_hp' => $request->no_hp,
-        'email' => $request->email,
-        'nama_usaha' => $request->nama_usaha,
-        'alamat_usaha' => $request->alamat_usaha,
-        'jenis_kelamin' => $request->jenis_kelamin,
-        'tanggal_dibuat' => $request->tanggal_dibuat ?? now(), 
-        'status_verifikasi' => 'Belum Diverifikasi',
-    ]);
-
-    return redirect()->route('pengantar')->with('success', 'Data SKU berhasil ditambahkan.');
-}
-
-    
+        return redirect()->route('pengantar')->with('success', 'Data SKU berhasil ditambahkan.');
+    }
 
     /** -------------------------------
      *  TAMPILKAN DETAIL SKU - SHOW
@@ -119,7 +124,7 @@ class SkuController extends Controller
      *  UPDATE DATA SKU - UPDATE
      *  -------------------------------
      */
-     public function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'nik' => 'required|string|max:20',
@@ -134,7 +139,7 @@ class SkuController extends Controller
             'nomor_surat' => 'nullable|string|max:50', // Tambahan field nomor surat
         ]);
 
-        $sku = SKU::findOrFail($id);
+        $sku = Sku::findOrFail($id);
         
         $sku->update([
             'nik' => $request->nik,
@@ -147,7 +152,6 @@ class SkuController extends Controller
             'email' => $request->email,
             'nomor_surat' => $request->nomor_surat,
         ]);
-
 
         return redirect()->route('sku.index')
             ->with('success', 'Data SKU berhasil diperbarui!');

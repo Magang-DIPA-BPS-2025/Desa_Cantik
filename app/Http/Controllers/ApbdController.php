@@ -38,7 +38,7 @@ class ApbdController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tahun' => 'required|integer|min:2020|max:2030|unique:apbds,tahun',
+            'tahun' => 'required|integer|min:2015|max:2035|unique:apbds,tahun',
             'total_pendapatan' => 'required|numeric|min:0',
             'total_belanja' => 'required|numeric|min:0',
             'penerimaan' => 'required|numeric|min:0',

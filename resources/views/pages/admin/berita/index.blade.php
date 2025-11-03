@@ -160,9 +160,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($datas as $index => $berita)
+                                @foreach ($datas as $berita)
                                     <tr>
-                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $berita->judul }}</td>
                                         <td>{{ $berita->kategori->nama ?? '-' }}</td>
                                         <td>{{ $berita->tanggal_event ? \Carbon\Carbon::parse($berita->tanggal_event)->translatedFormat('d F Y') : '-' }}</td>
@@ -217,10 +217,37 @@ $(document).ready(function() {
             text: '<i class="fas fa-file-excel"></i> Export Excel',
             className: 'd-none',
             title: 'Data Berita Desa',
-            exportOptions: { columns: [0,1,2,3,4,6] }
+            exportOptions: { 
+                columns: [0,1,2,3,4,6],
+                format: {
+                    body: function (data, row, column, node) {
+                        // Handle konten yang mungkin mengandung HTML
+                        return $(data).text() || data;
+                    }
+                }
+            }
         }],
-        language: { url: 'https://cdn.datatables.net/plug-ins/2.1.0/i18n/id.json' },
-        pageLength: 10
+        language: { 
+            url: 'https://cdn.datatables.net/plug-ins/2.1.0/i18n/id.json' 
+        },
+        pageLength: 10,
+        columnDefs: [
+            {
+                targets: 0, // Kolom No
+                orderable: false,
+                searchable: false
+            },
+            {
+                targets: 5, // Kolom Foto
+                orderable: false,
+                searchable: false
+            },
+            {
+                targets: 7, // Kolom Aksi
+                orderable: false,
+                searchable: false
+            }
+        ]
     });
 
     // 🔍 Search custom

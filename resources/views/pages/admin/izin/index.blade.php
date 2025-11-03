@@ -1,14 +1,251 @@
 @extends('layouts.app', ['title' => 'Data Surat Izin Kegiatan'])
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('library/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('library/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
     <style>
+        .modal-lg {
+            max-width: 90%;
+        }
+
+        .file-viewer {
+            width: 100%;
+            height: 80vh;
+            border: none;
+            border-radius: 6px;
+        }
+
         .badge-nomor {
             font-size: 11px;
             background-color: #e3f2fd;
             color: #1976d2;
             border: 1px solid #bbdefb;
+        }
+
+        .table-top-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        /* Styling untuk tombol download Excel */
+        .btn-download-excel { 
+            background: #16a34a; 
+            color: #fff; 
+            border: none; 
+            border-radius: 8px; 
+            padding: 8px 14px; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+            font-size: 14px; 
+            font-weight: 500; 
+            cursor: pointer; 
+            transition: .3s; 
+            font-family: 'Poppins', sans-serif; 
+            text-decoration: none;
+        }
+
+        .btn-download-excel:hover { 
+            background: #15803d; 
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .dataTables-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .dataTables-length {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .dataTables-filter {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .dataTables-length label,
+        .dataTables-filter label {
+            margin-bottom: 0;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .dataTables-length select {
+            width: auto;
+            display: inline-block;
+            min-width: 70px;
+        }
+
+        .dataTables-filter input {
+            width: auto;
+            display: inline-block;
+            min-width: 150px;
+        }
+
+        /* Styling untuk pagination */
+        .pagination-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .pagination-info {
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        .pagination-wrapper {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* Responsive untuk DataTables - TAMPILAN HP */
+        @media (max-width: 576px) {
+            .dataTables-controls {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            
+            .dataTables-length,
+            .dataTables-filter {
+                justify-content: space-between;
+                width: 100%;
+                background: #f8f9fa;
+                padding: 10px;
+                border-radius: 8px;
+                border: 1px solid #e9ecef;
+            }
+            
+            .dataTables-length {
+                order: 1;
+            }
+            
+            .dataTables-filter {
+                order: 2;
+            }
+            
+            .table-top-controls {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            
+            .btn-download-excel {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .dataTables-length select {
+                flex: 1;
+                max-width: 80px;
+            }
+            
+            .dataTables-filter input {
+                flex: 1;
+                min-width: 120px;
+            }
+            
+            /* Pagination di HP */
+            .pagination-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .pagination-wrapper {
+                justify-content: center;
+                width: 100%;
+            }
+            
+            .pagination-info {
+                text-align: center;
+                width: 100%;
+            }
+        }
+
+        /* Desktop */
+        @media (min-width: 577px) {
+            .dataTables-controls {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .dataTables-length {
+                order: 1;
+            }
+            
+            .dataTables-filter {
+                order: 2;
+            }
+        }
+
+ 
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .table-custom th {
+            background: #f8f9fa;
+            padding: 12px;
+            text-align: center;
+            font-weight: 600;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        .table-custom td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .table-custom tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* PERBAIKAN: Styling untuk tombol aksi - SEJAJAR HORIZONTAL */
+        .aksi-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            flex-wrap: nowrap;
+        }
+
+        .btn-aksi {
+            padding: 0.35rem 0.5rem;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            min-width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-aksi i {
+            margin: 0;
+        }
+
+        /* Pastikan form dalam aksi tidak mempengaruhi layout */
+        .aksi-container form {
+            margin: 0;
+            display: inline;
         }
     </style>
 @endpush
@@ -24,6 +261,7 @@
                 <div class="card shadow-sm">
                     <div class="card-body">
 
+                        {{-- Notifikasi --}}
                         @if (session('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 {{ session('success') }}
@@ -42,8 +280,38 @@
                             </div>
                         @endif
 
+                        {{-- Tombol Download Excel --}}
+                        <div class="table-top-controls mb-3">
+                            <button class="btn-download-excel" onclick="downloadExcel()">
+                                <i class="fas fa-file-excel"></i> Download Excel
+                            </button>
+                        </div>
+
+                        <form method="GET" action="{{ route('izin.index') }}" id="filter-form">
+                            <div class="dataTables-controls">
+                                <div class="dataTables-length">
+                                    <label for="per_page">Show</label>
+                                    <select name="per_page" id="per_page" class="form-control form-control-sm" onchange="document.getElementById('filter-form').submit()">
+                                        <option value="10" {{ request('per_page', 10) == 10 ? 'selected' : '' }}>10</option>
+                                        <option value="25" {{ request('per_page') == 25 ? 'selected' : '' }}>25</option>
+                                        <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
+                                        <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100</option>
+                                    </select>
+                                    <span>entries</span>
+                                </div>
+                                <div class="dataTables-filter">
+                                    <label for="search">Search:</label>
+                                    <input type="search" name="search" id="search" class="form-control form-control-sm" placeholder="Cari..." value="{{ request('search') }}" onkeypress="if(event.keyCode == 13) { document.getElementById('filter-form').submit() }">
+                                    @if(request('search'))
+                                        <a href="{{ route('izin.index') }}" class="btn btn-sm btn-outline-secondary ml-2">Reset</a>
+                                    @endif
+                                </div>
+                            </div>
+                        </form>
+
+                        
                         <div class="table-responsive">
-                            <table class="table table-striped" id="table-izin">
+                            <table class="table table-striped table-custom">
                                 <thead class="bg-light">
                                     <tr>
                                         <th>No</th>
@@ -53,16 +321,16 @@
                                         <th>Jenis Acara</th>
                                         <th>Tanggal Kegiatan</th>
                                         <th>Tempat</th>
-                                        <th>No HP</th>
+                                        <th>Kontak</th>
                                         <th>Status</th>
                                         <th>Tanggal Dibuat</th>
-                                        <th>Aksi</th>
+                                        <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($izins as $izin)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ ($izins->currentPage() - 1) * $izins->perPage() + $loop->iteration }}</td>
                                             <td>
                                                 @if($izin->nomor_surat)
                                                     <span class="badge badge-nomor">{{ $izin->nomor_surat }}</span>
@@ -81,8 +349,7 @@
                                                         $nohp = preg_replace('/[^0-9]/', '', $izin->no_hp);
                                                         if (substr($nohp, 0, 1) === '0') {
                                                             $nohp = '62' . substr($nohp, 1);
-                                                        }
-                                                        elseif (substr($nohp, 0, 3) === '+62') {
+                                                        } elseif (substr($nohp, 0, 3) === '+62') {
                                                             $nohp = substr($nohp, 1);
                                                         }
                                                     @endphp
@@ -104,36 +371,40 @@
                                                 @endif
                                             </td>
                                             <td>{{ $izin->created_at ? $izin->created_at->format('d-m-Y') : '-' }}</td>
-                                            <td class="d-flex flex-wrap gap-2">
-                                                <a href="{{ route('izin.edit', $izin->id) }}" class="btn btn-warning btn-sm mr-2"
-                                                    title="Edit Data">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-
-                                                <form action="{{ route('izin.destroy', $izin->id) }}" method="POST"
-                                                    onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm mr-2" title="Hapus Data">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
-
-                                                @if($izin->status_verifikasi === 'Belum Diverifikasi')
-                                                    <a href="{{ route('izin.verifikasi', $izin->id) }}"
-                                                        class="btn btn-success btn-sm mr-2"
-                                                        onclick="return confirm('Verifikasi data surat izin ini?')"
-                                                        title="Verifikasi Surat">
-                                                        <i class="fas fa-check"></i> Verifikasi
+                                            <td>
+                                                {{-- PERBAIKAN: Container untuk tombol aksi SEJAJAR --}}
+                                                <div class="aksi-container">
+                                                    {{-- Tombol Edit --}}
+                                                    <a href="{{ route('izin.edit', $izin->id) }}" class="btn btn-warning btn-aksi"
+                                                        title="Edit Data">
+                                                        <i class="fas fa-edit"></i>
                                                     </a>
-                                                @endif
-
-                                                @if($izin->status_verifikasi === 'Terverifikasi')
-                                                    <a href="{{ route('izin.cetak', $izin->id) }}" target="_blank"
-                                                        class="btn btn-info btn-sm" title="Cetak PDF">
-                                                        <i class="fas fa-file-pdf"></i> PDF
-                                                    </a>
-                                                @endif
+                                                    
+                                                    {{-- Tombol Hapus --}}
+                                                    <form action="{{ route('izin.destroy', $izin->id) }}" method="POST"
+                                                        onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-aksi" title="Hapus Data">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                    
+                                                    {{-- Tombol Verifikasi atau Cetak --}}
+                                                    @if($izin->status_verifikasi === 'Belum Diverifikasi')
+                                                        <a href="{{ route('izin.verifikasi', $izin->id) }}"
+                                                            class="btn btn-success btn-aksi"
+                                                            onclick="return confirm('Verifikasi data surat izin ini?')"
+                                                            title="Verifikasi Surat">
+                                                            <i class="fas fa-check"></i>
+                                                        </a>
+                                                    @else
+                                                        <a href="{{ route('izin.cetak', $izin->id) }}" target="_blank"
+                                                            class="btn btn-info btn-aksi" title="Cetak Surat">
+                                                            <i class="fas fa-print"></i>
+                                                        </a>
+                                                    @endif
+                                                </div>
                                             </td>
                                         </tr>
                                     @empty
@@ -147,9 +418,19 @@
                             </table>
                         </div>
 
-                        <div class="mt-3">
-                            {{ $izins->links() }}
+                      
+                        @if($izins->hasPages())
+                        <div class="pagination-container">
+                            <div class="pagination-info">
+                                Menampilkan {{ ($izins->currentPage() - 1) * $izins->perPage() + 1 }} 
+                                sampai {{ min($izins->currentPage() * $izins->perPage(), $izins->total()) }} 
+                                dari {{ $izins->total() }} entri
+                            </div>
+                            <div class="pagination-wrapper">
+                                {{ $izins->links() }}
+                            </div>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -158,18 +439,14 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('library/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    {{-- Library untuk export Excel --}}
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
     <script>
-        $(document).ready(function () {
-            $('#table-izin').DataTable({
-                paging: true,
-                searching: true,
-                responsive: true,
-                language: {
-                    url: 'https://cdn.datatables.net/plug-ins/2.1.0/i18n/id.json',
-                }
-            });
-        });
+        // Download Excel Function
+        function downloadExcel(){ 
+            const wb = XLSX.utils.table_to_book(document.querySelector(".table-custom")); 
+            XLSX.writeFile(wb, "Data_Surat_Izin_Kegiatan_Desa_Manggalung.xlsx"); 
+        }
     </script>
 @endpush

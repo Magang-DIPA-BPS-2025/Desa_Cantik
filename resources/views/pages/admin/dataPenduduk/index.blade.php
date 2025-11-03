@@ -1,166 +1,69 @@
 @extends('layouts.app', ['title' => 'Data Penduduk'])
 
-@section('content')
 @push('styles')
-<!-- DataTables + Buttons -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap4.min.css">
-
 <style>
-    #table-penduduk tbody tr:hover { background-color: #f2f7fb; }
+/* ======================================
+    Styling umum dan modal
+====================================== */
+.modal-lg { max-width: 90%; }
+.file-viewer { width: 100%; height: 80vh; border: none; border-radius: 6px; }
+.badge-nomor { font-size: 11px; background-color: #e3f2fd; color: #1976d2; border: 1px solid #bbdefb; }
 
-    .action-buttons {
-        display: flex;
-        gap: 5px;
-        justify-content: center;
-    }
-    .action-buttons .btn {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        border-radius: 6px;
-        color: white;
-        transition: transform 0.2s;
-    }
-    .action-buttons .btn-warning { background-color: #FFA500; border: none; }
-    .action-buttons .btn-danger { background-color: #FF4D4F; border: none; }
-    .action-buttons .btn:hover { transform: scale(1.1); }
+/* ======================================
+    Table & Controls
+====================================== */
+.table-top-controls, .dataTables-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+.btn-download-excel, .btn-tambah-data {
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500;
+    cursor: pointer; transition: .3s; text-decoration: none; font-family: 'Poppins', sans-serif;
+}
+.btn-download-excel { background: #16a34a; color: #fff; border: none; }
+.btn-download-excel:hover { background: #15803d; color: #fff; text-decoration: none; }
+.btn-tambah-data { background: #3b82f6; color: #fff; border: none; }
+.btn-tambah-data:hover { background: #2563eb; color: #fff; }
 
-    /* Pagination Laravel di kanan bawah */
-    .pagination {
-        justify-content: flex-end !important;
-    }
+/* DataTables style */
+.dataTables-length, .dataTables-filter { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.dataTables-length label, .dataTables-filter label { margin-bottom: 0; font-weight: 500; white-space: nowrap; }
+.dataTables-length select, .dataTables-filter input { width: auto; display: inline-block; min-width: 70px; }
+.dataTables-filter input { min-width: 150px; }
 
-    /* Styling untuk control bar */
-    .control-bar {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        margin-bottom: 15px;
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-    .left-controls {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-    .right-controls {
-        display: flex;
-        align-items: center;
-    }
-    .entries-control {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
+/* Table custom */
+.table-custom { width: 100%; border-collapse: collapse; }
+.table-custom th { background: #f8f9fa; padding: 12px; text-align: center; font-weight: 600; border-bottom: 2px solid #dee2e6; }
+.table-custom td { padding: 12px; text-align: center; border-bottom: 1px solid #dee2e6; }
+.table-custom tbody tr:hover { background-color: #f8f9fa; }
 
-    /* Styling untuk search box */
-    .search-container {
-        position: relative;
-        width: 300px;
-    }
-    .search-container .form-control {
-        padding-right: 40px;
-    }
-    .clear-search {
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: none;
-        border: none;
-        color: #999;
-        cursor: pointer;
-        display: none;
-    }
-    .clear-search:hover {
-        color: #333;
-    }
+/* Aksi horizontal */
+.aksi-container { display: flex; justify-content: center; align-items: center; gap: 5px; flex-wrap: nowrap; }
+.btn-aksi { padding: 0.35rem 0.5rem; font-size: 0.75rem; border-radius: 4px; min-width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; }
+.aksi-container form { margin: 0; display: inline; }
 
-    /* ===== RESPONSIVE STYLES ===== */
-    /* Tablet */
-    @media (max-width: 991.98px) {
-        .control-bar {
-            flex-direction: column;
-            align-items: stretch;
-        }
-        .left-controls {
-            order: 1;
-        }
-        .right-controls {
-            order: 2;
-            justify-content: flex-start;
-            margin-top: 10px;
-        }
-        .search-container {
-            width: 100%;
-            max-width: 400px;
-        }
-    }
+/* Pagination */
+.pagination-container { margin-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.pagination-info { font-size: 14px; color: #6c757d; }
+.pagination-wrapper { display: flex; justify-content: flex-end; }
 
-    /* Mobile */
-    @media (max-width: 767.98px) {
-        .entries-control {
-            flex-wrap: wrap;
-        }
-        .table-responsive {
-            font-size: 14px;
-        }
-        .search-container {
-            max-width: 100%;
-        }
-    }
-
-    /* Small Mobile */
-    @media (max-width: 575.98px) {
-        .left-controls {
-            gap: 8px;
-        }
-        .entries-control {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 5px;
-        }
-        #entries-select {
-            width: 100px !important;
-        }
-        .action-buttons {
-            flex-direction: column;
-            gap: 3px;
-        }
-        .action-buttons .btn {
-            width: 35px;
-            height: 35px;
-            font-size: 14px;
-        }
-        .table-responsive {
-            font-size: 13px;
-        }
-    }
-
-    /* Extra Small Mobile */
-    @media (max-width: 400px) {
-        .search-container {
-            width: 100%;
-        }
-        .btn {
-            font-size: 14px;
-            padding: 8px 12px;
-        }
-        .entries-control label,
-        .entries-control span {
-            font-size: 14px;
-        }
-    }
+/* Responsive */
+@media (max-width: 576px) {
+    .dataTables-controls { flex-direction: column; align-items: stretch; gap: 10px; }
+    .dataTables-length, .dataTables-filter { justify-content: space-between; width: 100%; background: #f8f9fa; padding: 10px; border-radius: 8px; border: 1px solid #e9ecef; }
+    .btn-download-excel { width: 100%; justify-content: center; }
+    .dataTables-length select, .dataTables-filter input { flex: 1; }
+    .pagination-container { flex-direction: column; text-align: center; }
+    .pagination-wrapper, .pagination-info { justify-content: center; width: 100%; text-align: center; }
+}
 </style>
 @endpush
 
+@section('content')
 <div class="main-content">
     <section class="section">
         <div class="section-header">
@@ -168,50 +71,62 @@
         </div>
 
         <div class="section-body">
-            <div class="card shadow-sm border-0">
+            <div class="card shadow-sm">
                 <div class="card-body">
-                    <!-- Control Bar: 3 Fitur Vertikal di Kiri, Pencarian di Kanan -->
-                    <div class="control-bar">
-                        <!-- Kiri: 3 Fitur Vertikal (Tambah Data, Export Excel, Entri) -->
-                        <div class="left-controls">
-                            <!-- Tambah Data -->
-                            <a href="{{ route('dataPenduduk.create') }}" class="btn btn-primary">
+
+                    {{-- Notifikasi --}}
+                    @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                    </div>
+                    @endif
+                    @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                        <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                    </div>
+                    @endif
+
+                    {{-- Tombol Tambah & Download --}}
+                    <div class="table-top-controls mb-3">
+                        <div style="display: flex; gap: 10px;">
+                            <a href="{{ route('dataPenduduk.create') }}" class="btn-tambah-data">
                                 <i class="fas fa-plus"></i> Tambah Data Penduduk
                             </a>
-
-                            <!-- Export Excel -->
-                            <button class="btn btn-success" id="export-excel-btn">
-                                <i class="fas fa-file-excel"></i> Export Excel
+                            <button class="btn-download-excel" onclick="downloadExcel()">
+                                <i class="fas fa-file-excel"></i> Download Excel
                             </button>
-
-                            <!-- Entri Data -->
-                            <div class="entries-control">
-                                <label for="entries-select" class="mb-0">Tampilkan</label>
-                                <select id="entries-select" class="form-control form-control-sm" style="width: auto;">
-                                    <option value="10" {{ request('perPage') == 10 ? 'selected' : '' }}>10</option>
-                                    <option value="25" {{ request('perPage') == 25 ? 'selected' : '' }}>25</option>
-                                    <option value="50" {{ request('perPage') == 50 ? 'selected' : '' }}>50</option>
-                                    <option value="100" {{ request('perPage') == 100 ? 'selected' : '' }}>100</option>
-                                </select>
-                                <span>entri</span>
-                            </div>
-                        </div>
-
-                        <!-- Kanan: Pencarian sejajar dengan Entri Data -->
-                        <div class="right-controls">
-                            <div class="search-container">
-                                <input type="text" class="form-control" id="custom-search"
-                                       placeholder="Cari data...">
-                                <button class="clear-search" id="clear-search" type="button">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
                         </div>
                     </div>
 
+                    {{-- Controls --}}
+                    <form method="GET" action="{{ route('dataPenduduk.index') }}" id="filter-form">
+                        <div class="dataTables-controls">
+                            <div class="dataTables-length">
+                                <label for="per_page">Show</label>
+                                <select name="per_page" id="per_page" class="form-control form-control-sm" onchange="document.getElementById('filter-form').submit()">
+                                    <option value="10" {{ request('per_page',10)==10?'selected':'' }}>10</option>
+                                    <option value="25" {{ request('per_page')==25?'selected':'' }}>25</option>
+                                    <option value="50" {{ request('per_page')==50?'selected':'' }}>50</option>
+                                    <option value="100" {{ request('per_page')==100?'selected':'' }}>100</option>
+                                </select>
+                                <span>entries</span>
+                            </div>
+                            <div class="dataTables-filter">
+                                <label for="search">Search:</label>
+                                <input type="search" name="search" id="search" class="form-control form-control-sm" placeholder="Cari...">
+                                @if(request('search'))
+                                <a href="{{ route('dataPenduduk.index') }}" class="btn btn-sm btn-outline-secondary ml-2">Reset</a>
+                                @endif
+                            </div>
+                        </div>
+                    </form>
+
+                    {{-- Tabel --}}
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover" id="table-penduduk">
-                            <thead class="thead-dark">
+                        <table class="table table-striped table-custom" id="table-penduduk">
+                            <thead class="bg-light">
                                 <tr>
                                     <th>No</th>
                                     <th>NIK</th>
@@ -233,102 +148,89 @@
                                     <th>Pendidikan</th>
                                     <th>Disabilitas</th>
                                     <th>Tahun</th>
-                                    <th>Aksi</th>
+                                    <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($datas as $index => $penduduk)
-                                    <tr>
-                                        <td>{{ $datas->firstItem() + $index }}</td>
-                                        <td>{{ $penduduk->nik }}</td>
-                                        <td>{{ $penduduk->nokk }}</td>
-                                        <td>{{ $penduduk->nama }}</td>
-                                        <td>{{ $penduduk->jenis_kelamin }}</td>
-                                        <td>{{ $penduduk->tempat_lahir }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($penduduk->tanggal_lahir)->format('d-m-Y') }}</td>
-                                        <td>{{ $penduduk->alamat }}</td>
-                                        <td>{{ $penduduk->dusun }}</td>
-                                        <td>{{ $penduduk->rt }}</td>
-                                        <td>{{ $penduduk->rw }}</td>
-                                        <td>{{ $penduduk->keldesa }}</td>
-                                        <td>{{ $penduduk->kecamatan }}</td>
-                                        <td>{{ $penduduk->agama }}</td>
-                                        <td>{{ $penduduk->status_perkawinan }}</td>
-                                        <td>{{ $penduduk->pekerjaan }}</td>
-                                        <td>{{ $penduduk->kewarganegaraan }}</td>
-                                        <td>{{ $penduduk->pendidikan }}</td>
-                                        <td>{{ $penduduk->disabilitas }}</td>
-                                        <td>{{ $penduduk->tahun }}</td>
-                                        <td class="action-buttons">
-                                            <a href="{{ route('dataPenduduk.edit', $penduduk->nik) }}" class="btn btn-warning">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <form action="{{ route('dataPenduduk.destroy', $penduduk->nik) }}" method="POST" onsubmit="return confirm('Yakin ingin hapus data ini?')">
+                                @forelse($datas as $index => $penduduk)
+                                <tr>
+                                    <td>{{ ($datas->currentPage()-1)*$datas->perPage()+$loop->iteration }}</td>
+                                    <td>{{ $penduduk->nik }}</td>
+                                    <td>{{ $penduduk->nokk }}</td>
+                                    <td>{{ $penduduk->nama }}</td>
+                                    <td>{{ $penduduk->jenis_kelamin }}</td>
+                                    <td>{{ $penduduk->tempat_lahir }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($penduduk->tanggal_lahir)->format('d-m-Y') }}</td>
+                                    <td>{{ $penduduk->alamat }}</td>
+                                    <td>{{ $penduduk->dusun }}</td>
+                                    <td>{{ $penduduk->rt }}</td>
+                                    <td>{{ $penduduk->rw }}</td>
+                                    <td>{{ $penduduk->keldesa }}</td>
+                                    <td>{{ $penduduk->kecamatan }}</td>
+                                    <td>{{ $penduduk->agama }}</td>
+                                    <td>{{ $penduduk->status_perkawinan }}</td>
+                                    <td>{{ $penduduk->pekerjaan }}</td>
+                                    <td>{{ $penduduk->kewarganegaraan }}</td>
+                                    <td>{{ $penduduk->pendidikan }}</td>
+                                    <td>{{ $penduduk->disabilitas }}</td>
+                                    <td>{{ $penduduk->tahun }}</td>
+                                    <td>
+                                        <div class="aksi-container">
+                                            <a href="{{ route('dataPenduduk.edit',$penduduk->nik) }}" class="btn btn-warning btn-aksi" title="Edit"><i class="fas fa-edit"></i></a>
+                                            <form action="{{ route('dataPenduduk.destroy',$penduduk->nik) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
+                                                <button type="submit" class="btn btn-danger btn-aksi" title="Hapus"><i class="fas fa-trash"></i></button>
                                             </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                        </div>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr><td colspan="21" class="text-center text-muted"><i>Tidak ada data penduduk</i></td></tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
 
-                    {{-- Pagination dan Info --}}
-                    <div class="d-flex justify-content-between align-items-center mt-3">
-                        <div>
-                            Menampilkan {{ $datas->firstItem() ?? 0 }} hingga {{ $datas->lastItem() ?? 0 }} dari {{ $datas->total() }} entri
+                    {{-- Pagination --}}
+                    @if($datas->hasPages())
+                    <div class="pagination-container">
+                        <div class="pagination-info">
+                            Menampilkan {{ ($datas->currentPage()-1)*$datas->perPage()+1 }} sampai {{ min($datas->currentPage()*$datas->perPage(), $datas->total()) }} dari {{ $datas->total() }} entri
                         </div>
-                        <div>
-                            {{ $datas->links('pagination::bootstrap-4') }}
+                        <div class="pagination-wrapper">
+                            {{ $datas->links() }}
                         </div>
                     </div>
+                    @endif
 
                 </div>
             </div>
         </div>
     </section>
 </div>
+@endsection
 
 @push('scripts')
-<!-- Script Sidebar Responsif -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const body = document.body;
-    const toggle = document.querySelector('.nav-link.toggle-sidebar');
+// Download Excel
+function downloadExcel() {
+    const wb = XLSX.utils.table_to_book(document.querySelector("#table-penduduk"));
+    XLSX.writeFile(wb, "Data_Penduduk_Desa.xlsx");
+}
 
-    // 🔒 Kunci toggle sidebar di desktop
-    function handleSidebarMode() {
-        if (window.innerWidth > 991) {
-            // Sidebar selalu terbuka
-            body.classList.add('sidebar-mini');
-            // Nonaktifkan tombol toggle (tidak bisa diklik)
-            if (toggle) toggle.style.pointerEvents = 'none';
-        } else {
-            // Aktifkan toggle di HP
-            if (toggle) toggle.style.pointerEvents = 'auto';
-        }
-    }
-
-    handleSidebarMode();
-    window.addEventListener('resize', handleSidebarMode);
-
-    // 📱 Tutup sidebar otomatis di HP ketika klik di luar
-    document.addEventListener('click', function(e) {
-        const sidebar = document.querySelector('.main-sidebar');
-        if (!sidebar || !toggle) return;
-
-        if (window.innerWidth <= 991) {
-            if (!sidebar.contains(e.target) && !toggle.contains(e.target)) {
-                body.classList.remove('sidebar-show');
-            }
-        }
+// Live search
+$(document).ready(function(){
+    $('#filter-form').on('submit', function(e){ e.preventDefault(); });
+    $('#search').on('keyup', function(){
+        var value = $(this).val().toLowerCase();
+        $('#table-penduduk tbody tr').filter(function(){
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
     });
 });
 </script>
 @endpush
-
-@endsection

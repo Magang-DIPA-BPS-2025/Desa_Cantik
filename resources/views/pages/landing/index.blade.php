@@ -501,19 +501,33 @@ body {
     color: white;
 }
 
+/* PERBAIKAN TOMBOL APB - WARNA HIJAU DENGAN FONT PUTIH */
 .apb-btn {
     display:inline-block;
     text-decoration:none;
-    background:#2E7D32;
-    color:#fff;
+    background: #2E7D32; /* PERUBAHAN: Hijau */
+    color: #ffffff; /* PERUBAHAN: Putih */
     padding:12px 22px;
     border-radius:8px;
     font-weight:600;
     transition: 0.3s;
+    border: 2px solid #2E7D32; /* PERUBAHAN: Border hijau */
 }
 
 .apb-btn:hover {
-    background:#2E7D32;
+    background: #2E7D32; /* PERUBAHAN: Tetap hijau saat hover */
+    color: #ffffff; /* PERUBAHAN: Tetap putih saat hover */
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* State aktif untuk tombol APB */
+.apb-btn:active {
+    background: #2E7D32 !important; /* Tetap hijau saat diklik */
+    color: #ffffff !important; /* Tetap putih saat diklik */
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 /* ---------------- Section Title ---------------- */
@@ -525,7 +539,7 @@ body {
     font-weight:700;
 }
 
-/* ---------------- Jadwal Sholat Section ---------------- */
+/* ---------------- PERBAIKAN Jadwal Sholat - WARNA HIJAU ---------------- */
 .jadwal-sholat-section {
     background: #f8fafc;
     padding: 80px 20px;
@@ -540,7 +554,7 @@ body {
 }
 
 .jadwal-sholat-card {
-    background: #f8fafc;
+    background: #ffffff;
     border-radius: 20px;
     padding: 30px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
@@ -557,7 +571,7 @@ body {
     text-align: center;
     margin-bottom: 30px;
     padding-bottom: 25px;
-    border-bottom: 2px solid #e9ecef;
+    border-bottom: 2px solid #2E7D32;
 }
 
 .jadwal-sholat-header h3 {
@@ -588,7 +602,7 @@ body {
 
 .current-time {
     font-size: 14px;
-    color: #2E7D32;
+    color: #666;
     font-weight: 600;
     background: #f8f9fa;
     padding: 8px 16px;
@@ -615,12 +629,13 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 18px 20px;
-    background: #f8f9fa;
+    background: #ffffff;
     border-radius: 12px;
     transition: all 0.3s ease;
     border-left: 5px solid #e9ecef;
     position: relative;
     overflow: hidden;
+    border: 1px solid #e9ecef;
 }
 
 .jadwal-item::before {
@@ -638,13 +653,14 @@ body {
     left: 100%;
 }
 
-/* Perbaikan untuk sholat aktif */
+/* PERBAIKAN: WARNA HIJAU untuk sholat berikutnya */
 .jadwal-item.active {
     background: linear-gradient(135deg, #2E7D32, #2E7D32) !important;
     color: white !important;
     border-left-color: #2E7D32 !important;
+    border-color: #2E7D32 !important;
     transform: translateX(5px);
-    box-shadow: 0 3px 10px rgba(46, 125, 50, 0.3);
+    box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
 }
 
 .jadwal-item.active .jadwal-name,
@@ -658,16 +674,33 @@ body {
     border-color: rgba(255,255,255,0.3) !important;
 }
 
-/* Pastikan sholat yang sudah lewat tetap terlihat */
+/* Sholat yang sudah lewat - warna abu-abu */
 .jadwal-item.passed {
-    opacity: 0.7;
-    background: #f1f3f4 !important;
-    color: #666 !important;
+    background: #f8f9fa;
+    color: #6c757d;
+    border-left-color: #dee2e6;
+}
+
+.jadwal-item.passed .jadwal-name {
+    color: #6c757d;
 }
 
 .jadwal-item.passed .jadwal-time {
-    background: #e9ecef !important;
-    color: #666 !important;
+    background: #e9ecef;
+    color: #6c757d;
+    border-color: #dee2e6;
+}
+
+/* Sholat biasa - warna default */
+.jadwal-item:not(.active):not(.passed) {
+    background: #ffffff;
+    color: #333;
+    border-left-color: #e9ecef;
+}
+
+.jadwal-item:not(.active):not(.passed):hover {
+    background: #f8f9fa;
+    border-left-color: #2E7D32;
 }
 
 .jadwal-name {
@@ -676,6 +709,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+    color: #2c3e50;
 }
 
 .jadwal-name i {
@@ -688,25 +722,15 @@ body {
     font-weight: 700;
     font-size: 18px;
     font-family: 'Courier New', monospace;
-    background: rgba(255,255,255,0.9);
+    background: #ffffff;
     padding: 8px 14px;
     border-radius: 8px;
     color: #2E7D32;
     border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
 }
 
-.jadwal-item.active .jadwal-time {
-    background: rgba(255,255,255,0.2);
-    color: white;
-    border-color: rgba(255,255,255,0.3);
-}
-
-.jadwal-item.passed .jadwal-time {
-    background: #e9ecef;
-    color: #666;
-}
-
-/* Card Sholat Berikutnya */
+/* Card Sholat Berikutnya - WARNA HIJAU */
 .jadwal-next {
     background: linear-gradient(135deg, #2E7D32, #2E7D32);
     border-radius: 16px;
@@ -787,6 +811,78 @@ body {
     font-weight: 700;
     color: #FFEB3B;
     font-family: 'Courier New', monospace;
+}
+
+.jadwal-info {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 2px solid #e9ecef;
+}
+
+.jadwal-info h4 {
+    color: #2E7D32;
+    font-size: 18px;
+    margin-bottom: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.jadwal-info p {
+    color: #666;
+    line-height: 1.6;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Responsive Design untuk Jadwal Sholat */
+@media (max-width: 768px) {
+    .jadwal-sholat-container {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .jadwal-sholat-card {
+        padding: 20px;
+    }
+    
+    .jadwal-sholat-header h3 {
+        font-size: 20px;
+    }
+    
+    .jadwal-item {
+        padding: 12px 15px;
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+    
+    .jadwal-name {
+        font-size: 14px;
+    }
+    
+    .jadwal-time {
+        font-size: 15px;
+        padding: 6px 12px;
+    }
+    
+    .jadwal-next {
+        padding: 20px 15px;
+        margin-bottom: 20px;
+    }
+    
+    .next-prayer-name {
+        font-size: 18px;
+    }
+    
+    .next-time {
+        font-size: 28px;
+    }
+    
+    .countdown {
+        font-size: 14px;
+    }
 }
 
 .jadwal-info {
@@ -1001,6 +1097,7 @@ body {
     margin-bottom: 1rem;
 }
 
+/* PERBAIKAN TOMBOL UMKM - TETAP HIJAU SAAT DIKLIK */
 .umkm-btn {
     background: #2E7D32;
     color: white;
@@ -1010,7 +1107,7 @@ body {
     font-size: 0.85rem;
     font-weight: 500;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s;
     margin-top: auto;
     text-decoration: none;
     display: inline-block;
@@ -1023,9 +1120,18 @@ body {
     background: #2E7D32;
     color: white;
     text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-/* ---------------- PERBAIKAN Tombol WhatsApp - HIJAU & PUTIH ---------------- */
+.umkm-btn:active {
+    background: #2E7D32 !important;
+    color: white !important;
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* ---------------- PERBAIKAN Tombol WhatsApp - HIJAU & PUTIH DENGAN JARAK ICON ---------------- */
 .btn-outline-success {
     background: transparent;
     color: #2E7D32;
@@ -1046,6 +1152,20 @@ body {
     background: #2E7D32;
     color: white;
     text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn-outline-success:active {
+    background: #2E7D32 !important;
+    color: white !important;
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* PERBAIKAN JARAK ICON PADA TOMBOL UMKM */
+.umkm-btn i, .btn-outline-success i {
+    margin-right: 8px; /* PERUBAHAN: Tambahkan jarak antara icon dan teks */
 }
 
 /* ---------------- Section Styles ---------------- */
@@ -1076,8 +1196,8 @@ body {
 }
 
 .btn-view-all {
-    background: #2E7D32;
-    color: #fff;
+    background: #2E7D32; /* PERUBAHAN: Hijau */
+    color: #fff; /* PERUBAHAN: Putih */
     padding: 14px 32px;
     border-radius: 8px;
     font-weight: 600;
@@ -1087,14 +1207,22 @@ body {
     border: none;
     cursor: pointer;
     font-size: 1rem;
-    border: 2px solid #2E7D32; /* PERUBAHAN: tambah border */
+    border: 2px solid #2E7D32; /* PERUBAHAN: border hijau */
 }
 
 .btn-view-all:hover {
-    background: #ffffff; /* PERUBAHAN: putih saat hover */
-    color: #2E7D32; /* PERUBAHAN: hijau saat hover */
+    background: #2E7D32; /* PERUBAHAN: Tetap hijau saat hover */
+    color: #ffffff; /* PERUBAHAN: Tetap putih saat hover */
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* State aktif untuk tombol Lihat Semua */
+.btn-view-all:active {
+    background: #2E7D32 !important; /* Tetap hijau saat diklik */
+    color: #ffffff !important; /* Tetap putih saat diklik */
+    transform: translateY(0);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
 
 /* ---------------- Overlay untuk Galeri ---------------- */

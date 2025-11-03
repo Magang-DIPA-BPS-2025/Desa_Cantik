@@ -45,11 +45,26 @@ class PermohonanInformasiController extends Controller
      * Daftar permohonan (Admin)
      */
     public function index()
-    {
-        $menu = 'permohonan';
-        $permohonans = PermohonanInformasi::latest()->paginate(10);
-        return view('pages.admin.permohonan.index', compact('permohonans', 'menu'));
+{
+    $menu = 'permohonan';
+    
+    $permohonans = PermohonanInformasi::latest();
+    
+    // Support untuk pencarian
+    if (request('search')) {
+        $permohonans->where(function($query) {
+            $query->where('nama', 'like', '%' . request('search') . '%')
+                  ->orWhere('nomor_telepon', 'like', '%' . request('search') . '%')
+                  ->orWhere('asal_instansi', 'like', '%' . request('search') . '%')
+                  ->orWhere('alamat_email', 'like', '%' . request('search') . '%')
+                  ->orWhere('permohonan', 'like', '%' . request('search') . '%');
+        });
     }
+    
+    $permohonans = $permohonans->paginate(request('per_page', 10));
+    
+    return view('pages.admin.permohonan.index', compact('permohonans', 'menu'));
+}
 
     /**
      * Form edit permohonan

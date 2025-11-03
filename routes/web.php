@@ -100,6 +100,10 @@ Route::group(
         Route::get('/verifikasi-surat-sktm/{id}', [SktmController::class, 'verifikasiSurat'])->name('verifikasi.surat.sktm');
         Route::get('/verifikasi-surat-kematian/{id}', [sKematianController::class, 'verifikasiSurat'])->name('verifikasi.surat.kematian');
         Route::get('/verifikasi-surat-izin/{id}', [IzinController::class, 'verifikasiSurat'])->name('verifikasi.surat.izin');
+        
+        Route::get('sktm', [SktmController::class, 'export'])->name('pages.admin.sktm.index');
+        Route::get('kematian', [sKematianController::class, 'export'])->name('pages.admin.kematian.index');
+
 
 
         //Pengaduan (dynamic view)
@@ -301,6 +305,8 @@ Route::group(
 
             Route::get('/kematian/verifikasi/{id}', [sKematianController::class, 'verifikasi'])->name('kematian.verifikasi');
             Route::get('/kematian/cetak/{id}', [sKematianController::class, 'cetak'])->name('kematian.cetak');
+
+            Route::get('kematian', [sKematianController::class, 'cetak'])->name('pages.admin.kematian.index');
 
 
 

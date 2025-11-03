@@ -10,12 +10,24 @@ use Illuminate\Support\Facades\Storage;
 class PPIDController extends Controller
 {
     // === HALAMAN ADMIN: LIST DATA PPID ===
-    public function index()
-    {
-        $ppids = Ppid::latest()->get();
-        $menu = 'ppid';
-        return view('pages.admin.ppid.index', compact('ppids', 'menu'));
+    public function index(Request $request)
+{
+    $search = $request->input('search');
+    $perPage = $request->input('per_page', 10);
+
+    $query = Ppid::query();
+
+    // Tambahkan pencarian jika ada
+    if ($search) {
+        $query->where('judul', 'like', "%{$search}%")
+              ->orWhere('deskripsi', 'like', "%{$search}%");
     }
+
+    $ppids = $query->latest()->paginate($perPage);
+    $menu = 'ppid';
+
+    return view('pages.admin.ppid.index', compact('ppids', 'menu'));
+}
 
     // === HALAMAN ADMIN: FORM TAMBAH DATA PPID ===
     public function create()

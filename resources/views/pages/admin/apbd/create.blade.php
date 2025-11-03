@@ -18,7 +18,7 @@
                             <label for="tahun">Tahun Anggaran</label>
                             <select name="tahun" class="form-control @error('tahun') is-invalid @enderror" required>
                                 <option value="" disabled selected>Pilih Tahun</option>
-                                @for ($year = now()->year - 5; $year <= now()->year + 5; $year++)
+                                @for ($year = now()->year - 10; $year <= now()->year + 10; $year++)
                                     <option value="{{ $year }}" {{ old('tahun') == $year ? 'selected' : '' }}>
                                         {{ $year }}
                                     </option>

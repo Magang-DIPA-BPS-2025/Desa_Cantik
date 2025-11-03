@@ -61,9 +61,6 @@ canvas { max-height: 280px; width: 100% !important; }
                             </option>
                         @endforeach
                     </select>
-                    <button id="applyFilter" class="filter-btn">
-                        <i class="fas fa-filter"></i> Terapkan
-                    </button>
                     @if($selectedYear)
                         <button id="resetFilter" class="filter-btn reset">
                             <i class="fas fa-refresh"></i> Reset

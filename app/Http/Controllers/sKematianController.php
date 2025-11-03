@@ -11,9 +11,30 @@ class sKematianController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $kematians = SKematian::orderBy('created_at', 'desc')->paginate(10);
+        $query = SKematian::orderBy('created_at', 'desc');
+        
+        // Search functionality
+        if ($request->has('search') && !empty($request->search)) {
+            $searchTerm = $request->search;
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('nama', 'LIKE', "%{$searchTerm}%")
+                  ->orWhere('nik', 'LIKE', "%{$searchTerm}%")
+                  ->orWhere('nomor_surat', 'LIKE', "%{$searchTerm}%")
+                  ->orWhere('alamat', 'LIKE', "%{$searchTerm}%");
+            });
+        }
+        
+        // Pagination dengan custom per_page
+        $perPage = $request->get('per_page', 10);
+        $kematians = $query->paginate($perPage);
+        
+        // Tambahkan parameter search ke pagination links
+        if ($request->has('search')) {
+            $kematians->appends(['search' => $request->search]);
+        }
+        
         return view('pages.admin.skematian.index', compact('kematians'));
     }
 

@@ -137,9 +137,10 @@
                         <li class="{{ $activeSubmenu == 'galeriDesa' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('galeriDesa.index') }}">Galeri Desa</a>
                         </li>
-                        <li class="{{ $activeSubmenu == 'pemerintahDesa' ? 'active' : '' }}">
+                          <li class="{{ $activeSubmenu == 'pemerintah-desa' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('pemerintah-desa.index') }}">Pemerintah Desa</a>
                         </li>
+                      
                         <li class="{{ $activeSubmenu == 'apbd' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('apbd.index') }}">APBD Desa</a>
                         </li>

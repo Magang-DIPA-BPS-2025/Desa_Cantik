@@ -33,6 +33,21 @@ class SktmController extends Controller
         ]);
     }
 
+    public function export()
+{
+    $sktms = Sktm::latest()->paginate(10);
+
+
+    $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pages.admin.sktm.index', [
+        'sktms' => $sktms,
+        'title' => 'Laporan Data SKTM',
+        'menu'  => 'SKTM',
+    ])->setPaper('A4', 'portrait');
+
+    return $pdf->download('Data-SKTM.pdf');
+}
+
+
     /** -------------------------------
      *  TAMPILKAN FORM TAMBAH - CREATE
      *  -------------------------------

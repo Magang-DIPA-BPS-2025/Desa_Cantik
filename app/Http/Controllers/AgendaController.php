@@ -16,16 +16,28 @@ class AgendaController extends Controller
 {
     /* ======================= AGENDA DESA ======================= */
 
-    public function index()
-    {
-        $datas = Agenda::all();
+    public function index(Request $request)
+{
+    $search = $request->input('search');
+    $perPage = $request->input('per_page', 10);
 
-        return view('pages.admin.AgendaDesa.index', [
-            'datas' => $datas,
-            'menu'  => 'AgendaDesa',
-            'title' => 'Agenda Desa'
-        ]);
+    $query = Agenda::query();
+
+    // Tambahkan pencarian jika ada
+    if ($search) {
+        $query->where('nama_kegiatan', 'like', "%{$search}%")
+              ->orWhere('deskripsi', 'like', "%{$search}%")
+              ->orWhere('kategori', 'like', "%{$search}%");
     }
+
+    $datas = $query->paginate($perPage);
+
+    return view('pages.admin.AgendaDesa.index', [
+        'datas' => $datas,
+        'menu'  => 'AgendaDesa',
+        'title' => 'Agenda Desa'
+    ]);
+}
 
     public function create()
     {
