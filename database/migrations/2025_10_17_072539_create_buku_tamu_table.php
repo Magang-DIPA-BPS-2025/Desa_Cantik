@@ -9,13 +9,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create('buku_tamus', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->string('asal');
-            $table->string('nomor_hp')->nullable();
-            $table->text('keperluan');
-            $table->timestamps();
-        });
+    $table->id();
+    $table->string('nama');
+    $table->string('asal');
+    $table->text('keperluan');
+    $table->timestamp('waktu_kunjungan')->useCurrent(); 
+    $table->string('jabatan')->nullable();
+    $table->text('tanda_tangan')->nullable();
+    $table->timestamps();
+});
     }
 
     public function down()

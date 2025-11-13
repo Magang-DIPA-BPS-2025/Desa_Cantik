@@ -273,6 +273,100 @@ body {
     min-height: 420px;
 }
 
+/* Loading state */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading-spinner {
+    display: none;
+    text-align: center;
+    padding: 20px;
+}
+
+.loading-spinner.active {
+    display: block;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #16a34a;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Filter form styling */
+.filter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.btn-apply {
+    background: #16a34a;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s;
+    flex: 1;
+}
+
+.btn-apply:hover {
+    background: #15803d;
+}
+
+.btn-reset-filter {
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s;
+    flex: 1;
+}
+
+.btn-reset-filter:hover {
+    background: #5a6268;
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+.empty-state i {
+    font-size: 48px;
+    margin-bottom: 15px;
+    color: #ccc;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .gallery-title { 
@@ -293,6 +387,14 @@ body {
     
     .table th, .table td {
         padding: 8px;
+    }
+    
+    .filter-actions {
+        flex-direction: column;
+    }
+    
+    .btn-apply, .btn-reset-filter {
+        width: 100%;
     }
 }
 
@@ -336,10 +438,10 @@ body {
                     <i class="bi bi-chevron-down"></i>
                 </div>
                 <div class="filter-content" id="filterContent">
-                    <form method="GET" action="{{ route('pendidikan') }}">
+                    <form method="GET" action="{{ route('pendidikan') }}" class="filter-form" id="filterForm">
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Pilih Dusun:</label>
-                            <select name="dusun" class="form-select" onchange="this.form.submit()">
+                            <select name="dusun" class="form-select" id="dusunSelect">
                                 <option value="">Semua Dusun</option>
                                 @foreach($dusunList as $dusun)
                                     <option value="{{ $dusun->dusun }}" {{ request('dusun')==$dusun->dusun?'selected':'' }}>{{ ucfirst($dusun->dusun) }}</option>
@@ -348,16 +450,19 @@ body {
                         </div>
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Pilih Tahun:</label>
-                            <select name="tahun" class="form-select" onchange="this.form.submit()">
+                            <select name="tahun" class="form-select" id="tahunSelect">
                                 <option value="">Semua Tahun</option>
                                 @foreach(range(date('Y'), date('Y')-5) as $tahun)
                                     <option value="{{ $tahun }}" {{ request('tahun')==$tahun?'selected':'' }}>{{ $tahun }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        @if(request('dusun') || request('tahun'))
-                            <a href="{{ route('pendidikan') }}" class="btn-reset">Reset</a>
-                        @endif
+                        <div class="filter-actions">
+                            <button type="submit" class="btn-apply">Terapkan Filter</button>
+                            @if(request('dusun') || request('tahun'))
+                                <a href="{{ route('pendidikan') }}" class="btn-reset-filter">Reset</a>
+                            @endif
+                        </div>
                     </form>
                 </div>
             </div>
@@ -366,8 +471,14 @@ body {
         <!-- Main Content -->
         <div class="layout-main">
 
+            <!-- Loading Spinner -->
+            <div class="loading-spinner" id="loadingSpinner">
+                <div class="spinner"></div>
+                <p class="mt-2">Memuat data...</p>
+            </div>
+
             <!-- Chart -->
-            <div class="card">
+            <div class="card" id="chartCard">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
                     <h5 class="mb-0">
                         Statistik Pendidikan Penduduk 
@@ -379,16 +490,25 @@ body {
                     </button>
                 </div>
                 <div class="chart-container">
-                    <div id="pie-chart-Pendidikan"></div>
+                    @if($pendidikanStats->count() > 0)
+                        <div id="pie-chart-Pendidikan"></div>
+                    @else
+                        <div class="empty-state">
+                            <i class="bi bi-graph-up"></i>
+                            <h5>Tidak ada data pendidikan</h5>
+                            <p>Data tidak ditemukan untuk filter yang dipilih</p>
+                        </div>
+                    @endif
                 </div>
             </div>
 
             <!-- Table -->
-            <div class="card">
+            <div class="card" id="tableCard">
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
                     <h5 class="mb-2 mb-md-0">
                         Tabel Data Pendidikan
                     </h5>
+                    @if($pendidikanStats->count() > 0)
                     <div class="dropdown">
                         <button class="btn-download" onclick="toggleDropdown(event,this)">
                             Download <i class="bi bi-chevron-down ms-1 dropdown-icon"></i>
@@ -399,8 +519,10 @@ body {
                             <a href="#" onclick="downloadPDF()">PDF</a>
                         </div>
                     </div>
+                    @endif
                 </div>
 
+                @if($pendidikanStats->count() > 0)
                 <table id="tabelPendidikan" class="table table-bordered text-center">
                     <thead>
                         <tr>
@@ -428,6 +550,13 @@ body {
                         </tr>
                     </tbody>
                 </table>
+                @else
+                <div class="empty-state">
+                    <i class="bi bi-table"></i>
+                    <h5>Tidak ada data untuk ditampilkan</h5>
+                    <p>Coba ubah filter atau pilih tahun yang berbeda</p>
+                </div>
+                @endif
             </div>
 
         </div>
@@ -457,63 +586,69 @@ function toggleDropdown(event, btn){
 // Chart
 const pendidikanData = @json($pendidikanStats);
 const total = pendidikanData.reduce((sum, item) => sum + item.jumlah, 0);
-const chartOptions = {
-    series: pendidikanData.map(item => item.jumlah),
-    colors: ["#22c55e","#3b82f6","#f97316","#8b5cf6","#eab308","#14b8a6","#ef4444","#84cc16"],
-    chart: {
-        height: 420,
-        type: "donut",
-        fontFamily: 'Open Sans, sans-serif'
-    },
-    labels: pendidikanData.map(item => item.pendidikan),
-    dataLabels: {
-        enabled: true,
-        style: {
-            fontSize: '13px',
+
+let chart;
+if(document.querySelector("#pie-chart-Pendidikan") && total > 0){
+    const chartOptions = {
+        series: pendidikanData.map(item => item.jumlah),
+        colors: ["#22c55e","#3b82f6","#f97316","#8b5cf6","#eab308","#14b8a6","#ef4444","#84cc16"],
+        chart: {
+            height: 420,
+            type: "donut",
             fontFamily: 'Open Sans, sans-serif'
-        }
-    },
-    legend: {
-        position: "bottom",
-        fontSize: "14px",
-        fontFamily: "Poppins, sans-serif",
-        fontWeight: 500
-    },
-    plotOptions: {
-        pie: {
-            donut: {
-                size: "65%",
-                labels: {
-                    show: true,
-                    total: {
+        },
+        labels: pendidikanData.map(item => item.pendidikan),
+        dataLabels: {
+            enabled: true,
+            style: {
+                fontSize: '13px',
+                fontFamily: 'Open Sans, sans-serif'
+            }
+        },
+        legend: {
+            position: "bottom",
+            fontSize: "14px",
+            fontFamily: "Poppins, sans-serif",
+            fontWeight: 500
+        },
+        plotOptions: {
+            pie: {
+                donut: {
+                    size: "65%",
+                    labels: {
                         show: true,
-                        label: "Total Pendidikan",
-                        color: "#000",
-                        fontFamily: "Poppins, sans-serif",
-                        fontWeight: 600,
-                        formatter: () => total.toLocaleString('id-ID')
+                        total: {
+                            show: true,
+                            label: "Total Pendidikan",
+                            color: "#000",
+                            fontFamily: "Poppins, sans-serif",
+                            fontWeight: 600,
+                            formatter: () => total.toLocaleString('id-ID')
+                        }
                     }
                 }
             }
-        }
-    },
-    tooltip: {
-        y: {
-            formatter: function(value) {
-                return value.toLocaleString('id-ID');
+        },
+        tooltip: {
+            y: {
+                formatter: function(value) {
+                    return value.toLocaleString('id-ID');
+                }
             }
         }
-    }
-};
+    };
 
-let chart;
-if(document.querySelector("#pie-chart-Pendidikan")){
     chart = new ApexCharts(document.querySelector("#pie-chart-Pendidikan"), chartOptions);
     chart.render();
 }
 
 // Download Chart & Table
 function downloadChart(){
+    if (!chart) {
+        alert('Tidak ada data chart untuk didownload');
+        return;
+    }
+    
     chart.dataURI().then(({ imgURI }) => {
         const a = document.createElement("a");
         a.href = imgURI;
@@ -523,16 +658,31 @@ function downloadChart(){
 }
 
 function downloadExcel(){ 
+    if (document.getElementById("tabelPendidikan").rows.length <= 1) {
+        alert('Tidak ada data untuk didownload');
+        return;
+    }
+    
     const wb = XLSX.utils.table_to_book(document.getElementById("tabelPendidikan")); 
     XLSX.writeFile(wb, "Data_Pendidikan_Desa_Manggalung.xlsx"); 
 }
 
 function downloadCSV(){ 
+    if (document.getElementById("tabelPendidikan").rows.length <= 1) {
+        alert('Tidak ada data untuk didownload');
+        return;
+    }
+    
     const wb = XLSX.utils.table_to_book(document.getElementById("tabelPendidikan")); 
     XLSX.writeFile(wb, "Data_Pendidikan_Desa_Manggalung.csv"); 
 }
 
 function downloadPDF(){ 
+    if (document.getElementById("tabelPendidikan").rows.length <= 1) {
+        alert('Tidak ada data untuk didownload');
+        return;
+    }
+    
     const { jsPDF } = window.jspdf; 
     const doc = new jsPDF();
     
@@ -567,5 +717,47 @@ function downloadPDF(){
     
     doc.save("Data_Pendidikan_Desa_Manggalung.pdf"); 
 }
+
+// Enhanced form handling
+document.addEventListener('DOMContentLoaded', function() {
+    const filterForm = document.getElementById('filterForm');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const chartCard = document.getElementById('chartCard');
+    const tableCard = document.getElementById('tableCard');
+    
+    // Remove onchange events from selects
+    const dusunSelect = document.getElementById('dusunSelect');
+    const tahunSelect = document.getElementById('tahunSelect');
+    
+    dusunSelect.onchange = null;
+    tahunSelect.onchange = null;
+    
+    // Filter form submission with loading state
+    filterForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Show loading state
+        loadingSpinner.classList.add('active');
+        chartCard.classList.add('loading');
+        tableCard.classList.add('loading');
+        
+        // Submit form after a small delay to show loading state
+        setTimeout(() => {
+            this.submit();
+        }, 500);
+    });
+    
+    // Auto-close filter on mobile after selection
+    if (window.innerWidth <= 768) {
+        const filterToggle = document.querySelector('.filter-toggle');
+        filterForm.addEventListener('change', function() {
+            setTimeout(() => {
+                if (filterToggle.classList.contains('active')) {
+                    toggleFilter(filterToggle);
+                }
+            }, 1000);
+        });
+    }
+});
 </script>
 @endsection

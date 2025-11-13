@@ -17,27 +17,27 @@ class AgendaController extends Controller
     /* ======================= AGENDA DESA ======================= */
 
     public function index(Request $request)
-{
-    $search = $request->input('search');
-    $perPage = $request->input('per_page', 10);
+    {
+        $search = $request->input('search');
+        $perPage = $request->input('per_page', 10);
 
-    $query = Agenda::query();
+        $query = Agenda::query();
 
-    // Tambahkan pencarian jika ada
-    if ($search) {
-        $query->where('nama_kegiatan', 'like', "%{$search}%")
-              ->orWhere('deskripsi', 'like', "%{$search}%")
-              ->orWhere('kategori', 'like', "%{$search}%");
+        // Tambahkan pencarian jika ada
+        if ($search) {
+            $query->where('nama_kegiatan', 'like', "%{$search}%")
+                  ->orWhere('deskripsi', 'like', "%{$search}%")
+                  ->orWhere('kategori', 'like', "%{$search}%");
+        }
+
+        $datas = $query->paginate($perPage);
+
+        return view('pages.admin.AgendaDesa.index', [
+            'datas' => $datas,
+            'menu'  => 'AgendaDesa',
+            'title' => 'Agenda Desa'
+        ]);
     }
-
-    $datas = $query->paginate($perPage);
-
-    return view('pages.admin.AgendaDesa.index', [
-        'datas' => $datas,
-        'menu'  => 'AgendaDesa',
-        'title' => 'Agenda Desa'
-    ]);
-}
 
     public function create()
     {
@@ -71,6 +71,7 @@ class AgendaController extends Controller
             'deskripsi'         => $request->deskripsi,
             'kategori'          => $request->kategori,
             'foto'              => $fotoPath,
+            'dilihat'           => 0,
         ]);
 
         return redirect()->route('AgendaDesa.index')->with('success', 'Agenda berhasil ditambahkan');
@@ -209,8 +210,7 @@ class AgendaController extends Controller
 
     /* ======================= UNTUK USER LANDING ======================= */
 
-
-public function userIndex(Request $request)
+    public function userIndex(Request $request)
 {
     $kategoriSelected = $request->query('kategori');
     $search = $request->query('search');
@@ -225,9 +225,13 @@ public function userIndex(Request $request)
         $query->where('nama_kegiatan', 'like', '%' . $search . '%');
     }
 
-    $agendas = $query->paginate(9)->appends($request->query());
+    // Tampilkan SEMUA agenda tanpa pagination
+    $agendas = $query->get();
+
+    $latest_agendas = Agenda::orderBy('dilihat', 'desc')
+                           ->take(5)
+                           ->get();
     
-    $latest_agendas = Agenda::latest()->take(5)->get();
     $kategoriList = Agenda::select('kategori')->distinct()->orderBy('kategori')->pluck('kategori');
 
     return view('pages.landing.berita&agenda.AgendaDesa', [
@@ -244,19 +248,27 @@ public function userIndex(Request $request)
         $agenda = Agenda::findOrFail($id);
         $agenda->increment('dilihat');
 
-        $latest_agendas = Agenda::latest()->take(6)->get();
+        // PERBAIKAN: Untuk sidebar detail agenda, urutkan berdasarkan dilihat
+        $latest_agendas = Agenda::where('id', '!=', $id)
+                               ->orderBy('dilihat', 'desc')
+                               ->take(6)
+                               ->get();
 
         return view('pages.landing.detail-agenda', [
             'data' => $agenda,
             'jenis' => 'agenda',
-            'latest_post' => $latest_agendas
+            'latest_agendas' => $latest_agendas
         ]);
     }
 
     public function userBeranda()
     {
+        // PERBAIKAN: Untuk homepage, tampilkan agenda dengan dilihat terbanyak
+        $latest_agendas = Agenda::orderBy('dilihat', 'desc')
+                               ->take(6)
+                               ->get();
+        
         $beritas = Berita::with('kategori')->latest()->take(6)->get();
-        $latest_agendas = Agenda::latest()->take(6)->get();
         $belanjas = BelanjaDesa::latest()->take(6)->get();
         $galeris = Galeri::latest()->take(6)->get();
         $kalenders = Kalender::latest()->take(6)->get();

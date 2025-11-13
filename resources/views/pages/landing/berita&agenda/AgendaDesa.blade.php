@@ -40,7 +40,7 @@ body {
 
 .gallery-header p {
     font-size: 1.1rem;
-    color: #666;
+    color: #000; /* Diubah dari #666 menjadi #000 */
     margin-bottom: 0;
 }
 
@@ -88,7 +88,7 @@ body {
 .agenda-card h4 {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #2c3e50;
+  color: #000; /* Diubah dari #000000ff menjadi #000 */
   margin-bottom: 8px;
   font-family: 'Poppins', sans-serif;
 }
@@ -96,14 +96,14 @@ body {
 .agenda-card small {
   display: block;
   font-size: 0.85rem;
-  color: #888;
+  color: #000; /* Diubah dari #888 menjadi #000 */
   margin-bottom: 10px;
   font-family: 'Open Sans', sans-serif;
 }
 
 .agenda-card p {
   font-size: 0.9rem;
-  color: #555;
+  color: #000; /* Diubah dari #555 menjadi #000 */
   margin-bottom: 0;
   font-family: 'Open Sans', sans-serif;
 }
@@ -129,6 +129,7 @@ body {
   transition: all 0.3s ease;
   background: #fafafa;
   font-family: 'Open Sans', sans-serif;
+  color: #000; /* Ditambahkan untuk memastikan teks input berwarna hitam */
 }
 
 .search-box input[type="text"]:focus {
@@ -152,7 +153,7 @@ body {
   transform: translateY(-50%);
   width: 12px;
   height: 12px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.762L10.825 4z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.762L10.825 4z'/%3E%3C/svg%3E"); /* Diubah dari %23333 menjadi %23000 */
   background-repeat: no-repeat;
   background-position: center;
   pointer-events: none;
@@ -174,7 +175,7 @@ body {
   border-radius: 10px;
   border: 1px solid #e0e0e0;
   background: #fafafa;
-  color: #333;
+  color: #000; /* Diubah dari #333 menjadi #000 */
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -211,7 +212,7 @@ body {
 .agenda-terbaru-box h4 {
   font-weight: 700;
   margin-bottom: 20px;
-  color: #2c3e50;
+  color: #000; /* Diubah dari #000000ff menjadi #000 */
   font-size: 18px;
   padding-bottom: 12px;
   border-bottom: 2px solid #16a34a;
@@ -260,7 +261,7 @@ body {
 
 .agenda-terbaru-content .judul {
   font-weight: 600;
-  color: #2c3e50;
+  color: #000; /* Diubah dari #000000ff menjadi #000 */
   margin-bottom: 6px;
   font-size: 14px;
   line-height: 1.4;
@@ -272,7 +273,7 @@ body {
 }
 
 .agenda-terbaru-content .tanggal {
-  color: #666;
+  color: #000; /* Diubah dari #666 menjadi #000 */
   font-size: 12px;
   font-weight: 500;
   font-family: 'Open Sans', sans-serif;
@@ -318,6 +319,7 @@ body {
   font-size: 14px;
   background: #fafafa;
   font-family: 'Open Sans', sans-serif;
+  color: #000; /* Ditambahkan untuk memastikan teks input berwarna hitam */
 }
 
 .mobile-search-box input[type="text"]:focus {
@@ -340,7 +342,7 @@ body {
   transform: translateY(-50%);
   width: 12px;
   height: 12px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.762L10.825 4z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.762L10.825 4z'/%3E%3C/svg%3E"); /* Diubah dari %23333 menjadi %23000 */
   background-repeat: no-repeat;
   background-position: center;
   pointer-events: none;
@@ -358,7 +360,7 @@ body {
   border-radius: 10px;
   border: 1px solid #e0e0e0;
   background: #fafafa;
-  color: #333;
+  color: #000; /* Diubah dari #333 menjadi #000 */
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -391,7 +393,7 @@ body {
 .mobile-agenda-terbaru h4 {
   font-weight: 700;
   margin-bottom: 20px;
-  color: #2c3e50;
+  color: #000; /* Diubah dari #000000ff menjadi #000 */
   font-size: 18px;
   padding-bottom: 12px;
   border-bottom: 2px solid #16a34a;
@@ -440,7 +442,7 @@ body {
 
 .mobile-agenda-content .judul {
   font-weight: 600;
-  color: #2c3e50;
+  color: #000; /* Diubah dari #000000ff menjadi #000 */
   margin-bottom: 6px;
   font-size: 14px;
   line-height: 1.3;
@@ -452,7 +454,7 @@ body {
 }
 
 .mobile-agenda-content .tanggal {
-  color: #666;
+  color: #000; /* Diubah dari #666 menjadi #000 */
   font-size: 12px;
   font-weight: 500;
   font-family: 'Open Sans', sans-serif;
@@ -467,6 +469,10 @@ body {
   display: none;
 }
 
+/* Pesan tidak ada agenda */
+.text-muted {
+  color: #000 !important; /* Diubah untuk memastikan teks tetap terlihat jelas */
+}
 
 @media (max-width: 1200px) {
   .agenda-grid { 
@@ -625,23 +631,24 @@ body {
             </div>
             </div>
 
-            {{-- Agenda Terbaru --}}
-            <div class="agenda-terbaru-box">
-            <h4>AGENDA TERBARU</h4>
-            <div class="agenda-terbaru-list">
-                @foreach($latest_agendas as $a)
-                <a href="{{ route('agenda.show', $a->id) }}" class="agenda-terbaru-item">
-                <img src="{{ $a->foto ? asset('storage/'.$a->foto) : asset('img/example-image.jpg') }}" alt="{{ $a->nama_kegiatan }}">
-                <div class="agenda-terbaru-content">
-                    <div class="judul">{{ Str::limit($a->nama_kegiatan, 50) }}</div>
-                    <div class="tanggal">
+            {{-- Agenda Terpopuler --}}
+<div class="agenda-terbaru-box">
+    <h4> AGENDA TERPOPULER</h4> 
+    <div class="agenda-terbaru-list">
+        @foreach($latest_agendas as $a)
+        <a href="{{ route('agenda.show', $a->id) }}" class="agenda-terbaru-item">
+            <img src="{{ $a->foto ? asset('storage/'.$a->foto) : asset('img/example-image.jpg') }}" alt="{{ $a->nama_kegiatan }}">
+            <div class="agenda-terbaru-content">
+                <div class="judul">{{ Str::limit($a->nama_kegiatan, 50) }}</div>
+                <div class="tanggal">
                     📅 {{ $a->waktu_pelaksanaan ? \Carbon\Carbon::parse($a->waktu_pelaksanaan)->translatedFormat('d M Y') : 'Tanggal belum ditentukan' }}
-                    </div>
+                    | Dilihat  {{ $a->dilihat ?? 0 }}  
                 </div>
-                </a>
-                @endforeach
             </div>
-            </div>
+        </a>
+        @endforeach
+    </div>
+</div>
         </div>
     </div>
 

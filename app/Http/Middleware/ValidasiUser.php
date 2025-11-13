@@ -4,21 +4,16 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Auth; // <- TAMBAHKAN INI
 
 class ValidasiUser
 {
-    /**
-     * Handle an incoming request.
-     */
     public function handle(Request $request, Closure $next): Response
     {
- 
         if ($request->is('login') || $request->routeIs('login')) {
             return $next($request);
         }
-
 
         if (session('cek') && Auth::check()) {
             return $next($request);

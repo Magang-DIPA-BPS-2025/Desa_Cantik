@@ -10,9 +10,17 @@ use Carbon\Carbon;
 class KalenderController extends Controller
 {
     // Menampilkan halaman index
-    public function index()
+    public function index(Request $request)
     {
-        $kegiatans = Kalender::latest()->paginate(12);
+        $search = $request->get('search');
+        $perPage = $request->get('per_page', 10);
+
+        $kegiatans = Kalender::when($search, function($query) use ($search) {
+                $query->where('nama_kegiatan', 'like', '%' . $search . '%');
+            })
+            ->latest()
+            ->paginate($perPage);
+
         return view('pages.admin.kalender.index', compact('kegiatans'));
     }
 

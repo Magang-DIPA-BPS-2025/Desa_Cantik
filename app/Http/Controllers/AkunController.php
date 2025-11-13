@@ -3,118 +3,84 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class AkunController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('is_admin');
+    }
+
+    // Tampilkan semua akun
     public function index()
     {
-        $data = Admin::orderByDesc('id')->get();
-        return view('pages.admin.akun.index', ['menu' => 'akun', 'datas' => $data]);
-    }
-
-
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $r)
-    {
-        
-        $cek_username = Admin::where('username', $r->username)->where('role', $r->role)->first();
-        if($cek_username == null) {
-            // dd($r);
-            $r = $r->all();
-            $r['password'] = bcrypt($r['password']);
-            Admin::create($r);
-            User::create($r);
-    
-            return redirect()->route('akun.index')->with('message', 'store');
-        }
-        else {
-            return redirect()->route('akun.index')->with('message', 'username sudah ada');
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $data = Admin::find($id);
-
-        return view('pages.admin.akun.edit', ['menu' => 'akun', 'datas' => $data]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request)
-    {
-        //
-        // $cek_username = Admin::where('username', $request->username)->where('role', $request->role)->first();
-        // if($cek_username == null) {
-
-            $r = $request->all();
-            $data = Admin::find($r['id']);
-            $dataUser = User::find($r['id']);
-            // dump($r);
-            $r['password'] = bcrypt($r['password']);
-            
-            $data->update($r);
-            $dataUser->update($r);
-            // dump($dataUser);
-            // dd($data);
-            return redirect()->route('akun.index')->with('message', 'update');
-        // }
-        // else {
-        //     return redirect()->route('akun.index')->with('message', 'username sudah ada');
-        // }
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-
-        $data = Admin::find($id);
-        $dataUser = User::find($id);
-        $dataUser->delete();
-        $data->delete();
-        return response()->json($data);
-    }
-
-
-
-    public function regis(Request $r)
-    {
-        // $r = $request->all();
-        // dd($r);
-        $reg = [];
-        $role = strtolower($r->role);
-        $user = strtolower(str_replace(' ', '', $r->username));
-        // dd($role);
-        $reg['name'] = $r->name;
-        $reg['username'] = $user;
-        $reg['role'] = $role;
-        $reg['password'] = bcrypt($r['password']);
-        Admin::create($reg);
-        User::create($reg);
-
-        return response()->json([
-            'status' => true,
-            'data' => $reg
+        $datas = Admin::latest()->get();
+        return view('pages.admin.akun.index', [
+            'menu' => 'akun',
+            'datas' => $datas
         ]);
-        // return redirect()->route('akun.index')->with('message', 'store');
+    }
+
+    // Simpan akun baru
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|unique:admins,username',
+            'password' => 'required|string|min:6',
+        ]);
+
+        Admin::create([
+            'name' => $request->name,
+            'username' => strtolower(str_replace(' ', '', $request->username)),
+            'role' => 'admin',
+            'password' => $request->password, // mutator di model otomatis hash
+        ]);
+
+        return redirect()->route('akun.index')->with('message', 'Akun berhasil dibuat');
+    }
+
+    // Edit akun
+    public function edit($id)
+    {
+        $data = Admin::findOrFail($id);
+        return view('pages.admin.akun.edit', [
+            'menu' => 'akun',
+            'datas' => $data
+        ]);
+    }
+
+    // Update akun
+    public function update(Request $request, $id)
+    {
+        $akun = Admin::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|unique:admins,username,' . $akun->id,
+        ]);
+
+        // Update properti langsung agar mutator jalan
+        $akun->name = $request->name;
+        $akun->username = strtolower(str_replace(' ', '', $request->username));
+
+        if ($request->password) {
+            $akun->password = $request->password; // mutator otomatis hash
+        }
+
+        $akun->save();
+
+        return redirect()->route('akun.index')->with('message', 'Akun berhasil diperbarui');
+    }
+
+    // Hapus akun
+    public function destroy($id)
+    {
+        $akun = Admin::findOrFail($id);
+        $akun->delete();
+
+        return redirect()->route('akun.index')->with('message', 'Akun berhasil dihapus');
     }
 }

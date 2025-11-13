@@ -27,7 +27,81 @@ canvas { max-height: 280px; width: 100% !important; }
 .progress-bar-fill.green { background: #2e7d32; }
 .progress-bar-fill.red { background: #d32f2f; }
 .progress-bar-fill.blue { background: #1976d2; }
-.download-btn { background:#16a34a; color:#fff; padding:6px 12px; border:none; border-radius:6px; cursor:pointer; font-size:14px; margin-left:10px; }
+
+/* Gaya untuk dropdown download yang diperbaiki */
+.download-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.download-btn {
+    background: #16a34a;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.3s;
+    white-space: nowrap;
+}
+
+.download-btn:hover {
+    background: #15803d;
+}
+
+.download-btn i {
+    font-size: 14px;
+    color: #fff;
+}
+
+.download-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #ffffff;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+.download-content a {
+    color: #16a34a;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+    background: #fff;
+}
+
+.download-content a:last-child {
+    border-bottom: none;
+}
+
+.download-content a:hover {
+    background-color: #f8f9fa;
+}
+
+.download-content a i {
+    color: #16a34a;
+    width: 16px;
+    text-align: center;
+}
+
+.download-dropdown:hover .download-content {
+    display: block;
+}
+
 .filter-container { background: #f8f9fa; border-radius: 12px; padding: 20px; margin: 20px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.05); max-width: 500px; width: 100%; }
 .filter-title { font-size: 16px; font-weight: 600; color: #2e7d32; margin-bottom: 10px; text-align: center; }
 .filter-controls { display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; }
@@ -38,6 +112,92 @@ canvas { max-height: 280px; width: 100% !important; }
 .filter-btn.reset { background: #757575; }
 .filter-btn.reset:hover { background: #5d5d5d; }
 .no-data { text-align: center; padding: 40px; color: #757575; font-size: 16px; }
+.year-badge { 
+    background: #ffffffff; 
+    color: #2e7d32; 
+    padding: 5px 15px; 
+    border-radius: 20px; 
+    font-size: 20px; 
+    margin-left: 10px; 
+    vertical-align: middle;
+}
+.chart-container {
+    position: relative;
+    height: 300px;
+    margin-bottom: 20px;
+}
+
+/* === RESPONSIVE FIX UNTUK TAMPILAN HP / LAYAR KECIL === */
+@media (max-width: 768px) {
+    .apb-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: left;
+    }
+
+    /* Judul di kiri saat HP */
+    .apb-info h2 {
+        text-align: left;
+        font-size: 28px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;   /* bikin tahun turun ke bawah */
+        align-items: center;      /* tahun jadi di tengah */
+    }
+
+    /* Tahun di bawah dan center */
+    .year-badge {
+        margin: 8px 0 0 0;        /* jarak dari judul */
+        font-size: 18px;
+        text-align: center;
+    }
+
+    /* Card tetap di tengah */
+    .apb-right {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .apb-grid {
+        justify-content: center;
+    }
+
+    .apb-card {
+        width: 90%;
+        max-width: 320px;
+        margin: auto;
+    }
+
+    .card-box {
+        width: 100%;
+        text-align: center;
+    }
+    
+    /* Responsif untuk dropdown */
+    .download-dropdown {
+        margin-top: 10px;
+    }
+    
+    .download-content {
+        right: auto;
+        left: 0;
+        min-width: 180px;
+    }
+    
+    .card-box h3 {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+}
+
+/* Jika sidebar aktif, pastikan judul tetap kiri */
+body.sidebar-active .apb-info h2 {
+    text-align: left !important;
+}
+
 </style>
 
 <div class="apb-desa">
@@ -137,11 +297,22 @@ canvas { max-height: 280px; width: 100% !important; }
     <div class="card-box">
         <h3>
             Pendapatan Desa Tahun {{ $apbd->tahun }}
-            <button class="download-btn" onclick="downloadChart('chartPendapatan','Pendapatan_Desa_{{ $apbd->tahun }}.png')">
-                <i class="fas fa-download"></i> Download
-            </button>
+            <div class="download-dropdown">
+                <button class="download-btn">
+                    <i class="fas fa-download" style="color:white;"></i> Download Data
+                </button>
+                <div class="download-content">
+                    <a href="#" onclick="downloadChart('chartPendapatan','Pendapatan_Desa_{{ $apbd->tahun }}.png')">
+                        <i class="fas fa-chart-bar"></i> Download Grafik
+                    </a>
+                    <a href="#" onclick="downloadExcel('pendapatan', {{ $apbd->tahun }})">
+                        <i class="fas fa-file-excel"></i> Download Excel</a>
+                </div>
+            </div>
         </h3>
-        <canvas id="chartPendapatan"></canvas>
+        <div class="chart-container">
+            <canvas id="chartPendapatan"></canvas>
+        </div>
 
         @php
             $pendapatanData = [
@@ -170,11 +341,23 @@ canvas { max-height: 280px; width: 100% !important; }
     <div class="card-box">
         <h3>
             Belanja Desa Tahun {{ $apbd->tahun }}
-            <button class="download-btn" onclick="downloadChart('chartBelanja','Belanja_Desa_{{ $apbd->tahun }}.png')">
-                <i class="fas fa-download"></i> Download
-            </button>
+            <div class="download-dropdown">
+                <button class="download-btn">
+                    <i class="fas fa-download" style="color:white;"></i> Download
+                </button>
+                <div class="download-content">
+                    <a href="#" onclick="downloadChart('chartBelanja','Belanja_Desa_{{ $apbd->tahun }}.png')">
+                        <i class="fas fa-chart-bar"></i> Download Grafik
+                    </a>
+                    <a href="#" onclick="downloadExcel('belanja', {{ $apbd->tahun }})">
+                        <i class="fas fa-file-excel"></i> Download Excel
+                    </a>
+                </div>
+            </div>
         </h3>
-        <canvas id="chartBelanja"></canvas>
+        <div class="chart-container">
+            <canvas id="chartBelanja"></canvas>
+        </div>
         @php
             $belanjaData = [
                 ['bidang' => 'Pemerintahan', 'jumlah' => $apbd->belanja_pemerintahan],
@@ -204,11 +387,23 @@ canvas { max-height: 280px; width: 100% !important; }
     <div class="card-box">
         <h3>
             Pembiayaan Desa Tahun {{ $apbd->tahun }}
-            <button class="download-btn" onclick="downloadChart('chartPembiayaan','Pembiayaan_Desa_{{ $apbd->tahun }}.png')">
-                <i class="fas fa-download"></i> Download
-            </button>
+            <div class="download-dropdown">
+                <button class="download-btn">
+                    <i class="fas fa-download" style="color:white;"></i> Download
+                </button>
+                <div class="download-content">
+                    <a href="#" onclick="downloadChart('chartPembiayaan','Pembiayaan_Desa_{{ $apbd->tahun }}.png')">
+                        <i class="fas fa-chart-bar"></i> Download Grafik
+                    </a>
+                    <a href="#" onclick="downloadExcel('pembiayaan', {{ $apbd->tahun }})">
+                        <i class="fas fa-file-excel"></i> Download Excel
+                    </a>
+                </div>
+            </div>
         </h3>
-        <canvas id="chartPembiayaan"></canvas>
+        <div class="chart-container">
+            <canvas id="chartPembiayaan"></canvas>
+        </div>
         @php
             $pembiayaanData = [
                 ['jenis' => 'Penerimaan', 'jumlah' => $apbd->pembiayaan_penerimaan],
@@ -239,35 +434,51 @@ canvas { max-height: 280px; width: 100% !important; }
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <script>
 @if($apbd)
-    // Pendapatan Chart
+    // Pendapatan Chart - DIUBAH MENJADI DONUT CHART
     const ctxPendapatan = document.getElementById('chartPendapatan').getContext('2d');
-    const gradientPendapatan1 = ctxPendapatan.createLinearGradient(0, 0, 0, 300);
-    gradientPendapatan1.addColorStop(0, '#66bb6a'); gradientPendapatan1.addColorStop(1, '#2e7d32');
-    const gradientPendapatan2 = ctxPendapatan.createLinearGradient(0, 0, 0, 300);
-    gradientPendapatan2.addColorStop(0, '#81c784'); gradientPendapatan2.addColorStop(1, '#388e3c');
-    const gradientPendapatan3 = ctxPendapatan.createLinearGradient(0, 0, 0, 300);
-    gradientPendapatan3.addColorStop(0, '#a5d6a7'); gradientPendapatan3.addColorStop(1, '#2e7d32');
-
+    const pendapatanColors = [
+        '#2e7d32', // Hijau utama - PAD
+        '#4caf50', // Hijau medium - Transfer
+        '#81c784'  // Hijau terang - Lainnya
+    ];
+    
     new Chart(ctxPendapatan, {
-        type: 'bar',
+        type: 'doughnut',
         data: { 
             labels: @json(array_column($pendapatanData,'sumber')), 
             datasets: [{ 
                 data: @json(array_column($pendapatanData,'jumlah')), 
-                backgroundColor: [gradientPendapatan1,gradientPendapatan2,gradientPendapatan3], 
-                borderRadius: 10,
-                borderWidth: 1,
-                borderColor: '#fff'
+                backgroundColor: pendapatanColors,
+                borderWidth: 2,
+                borderColor: '#fff',
+                hoverOffset: 15
             }] 
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
+            cutout: '65%',
             plugins: { 
-                legend: { display: false }, 
+                legend: { 
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            size: 14,
+                            weight: '600'
+                        },
+                        padding: 20,
+                        usePointStyle: true,
+                        pointStyle: 'circle'
+                    }
+                },
                 tooltip: { 
                     callbacks: { 
-                        label: function(ctx) {
-                            return 'Rp' + ctx.raw.toLocaleString('id-ID');
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.raw || 0;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((value / total) * 100).toFixed(2);
+                            return `${label}: Rp${value.toLocaleString('id-ID')} (${percentage}%)`;
                         } 
                     } 
                 },
@@ -276,34 +487,19 @@ canvas { max-height: 280px; width: 100% !important; }
                     text: 'Pendapatan Desa Tahun {{ $apbd->tahun }}',
                     font: { size: 16, weight: 'bold' }
                 }
-            },
-            scales: { 
-                y: { 
-                    beginAtZero: true,
-                    ticks: { 
-                        callback: function(value) {
-                            return 'Rp' + value.toLocaleString('id-ID');
-                        } 
-                    } 
-                } 
             }
         }
     });
 
-    // Belanja Chart
+    // Belanja Chart - Tetap bar chart
     const ctxBelanja = document.getElementById('chartBelanja').getContext('2d');
-    const gradientsBelanja = [
-        ['#ef9a9a','#e53935'],
-        ['#f48fb1','#ef5350'],
-        ['#e57373','#c62828'],
-        ['#ffcc80','#ff7043'],
-        ['#ce93d8','#8e24aa']
-    ].map(g => {
-        const grad = ctxBelanja.createLinearGradient(0,0,0,300); 
-        grad.addColorStop(0, g[0]); 
-        grad.addColorStop(1, g[1]); 
-        return grad;
-    });
+    const belanjaColors = [
+        '#d32f2f', // Merah utama
+        '#f44336', // Merah medium
+        '#e57373', // Merah terang
+        '#ef5350', // Merah medium 2
+        '#ff8a80'  // Merah terang 2
+    ];
     
     new Chart(ctxBelanja, {
         type: 'bar',
@@ -311,14 +507,15 @@ canvas { max-height: 280px; width: 100% !important; }
             labels: @json(array_column($belanjaData,'bidang')), 
             datasets: [{ 
                 data: @json(array_column($belanjaData,'jumlah')), 
-                backgroundColor: gradientsBelanja, 
+                backgroundColor: belanjaColors, 
                 borderRadius: 10,
                 borderWidth: 1,
                 borderColor: '#fff'
             }] 
         },
         options: { 
-            responsive: true, 
+            responsive: true,
+            maintainAspectRatio: false,
             plugins: { 
                 legend: { display: false }, 
                 tooltip: { 
@@ -347,7 +544,7 @@ canvas { max-height: 280px; width: 100% !important; }
         }
     });
 
-    // Pembiayaan Chart
+    // Pembiayaan Chart - Tetap donut chart
     const ctxPembiayaan = document.getElementById('chartPembiayaan').getContext('2d');
     new Chart(ctxPembiayaan, {
         type: 'doughnut',
@@ -355,26 +552,34 @@ canvas { max-height: 280px; width: 100% !important; }
             labels: @json(array_column($pembiayaanData,'jenis')), 
             datasets: [{ 
                 data: @json(array_column($pembiayaanData,'jumlah')), 
-                backgroundColor: ['#42a5f5','#1e88e5'], 
+                backgroundColor: ['#1976d2', '#42a5f5'], // Warna biru yang konsisten
                 borderWidth: 2, 
-                borderColor: '#fff' 
+                borderColor: '#fff',
+                hoverOffset: 15
             }] 
         },
         options: { 
-            responsive: true, 
+            responsive: true,
+            maintainAspectRatio: false,
             cutout: '65%', 
             plugins: { 
                 legend: { 
                     position: 'bottom', 
                     labels: { 
                         font: { size: 14 },
-                        padding: 20
+                        padding: 20,
+                        usePointStyle: true,
+                        pointStyle: 'circle'
                     } 
                 }, 
                 tooltip: { 
                     callbacks: { 
-                        label: function(ctx) {
-                            return ctx.label + ': Rp' + ctx.raw.toLocaleString('id-ID');
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.raw || 0;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((value / total) * 100).toFixed(2);
+                            return `${label}: Rp${value.toLocaleString('id-ID')} (${percentage}%)`;
                         } 
                     } 
                 },
@@ -397,22 +602,57 @@ function downloadChart(canvasId, filename) {
     link.click();
 }
 
+// Download Excel function
+function downloadExcel(type, tahun) {
+    // Membuat data untuk Excel berdasarkan tipe
+    let data = [];
+    let filename = '';
+    
+    if (type === 'pendapatan') {
+        data = [
+            ['Sumber Pendapatan', 'Jumlah (Rp)'],
+            ['PAD', {{ $apbd->pendapatan_pad }}],
+            ['Transfer', {{ $apbd->pendapatan_transfer }}],
+            ['Lainnya', {{ $apbd->pendapatan_lain }}],
+            ['Total Pendapatan', {{ $apbd->total_pendapatan }}]
+        ];
+        filename = `Pendapatan_Desa_${tahun}.xlsx`;
+    } else if (type === 'belanja') {
+        data = [
+            ['Bidang Belanja', 'Jumlah (Rp)'],
+            ['Pemerintahan', {{ $apbd->belanja_pemerintahan }}],
+            ['Pembangunan', {{ $apbd->belanja_pembangunan }}],
+            ['Pembinaan', {{ $apbd->belanja_pembinaan }}],
+            ['Pemberdayaan', {{ $apbd->belanja_pemberdayaan }}],
+            ['Bencana', {{ $apbd->belanja_bencana }}],
+            ['Total Belanja', {{ $apbd->total_belanja }}]
+        ];
+        filename = `Belanja_Desa_${tahun}.xlsx`;
+    } else if (type === 'pembiayaan') {
+        data = [
+            ['Jenis Pembiayaan', 'Jumlah (Rp)'],
+            ['Penerimaan', {{ $apbd->pembiayaan_penerimaan }}],
+            ['Pengeluaran', {{ $apbd->pembiayaan_pengeluaran }}],
+            ['Total Pembiayaan', {{ $apbd->pembiayaan_penerimaan + $apbd->pembiayaan_pengeluaran }}]
+        ];
+        filename = `Pembiayaan_Desa_${tahun}.xlsx`;
+    }
+    
+    // Membuat worksheet
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    
+    // Membuat workbook
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Data");
+    
+    // Download file
+    XLSX.writeFile(wb, filename);
+}
+
 // Filter functionality
 document.addEventListener('DOMContentLoaded', function() {
-    const applyFilterBtn = document.getElementById('applyFilter');
     const resetFilterBtn = document.getElementById('resetFilter');
     const yearFilter = document.getElementById('yearFilter');
-    
-    if (applyFilterBtn) {
-        applyFilterBtn.addEventListener('click', function() {
-            const selectedYear = yearFilter.value;
-            if (selectedYear) {
-                window.location.href = "{{ route('apbd') }}?tahun=" + selectedYear;
-            } else {
-                window.location.href = "{{ route('apbd') }}";
-            }
-        });
-    }
     
     if (resetFilterBtn) {
         resetFilterBtn.addEventListener('click', function() {
@@ -433,4 +673,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
+<!-- Tambahkan library untuk export Excel -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 @endsection

@@ -66,9 +66,10 @@
                     @endforelse
                 </div>
 
-                <div class="d-flex justify-content-center">
-                    {{ $galeris->links() }}
-                </div>
+                <div class="d-flex justify-content-end mt-3">
+    {{ $galeris->links() }}
+</div>
+
             </div>
         </section>
     </div>

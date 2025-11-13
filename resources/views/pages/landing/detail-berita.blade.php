@@ -4,6 +4,9 @@
 @section('content')
 <title>Desa Cantik - Detail Berita</title>
 
+<!-- Font Awesome untuk icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 <style>
 .container-detail {
   max-width: 1400px;
@@ -15,7 +18,7 @@
 }
 
 .content {
-  flex: 4;
+  flex: 3;
   background: #fff;
   border-radius: 14px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
@@ -34,14 +37,14 @@
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 15px;
-  color: #222;
+  color: #000; /* Diubah dari #222 menjadi #000 */
 }
 
 .meta {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  color: #777;
+  color: #000; /* Diubah dari #777 menjadi #000 */
   font-size: 14px;
   margin-bottom: 15px;
 }
@@ -58,56 +61,18 @@
 
 .isi-berita {
   line-height: 1.8;
-  color: #333;
+  color: #000; /* Diubah dari #333 menjadi #000 */
   font-size: 16px;
   text-align: justify;
 }
 
-.sidebar {
-  flex: 1;
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  padding: 22px;
-  height: fit-content;
-}
-
-.sidebar h2 {
-  font-size: 22px;
-  margin-bottom: 20px;
-  border-bottom: 2px solid #4CAF50;
-  padding-bottom: 6px;
-  color: #222;
-}
-
-.sidebar .item {
+.share-buttons {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
   display: flex;
   gap: 10px;
-  margin-bottom: 18px;
-  border-radius: 8px;
-  padding: 6px;
-  transition: background 0.2s;
-}
-.sidebar .item:hover {
-  background: #f0f9f0;
-}
-
-.sidebar img.thumb {
-  width: 70px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 6px;
-}
-
-.sidebar .desc h4 {
-  font-size: 15px;
-  color: #333;
-  margin: 0 0 4px 0;
-}
-
-.sidebar .desc small {
-  font-size: 12px;
-  color: #777;
+  flex-wrap: wrap;
 }
 
 .share-buttons a {
@@ -134,24 +99,193 @@
   opacity: 0.85;
 }
 
+/* ===== STYLING BERITA TERPOPULER ===== */
+.berita-terbaru-box {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    padding: 22px;
+    height: fit-content;
+}
+
+.berita-terbaru-box h4 {
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #000;
+    font-size: 22px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #4CAF50;
+    font-family: 'Poppins', sans-serif;
+}
+
+.berita-terbaru-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.berita-terbaru-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+.berita-terbaru-item:hover {
+    background: #f0fdf4;
+    border-color: #16a34a;
+    transform: translateX(5px);
+    text-decoration: none;
+    color: inherit;
+}
+
+.berita-terbaru-item img {
+    width: 70px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.berita-terbaru-content {
+    flex: 1;
+}
+
+.berita-terbaru-content .judul {
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+.berita-terbaru-content .tanggal {
+    color: #000;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.breadcrumb nav {
+    background: #258d15ff;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.breadcrumb ol {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.breadcrumb a {
+    color: #ffffff !important;
+    text-decoration: none;
+}
+
+.breadcrumb li {
+    color: #ffffff !important;
+}
+
+.breadcrumb li:not(:last-child)::after {
+    content: "/";
+    margin-left: 10px;
+    color: #ffffff !important;
+}
+
+/* Responsive */
 @media (max-width: 992px) {
   .container-detail {
     flex-direction: column;
+  }
+  
+  .content {
+    flex: none;
+  }
+  
+  .berita-terbaru-box {
+    flex: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .container-detail {
+    margin: 20px auto;
+    padding: 0 15px;
+    gap: 15px;
+  }
+  
+  .content {
+    padding: 20px;
+  }
+  
+  .content h1 {
+    font-size: 24px;
+  }
+  
+  .meta {
+    gap: 8px;
+  }
+  
+  .share-buttons {
+    justify-content: center;
+  }
+
+  .berita-terbaru-box {
+    padding: 20px;
+  }
+  
+  .berita-terbaru-item {
+    padding: 12px;
+    gap: 12px;
+  }
+  
+  .berita-terbaru-item img {
+    width: 60px;
+    height: 50px;
+  }
+  
+  .berita-terbaru-content .judul {
+    font-size: 13px;
+  }
+  
+  .berita-terbaru-content .tanggal {
+    font-size: 11px;
   }
 }
 </style>
 
 <!-- Breadcrumb -->
-<div class="breadcrumb" style="max-width: 1400px; margin: 20px auto; padding: 0 20px;">
-  <nav style="background: #0fb000; padding: 10px 15px; border-radius: 5px;">
-    <ol style="display: flex; list-style: none; margin: 0; padding: 0; gap: 10px;">
-      <li><a href="{{ route('home') }}" style="color: #4CAF50; text-decoration: none;">Beranda</a></li>
-      <li style="color: #ffffff;">/</li>
-      <li><a href="{{ route('berita') }}" style="color: #4CAF50; text-decoration: none;">Berita Desa</a></li>
-      <li style="color: #ffffff;">/</li>
-      <li style="color: #ffffff;">{{ Str::limit($berita->judul, 50) }}</li>
-    </ol>
-  </nav>
+<div class="breadcrumb">
+    <nav>
+        <ol>
+            <li><a href="{{ route('home') }}">Beranda</a></li>
+            <li><a href="{{ route('berita') }}">Berita Desa</a></li>
+            <li>{{ Str::limit($berita->judul, 30) }}</li>
+        </ol>
+    </nav>
 </div>
 
 <div class="container-detail">
@@ -160,7 +294,6 @@
     <h1>{{ $berita->judul }}</h1>
   
     <div class="meta">
-      
       <span><i class="far fa-user"></i> {{ $berita->penulis ?? 'Admin Desa' }}</span>
       @if($berita->tanggal_event)
         <span><i class="far fa-calendar"></i> {{ \Carbon\Carbon::parse($berita->tanggal_event)->translatedFormat('d F Y') }}</span>
@@ -176,8 +309,8 @@
     </div>
 
     <!-- Share buttons -->
-    <div class="share-buttons" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
-      <h4 style="margin-bottom: 15px; color: #333;">Bagikan Berita Ini:</h4>
+    <div class="share-buttons">
+      <h4 style="margin-bottom: 15px; color: #000;">Bagikan Berita Ini:</h4>
       <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" target="_blank" class="facebook">
         <i class="fab fa-facebook"></i> Facebook
       </a>
@@ -190,18 +323,23 @@
     </div>
   </div>
 
-  <!-- Sidebar berita terbaru -->
-  <div class="sidebar">
-    <h2>Berita Terbaru</h2>
-    @foreach($latest_beritas as $b)
-      <div class="item">
-        <img class="thumb" src="{{ $b->foto ? asset('storage/'.$b->foto) : asset('img/example-image.jpg') }}" alt="{{ $b->judul }}">
-        <div class="desc">
-          <h4><a href="{{ route('berita.show', $b->id) }}">{{ $b->judul }}</a></h4>
-          <small>{{ $b->tanggal_event ? \Carbon\Carbon::parse($b->tanggal_event)->translatedFormat('d M Y') : '' }}</small>
-        </div>
-      </div>
-    @endforeach
+  <!-- Sidebar Berita Terpopuler -->
+  <div class="berita-terbaru-box">
+    <h4>BERITA TERPOPULER</h4> 
+    <div class="berita-terbaru-list">
+        @foreach($latest_beritas as $b)
+        <a href="{{ route('berita.show', $b->id) }}" class="berita-terbaru-item">
+            <img src="{{ $b->foto ? asset('storage/'.$b->foto) : asset('img/example-image.jpg') }}" alt="{{ $b->judul }}">
+            <div class="berita-terbaru-content">
+                <div class="judul">{{ Str::limit($b->judul, 50) }}</div>
+                <div class="tanggal">
+                    📅 {{ $b->tanggal_event ? \Carbon\Carbon::parse($b->tanggal_event)->translatedFormat('d M Y') : $b->created_at->translatedFormat('d M Y') }}
+                    | Dilihat {{ $b->dilihat }}
+                </div>
+            </div>
+        </a>
+        @endforeach
+    </div>
   </div>
 </div>
 @endsection

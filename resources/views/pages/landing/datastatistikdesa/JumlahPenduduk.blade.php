@@ -271,6 +271,55 @@ body {
     min-height: 420px;
 }
 
+/* Filter form styling */
+.filter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.btn-apply {
+    background: #16a34a;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s;
+    flex: 1;
+}
+
+.btn-apply:hover {
+    background: #15803d;
+}
+
+.btn-reset-filter {
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s;
+    flex: 1;
+}
+
+.btn-reset-filter:hover {
+    background: #5a6268;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .gallery-title { 
@@ -291,6 +340,14 @@ body {
     
     .table th, .table td {
         padding: 8px;
+    }
+    
+    .filter-actions {
+        flex-direction: column;
+    }
+    
+    .btn-apply, .btn-reset-filter {
+        width: 100%;
     }
 }
 
@@ -334,10 +391,10 @@ body {
                     <i class="bi bi-chevron-down"></i>
                 </div>
                 <div class="filter-content" id="filterContent">
-                    <form method="GET" action="{{ route('statistik.penduduk') }}">
+                    <form method="GET" action="{{ route('statistik.penduduk') }}" class="filter-form" id="filterForm">
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Pilih Dusun:</label>
-                            <select name="dusun" class="form-select" onchange="this.form.submit()">
+                            <select name="dusun" class="form-select" id="dusunSelect">
                                 <option value="">Semua Dusun</option>
                                 @foreach($dusunList as $dusun)
                                     <option value="{{ $dusun->dusun }}" {{ request('dusun')==$dusun->dusun?'selected':'' }}>{{ ucfirst($dusun->dusun) }}</option>
@@ -346,16 +403,19 @@ body {
                         </div>
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Pilih Tahun:</label>
-                            <select name="tahun" class="form-select" onchange="this.form.submit()">
+                            <select name="tahun" class="form-select" id="tahunSelect">
                                 <option value="">Semua Tahun</option>
                                 @foreach(range(date('Y'), date('Y')-5) as $tahun)
                                     <option value="{{ $tahun }}" {{ request('tahun')==$tahun?'selected':'' }}>{{ $tahun }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        @if(request('dusun') || request('tahun'))
-                            <a href="{{ route('statistik.penduduk') }}" class="btn-reset">Reset</a>
-                        @endif
+                        <div class="filter-actions">
+                            <button type="submit" class="btn-apply">Terapkan Filter</button>
+                            @if(request('dusun') || request('tahun'))
+                                <a href="{{ route('statistik.penduduk') }}" class="btn-reset-filter">Reset</a>
+                            @endif
+                        </div>
                     </form>
                 </div>
             </div>
@@ -448,7 +508,7 @@ body {
 </div>
 
 <script>
-// Filter toggle
+// Filter toggle - Default tertutup
 function toggleFilter(el){
     el.classList.toggle('active');
     el.nextElementSibling.classList.toggle('active');
@@ -576,5 +636,22 @@ function downloadPDF(){
     
     doc.save("Data_Penduduk_Desa_Manggalung.pdf"); 
 }
+
+// Prevent form submission on select change
+document.addEventListener('DOMContentLoaded', function() {
+    // Remove onchange events from selects
+    const dusunSelect = document.getElementById('dusunSelect');
+    const tahunSelect = document.getElementById('tahunSelect');
+    
+    dusunSelect.onchange = null;
+    tahunSelect.onchange = null;
+    
+    // Filter form submission
+    const filterForm = document.getElementById('filterForm');
+    filterForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        this.submit();
+    });
+});
 </script>
 @endsection

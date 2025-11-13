@@ -18,7 +18,7 @@ body {
 .hero-section {
     background:
         linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
-        url('{{ asset("landing/images/slider-main/makassar.png") }}') center/cover no-repeat;
+        url('{{ asset("landing/images/slider-main/pangkep.jpg") }}') center/cover no-repeat;
     color: white;
     text-align: center;
     padding: 120px 20px;
@@ -251,7 +251,7 @@ body {
 
 /* ---------------- PERBAIKAN Statistik Slider ---------------- */
 .statistik {
-    background: linear-gradient(135deg, #C0D09D, #2E7D32);
+    background: linear-gradient(135deg, #2E7D32, #C0D09D);
     padding: 70px 20px;
     text-align: center;
     border-radius: 40px;
@@ -2110,10 +2110,10 @@ if (!isset($stats)) {
 <div class="profil">
     <div class="profil-text">
         <h2>Tentang Kelurahan</h2>
-        <p>Kelurahan Maccini Sombala merupakan salah satu kelurahan di Kota Makassar yang memiliki potensi besar dalam pembangunan masyarakat. Dengan jumlah penduduk lebih dari <b>9.600 jiwa</b>, wilayah ini terus berkembang dengan berbagai program sosial, pendidikan, serta peningkatan infrastruktur.</p>
+        <p>Desa Manggalung Kecamatan Mandalle merupakan salah satu kelurahan di Kabupaten Pangkep yang memiliki potensi besar dalam pembangunan masyarakat. Dengan jumlah penduduk lebih dari <b>2.460 jiwa</b>, wilayah ini terus berkembang dengan berbagai program sosial, pendidikan, serta peningkatan infrastruktur.</p>
     </div>
     <div class="profil-img">
-        <img src="{{ asset('landing/images/slider-main/makassar.jpg') }}" alt="Kelurahan" onclick="openModal('{{ asset('landing/images/slider-main/kelurahan.jpg') }}')">
+        <img src="{{ asset('landing/images/slider-main/makassar.png') }}" alt="Kelurahan" onclick="openModal">
     </div>
 </div>
 
@@ -2187,7 +2187,12 @@ if (!isset($stats)) {
     <div class="uniform-grid-container">
         <h2 class="section-title">Berita Terbaru</h2>
         <div class="uniform-grid">
-            @foreach($beritas->take(6) as $berita)
+            @php
+                // Ambil berita terbaru langsung dari database jika $latest_beritas tidak tersedia
+                $homepage_beritas = isset($latest_beritas) ? $latest_beritas : \App\Models\Berita::with('kategori')->latest()->take(6)->get();
+            @endphp
+            
+            @foreach($homepage_beritas as $berita)
             <a href="{{ route('berita.show', $berita->id) }}" class="uniform-card-link">
                 <div class="uniform-card">
                     <img src="{{ $berita->foto ? asset('storage/'.$berita->foto) : asset('img/example-image.jpg') }}"
@@ -2887,7 +2892,7 @@ $(document).ready(function() {
             {
                 id: 'profil-desa',
                 title: 'Profil Desa Manggalung',
-                content: 'Kelurahan Maccini Sombala merupakan salah satu kelurahan di Kota Makassar yang memiliki potensi besar dalam pembangunan masyarakat. Dengan jumlah penduduk lebih dari 9.600 jiwa',
+                content: 'Desa Manggalung Kecamatan Mandalle Kabupaten Pangkep yang memiliki potensi besar dalam pembangunan masyarakat. Dengan jumlah penduduk lebih dari 2.460 jiwa',
                 category: 'Profil',
                 url: '#profil'
             }

@@ -24,7 +24,6 @@
         margin-right: 0;
     }
 
-    /* Styling untuk tombol download Excel */
     .btn-download-excel { 
         background: #16a34a; 
         color: #fff; 
@@ -49,7 +48,6 @@
         text-decoration: none;
     }
 
-    /* Styling untuk DataTables controls */
     .dataTables-controls {
         display: flex;
         justify-content: space-between;
@@ -92,7 +90,6 @@
         min-width: 150px;
     }
 
-    /* Styling untuk pagination */
     .pagination-container {
         margin-top: 20px;
         display: flex;
@@ -112,7 +109,46 @@
         justify-content: flex-end;
     }
 
-    /* Responsive untuk DataTables - TAMPILAN HP */
+    .ttd-preview {
+        width: 60px;
+        height: 30px;
+        border: 1px solid #e2e8f0;
+        border-radius: 4px;
+        background: #f8fafc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        margin: 0 auto;
+    }
+    
+    .ttd-preview img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+    
+    .ttd-badge {
+        font-size: 0.7rem;
+        padding: 0.2em 0.4em;
+    }
+
+    td.keperluan-col {
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    td.keperluan-col:hover {
+        white-space: normal;
+        overflow: visible;
+        position: relative;
+        z-index: 1;
+        background: white;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
     @media (max-width: 576px) {
         .dataTables-controls {
             flex-direction: column;
@@ -153,7 +189,6 @@
             min-width: 120px;
         }
         
-        /* Pagination di HP */
         .pagination-container {
             flex-direction: column;
             text-align: center;
@@ -177,9 +212,13 @@
             margin-right: 3px;
             padding: 0.25rem 0.4rem;
         }
+
+        .ttd-preview {
+            width: 50px;
+            height: 25px;
+        }
     }
 
-    /* Desktop */
     @media (min-width: 577px) {
         .dataTables-controls {
             flex-direction: row;
@@ -193,24 +232,6 @@
         .dataTables-filter {
             order: 2;
         }
-    }
-
-    /* Styling untuk kolom dengan text overflow */
-    td.keperluan-col {
-        max-width: 200px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    /* Hover tampilkan full */
-    td.keperluan-col:hover {
-        white-space: normal;
-        overflow: visible;
-        position: relative;
-        z-index: 1;
-        background: white;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 </style>
 @endpush
@@ -268,24 +289,41 @@
                                 <table class="table table-striped" id="table-bukutamu">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>ID</th>
+                                            <th>No</th>
                                             <th>Nama</th>
                                             <th>Asal Instansi</th>
-                                            <th>Nomor HP</th>
+                                            <th>Jabatan</th>
                                             <th class="keperluan-col">Keperluan</th>
                                             <th>Tanggal (WITA)</th>
+                                            <th>Tanda Tangan</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($bukutamus as $tamu)
+                                        @forelse($bukutamus as $index => $tamu)
                                             <tr>
-                                                <td>{{ $tamu->id }}</td>
+                                                <td>{{ ($bukutamus->currentPage() - 1) * $bukutamus->perPage() + $index + 1 }}</td>
                                                 <td>{{ $tamu->nama }}</td>
                                                 <td>{{ $tamu->asal }}</td>
-                                                <td>{{ $tamu->nomor_hp ?? '-' }}</td>
+                                                <td>{{ $tamu->jabatan ?? '-' }}</td>
                                                 <td class="keperluan-col" title="{{ $tamu->keperluan }}">{{ $tamu->keperluan }}</td>
-                                                <td>{{ $tamu->created_at->timezone('Asia/Makassar')->format('Y-m-d H:i:s') }}</td>
+                                                <td>
+                                                    @if($tamu->waktu_kunjungan)
+                                                        {{ \Carbon\Carbon::parse($tamu->waktu_kunjungan)->timezone('Asia/Makassar')->format('d/m/Y H:i') }}
+                                                    @else
+                                                        {{ $tamu->created_at->timezone('Asia/Makassar')->format('d/m/Y H:i') }}
+                                                    @endif
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    @if($tamu->tanda_tangan)
+                                                        <div class="ttd-preview" onclick="showTTD('{{ $tamu->tanda_tangan }}', '{{ $tamu->nama }}')">
+                                                            <img src="{{ $tamu->tanda_tangan }}" alt="TTD {{ $tamu->nama }}">
+                                                        </div>
+                                                        <small class="badge badge-success ttd-badge">TTD</small>
+                                                    @else
+                                                        <span class="text-muted">-</span>
+                                                    @endif
+                                                </td>
                                                 <td class="action-buttons">
                                                     <div class="btn-group" role="group">
                                                         <a href="{{ route('admin.buku.edit', $tamu->id) }}" 
@@ -310,7 +348,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="7" class="text-center text-muted">
+                                                <td colspan="9" class="text-center text-muted">
                                                     Belum ada data buku tamu.
                                                 </td>
                                             </tr>
@@ -340,6 +378,27 @@
         </div>
     </section>
 </div>
+
+<!-- Modal untuk menampilkan TTD -->
+<div class="modal fade" id="ttdModal" tabindex="-1" role="dialog" aria-labelledby="ttdModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ttdModalLabel">Tanda Tangan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="ttdModalImage" src="" alt="Tanda Tangan" style="max-width: 100%; border: 1px solid #e2e8f0; border-radius: 4px;">
+                <p id="ttdModalName" class="mt-3 mb-0 font-weight-bold text-dark"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('scripts')
@@ -351,13 +410,13 @@
 
 <script>
 $(document).ready(function () {
-    // DataTables initialization - FUNGSI ASLI TETAP BERJALAN
+    // DataTables initialization
     $('#table-bukutamu').DataTable({
-        paging: false,        // tetap pakai pagination laravel
-        searching: false,     // nonaktifkan search DataTables, pakai custom search
+        paging: false,
+        searching: false,
         ordering: true,
         responsive: true,
-        info: false,          // nonaktifkan info DataTables, pakai custom info
+        info: false,
         language: { 
             url: 'https://cdn.datatables.net/plug-ins/2.1.0/i18n/id.json',
             search: "Cari:",
@@ -371,10 +430,49 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
 
+// Fungsi untuk menampilkan TTD di modal
+function showTTD(ttdData, nama) {
+    document.getElementById('ttdModalImage').src = ttdData;
+    document.getElementById('ttdModalName').textContent = 'Tanda Tangan: ' + nama;
+    $('#ttdModal').modal('show');
+}
+
 // Download Excel Function
 function downloadExcel(){ 
-    const wb = XLSX.utils.table_to_book(document.getElementById("table-bukutamu")); 
-    XLSX.writeFile(wb, "Data_Buku_Tamu_Desa_Manggalung.xlsx"); 
+    const wb = XLSX.utils.book_new();
+    const excelData = [
+        ["DATA BUKU TAMU DESA MANGGAUNG - ADMIN"],
+        ["Tanggal Ekspor: " + new Date().toLocaleDateString('id-ID', { timeZone: 'Asia/Makassar' })],
+        ["Waktu Ekspor: " + new Date().toLocaleTimeString('id-ID', { timeZone: 'Asia/Makassar' }) + " WITA"],
+        [""],
+        ["No", "Nama", "Asal Instansi", "Jabatan", "Keperluan", "Tanggal Kunjungan", "Tanda Tangan"]
+    ];
+
+    @foreach($bukutamus as $index => $tamu)
+    excelData.push([
+        {{ $index + 1 }},
+        "{{ $tamu->nama }}",
+        "{{ $tamu->asal }}",
+        "{{ $tamu->jabatan ?? '-' }}",
+        "{{ $tamu->keperluan }}",
+        "{{ $tamu->waktu_kunjungan ? \Carbon\Carbon::parse($tamu->waktu_kunjungan)->format('d/m/Y H:i') . ' WITA' : $tamu->created_at->timezone('Asia/Makassar')->format('d/m/Y H:i') . ' WITA' }}",
+        "{{ $tamu->tanda_tangan ? 'Ya' : 'Tidak' }}"
+    ]);
+    @endforeach
+
+    const ws = XLSX.utils.aoa_to_sheet(excelData);
+    ws['!cols'] = [
+        {wch: 6}, 
+        {wch: 25}, 
+        {wch: 25}, 
+        {wch: 20}, 
+        {wch: 20}, 
+        {wch: 50}, 
+        {wch: 20}, 
+        {wch: 12}
+    ];
+    XLSX.utils.book_append_sheet(wb, ws, "Buku Tamu");
+    XLSX.writeFile(wb, `Data_Buku_Tamu_Admin_${new Date().toISOString().split('T')[0]}.xlsx`);
 }
 </script>
 @endpush

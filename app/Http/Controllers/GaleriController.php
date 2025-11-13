@@ -13,7 +13,7 @@ class GaleriController extends Controller
 {
     public function index()
     {
-        $galeris = Galeri::latest()->paginate(9);
+        $galeris = Galeri::latest()->paginate(12);
 
         return view('pages.admin.galeriDesa.index', [
             'galeris' => $galeris,
@@ -94,11 +94,42 @@ class GaleriController extends Controller
             ->with('success', 'Foto galeri berhasil dihapus.');
     }
 
-    public function userIndex()
+    public function userIndex(Request $request)
     {
-        $galeris = Galeri::latest()->paginate(9);
-
-        return view('pages.landing.profildesa.GaleriDesa', compact('galeris'));
+        $page = $request->input('page', 1);
+        $perPage = 12; // Bisa disesuaikan, lebih banyak untuk infinite scroll
+        
+        $galeris = Galeri::latest()->paginate($perPage, ['*'], 'page', $page);
+        
+        if ($request->ajax()) {
+            $html = '';
+            foreach ($galeris as $galeri) {
+                $html .= '
+                <div class="gallery-card">
+                    <div class="gallery-item" 
+                         onclick="openModal(\'' . asset('storage/' . $galeri->gambar) . '\', \'' . addslashes($galeri->judul) . '\')">
+                        <img src="' . asset('storage/' . $galeri->gambar) . '"
+                             class="gallery-img"
+                             alt="' . addslashes($galeri->judul) . '">
+                        <div class="gallery-overlay">
+                            <i class="bi bi-zoom-in"></i>
+                            <small class="text-uppercase fw-bold">
+                                Klik untuk memperbesar
+                            </small>
+                        </div>
+                    </div>
+                </div>';
+            }
+            
+            return response()->json([
+                'html' => $html,
+                'hasMore' => $galeris->hasMorePages()
+            ]);
+        }
+        
+        // Untuk load pertama, tampilkan semua data tanpa pagination
+        $initialGaleris = Galeri::latest()->get();
+        
+        return view('pages.landing.profildesa.GaleriDesa', compact('initialGaleris'));
     }
-   
 }

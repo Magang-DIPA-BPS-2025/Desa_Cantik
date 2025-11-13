@@ -74,7 +74,7 @@
                     <p>{{ $ppid->deskripsi }}</p>
 
                     {{-- Sub-items --}}
-                    @if($ppid->sub_items->count())
+                  @if($ppid->sub_items && $ppid->sub_items->isNotEmpty())
                         @foreach($ppid->sub_items as $sub)
                             <div class="sub-item">
                                 <h6>{{ $sub->judul }}</h6>

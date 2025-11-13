@@ -1,7 +1,7 @@
 <?php
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AkunController;
 use App\Models\Berita;
-use App\Http\Controllers\TTSController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\PemerintahDesaController;
@@ -98,7 +98,7 @@ Route::group(
 
         Route::get('/verifikasi-surat/{id}', [SkuController::class, 'verifikasiSurat'])->name('verifikasi.surat');
         Route::get('/verifikasi-surat-sktm/{id}', [SktmController::class, 'verifikasiSurat'])->name('verifikasi.surat.sktm');
-        Route::get('/verifikasi-surat-kematian/{id}', [sKematianController::class, 'verifikasiSurat'])->name('verifikasi.surat.kematian');
+        Route::get('/verifikasi-surat-kematian/{id}', [sKematianController::class, 'verifikasiSurat'])->name('pages.admin.skematian.index');
         Route::get('/verifikasi-surat-izin/{id}', [IzinController::class, 'verifikasiSurat'])->name('verifikasi.surat.izin');
         
         Route::get('sktm', [SktmController::class, 'export'])->name('pages.admin.sktm.index');
@@ -122,8 +122,7 @@ Route::group(
         })->name('penyandang');
 
         //PPID & Belanja Desa
-        Route::get('/ppid', [App\Http\Controllers\PPIDController::class, 'userindex'])
-            ->name('ppid');
+        Route::get('/ppid', [App\Http\Controllers\PPIDController::class, 'userindex'])->name('ppid');
         Route::get('/ppid/status-permohonan', [App\Http\Controllers\PermohonanInformasiController::class, 'userStatus'])
             ->name('permohonan.userStatus');
 
@@ -199,17 +198,6 @@ Route::group(
                 Route::get('/edit/{nik}', 'DataPendudukController@edit')->name('dataPenduduk.edit');
                 Route::put('/update/{nik}', 'DataPendudukController@update')->name('dataPenduduk.update');
                 Route::delete('/destroy/{nik}', 'DataPendudukController@destroy')->name('dataPenduduk.destroy');
-            });
-
-            // Akun
-            Route::prefix('akun')->group(function () {
-                Route::get('/', 'AkunController@index')->name('akun.index');
-                Route::get('/create', 'AkunController@create')->name('akun.create');
-                Route::post('/store', 'AkunController@store')->name('akun.store');
-                Route::post('/regis', 'AkunController@regis')->name('akun.regis');
-                Route::get('/edit/{id}', 'AkunController@edit')->name('akun.edit');
-                Route::put('/update', 'AkunController@update')->name('akun.update');
-                Route::post('/hapus/{id}', 'AkunController@destroy')->name('akun.hapus');
             });
 
             Route::prefix('agenda')->group(function () {
@@ -320,6 +308,15 @@ Route::group(
             });
 
 
+
+              Route::middleware(['auth', 'is_admin'])->group(function () {
+                Route::get('/akun', [AkunController::class, 'index'])->name('akun.index');
+                Route::get('/akun/create', [AkunController::class, 'create'])->name('akun.create'); 
+                Route::post('/akun', [AkunController::class, 'store'])->name('akun.store'); 
+                Route::get('/akun/edit/{id}', [AkunController::class, 'edit'])->name('akun.edit');
+                Route::put('/akun/{id}', [AkunController::class, 'update'])->name('akun.update'); 
+                Route::delete('/akun/delete/{id}', [AkunController::class, 'destroy'])->name('akun.destroy');
+            });
 
 
             Route::resource('ppid', PPIDController::class);

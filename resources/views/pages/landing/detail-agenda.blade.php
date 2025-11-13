@@ -1,4 +1,3 @@
-{{-- resources/views/pages/landing/detail-agenda.blade.php --}}
 @extends('layouts.landing.app')
 
 @section('content')
@@ -20,7 +19,7 @@
 
 /* ===== Konten utama ===== */
 .content {
-    flex: 4;
+    flex: 3;
     background: #fff;
     border-radius: 14px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.1);
@@ -32,7 +31,7 @@
     font-size: 28px;
     font-weight: 700;
     margin-bottom: 15px;
-    color: #222;
+    color: #000;
 }
 
 /* Meta info */
@@ -40,7 +39,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    color: #777;
+    color: #000;
     font-size: 14px;
     margin-bottom: 15px;
 }
@@ -67,12 +66,21 @@
 /* Isi konten */
 .isi-berita {
     line-height: 1.8;
-    color: #333;
+    color: #000;
     font-size: 16px;
     text-align: justify;
 }
 
 /* Share buttons */
+.share-buttons {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
 .share-buttons a {
     display: inline-flex;
     align-items: center;
@@ -97,9 +105,45 @@
     opacity: 0.85;
 }
 
-/* Sidebar */
-.sidebar {
-    flex: 1;
+/* ===== BREADCRUMB - SEMUA WARNA PUTIH ===== */
+.breadcrumb {
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.breadcrumb nav {
+    background: #258d15ff;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.breadcrumb ol {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.breadcrumb a {
+    color: #ffffff !important; /* Warna putih untuk link */
+    text-decoration: none;
+}
+
+.breadcrumb li {
+    color: #ffffff !important; /* Warna putih untuk semua teks */
+}
+
+.breadcrumb li:not(:last-child)::after {
+    content: "/";
+    margin-left: 10px;
+    color: #ffffff !important; /* Warna putih untuk separator */
+}
+
+/* ===== STYLING AGENDA TERPOPULER ===== */
+.agenda-terbaru-box {
     background: #fff;
     border-radius: 14px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.08);
@@ -107,63 +151,147 @@
     height: fit-content;
 }
 
-.sidebar h2 {
-    font-size: 22px;
+.agenda-terbaru-box h4 {
+    font-weight: 700;
     margin-bottom: 20px;
-    border-bottom: 2px solid #4CAF50;
+    color: #000;
+    font-size: 22px;
     padding-bottom: 6px;
-    color: #222;
+    border-bottom: 2px solid #4CAF50;
+    font-family: 'Poppins', sans-serif;
 }
 
-.sidebar .item {
+.agenda-terbaru-list {
     display: flex;
-    gap: 10px;
-    margin-bottom: 18px;
-    border-radius: 8px;
-    padding: 6px;
-    transition: background 0.2s;
-}
-.sidebar .item:hover {
-    background: #f0f9f0;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.sidebar img.thumb {
+.agenda-terbaru-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+.agenda-terbaru-item:hover {
+    background: #f0fdf4;
+    border-color: #16a34a;
+    transform: translateX(5px);
+    text-decoration: none;
+    color: inherit;
+}
+
+.agenda-terbaru-item img {
     width: 70px;
-    height: 50px;
+    height: 60px;
     object-fit: cover;
-    border-radius: 6px;
+    border-radius: 8px;
+    flex-shrink: 0;
 }
 
-.sidebar .desc h4 {
-    font-size: 15px;
-    color: #333;
-    margin: 0 0 4px 0;
+.agenda-terbaru-content {
+    flex: 1;
 }
 
-.sidebar .desc small {
+.agenda-terbaru-content .judul {
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+.agenda-terbaru-content .tanggal {
+    color: #000;
     font-size: 12px;
-    color: #777;
+    font-weight: 500;
+    font-family: 'Open Sans', sans-serif;
 }
 
 /* Responsive */
 @media (max-width: 992px) {
-  .container-detail {
-    flex-direction: column;
-  }
+    .container-detail {
+        flex-direction: column;
+    }
+    
+    .content {
+        flex: none;
+    }
+    
+    .agenda-terbaru-box {
+        flex: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .container-detail {
+        margin: 20px auto;
+        padding: 0 15px;
+        gap: 15px;
+    }
+    
+    .content {
+        padding: 20px;
+    }
+    
+    .content h1 {
+        font-size: 24px;
+    }
+    
+    .meta {
+        gap: 8px;
+    }
+    
+    .share-buttons {
+        justify-content: center;
+    }
+
+    .agenda-terbaru-box {
+        padding: 20px;
+    }
+    
+    .agenda-terbaru-item {
+        padding: 12px;
+        gap: 12px;
+    }
+    
+    .agenda-terbaru-item img {
+        width: 60px;
+        height: 50px;
+    }
+    
+    .agenda-terbaru-content .judul {
+        font-size: 13px;
+    }
+    
+    .agenda-terbaru-content .tanggal {
+        font-size: 11px;
+    }
 }
 </style>
 
 <!-- Breadcrumb -->
-<div class="breadcrumb" style="max-width: 1400px; margin: 20px auto; padding: 0 20px;">
-  <nav style="background: #0fb000; padding: 10px 15px; border-radius: 5px;">
-    <ol style="display: flex; list-style: none; margin: 0; padding: 0; gap: 10px;">
-      <li><a href="{{ route('home') }}" style="color: #4CAF50; text-decoration: none;">Beranda</a></li>
-      <li style="color: #ffffff;">/</li>
-      <li><a href="{{ route('agenda') }}" style="color: #4CAF50; text-decoration: none;">Agenda Desa</a></li>
-      <li style="color: #ffffff;">/</li>
-      <li style="color: #ffffff;">{{ Str::limit($data->nama_kegiatan, 50) }}</li>
-    </ol>
-  </nav>
+<div class="breadcrumb">
+    <nav>
+        <ol>
+            <li><a href="{{ route('home') }}">Beranda</a></li>
+            <li><a href="{{ route('agenda') }}">Agenda Desa</a></li>
+            <li>{{ Str::limit($data->nama_kegiatan, 30) }}</li>
+        </ol>
+    </nav>
 </div>
 
 <div class="container-detail">
@@ -172,47 +300,55 @@
         <h1>{{ $data->nama_kegiatan }}</h1>
       
         <div class="meta">
-          <span><i class="far fa-user"></i> {{ $data->penulis ?? 'Admin Desa' }}</span>
-          @if($data->waktu_pelaksanaan)
-            <span><i class="far fa-calendar"></i> {{ \Carbon\Carbon::parse($data->waktu_pelaksanaan)->translatedFormat('d F Y') }}</span>
-          @endif
-          <span><i class="far fa-eye"></i> Dilihat {{ $data->dilihat ?? 0 }} kali</span>
+            <span><i class="far fa-user"></i> {{ $data->penulis ?? 'Admin Desa' }}</span>
+            @if($data->waktu_pelaksanaan)
+                <span><i class="far fa-calendar"></i> {{ \Carbon\Carbon::parse($data->waktu_pelaksanaan)->translatedFormat('d F Y') }}</span>
+            @endif
+            <span><i class="far fa-eye"></i> Dilihat {{ $data->dilihat ?? 0 }} kali</span>
+            @if($data->kategori)
+                <span><i class="fas fa-tag"></i> {{ $data->kategori }}</span>
+            @endif
         </div>
 
         @if($data->foto)
-        <img class="thumb" src="{{ asset('storage/'.$data->foto) }}" alt="{{ $data->nama_kegiatan }}">
+            <img class="thumb" src="{{ asset('storage/'.$data->foto) }}" alt="{{ $data->nama_kegiatan }}">
         @endif
 
         <div class="isi-berita">
-          {!! nl2br(e($data->deskripsi)) !!}
+            {!! nl2br(e($data->deskripsi)) !!}
         </div>
 
         <!-- Share buttons -->
-        <div class="share-buttons" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
-          <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" target="_blank" class="facebook">
-            <i class="fab fa-facebook"></i> Facebook
-          </a>
-          <a href="https://twitter.com/intent/tweet?url={{ url()->current() }}&text={{ $data->nama_kegiatan }}" target="_blank" class="twitter">
-            <i class="fab fa-twitter"></i> Twitter
-          </a>
-          <a href="https://wa.me/?text={{ urlencode($data->nama_kegiatan . ' - ' . url()->current()) }}" target="_blank" class="whatsapp">
-            <i class="fab fa-whatsapp"></i> WhatsApp
-          </a>
+        <div class="share-buttons">
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" target="_blank" class="facebook">
+                <i class="fab fa-facebook"></i> Facebook
+            </a>
+            <a href="https://twitter.com/intent/tweet?url={{ url()->current() }}&text={{ $data->nama_kegiatan }}" target="_blank" class="twitter">
+                <i class="fab fa-twitter"></i> Twitter
+            </a>
+            <a href="https://wa.me/?text={{ urlencode($data->nama_kegiatan . ' - ' . url()->current()) }}" target="_blank" class="whatsapp">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
         </div>
     </div>
 
-    <!-- Sidebar agenda terbaru -->
-    <div class="sidebar">
-      <h2>Agenda Terbaru</h2>
-      @foreach($latest_post as $b)
-      <div class="item">
-        <img class="thumb" src="{{ $b->foto ? asset('storage/'.$b->foto) : asset('img/example-image.jpg') }}" alt="{{ $b->nama_kegiatan }}">
-        <div class="desc">
-          <h4><a href="{{ route('agenda.show', $b->id) }}">{{ $b->nama_kegiatan }}</a></h4>
-          <small>{{ $b->waktu_pelaksanaan ? \Carbon\Carbon::parse($b->waktu_pelaksanaan)->translatedFormat('d M Y') : '' }}</small>
+    <!-- Sidebar Agenda Terpopuler -->
+    <div class="agenda-terbaru-box">
+        <h4>AGENDA TERPOPULER</h4> 
+        <div class="agenda-terbaru-list">
+            @foreach($latest_agendas as $a)
+            <a href="{{ route('agenda.show', $a->id) }}" class="agenda-terbaru-item">
+                <img src="{{ $a->foto ? asset('storage/'.$a->foto) : asset('img/example-image.jpg') }}" alt="{{ $a->nama_kegiatan }}">
+                <div class="agenda-terbaru-content">
+                    <div class="judul">{{ Str::limit($a->nama_kegiatan, 50) }}</div>
+                    <div class="tanggal">
+                        📅 {{ $a->waktu_pelaksanaan ? \Carbon\Carbon::parse($a->waktu_pelaksanaan)->translatedFormat('d M Y') : 'Tanggal belum ditentukan' }}
+                        | Dilihat {{ $a->dilihat ?? 0 }}  
+                    </div>
+                </div>
+            </a>
+            @endforeach
         </div>
-      </div>
-      @endforeach
     </div>
 </div>
 @endsection

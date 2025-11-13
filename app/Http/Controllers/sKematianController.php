@@ -182,19 +182,20 @@ class sKematianController extends Controller
      * Verifikasi surat untuk user (public)
      */
     public function verifikasiSurat($id)
-    {
-        $kematian = SKematian::find($id);
+{
+    $kematian = SKematian::find($id);
 
-        if (!$kematian) {
-            return view('pages.landing.verifikasi.kematian', [
-                'valid' => false,
-                'pesan' => 'Data surat kematian tidak ditemukan.'
-            ]);
-        }
-
-        return view('pages.landing.verifikasi.kematian', [
-            'valid' => true,
-            'kematian' => $kematian
+    if (!$kematian) {
+        return view('pages.admin.skematian.index', [
+            'valid' => false,
+            'pesan' => 'Data surat kematian tidak ditemukan.'
         ]);
     }
+
+    return view('pages.admin.skematian.verifikasi', [
+        'valid' => true,
+        'kematian' => $kematian
+    ]);
+}
+
 }

@@ -232,7 +232,7 @@
 
                 {{-- Data Akun --}}
                 <li class="nav-item {{ $activeMenu == 'akun' ? 'active' : '' }}">
-                    <a href="{{ route('dashboard') }}" class="nav-link">
+                    <a href="{{ route('akun.index') }}" class="nav-link">
                         <i class="fas fa-user"></i> <span>Data Akun</span>
                     </a>
                 </li>

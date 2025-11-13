@@ -1,42 +1,42 @@
 <footer id="landing-footer" class="footer">
     <div class="footer-container">
-        <div class="row">
-
+        <div class="footer-row">
             <!-- Kolom 1: CONTACT INFO -->
-            <div class="col-md-4 footer-col">
+            <div class="footer-col">
                 <h4>KONTAK INFO</h4>
                 <div class="logo-container">
-                    <img src="{{ asset('landing/images/footer/logobps.png') }}"
-                         alt="BPS Logo" class="footer-logo">
-                    <img src="{{ asset('landing/images/footer/pangkepp.png') }}"
-                         alt="BPS Logo" class="footer-logo">
+                    <img src="{{ asset('landing/images/footer/logobps.png') }}" alt="BPS Logo" class="footer-logo">
+                    <img src="{{ asset('landing/images/footer/pangkepp.png') }}" alt="BPS Logo" class="footer-logo">
                 </div>
                 <p>
                     Pemerintah Desa Manggalung Kabupaten Pangkep Provinsi Sulawesi Selatan<br>
-                    (BPS - Badan Pusat Statistika Provinsi Sulawesi Selatan )
+                    (BPS - Badan Pusat Statistika Provinsi Sulawesi Selatan)
                 </p>
                 <p>
-    Telp Kepala Desa : <a href="tel:085244993977">Hubungi Kepala Desa</a><br>
-    Telp Sekretaris Desa : <a href="tel:085244648513">Hubungi Sekretaris Desa</a><br>
-</p>
-
+                    Telp Kepala Desa : <a href="tel:085244993977">Hubungi Kepala Desa</a><br>
+                    Telp Sekretaris Desa : <a href="tel:085244648513">Hubungi Sekretaris Desa</a>
+                </p>
                 <p>
-    Mailbox : <a href="mailto:pst7300@bps.go.id">pst7300@bps.go.id</a><br>
-    WhatsApp :
-    <a href="https://wa.me/6285244648513" target="_blank">
-        Hubungi Kami
-    </a>
-</p>
-
+                    Mailbox : <a href="mailto:pst7300@bps.go.id">pst7300@bps.go.id</a><br>
+                    WhatsApp : <a href="https://wa.me/6285244648513" target="_blank">Hubungi Kami</a>
+                </p>
             </div>
 
             <!-- Kolom 2: JAM OPERASIONAL -->
-            <div class="col-md-4 footer-col">
+            <div class="footer-col">
                 <h4>JAM OPERASIONAL</h4>
                 <div class="operational-hours">
                     <div class="hours-item">
-                        <span class="days">Senin - Jum'at</span>
-                        <span class="hours">08.00 - 16.00 WITA</span>
+                        <span class="days">Senin - Kamis</span>
+                        <span class="hours">Buka : 08.00 - 12.00 WITA</span>
+                        <span class="hours">Istirahat : 12:00 - 12.30 WITA</span>
+                        <span class="hours">Buka : 12.00 - 15.30 WITA</span>
+                    </div>
+                    <div class="hours-item">
+                        <span class="days">Jum'at</span>
+                        <span class="hours">Buka : 08.00 - 11.30 WITA</span>
+                        <span class="hours">Istirahat : 12:00 - 13.00 WITA</span>
+                        <span class="hours">Buka : 13.00 - 16.00 WITA</span>
                     </div>
                     <div class="hours-item">
                         <span class="days">Sabtu - Minggu</span>
@@ -46,7 +46,7 @@
             </div>
 
             <!-- Kolom 3: LOKASI KAMI -->
-            <div class="col-md-4 footer-col">
+            <div class="footer-col">
                 <h4>LOKASI KAMI</h4>
                 <div class="map-container">
                     <iframe
@@ -67,13 +67,10 @@
                     <strong>Koordinat: 4°36'37.44" LS, 119°37'01.20" BT</strong>
                 </p>
             </div>
-
         </div>
         
-        <!-- Garis Horizontal -->
         <div class="footer-divider"></div>
         
-        <!-- Footer Copyright -->
         <div class="footer-bottom">
             <div class="footer-copyright">
                 <p>&copy; 2025 Powered by Magang Universitas Dipa Makassar</p>
@@ -106,52 +103,59 @@
     </div>
 </footer>
 
-<!-- Script Aksesibilitas -->
-<script src="https://cdn.jsdelivr.net/npm/sienna-accessibility@latest/dist/sienna-accessibility.umd.js" defer></script>
-
 <style>
+/* Reset dan variabel */
+:root {
+    --primary-color: #2E7D32;
+    --secondary-color: #2E7D32;
+    --text-color: #444;
+    --light-bg: #f8f9fa;
+    --whatsapp-color: #25D366;
+}
+
+/* Footer utama */
 #landing-footer {
-    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    background: linear-gradient(135deg, #ffffff, var(--light-bg));
     padding: 50px 0 0;
-    border-top: 3px solid #2E7D32;
-    color: #444;
+    border-top: 3px solid var(--primary-color);
+    color: var(--text-color);
     font-size: 15px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     position: relative;
 }
 
-/* Isolated container to avoid conflicts with global .container */
+/* Container */
 #landing-footer .footer-container {
     max-width: 1140px;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-left: auto;
-    margin-right: auto;
+    padding: 0 15px;
+    margin: 0 auto;
 }
 
-#landing-footer .row {
+/* Layout grid */
+#landing-footer .footer-row {
     display: flex;
     flex-wrap: wrap;
     margin: 0 -15px;
 }
 
 #landing-footer .footer-col {
-    padding: 0 15px;
     flex: 1;
     min-width: 300px;
+    padding: 0 15px;
     margin-bottom: 30px;
 }
 
+/* Judul section */
 #landing-footer h4 {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 20px;
     padding-left: 10px;
-    border-left: 4px solid #2E7D32;
+    border-left: 4px solid var(--primary-color);
     color: #222;
 }
 
-/* Logo Container - Logo dengan ukuran sama persis */
+/* Logo */
 #landing-footer .logo-container {
     display: flex;
     justify-content: space-between;
@@ -170,6 +174,7 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
+/* Teks dan link */
 #landing-footer p {
     margin-bottom: 12px;
     line-height: 1.6;
@@ -181,19 +186,20 @@
     transition: all 0.3s ease;
     font-weight: 500;
 }
+
 #landing-footer a:hover {
-    color: #2E7D32;
+    color: var(--primary-color);
     text-decoration: underline;
 }
 
-/* Jam Operasional */
+/* Jam operasional */
 #landing-footer .operational-hours {
     margin-top: 15px;
 }
 
 #landing-footer .hours-item {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     margin-bottom: 12px;
     padding-bottom: 8px;
     border-bottom: 1px solid #eaeaea;
@@ -202,19 +208,16 @@
 #landing-footer .days {
     font-weight: 600;
     color: #333;
+    margin-bottom: 5px;
 }
 
 #landing-footer .hours {
-    color: #000000ff;
+    color: #000000;
     font-weight: 500;
+    margin-bottom: 3px;
 }
 
-#landing-footer .privacy {
-    margin-top: 20px;
-    font-size: 14px;
-}
-
-/* Map Container */
+/* Map */
 #landing-footer .map-container {
     margin-bottom: 15px;
     border-radius: 8px;
@@ -222,16 +225,15 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* Map Info */
 #landing-footer .map-info {
     margin-top: 15px;
     font-size: 14px;
     color: #555;
     line-height: 1.6;
-    background: #f8f9fa;
+    background: var(--light-bg);
     padding: 15px;
     border-radius: 8px;
-    border-left: 4px solid #2E7D32;
+    border-left: 4px solid var(--primary-color);
 }
 
 #landing-footer .map-info strong {
@@ -241,15 +243,15 @@
     font-size: 13px;
 }
 
-/* Garis Horizontal */
+/* Garis pemisah */
 #landing-footer .footer-divider {
     height: 1px;
-    background: linear-gradient(to right, transparent, #2E7D32, transparent);
+    background: linear-gradient(to right, transparent, var(--primary-color), transparent);
     margin: 20px 0 15px;
     width: 100%;
 }
 
-/* Footer Bottom */
+/* Footer bawah */
 #landing-footer .footer-bottom {
     display: flex;
     justify-content: space-between;
@@ -262,7 +264,7 @@
     font-size: 14px;
 }
 
-/* Social media di footer bottom */
+/* Media sosial */
 #landing-footer .footer-social {
     display: flex;
     gap: 10px;
@@ -280,17 +282,17 @@
     transition: all 0.3s ease;
     color: #555;
 }
+
 #landing-footer .footer-social .social:hover {
     transform: translateY(-2px);
     color: #fff;
 }
+
 #landing-footer .footer-social .social.fb:hover { background: #3b5998; }
 #landing-footer .footer-social .social.ig:hover { background: #E1306C; }
 #landing-footer .footer-social .social.yt:hover { background: #FF0000; }
 
-/* ==================== */
-/* TOMBOL WHATSAPP SEKDES */
-/* ==================== */
+/* Tombol WhatsApp */
 #landing-footer .whatsapp-chat-sekdes {
     position: fixed;
     bottom: 30px;
@@ -301,7 +303,7 @@
 #landing-footer .whatsapp-chat-sekdes .whatsapp-btn {
     display: flex;
     align-items: center;
-    background: #25D366;
+    background: var(--whatsapp-color);
     color: white;
     text-decoration: none;
     padding: 12px 20px;
@@ -340,7 +342,7 @@
     opacity: 0.9;
 }
 
-/* Animasi untuk tombol WhatsApp */
+/* Animasi */
 @keyframes pulse-whatsapp {
     0% {
         box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
@@ -365,7 +367,7 @@
     }
 }
 
-/* Responsive Design */
+/* Responsif */
 @media (max-width: 992px) {
     #landing-footer .footer-col {
         flex: 0 0 50%;
@@ -395,7 +397,7 @@
     }
     
     #landing-footer h4 {
-        border-left: 4px solid #C0D09D;
+        border-left: 4px solid var(--secondary-color);
         padding-left: 10px;
         border-bottom: none;
         display: block;
@@ -412,7 +414,6 @@
         margin-bottom: 0;
     }
 
-    /* Tombol WhatsApp untuk mobile */
     #landing-footer .whatsapp-chat-sekdes {
         bottom: 20px;
         right: 20px;
@@ -456,21 +457,12 @@
         height: 220px;
     }
     
-    #landing-footer .hours-item {
-        flex-direction: column;
-    }
-    
-    #landing-footer .hours {
-        margin-top: 5px;
-    }
-    
     #landing-footer .footer-social .social {
         width: 32px;
         height: 32px;
         font-size: 14px;
     }
 
-    /* Tombol WhatsApp untuk mobile kecil */
     #landing-footer .whatsapp-chat-sekdes {
         bottom: 15px;
         right: 15px;
@@ -486,20 +478,7 @@
     }
     
     #landing-footer .whatsapp-chat-sekdes .whatsapp-text {
-        display: none; /* Sembunyikan teks di mobile sangat kecil */
-    }
-    
-    #landing-footer .whatsapp-chat-sekdes .whatsapp-btn:hover .whatsapp-text {
-        display: flex; /* Tampilkan teks saat hover */
-        position: absolute;
-        right: 100%;
-        top: 50%;
-        transform: translateY(-50%);
-        background: #25D366;
-        padding: 8px 12px;
-        border-radius: 8px;
-        margin-right: 10px;
-        white-space: nowrap;
+        display: none;
     }
 }
 
@@ -522,7 +501,6 @@
         padding: 12px;
     }
 
-    /* Tombol WhatsApp untuk mobile sangat kecil */
     #landing-footer .whatsapp-chat-sekdes .whatsapp-btn {
         padding: 10px;
         border-radius: 50%;
@@ -539,7 +517,6 @@
     }
 }
 
-/* Untuk perangkat dengan layar sangat kecil (portrait) */
 @media (max-width: 320px) {
     #landing-footer .whatsapp-chat-sekdes {
         bottom: 10px;
@@ -547,3 +524,4 @@
     }
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/sienna-accessibility@latest/dist/sienna-accessibility.umd.js" defer></script>

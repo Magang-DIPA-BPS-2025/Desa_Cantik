@@ -4,7 +4,6 @@
 <title>Desa Cantik - Berita Desa</title>
 
 <style>
-
 body, .container-main, .card, .filter-toggle, .btn-download, .dropdown-content, .table, .layout-sidebar, .layout-main {
     font-family: 'Open Sans', sans-serif;
 }
@@ -25,7 +24,6 @@ body {
     padding: 20px; 
 }
 
-
 .gallery-header {
     margin-bottom: 2rem;
     margin-top: -1rem;
@@ -41,7 +39,7 @@ body {
 
 .gallery-header p {
     font-size: 1.1rem;
-    color: #666;
+    color: #000; /* Diubah dari #666 menjadi #000 */
     margin-bottom: 0;
 }
 
@@ -89,7 +87,7 @@ body {
 .berita-card h4 {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #2c3e50;
+  color: #000; /* Diubah dari #2c3e50 menjadi #000 */
   margin-bottom: 8px;
   font-family: 'Poppins', sans-serif;
 }
@@ -97,14 +95,14 @@ body {
 .berita-card small {
   display: block;
   font-size: 0.85rem;
-  color: #888;
+  color: #000; /* Diubah dari #888 menjadi #000 */
   margin-bottom: 10px;
   font-family: 'Open Sans', sans-serif;
 }
 
 .berita-card p {
   font-size: 0.9rem;
-  color: #555;
+  color: #000; /* Diubah dari #555 menjadi #000 */
   margin-bottom: 0;
   font-family: 'Open Sans', sans-serif;
 }
@@ -130,6 +128,7 @@ body {
   transition: all 0.3s ease;
   background: #fafafa;
   font-family: 'Open Sans', sans-serif;
+  color: #000; /* Ditambahkan warna hitam */
 }
 
 .search-box input[type="text"]:focus {
@@ -153,7 +152,7 @@ body {
   transform: translateY(-50%);
   width: 12px;
   height: 12px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.762L10.825 4z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.762L10.825 4z'/%3E%3C/svg%3E"); /* Diubah dari %23333 menjadi %23000 */
   background-repeat: no-repeat;
   background-position: center;
   pointer-events: none;
@@ -175,7 +174,7 @@ body {
   border-radius: 10px;
   border: 1px solid #e0e0e0;
   background: #fafafa;
-  color: #333;
+  color: #000; /* Diubah dari #333 menjadi #000 */
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -200,86 +199,83 @@ body {
   background: #fff;
 }
 
-/* Berita terbaru */
+/* ===== STYLING BERITA TERPOPULER ===== */
 .berita-terbaru-box {
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-  padding: 25px;
-  border: none;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    padding: 22px;
+    height: fit-content;
 }
 
 .berita-terbaru-box h4 {
-  font-weight: 700;
-  margin-bottom: 20px;
-  color: #2c3e50;
-  font-size: 18px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid #16a34a;
-  font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #000;
+    font-size: 22px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #4CAF50;
+    font-family: 'Poppins', sans-serif;
 }
 
 .berita-terbaru-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .berita-terbaru-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 15px;
-  padding: 15px;
-  border-radius: 10px;
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  text-decoration: none;
-  color: inherit;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
 }
 
 .berita-terbaru-item:hover {
-  background: #f0fdf4;
-  border-color: #16a34a;
-  transform: translateX(5px);
-  text-decoration: none;
-  color: inherit;
+    background: #f0fdf4;
+    border-color: #16a34a;
+    transform: translateX(5px);
+    text-decoration: none;
+    color: inherit;
 }
 
 .berita-terbaru-item img {
-  width: 70px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 8px;
-  flex-shrink: 0;
+    width: 70px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
 }
 
 .berita-terbaru-content {
-  flex: 1;
+    flex: 1;
 }
 
 .berita-terbaru-content .judul {
-  font-weight: 600;
-  color: #2c3e50;
-  margin-bottom: 6px;
-  font-size: 14px;
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
 }
 
 .berita-terbaru-content .tanggal {
-  color: #666;
-  font-size: 12px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-family: 'Open Sans', sans-serif;
+    color: #000;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'Open Sans', sans-serif;
 }
 
 /* Loading indicator */
@@ -322,6 +318,7 @@ body {
   font-size: 14px;
   background: #fafafa;
   font-family: 'Open Sans', sans-serif;
+  color: #000; /* Ditambahkan warna hitam */
 }
 
 .mobile-search-box input[type="text"]:focus {
@@ -344,7 +341,7 @@ body {
   transform: translateY(-50%);
   width: 12px;
   height: 12px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.762L10.825 4z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.762L10.825 4z'/%3E%3C/svg%3E"); /* Diubah dari %23333 menjadi %23000 */
   background-repeat: no-repeat;
   background-position: center;
   pointer-events: none;
@@ -362,7 +359,7 @@ body {
   border-radius: 10px;
   border: 1px solid #e0e0e0;
   background: #fafafa;
-  color: #333;
+  color: #000; /* Diubah dari #333 menjadi #000 */
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -395,7 +392,7 @@ body {
 .mobile-berita-terbaru h4 {
   font-weight: 700;
   margin-bottom: 20px;
-  color: #2c3e50;
+  color: #000; /* Diubah dari #2c3e50 menjadi #000 */
   font-size: 18px;
   padding-bottom: 12px;
   border-bottom: 2px solid #16a34a;
@@ -444,7 +441,7 @@ body {
 
 .mobile-berita-content .judul {
   font-weight: 600;
-  color: #2c3e50;
+  color: #000; /* Diubah dari #2c3e50 menjadi #000 */
   margin-bottom: 6px;
   font-size: 14px;
   line-height: 1.3;
@@ -456,12 +453,9 @@ body {
 }
 
 .mobile-berita-content .tanggal {
-  color: #666;
+  color: #000; /* Diubah dari #666 menjadi #000 */
   font-size: 12px;
   font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 5px;
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -474,6 +468,10 @@ body {
   display: none;
 }
 
+/* Pesan tidak ada berita */
+.text-muted {
+  color: #000 !important;
+}
 
 @media (max-width: 1200px) {
   .berita-grid { 
@@ -632,29 +630,30 @@ body {
             </div>
             </div>
 
-            {{-- Berita Terbaru --}}
+            {{-- Berita Terpopuler --}}
             <div class="berita-terbaru-box">
-            <h4>BERITA TERBARU</h4>
-            <div class="berita-terbaru-list">
-                @foreach($latest_beritas as $b)
-                <a href="{{ route('berita.show', $b->id) }}" class="berita-terbaru-item">
-                <img src="{{ $b->foto ? asset('storage/'.$b->foto) : asset('img/example-image.jpg') }}" alt="{{ $b->judul }}">
-                <div class="berita-terbaru-content">
-                    <div class="judul">{{ Str::limit($b->judul, 50) }}</div>
-                    <div class="tanggal">
-                    📅 {{ $b->tanggal_event ? \Carbon\Carbon::parse($b->tanggal_event)->translatedFormat('d M Y') : $b->created_at->translatedFormat('d M Y') }}
-                    </div>
+                <h4>BERITA TERPOPULER</h4> 
+                <div class="berita-terbaru-list">
+                    @foreach($latest_beritas as $b)
+                    <a href="{{ route('berita.show', $b->id) }}" class="berita-terbaru-item">
+                        <img src="{{ $b->foto ? asset('storage/'.$b->foto) : asset('img/example-image.jpg') }}" alt="{{ $b->judul }}">
+                        <div class="berita-terbaru-content">
+                            <div class="judul">{{ Str::limit($b->judul, 50) }}</div>
+                            <div class="tanggal">
+                                📅 {{ $b->tanggal_event ? \Carbon\Carbon::parse($b->tanggal_event)->translatedFormat('d M Y') : $b->created_at->translatedFormat('d M Y') }}
+                                | Dilihat {{ $b->dilihat }}
+                            </div>
+                        </div>
+                    </a>
+                    @endforeach
                 </div>
-                </a>
-                @endforeach
-            </div>
             </div>
         </div>
     </div>
 
     <!-- Mobile Berita Terbaru Section (Hanya tampil di mobile) -->
     <div class="mobile-berita-terbaru mobile-only">
-        <h4>BERITA TERBARU</h4>
+        <h4>BERITA TERPOPULER</h4>
         <div class="mobile-berita-list">
             @foreach($latest_beritas as $b)
             <a href="{{ route('berita.show', $b->id) }}" class="mobile-berita-item">
@@ -663,6 +662,7 @@ body {
                 <div class="judul">{{ Str::limit($b->judul, 50) }}</div>
                 <div class="tanggal">
                 📅 {{ $b->tanggal_event ? \Carbon\Carbon::parse($b->tanggal_event)->translatedFormat('d M Y') : $b->created_at->translatedFormat('d M Y') }}
+                | Dilihat {{ $b->dilihat }}
                 </div>
             </div>
             </a>

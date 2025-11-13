@@ -12,8 +12,7 @@ class ApbdController extends Controller
      */
     public function index()
     {
-        $apbds = Apbd::orderBy('tahun', 'desc')->get();
-
+        $apbds = Apbd::orderBy('tahun','desc')->paginate(10);
         return view('pages.admin.apbd.index', [
             'apbds' => $apbds,
             'menu'  => 'apbd',

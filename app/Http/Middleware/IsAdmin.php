@@ -4,16 +4,20 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IsAdmin
 {
     public function handle(Request $request, Closure $next)
     {
-        // Asumsi ada field 'role' di tabel users, dan 'admin' adalah role admin
-        if (auth()->check() && auth()->user()->role === 'admin') {
-            return $next($request);
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('message', 'Silakan login terlebih dahulu');
         }
 
-        abort(403, 'Unauthorized'); // jika bukan admin
+        if (Auth::user()->role !== 'admin') {
+            abort(403, 'Unauthorized');
+        }
+
+        return $next($request);
     }
 }

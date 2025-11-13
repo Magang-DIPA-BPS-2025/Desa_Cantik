@@ -68,18 +68,24 @@ body {
     box-shadow: 0 12px 28px rgba(0,0,0,0.12);
 }
 
-/* Gambar sejarah */
+/* PERBAIKAN: Gambar sejarah - lebar sama dengan container dan hilangkan celah atas */
 .gallery-image-wrapper {
     text-align: center;
     margin-bottom: 30px;
+    width: 100%;
+    margin-left: -30px; /* Kompensasi padding container */
+    margin-right: -30px; /* Kompensasi padding container */
+    margin-top: -30px; /* PERBAIKAN: Hilangkan celah atas */
+    width: calc(100% + 60px); /* Lebarkan untuk mengisi container */
 }
 
 .gallery-img {
     width: 100%;
-    max-width: 800px;
     height: auto;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-height: 500px; /* Batasi tinggi maksimal */
+    object-fit: cover;
+    border-radius: 0; /* Hilangkan border radius untuk full width */
+    box-shadow: none; /* Hilangkan shadow untuk tampilan clean */
 }
 
 /* Meta Data */
@@ -256,6 +262,18 @@ body {
     .content h3 {
         font-size: 1.4rem;
     }
+    
+    /* PERBAIKAN: Adjust gambar untuk mobile */
+    .gallery-image-wrapper {
+        margin-left: -20px;
+        margin-right: -20px;
+        margin-top: -20px; /* PERBAIKAN: Sesuaikan untuk mobile */
+        width: calc(100% + 40px);
+    }
+    
+    .gallery-img {
+        max-height: 300px; /* Kurangi tinggi di mobile */
+    }
 }
 
 @media (max-width: 576px) {
@@ -271,8 +289,15 @@ body {
         padding: 15px;
     }
     
+    .gallery-image-wrapper {
+        margin-left: -15px;
+        margin-right: -15px;
+        margin-top: -15px; /* PERBAIKAN: Sesuaikan untuk mobile kecil */
+        width: calc(100% + 30px);
+    }
+    
     .gallery-img {
-        border-radius: 8px;
+        max-height: 250px; /* Lebih kecil di mobile kecil */
     }
     
     .content h3 {
@@ -299,7 +324,7 @@ body {
     <div class="gallery-section">
         {{-- Card Utama --}}
         <div class="gallery-card">
-            {{-- Bagian Gambar --}}
+            {{-- PERBAIKAN: Bagian Gambar - lebar sama dengan container dan tanpa celah atas --}}
             <div class="gallery-image-wrapper">
                 <img src="{{ asset('landing/images/footer/sejarah.png') }}" 
                      alt="Sejarah Desa Manggalung" 

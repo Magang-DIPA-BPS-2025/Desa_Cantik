@@ -9,25 +9,75 @@ use Illuminate\Support\Facades\Storage;
 
 class PPIDController extends Controller
 {
-    // === HALAMAN ADMIN: LIST DATA PPID ===
-    public function index(Request $request)
-{
-    $search = $request->input('search');
-    $perPage = $request->input('per_page', 10);
-
-    $query = Ppid::query();
-
-    // Tambahkan pencarian jika ada
-    if ($search) {
-        $query->where('judul', 'like', "%{$search}%")
-              ->orWhere('deskripsi', 'like', "%{$search}%");
+    // === HALAMAN LANDING: DAFTAR SEMUA PPID (route: ppid) ===
+    public function userindex()
+    {
+        // PASTIKAN selalu return collection, bahkan jika error
+        try {
+            $ppids = Ppid::orderBy('tanggal', 'desc')->get();
+        } catch (\Exception $e) {
+            // Jika ada error, return empty collection
+            $ppids = collect(); // Empty collection
+        }
+        
+        // DEBUG: Log untuk memastikan data dikirim
+        \Log::info('PPID Data sent to view', [
+            'count' => $ppids->count(),
+            'is_collection' => $ppids instanceof \Illuminate\Support\Collection
+        ]);
+        
+        return view('pages.landing.PPID&UMKM.Ppid', compact('ppids'));
     }
 
-    $ppids = $query->latest()->paginate($perPage);
-    $menu = 'ppid';
+    // === HALAMAN ADMIN: LIST DATA PPID ===
+    public function index(Request $request)
+    {
+        $search = $request->input('search');
+        $perPage = $request->input('per_page', 10);
 
-    return view('pages.admin.ppid.index', compact('ppids', 'menu'));
-}
+        $query = Ppid::query();
+
+        // Tambahkan pencarian jika ada
+        if ($search) {
+            $query->where('judul', 'like', "%{$search}%")
+                  ->orWhere('deskripsi', 'like', "%{$search}%");
+        }
+
+        $ppids = $query->latest()->paginate($perPage);
+        $menu = 'ppid';
+
+        return view('pages.admin.ppid.index', compact('ppids', 'menu'));
+    }
+
+    // === Informasi Berkala ===
+    public function berkala()
+    {
+        // HAPUS FILTER STATUS
+        $berkalas = Ppid::where('kategori', 'berkala')
+                         ->orderBy('tanggal', 'desc')
+                         ->get();
+        return view('pages.landing.PPID&UMKM.informasi-berkala', compact('berkalas'));
+    }
+
+    // === Informasi Serta Merta ===
+    public function serta()
+    {
+        // HAPUS FILTER STATUS
+        $sertas = Ppid::where('kategori', 'serta')
+                      ->orderBy('tanggal', 'desc')
+                      ->get();
+        return view('pages.landing.PPID&UMKM.informasi-serta', compact('sertas'));
+    }
+
+    // === Informasi Setiap Saat ===
+    public function setiap()
+    {
+        // HAPUS FILTER STATUS
+        $setiaps = Ppid::where('kategori', 'setiap')
+                        ->orderBy('tanggal', 'desc')
+                        ->get();
+        return view('pages.landing.PPID&UMKM.informasi-setiap', compact('setiaps'));
+    }
 
     // === HALAMAN ADMIN: FORM TAMBAH DATA PPID ===
     public function create()
@@ -44,6 +94,7 @@ class PPIDController extends Controller
             'deskripsi' => 'required|string',
             'tanggal' => 'required|date',
             'kategori' => 'nullable|string',
+            // HAPUS VALIDASI STATUS
             'file' => 'nullable|file|mimes:pdf,doc,docx,png,jpg,jpeg|max:2048',
         ]);
 
@@ -76,6 +127,7 @@ class PPIDController extends Controller
             'deskripsi' => 'required|string',
             'tanggal' => 'required|date',
             'kategori' => 'nullable|string',
+            // HAPUS VALIDASI STATUS
             'file' => 'nullable|file|mimes:pdf,doc,docx,png,jpg,jpeg|max:2048',
         ]);
 
@@ -94,40 +146,6 @@ class PPIDController extends Controller
         $ppid->update($data);
 
         return redirect()->route('ppid.index')->with('success', 'Data PPID berhasil diupdate.');
-    }
-
-    // === HALAMAN FRONTEND: DAFTAR SEMUA PPID UNTUK USER ===
-    public function userindex()
-    {
-        $ppids = Ppid::latest()->get();
-        return view('pages.landing.PPID&UMKM.Ppid', compact('ppids'));
-    }
-
-    // === Informasi Berkala ===
-    public function berkala()
-    {
-        $berkalas = Ppid::where('kategori', 'berkala')
-                         ->orderBy('tanggal', 'desc')
-                         ->get();
-        return view('pages.landing.PPID&UMKM.informasi-berkala', compact('berkalas'));
-    }
-
-    // === Informasi Serta Merta ===
-    public function serta()
-    {
-        $sertas = Ppid::where('kategori', 'serta')
-                      ->orderBy('tanggal', 'desc')
-                      ->get();
-        return view('pages.landing.PPID&UMKM.informasi-serta', compact('sertas'));
-    }
-
-    // === Informasi Setiap Saat ===
-    public function setiap()
-    {
-        $setiaps = Ppid::where('kategori', 'setiap')
-                        ->orderBy('tanggal', 'desc')
-                        ->get();
-        return view('pages.landing.PPID&UMKM.informasi-setiap', compact('setiaps'));
     }
 
     // === DELETE DATA PPID ===

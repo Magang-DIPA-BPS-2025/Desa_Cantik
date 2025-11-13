@@ -32,7 +32,7 @@
                 <div class="collapse mt-2" id="ppid-{{ $ppid->id }}">
                     <p>{{ $ppid->deskripsi }}</p>
 
-                    @if($ppid->sub_items->count())
+                   @if($ppid->sub_items && $ppid->sub_items->isNotEmpty())
                         @foreach($ppid->sub_items as $sub)
                             <div class="sub-item">
                                 <h6>{{ $sub->judul }}</h6>

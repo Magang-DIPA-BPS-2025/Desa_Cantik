@@ -118,8 +118,8 @@
     }
 
     .btn-download {
-        background: transparent;
-        color: #2E7D32;
+        background: #2E7D32;
+        color: #ffffffff;
         border: 2px solid #2E7D32;
         padding: 8px 16px;
         border-radius: 8px;

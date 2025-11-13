@@ -1,13 +1,10 @@
-<!-- resources/views/galeri/user/index.blade.php -->
 @extends('layouts.landing.app')
 
 @section('content')
 <title>Desa Cantik - Galeri Desa</title>
 
 <style>
-/* TERAPKAN STYLING SAMA PERSIS DENGAN HALAMAN BERITA */
 
-/* Font modern sama seperti halaman berita */
 body, .container-main, .gallery-card, .gallery-overlay, .galeri-modal, .galeri-close {
     font-family: 'Open Sans', sans-serif;
 }
@@ -28,7 +25,7 @@ body {
     padding: 20px; 
 }
 
-/* PERBAIKAN: Header Galeri - SAMA PERSIS dengan halaman berita */
+/* PERBAIKAN: Header Galeri - SAMA PERSIS dengan halaman agenda */
 .gallery-header {
     margin-bottom: 2rem;
     margin-top: -1rem;
@@ -44,7 +41,7 @@ body {
 
 .gallery-header p {
     font-size: 1.1rem;
-    color: #666;
+    color: #000;
     margin-bottom: 0;
 }
 
@@ -60,7 +57,7 @@ body {
     gap: 20px;
 }
 
-/* Card Galeri - SAMA PERSIS dengan card berita */
+/* Card Galeri - SAMA PERSIS dengan card agenda */
 .gallery-card {
     background: #fff;
     border-radius: 14px;
@@ -136,28 +133,26 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-/* Pagination */
-.pagination {
-    margin-top: 3rem;
+/* Loading indicator */
+.loading-indicator {
+    text-align: center;
+    padding: 20px;
+    display: none;
 }
 
-.page-link {
-    border-radius: 10px;
-    margin: 0 5px;
-    border: 1px solid #e5e7eb;
-    color: #374151;
-    font-family: 'Open Sans', sans-serif;
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #16a34a;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
 }
 
-.page-link:hover {
-    background: #f0fdf4;
-    border-color: #16a34a;
-    color: #16a34a;
-}
-
-.page-item.active .page-link {
-    background: #16a34a;
-    border-color: #16a34a;
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* Modal Popup */
@@ -241,7 +236,7 @@ body {
     border-color: #ff4444;
 }
 
-/* PERBAIKAN: Responsive design SAMA PERSIS dengan halaman berita */
+/* PERBAIKAN: Responsive design SAMA PERSIS dengan halaman agenda */
 @media (max-width: 1200px) {
     .gallery-grid { 
         grid-template-columns: repeat(2, 1fr); 
@@ -308,7 +303,6 @@ body {
 </style>
 
 <div class="container-main">
-    <!-- PERBAIKAN: Judul dengan struktur dan styling sama persis seperti halaman berita -->
     <div class="text-start mb-4 mt-2 px-2 gallery-header">
         <h2 class="fw-semibold display-4 mb-2 gallery-title">
             GALERI DESA
@@ -321,13 +315,13 @@ body {
     <div class="gallery-section">
         {{-- Grid Galeri --}}
         <div class="gallery-grid" id="gallery-container">
-            @forelse ($galeris as $galeri)
+            @forelse ($initialGaleris as $galeri)
                 <div class="gallery-card">
                     <div class="gallery-item" 
-                         onclick="openModal('{{ asset('storage/' . $galeri->gambar) }}')">
+                         onclick="openModal('{{ asset('storage/' . $galeri->gambar) }}', '{{ addslashes($galeri->judul) }}')">
                         <img src="{{ asset('storage/' . $galeri->gambar) }}"
                              class="gallery-img"
-                             alt="Foto Galeri Desa">
+                             alt="{{ $galeri->judul }}">
                         <div class="gallery-overlay">
                             <i class="bi bi-zoom-in"></i>
                             <small class="text-uppercase fw-bold">
@@ -346,9 +340,10 @@ body {
             @endforelse
         </div>
 
-        {{-- Pagination --}}
-        <div class="d-flex justify-content-center mt-5">
-            {{ $galeris->links('pagination::bootstrap-5') }}
+        {{-- Loading indicator untuk infinite scroll --}}
+        <div class="loading-indicator" id="loading-indicator">
+            <div class="loading-spinner"></div>
+            <p style="margin-top: 10px;">Memuat galeri...</p>
         </div>
     </div>
 </div>
@@ -364,14 +359,18 @@ body {
 </div>
 
 <script>
-function openModal(imageSrc) {
+// Infinite scroll implementation untuk galeri
+let isLoading = false;
+let page = 1;
+let hasMore = true;
+
+function openModal(imageSrc, title) {
     const modal = document.getElementById('galeriModal');
     const modalImage = document.getElementById('modalImage');
     modal.style.display = 'block';
     modalImage.src = imageSrc;
+    modalImage.alt = title;
     document.body.style.overflow = 'hidden';
-    
-    // Reset zoom state ketika modal dibuka
     modalImage.classList.remove('zoomed');
 }
 
@@ -380,6 +379,55 @@ function closeModal() {
     modal.style.display = 'none';
     document.body.style.overflow = 'auto';
 }
+
+// Check if we're at the bottom of the page
+function isBottomOfPage() {
+    return window.innerHeight + window.scrollY >= document.body.offsetHeight - 500;
+}
+
+// Load more galeri
+async function loadMoreGaleri() {
+    if (isLoading || !hasMore) return;
+    
+    isLoading = true;
+    document.getElementById('loading-indicator').style.display = 'block';
+    
+    try {
+        page++;
+        const response = await fetch(`{{ route('galeri.user.index') }}?page=${page}`, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        });
+        
+        if (!response.ok) throw new Error('Network response was not ok');
+        
+        const data = await response.json();
+        
+        if (data.html) {
+            document.getElementById('gallery-container').insertAdjacentHTML('beforeend', data.html);
+        }
+        
+        // Update status hasMore
+        hasMore = data.hasMore;
+        
+    } catch (error) {
+        console.error('Error loading more galeri:', error);
+        hasMore = false;
+    } finally {
+        isLoading = false;
+        document.getElementById('loading-indicator').style.display = 'none';
+    }
+}
+
+// Event listeners
+window.addEventListener('scroll', () => {
+    if (isBottomOfPage()) loadMoreGaleri();
+});
+
+window.addEventListener('load', () => {
+    if (isBottomOfPage()) loadMoreGaleri();
+});
 
 window.addEventListener('click', e => {
     const modal = document.getElementById('galeriModal');

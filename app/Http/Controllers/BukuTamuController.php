@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\BukuTamu;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class BukuTamuController extends Controller
 {
-  
     public function index()
     {
         $bukutamus = BukuTamu::orderBy('created_at', 'desc')->paginate(10);
@@ -19,11 +19,21 @@ class BukuTamuController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'asal' => 'required|string|max:255',
-            'nomor_hp' => 'nullable|string|max:15',
-            'keperluan' => 'required|string'
+            'jabatan' => 'required|string|max:255',
+            'keperluan' => 'required|string',
+            'ttd_data' => 'nullable|string'
+            
         ]);
 
-        BukuTamu::create($request->all());
+       
+        BukuTamu::create([
+            'nama' => $request->nama,
+            'asal' => $request->asal,
+            'jabatan' => $request->jabatan,
+            'keperluan' => $request->keperluan,
+            'tanda_tangan' => $request->ttd_data,
+            
+        ]);
 
         return redirect()->route('bukutamu')
             ->with('success', 'Data berhasil disimpan! Terima kasih telah mengisi buku tamu.');
@@ -53,22 +63,31 @@ class BukuTamuController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'asal' => 'required|string|max:255',
-            'nomor_hp' => 'nullable|string|max:15',
-            'keperluan' => 'required|string'
+            'jabatan' => 'required|string|max:255',
+            'keperluan' => 'required|string',
+            'ttd_data' => 'nullable|string'
+            
         ]);
 
         $bukuTamu = BukuTamu::findOrFail($id);
-        $bukuTamu->update($request->all());
+        $bukuTamu->update([
+            'nama' => $request->nama,
+            'asal' => $request->asal,
+            'jabatan' => $request->jabatan,
+            'keperluan' => $request->keperluan,
+            'tanda_tangan' => $request->ttd_data
+            // HAPUS 'tujuan'
+        ]);
 
         return redirect()->route('admin.buku.index')
             ->with('success', 'Data buku tamu berhasil diperbarui.');
     }
+
     public function destroy($id)
-{
-    $bukuTamu = BukuTamu::findOrFail($id);
-    $bukuTamu->delete();
+    {
+        $bukuTamu = BukuTamu::findOrFail($id);
+        $bukuTamu->delete();
 
-    return redirect()->route('admin.buku.index')->with('success', 'Data berhasil dihapus.');
-}
-
+        return redirect()->route('admin.buku.index')->with('success', 'Data berhasil dihapus.');
+    }
 }

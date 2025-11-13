@@ -100,7 +100,6 @@
                                             <option value="Manggalung" {{ old('dusun', $dataPenduduk->dusun) == 'Manggalung' ? 'selected' : '' }}>Manggalung</option>
                                             <option value="Lokae" {{ old('dusun', $dataPenduduk->dusun) == 'Lokae' ? 'selected' : '' }}>Lokae</option>
                                             <option value="Kattena" {{ old('dusun', $dataPenduduk->dusun) == 'Kattena' ? 'selected' : '' }}>Kattena</option>
-                                            <option value="Mallawa" {{ old('dusun', $dataPenduduk->dusun) == 'Mallawa' ? 'selected' : '' }}>Mallawa</option>
                                         </select>
                                     </div>
                                 </div>
