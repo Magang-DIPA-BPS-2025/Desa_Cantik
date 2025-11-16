@@ -18,30 +18,33 @@ class AdminSeeder extends Seeder
             [
                 'name' => 'Administrator',
                 'username' => 'admin',
-                'password' => bcrypt('admin'),
+                'password' => 'admin', // Biarkan mutator yang hash
                 'role' => 'admin',
             ],
             [
                 'name' => 'guru',
                 'username' => 'guru',
-                'password' => bcrypt('guru'),
+                'password' => 'guru', // Biarkan mutator yang hash
                 'role' => 'guru',
             ],
 
         ];
 
         foreach ($akun as $key => $v) {
+            // Untuk Admin, gunakan password plain karena mutator akan hash otomatis
             Admin::create([
                 'name' => $v['name'],
                 'username' => $v['username'],
-                'password' => $v['password'],
+                'password' => $v['password'], // Mutator akan hash otomatis
                 'role' => $v['role'],
             ]);
 
+            // Untuk User, gunakan password plain karena User model punya cast 'hashed'
+            // yang akan otomatis hash password
             User::create([
                 'name' => $v['name'],
                 'username' => $v['username'],
-                'password' => $v['password'],
+                'password' => $v['password'], // Cast 'hashed' akan hash otomatis
                 'role' => $v['role'],
             ]);
         }

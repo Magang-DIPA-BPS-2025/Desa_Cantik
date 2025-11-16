@@ -345,3 +345,6 @@ Route::group(['prefix' => 'auth', 'namespace' => 'App\Http\Controllers'], functi
         return redirect()->route('home')->with('message', 'sukses logout');
     })->name('logout');
 });
+
+// ===================== DEBUG ROUTES (Hapus di production) ===================== //
+Route::get('/debug/login', [App\Http\Controllers\DebugController::class, 'testLogin'])->name('debug.login');

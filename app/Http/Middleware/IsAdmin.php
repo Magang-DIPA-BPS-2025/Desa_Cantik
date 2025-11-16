@@ -10,12 +10,15 @@ class IsAdmin
 {
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check()) {
+        // Cek session terlebih dahulu
+        if (!session('cek')) {
             return redirect()->route('login')->with('message', 'Silakan login terlebih dahulu');
         }
 
-        if (Auth::user()->role !== 'admin') {
-            abort(403, 'Unauthorized');
+        // Cek role dari session
+        $role = session('role');
+        if ($role !== 'admin') {
+            abort(403, 'Unauthorized - Hanya admin yang dapat mengakses halaman ini');
         }
 
         return $next($request);

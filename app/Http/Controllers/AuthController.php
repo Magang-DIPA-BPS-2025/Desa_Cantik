@@ -20,40 +20,109 @@ class AuthController extends Controller
 
     public function login_action(Request $request)
     {
-        if ($request->role == null && $request->username == 'admin') {
-            $request->role == 'admin';
+        // Validasi input
+        $validated = $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string',
+            'role' => 'nullable|string',
+        ], [
+            'username.required' => 'Username harus diisi',
+            'password.required' => 'Password harus diisi',
+        ]);
+
+        // Set default role - ambil dari request atau set default 'admin'
+        $role = $request->role ?? 'admin';
+        
+        // Jika role masih kosong dan username adalah 'admin', set ke 'admin'
+        if (empty($role) && $request->username == 'admin') {
+            $role = 'admin';
         }
 
-        if ($request->role == null) {
-            return redirect()->back()->with('message', 'gagal login');
+        // Pastikan role tidak kosong
+        if (empty($role)) {
+            $role = 'admin'; // Default ke admin
         }
-        // dump($request->all());
-        // dump(Auth::attempt(['username' => $request->username, 'password' => $request->password, 'role' => $request->role]));
-        // dump(Admin::where('username', $request->username)->where('role', $request->role)->first());
 
-        $user = Admin::where('username', $request->username)->where('role', $request->role)->first();
-        $user1 = User::where('username', $request->username)->where('role', $request->role)->first();
+        // Cari user di Admin model terlebih dahulu
+        $user = Admin::where('username', $request->username)
+            ->where('role', $role)
+            ->first();
 
-        // dump($user);
-        // dump($user1);
-        // dump(Auth::attempt(['username' => $user->username, 'password' => $user->password, 'role' => $user->role]));
-
-        $cek = Auth::attempt(['username' => $request->username, 'password' => $request->password, 'role' => $request->role]);
-        // $cek = Auth::attempt(['username' => $user->username, 'password' => $user->password, 'role' => $user->role]);
-        // dd($cek);
-        if ($cek) {
-            // dd($user);
-            Session::put('user_id', $user->id);
-            Session::put('name', $user->name);
-            Session::put('username', $user->username);
-            Session::put('role', $user->role);
-            Session::put('cek', true);
-
-
-            return redirect()->route('dashboard')->with('message', 'sukses login');
-        } else {
-            return redirect()->back()->with('message', 'gagal login');
+        // Jika tidak ditemukan di Admin, coba tanpa filter role dulu
+        if (!$user) {
+            $user = Admin::where('username', $request->username)->first();
+            if ($user) {
+                // Jika ditemukan dengan role berbeda, update role dari request
+                $role = $user->role;
+            }
         }
+
+        // Jika masih tidak ditemukan di Admin, cari di User model
+        if (!$user) {
+            $user = User::where('username', $request->username)
+                ->where('role', $role)
+                ->first();
+        }
+
+        // Cek apakah user ditemukan
+        if (!$user) {
+            \Log::warning('Login failed - User not found', [
+                'username' => $request->username,
+                'role' => $role
+            ]);
+
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['username' => 'Username atau role tidak ditemukan'])
+                ->with('message', 'gagal login');
+        }
+
+        // Verifikasi password
+        $passwordMatch = \Hash::check($request->password, $user->password);
+
+        if (!$passwordMatch) {
+            \Log::warning('Login failed - Password mismatch', [
+                'username' => $request->username,
+                'role' => $role,
+                'user_id' => $user->id,
+                'password_hash_preview' => substr($user->password, 0, 20) . '...'
+            ]);
+
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['password' => 'Password salah. Pastikan username dan password benar.'])
+                ->with('message', 'gagal login');
+        }
+
+        // Set session - PASTIKAN semua session di-set
+        Session::put('user_id', $user->id);
+        Session::put('name', $user->name);
+        Session::put('username', $user->username);
+        Session::put('role', $user->role);
+        Session::put('cek', true);
+
+        // Simpan session
+        Session::save();
+
+        // Login menggunakan Auth untuk middleware (opsional, karena kita pakai session)
+        try {
+            if ($user instanceof Admin) {
+                Auth::guard('admin')->login($user);
+            } else {
+                Auth::login($user);
+            }
+        } catch (\Exception $e) {
+            // Jika Auth login gagal, tetap lanjutkan dengan session saja
+            \Log::warning('Auth login failed, using session only', ['error' => $e->getMessage()]);
+        }
+
+        \Log::info('Login successful', [
+            'username' => $user->username,
+            'role' => $user->role,
+            'user_id' => $user->id
+        ]);
+
+        return redirect()->route('dashboard')->with('message', 'sukses login');
     }
 
 }

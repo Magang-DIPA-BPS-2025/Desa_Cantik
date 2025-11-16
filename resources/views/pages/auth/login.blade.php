@@ -11,24 +11,53 @@
         </div>
 
         <div class="card-body">
+            {{-- VALIDATION ERRORS --}}
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <form method="POST" action="{{ route('login_action') }}" class="needs-validation" novalidate="">
                 @csrf
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input id="username" type="text" class="form-control" name="username" tabindex="1" required autofocus>
-                    <div class="invalid-feedback">
-                        Please fill in your username
-                    </div>
+                    <input id="username" type="text" 
+                           class="form-control @error('username') is-invalid @enderror" 
+                           name="username" 
+                           value="{{ old('username') }}"
+                           tabindex="1" 
+                           required 
+                           autofocus>
+                    @error('username')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @else
+                        <div class="invalid-feedback">
+                            Please fill in your username
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <div class="d-block">
                         <label for="password" class="control-label">Password</label>
                     </div>
-                    <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
-                    <div class="invalid-feedback">
-                        Please fill in your password
-                    </div>
+                    <input id="password" type="password" 
+                           class="form-control @error('password') is-invalid @enderror" 
+                           name="password" 
+                           tabindex="2" 
+                           required>
+                    @error('password')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @else
+                        <div class="invalid-feedback">
+                            Please fill in your password
+                        </div>
+                    @enderror
                 </div>
 
                 {{-- Hidden input role Admin --}}

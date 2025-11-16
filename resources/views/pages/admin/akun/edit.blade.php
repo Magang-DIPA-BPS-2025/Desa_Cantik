@@ -24,6 +24,34 @@
                             <div class="card">
                                 <div class="card-body">
 
+                                    {{-- ALERT --}}
+                                    @if (session('message'))
+                                        @if (session('message') == 'update')
+                                            <div class="alert alert-success">
+                                                <i class="fas fa-check-circle"></i> Akun berhasil diperbarui
+                                            </div>
+                                        @elseif(strpos(session('message'), 'berhasil') !== false || strpos(session('message'), 'sukses') !== false)
+                                            <div class="alert alert-success">
+                                                <i class="fas fa-check-circle"></i> {{ session('message') }}
+                                            </div>
+                                        @else
+                                            <div class="alert alert-danger">
+                                                <i class="fas fa-exclamation-circle"></i> {{ session('message') }}
+                                            </div>
+                                        @endif
+                                    @endif
+
+                                    {{-- VALIDATION ERRORS --}}
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul class="mb-0">
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+
                                     <div class="row">
                                         <div class="col-md">
                                             <div class="form-group">

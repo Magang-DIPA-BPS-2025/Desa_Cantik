@@ -80,4 +80,80 @@ class AdminController extends Controller
             'agendaDates' => $agendaDates,
         ]);
     }
+
+    /**
+     * Tampilkan halaman edit profil
+     */
+    public function profile($id)
+    {
+        // Pastikan user hanya bisa edit profil sendiri
+        $sessionUserId = session('user_id');
+        if ($sessionUserId != $id) {
+            return redirect()->route('dashboard')->with('message', 'Anda tidak memiliki akses untuk mengedit profil ini');
+        }
+
+        $user = Admin::findOrFail($id);
+        
+        return view('pages.admin.profile.edit', [
+            'menu' => 'profile',
+            'user' => $user
+        ]);
+    }
+
+    /**
+     * Update profil admin
+     */
+    public function profile_update(Request $request)
+    {
+        $userId = session('user_id');
+        
+        if (!$userId) {
+            return redirect()->route('login')->with('message', 'Silakan login terlebih dahulu');
+        }
+
+        $user = Admin::findOrFail($userId);
+
+        // Validasi
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|unique:admins,username,' . $user->id,
+            'password' => 'nullable|string|min:6',
+        ], [
+            'name.required' => 'Nama harus diisi',
+            'username.required' => 'Username harus diisi',
+            'username.unique' => 'Username sudah digunakan',
+            'password.min' => 'Password minimal 6 karakter',
+        ]);
+
+        try {
+            // Update nama
+            $user->name = $request->name;
+            
+            // Update username
+            $user->username = strtolower(str_replace(' ', '', $request->username));
+
+            // Update password jika diisi
+            if ($request->filled('password')) {
+                $user->password = $request->password; // Mutator akan hash otomatis
+            }
+
+            $user->save();
+
+            // Update session dengan data terbaru
+            session([
+                'name' => $user->name,
+                'username' => $user->username,
+            ]);
+
+            return redirect()->route('profile.index', $userId)
+                ->with('message', 'update')
+                ->with('success', 'Profil berhasil diperbarui');
+
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['error' => 'Gagal memperbarui profil: ' . $e->getMessage()])
+                ->with('message', 'Gagal memperbarui profil');
+        }
+    }
 }

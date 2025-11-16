@@ -21,12 +21,33 @@
                         {{-- ALERT --}}
                         @if (session('message'))
                             @if (session('message') == 'store')
-                                <div class="alert alert-success">Akun berhasil ditambahkan</div>
+                                <div class="alert alert-success">
+                                    <i class="fas fa-check-circle"></i> Akun berhasil ditambahkan
+                                </div>
                             @elseif(session('message') == 'update')
-                                <div class="alert alert-warning">Akun berhasil diperbarui</div>
+                                <div class="alert alert-success">
+                                    <i class="fas fa-check-circle"></i> Akun berhasil diperbarui
+                                </div>
+                            @elseif(strpos(session('message'), 'berhasil') !== false || strpos(session('message'), 'sukses') !== false)
+                                <div class="alert alert-success">
+                                    <i class="fas fa-check-circle"></i> {{ session('message') }}
+                                </div>
                             @else
-                                <div class="alert alert-danger">{{ session('message') }}</div>
+                                <div class="alert alert-danger">
+                                    <i class="fas fa-exclamation-circle"></i> {{ session('message') }}
+                                </div>
                             @endif
+                        @endif
+
+                        {{-- VALIDATION ERRORS --}}
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul class="mb-0">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         @endif
 
                         {{-- Form Tambah Akun --}}
@@ -34,13 +55,25 @@
                             @csrf
                             <div class="row">
                                 <div class="col-md-4">
-                                    <input name="name" type="text" class="form-control" placeholder="Nama Akun" required>
+                                    <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" 
+                                           placeholder="Nama Akun" value="{{ old('name') }}" required>
+                                    @error('name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-4">
-                                    <input name="username" type="text" class="form-control" placeholder="Username Login" required>
+                                    <input name="username" type="text" class="form-control @error('username') is-invalid @enderror" 
+                                           placeholder="Username Login" value="{{ old('username') }}" required>
+                                    @error('username')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-4">
-                                    <input name="password" type="password" class="form-control" placeholder="Password" required>
+                                    <input name="password" type="password" class="form-control @error('password') is-invalid @enderror" 
+                                           placeholder="Password" required>
+                                    @error('password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <input type="hidden" name="role" value="admin">
                             </div>
