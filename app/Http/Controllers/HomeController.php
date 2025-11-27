@@ -9,6 +9,7 @@ use App\Models\Surat;
 use App\Models\Agenda;
 use App\Models\Galeri;
 use App\Models\BelanjaDesa;
+use App\Models\Apbd; // TAMBAHKAN INI
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -79,6 +80,15 @@ class HomeController extends Controller
         $belanjas = BelanjaDesa::latest()->take(6)->get();
         $galeris = Galeri::latest()->take(6)->get();
 
+        // ========== BAGIAN APBD ========== //
+        try {
+            // Ambil data APBD terbaru - sama seperti di ApbdController
+            $apbd = Apbd::orderBy('tahun', 'desc')->first();
+        } catch (\Exception $e) {
+            \Log::error('Error fetching APBD data: ' . $e->getMessage());
+            $apbd = null; // Jika error, set null
+        }
+
         // ========== RETURN KE VIEW ========== //
         return view('pages.landing.index', [
             'beritas' => $beritas,
@@ -86,6 +96,7 @@ class HomeController extends Controller
             'belanjas' => $belanjas,
             'galeris' => $galeris,
             'stats' => $stats,
+            'apbd' => $apbd, // TAMBAHKAN INI
         ]);
     }
 }

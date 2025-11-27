@@ -131,7 +131,7 @@ body {
     transform: scale(1.05);
 }
 
-/* Animasi untuk teks muncul satu per satu */
+
 @keyframes fadeInUp {
     to {
         opacity: 1;
@@ -259,7 +259,7 @@ body {
     width: 95%;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     position: relative;
-    overflow: visible; /* PERUBAHAN: dari hidden ke visible */
+    overflow: visible; 
 }
 
 .statistik h2 {
@@ -267,8 +267,8 @@ body {
     font-size: 28px;
     font-weight: 700;
     color: #ffffff;
-    position: relative; /* PERUBAHAN: tambahkan ini */
-    z-index: 3; /* PERUBAHAN: pastikan teks di atas card */
+    position: relative; 
+    z-index: 3; 
     text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
 
@@ -277,7 +277,7 @@ body {
     gap: 20px;
     scroll-behavior: smooth;
     overflow-x: auto;
-    padding: 20px 10px 10px 10px; /* PERUBAHAN: tambah padding atas */
+    padding: 20px 10px 10px 10px; 
     position: relative;
     z-index: 2;
 }
@@ -294,7 +294,7 @@ body {
 .statistik .item {
     flex: 0 0 auto;
     width: 100%;
-    padding: 25px 20px; /* PERUBAHAN: tambah padding atas bawah */
+    padding: 25px 20px; 
     border-radius: 16px;
     background: #ffffff;
     box-shadow: 0 8px 20px rgba(0,0,0,0.08);
@@ -302,7 +302,7 @@ body {
     text-align: center;
     position: relative;
     z-index: 2;
-    border: 1px solid rgba(255,255,255,0.3); /* PERUBAHAN: tambahkan border */
+    border: 1px solid rgba(255,255,255,0.3); 
 }
 
 .statistik .item:hover {
@@ -327,19 +327,19 @@ body {
     color: #555;
 }
 
-/* PERBAIKAN Tombol Navigasi Carousel - HIJAU & PUTIH */
+
 .slider-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.95); /* PERUBAHAN: putih dengan transparansi */
-    border: 2px solid #2E7D32; /* PERUBAHAN: border hijau */
+    background: rgba(255, 255, 255, 0.95); 
+    border: 2px solid #2E7D32; 
     border-radius: 50%;
     width: 45px;
     height: 45px;
     cursor: pointer;
     font-size: 22px;
-    color: #2E7D32; /* PERUBAHAN: warna hijau */
+    color: #2E7D32; 
     box-shadow: 0 3px 8px rgba(0,0,0,0.2);
     transition: all 0.3s;
     z-index: 10;
@@ -349,9 +349,9 @@ body {
 }
 
 .slider-btn:hover {
-    background: #2E7D32; /* PERUBAHAN: hijau saat hover */
-    color: #ffffff; /* PERUBAHAN: putih saat hover */
-    border-color: #2E7D32; /* PERUBAHAN: border hijau saat hover */
+    background: #2E7D32; 
+    color: #ffffff; 
+    border-color: #2E7D32; 
 }
 
 .slider-btn.left {
@@ -472,24 +472,25 @@ body {
 }
 
 .apb-card {
-    background: #f8fafc;
+    background: #757575;
     border-radius: 12px;
     padding: 18px 25px;
     margin-bottom: 15px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-.apb-card span {
-    font-size: 14px;
+.apb-card h3 {
+    font-family: inherit;
+}
+
+
+.apb-card h3 {
+    font-variant: normal !important;
+    font-feature-settings: "smcp" off, "c2sc" off !important;
+    text-transform: none !important;
     color: #fff;
 }
 
-.apb-card h3 {
-    font-size: 22px;
-    font-weight: 700;
-    margin-top: 8px;
-    color: #fff;
-}
 
 .apb-card.pendapatan {
     background: linear-gradient(135deg, #2E7D32, #2E7D32);
@@ -501,31 +502,30 @@ body {
     color: white;
 }
 
-/* PERBAIKAN TOMBOL APB - WARNA HIJAU DENGAN FONT PUTIH */
+
 .apb-btn {
     display:inline-block;
     text-decoration:none;
-    background: #2E7D32; /* PERUBAHAN: Hijau */
-    color: #ffffff; /* PERUBAHAN: Putih */
+    background: #2E7D32; 
+    color: #ffffff; 
     padding:12px 22px;
     border-radius:8px;
     font-weight:600;
     transition: 0.3s;
-    border: 2px solid #2E7D32; /* PERUBAHAN: Border hijau */
+    border: 2px solid #2E7D32; 
 }
 
 .apb-btn:hover {
-    background: #2E7D32; /* PERUBAHAN: Tetap hijau saat hover */
-    color: #ffffff; /* PERUBAHAN: Tetap putih saat hover */
+    background: #2E7D32; 
+    color: #ffffff; 
     text-decoration: none;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-/* State aktif untuk tombol APB */
 .apb-btn:active {
-    background: #2E7D32 !important; /* Tetap hijau saat diklik */
-    color: #ffffff !important; /* Tetap putih saat diklik */
+    background: #2E7D32 !important; 
+    color: #ffffff !important; 
     transform: translateY(0);
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
@@ -653,7 +653,6 @@ body {
     left: 100%;
 }
 
-/* PERBAIKAN: WARNA HIJAU untuk sholat berikutnya */
 .jadwal-item.active {
     background: linear-gradient(135deg, #2E7D32, #2E7D32) !important;
     color: white !important;
@@ -674,7 +673,6 @@ body {
     border-color: rgba(255,255,255,0.3) !important;
 }
 
-/* Sholat yang sudah lewat - warna abu-abu */
 .jadwal-item.passed {
     background: #f8f9fa;
     color: #6c757d;
@@ -730,7 +728,6 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Card Sholat Berikutnya - WARNA HIJAU */
 .jadwal-next {
     background: linear-gradient(135deg, #2E7D32, #2E7D32);
     border-radius: 16px;
@@ -836,7 +833,6 @@ body {
     margin: 0;
 }
 
-/* Responsive Design untuk Jadwal Sholat */
 @media (max-width: 768px) {
     .jadwal-sholat-container {
         grid-template-columns: 1fr;
@@ -885,32 +881,215 @@ body {
     }
 }
 
-.jadwal-info {
-    margin-top: 25px;
-    padding-top: 20px;
-    border-top: 2px solid #e9ecef;
+/* ---------------- Berita Section dengan Card Baru ---------------- */
+.berita-section {
+    background: #f9fafb;
+    padding: 80px 0;
 }
 
-.jadwal-info h4 {
-    color: #2E7D32;
-    font-size: 18px;
-    margin-bottom: 12px;
+.container-main { 
+    max-width: 1400px; 
+    margin: auto; 
+    padding: 20px; 
+}
+
+.gallery-header {
+    margin-bottom: 2rem;
+    margin-top: -1rem;
+}
+
+.gallery-title {
+    font-size: 2.8rem;
     font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    color: #2E7D32;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    font-family: 'Poppins', sans-serif;
 }
 
-.jadwal-info p {
-    color: #666;
-    line-height: 1.6;
-    font-size: 14px;
-    margin: 0;
+.gallery-header p {
+    font-size: 1.1rem;
+    color: #000;
+    margin-bottom: 0;
+    font-family: 'Open Sans', sans-serif;
 }
 
-/* ---------------- CONTAINER GRID UNIFORM ---------------- */
+.berita-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: stretch;
+  margin-bottom: 3rem;
+}
+
+.berita-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  overflow: hidden;
+  transition: transform .3s ease, box-shadow .3s ease;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.berita-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+  text-decoration: none;
+  color: inherit;
+}
+
+.berita-card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.berita-card .content {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.berita-card h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 8px;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.berita-card small {
+  display: block;
+  font-size: 0.85rem;
+  color: #000;
+  margin-bottom: 10px;
+  font-family: 'Open Sans', sans-serif;
+  flex-shrink: 0;
+}
+
+.berita-card p {
+  font-size: 0.9rem;
+  color: #000;
+  margin-bottom: 0;
+  font-family: 'Open Sans', sans-serif;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.5;
+}
+
+/* ---------------- Agenda Section dengan Card Baru ---------------- */
+.agenda-section {
+    background: #f9fafb;
+    padding: 80px 0;
+}
+
+.agenda-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: stretch;
+  margin-bottom: 3rem;
+}
+
+.agenda-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  overflow: hidden;
+  transition: transform .3s ease, box-shadow .3s ease;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.agenda-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+  text-decoration: none;
+  color: inherit;
+}
+
+.agenda-card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.agenda-card .content {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.agenda-card h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 8px;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.agenda-card small {
+  display: block;
+  font-size: 0.85rem;
+  color: #000;
+  margin-bottom: 10px;
+  font-family: 'Open Sans', sans-serif;
+  flex-shrink: 0;
+}
+
+.agenda-card p {
+  font-size: 0.9rem;
+  color: #000;
+  margin-bottom: 0;
+  font-family: 'Open Sans', sans-serif;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.5;
+}
+
+.umkm-section {
+    background: #f9fafb;
+    padding: 80px 0;
+}
+
+.galeri-section {
+    background: #f9fafb;
+    padding: 80px 0;
+}
+
 .uniform-grid-container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 15px;
 }
@@ -918,78 +1097,76 @@ body {
 .uniform-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    width: 100%;
+    gap: 20px;
+    align-items: stretch;
+    margin-bottom: 3rem;
 }
 
-/* ---------------- CARD UNIFORM ---------------- */
 .uniform-card {
     background: #fff;
-    border-radius: 12px;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
     overflow: hidden;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    transition: all 0.3s ease;
+    transition: transform .3s ease, box-shadow .3s ease;
+    cursor: pointer;
+    border: none;
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 100%;
-    border: 1px solid #e9ecef;
+    text-decoration: none;
+    color: inherit;
 }
 
 .uniform-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+    text-decoration: none;
+    color: inherit;
 }
 
 .uniform-card-img {
     width: 100%;
     height: 200px;
     object-fit: cover;
-    display: block;
-    border-bottom: 1px solid #e9ecef;
+    flex-shrink: 0;
 }
 
 .uniform-card-content {
-    padding: 1.25rem 1.5rem;
+    padding: 20px;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
 }
 
 .uniform-card-title {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 600;
-    color: #2c3e50;
-    margin: 0 0 10px 0;
-    line-height: 1.4;
-}
-
-.uniform-card-date {
-    font-size: 0.85rem;
-    color: #666;
-    margin-bottom: 15px;
+    color: #000;
+    margin-bottom: 8px;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .uniform-card-text {
     font-size: 0.9rem;
-    color: #555;
+    color: #000;
+    margin-bottom: 0;
+    font-family: 'Open Sans', sans-serif;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
     line-height: 1.5;
-    margin-bottom: 15px;
-    flex-grow: 1;
 }
 
-.uniform-card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    height: 100%;
-    width: 100%;
-}
-
-/* ---------------- UMKM Card Styles ---------------- */
 .umkm-card {
     height: 100%;
-    border: 1px solid #e9ecef;
+    border: none;
     background-color: #fff;
     transition: all 0.3s ease;
     position: relative;
@@ -997,59 +1174,18 @@ body {
 }
 
 .umkm-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    border-color: #ffffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
 }
 
-.umkm-card:active {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-/* Pastikan tombol tidak mewarisi cursor pointer dari parent */
-.umkm-btn, .btn-outline-success {
-    cursor: pointer !important;
-}
-
-/* Efek hover untuk bagian yang bisa diklik */
-.umkm-card .uniform-card-content {
-    position: relative;
-}
-
-/* Tambahan style untuk badge agar tidak mengganggu klik */
 .badge-wrapper {
-    pointer-events: none;
-    z-index: 2;
-}
-
-/* PERBAIKAN Style untuk tombol agar terlihat lebih interaktif - HIJAU & PUTIH */
-.umkm-btn, .btn-outline-success {
-    position: relative;
-    z-index: 3;
-    transition: all 0.2s ease;
-}
-
-.umkm-btn:hover, .btn-outline-success:hover {
-    transform: scale(1.05);
-}
-
-/* Overlay effect untuk seluruh card */
-.umkm-card::after {
-    content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(46, 125, 50, 0);
-    transition: background 0.3s ease;
-    border-radius: 12px;
-    pointer-events: none;
-}
-
-.umkm-card:hover::after {
-    background: rgba(46, 125, 50, 0.05);
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 2;
 }
 
 .badge {
@@ -1070,17 +1206,6 @@ body {
     color: #212529;
 }
 
-.badge-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    padding: 0.75rem;
-    z-index: 2;
-}
-
 .info-line {
     display: flex;
     align-items: center;
@@ -1097,7 +1222,6 @@ body {
     margin-bottom: 1rem;
 }
 
-/* PERBAIKAN TOMBOL UMKM - TETAP HIJAU SAAT DIKLIK */
 .umkm-btn {
     background: #2E7D32;
     color: white;
@@ -1131,7 +1255,6 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-/* ---------------- PERBAIKAN Tombol WhatsApp - HIJAU & PUTIH DENGAN JARAK ICON ---------------- */
 .btn-outline-success {
     background: transparent;
     color: #2E7D32;
@@ -1163,69 +1286,45 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-/* PERBAIKAN JARAK ICON PADA TOMBOL UMKM */
 .umkm-btn i, .btn-outline-success i {
-    margin-right: 8px; /* PERUBAHAN: Tambahkan jarak antara icon dan teks */
+    margin-right: 8px;
 }
 
-/* ---------------- Section Styles ---------------- */
-.berita-section {
-    background: #f9fafb;
-    padding: 80px 0;
-}
-
-.agenda-section {
-    background: #f9fafb;
-    padding: 80px 0;
-}
-
-.umkm-section {
-    background: #f9fafb;
-    padding: 80px 0;
-}
-
-.galeri-section {
-    background: #f9fafb;
-    padding: 80px 0;
-}
-
-/* ---------------- PERBAIKAN Tombol Lihat Semua - HIJAU & PUTIH ---------------- */
 .btn-view-all-container {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 .btn-view-all {
-    background: #2E7D32; /* PERUBAHAN: Hijau */
-    color: #fff; /* PERUBAHAN: Putih */
+    background: #2E7D32; 
+    color: #fff; 
     padding: 14px 32px;
     border-radius: 8px;
     font-weight: 600;
     text-decoration: none;
     transition: all 0.3s ease;
-    display: inline-block;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    border: 2px solid #2E7D32; /* PERUBAHAN: border hijau */
+    display: inline-flex;
+    align-items: center;
+    border: 2px solid #2E7D32; 
+    font-family: 'Poppins', sans-serif;
+    gap: 8px; 
 }
 
 .btn-view-all:hover {
-    background: #2E7D32; /* PERUBAHAN: Tetap hijau saat hover */
-    color: #ffffff; /* PERUBAHAN: Tetap putih saat hover */
+    background: #2E7D32;
+    color: #ffffff; 
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    text-decoration: none;
 }
 
-/* State aktif untuk tombol Lihat Semua */
 .btn-view-all:active {
-    background: #2E7D32 !important; /* Tetap hijau saat diklik */
-    color: #ffffff !important; /* Tetap putih saat diklik */
+    background: #2E7D32 !important; 
+    color: #ffffff !important; 
     transform: translateY(0);
     box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
 
-/* ---------------- Overlay untuk Galeri ---------------- */
 .gallery-overlay {
     position: absolute;
     top: 0;
@@ -1257,7 +1356,6 @@ body {
     text-transform: uppercase;
 }
 
-/* ---------------- Modal Galeri Custom ---------------- */
 .galeri-modal {
     display: none;
     position: fixed;
@@ -1296,7 +1394,6 @@ body {
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-/* Tombol Close Modal */
 .galeri-close {
     position: absolute;
     top: -40px;
@@ -1321,9 +1418,73 @@ body {
     transform: rotate(90deg);
 }
 
-/* ---------------- PERBAIKAN RESPONSIVE MOBILE ---------------- */
+@media (max-width: 1200px) {
+  .berita-grid { 
+    grid-template-columns: repeat(2, 1fr); 
+  }
+  .agenda-grid { 
+    grid-template-columns: repeat(2, 1fr); 
+  }
+  .uniform-grid { 
+    grid-template-columns: repeat(2, 1fr); 
+  }
+}
 
-/* Tablet dan Mobile Landscape */
+@media (max-width: 768px) {
+  .gallery-title { 
+    font-size: 2.2rem; 
+  }
+  
+  .container-main {
+    padding: 15px;
+  }
+  
+  .berita-grid { 
+    grid-template-columns: 1fr; 
+  }
+  .agenda-grid { 
+    grid-template-columns: 1fr; 
+  }
+  .uniform-grid { 
+    grid-template-columns: 1fr; 
+  }
+  
+  .berita-card .content {
+    padding: 15px;
+  }
+  .agenda-card .content {
+    padding: 15px;
+  }
+  .uniform-card-content {
+    padding: 15px;
+  }
+  
+  .gallery-header p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .gallery-title { 
+    font-size: 1.8rem; 
+  }
+  
+  .berita-card .content {
+    padding: 12px;
+  }
+  .agenda-card .content {
+    padding: 12px;
+  }
+  .uniform-card-content {
+    padding: 12px;
+  }
+  
+  .btn-view-all {
+    padding: 12px 25px;
+    font-size: 14px;
+  }
+}
+
 @media (max-width: 1024px) {
     .uniform-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -2173,20 +2334,66 @@ if (!isset($stats)) {
             <img src="{{ asset('landing/images/slider-main/apbd.png') }}" alt="APBD Desa" onclick="openModal('{{ asset('landing/images/slider-main/apbd.png') }}')">
         </div>
         <div class="apb-info">
-            <h2>APB DESA 2024</h2>
+            <h2>APB DESA {{ $apbd->tahun ?? date('Y') }}</h2>
             <p>Akses cepat dan transparan terhadap APB Desa serta proyek pembangunan</p>
-            <div class="apb-card pendapatan"><span>Pendapatan Desa</span><h3>Rp4.802.205.800,00</h3></div>
-            <div class="apb-card belanja"><span>Belanja Desa</span><h3>Rp4.888.222.678,00</h3></div>
-            <a href="{{ url('/apbd') }}" class="apb-btn"><i class="fa fa-file-alt"></i> LIHAT DATA LEBIH LENGKAP</a>
+            
+            @if($apbd)
+                <div class="apb-card pendapatan">
+                    <span>Pendapatan Desa</span>
+                    <h3>Rp. {{ number_format($apbd->total_pendapatan ?? 0, 0, ',', '.') }}</h3>
+                </div>
+                <div class="apb-card belanja">
+                    <span>Belanja Desa</span>
+                    <h3>Rp. {{ number_format($apbd->total_belanja ?? 0, 0, ',', '.') }}</h3>
+                </div>
+                <div class="apb-card" style="background: linear-gradient(135deg, #1976d2, #42a5f5); color: white; margin-top: 15px;">
+                    <span>Surplus/Defisit</span>
+                    <h3>Rp. {{ number_format($apbd->surplus_defisit ?? 0, 0, ',', '.') }}</h3>
+                </div>
+                
+                @if(!empty($apbd->updated_at))
+                    @php
+                        $updated = \Carbon\Carbon::parse($apbd->updated_at)->setTimezone('Asia/Makassar')->format('d-m-Y H:i');
+                    @endphp
+                    <div class="apb-card bg-gray" style="margin-top:20px; text-align:center;">
+                        <p style="margin-top:18px; font-size:16px; font-weight:600; color: #ffffffff;">
+                        Data diperbarui: {{ $updated }}
+                        </p>
+                    </div>
+                @endif
+            @else
+                {{-- Fallback jika tidak ada data APBD di database --}}
+                <div class="apb-card pendapatan">
+                    <span>Pendapatan Desa</span>
+                    <h3>Rp4.802.205.800</h3>
+                </div>
+                <div class="apb-card belanja">
+                    <span>Belanja Desa</span>
+                    <h3>Rp4.888.222.678</h3>
+                </div>
+                <div style="text-align: center; color: #666; margin-top: 15px;">
+                    <small><i class="fas fa-info-circle"></i> Data APB Desa {{ date('Y') }}</small>
+                </div>
+            @endif
+            
+            
+            <a href="{{ url('/apbd') }}" class="apb-btn" style="margin-top: 20px;">
+                <i class="fa fa-file-alt"></i> LIHAT DATA LEBIH LENGKAP
+            </a>
         </div>
     </div>
 </div>
 
-{{-- ---------------- Berita Section ---------------- --}}
+{{-- ---------------- Berita Section dengan Card Baru ---------------- --}}
 <div class="berita-section">
-    <div class="uniform-grid-container">
-        <h2 class="section-title">Berita Terbaru</h2>
-        <div class="uniform-grid">
+    <div class="container-main">
+        <div class="text-center mb-4 mt-2 px-2 gallery-header">
+            <h2 class="fw-semibold display-4 mb-2 gallery-title">
+                BERITA TERBARU
+            </h2>
+        </div>
+
+        <div class="berita-grid">
             @php
                 // Ambil berita terbaru langsung dari database jika $latest_beritas tidak tersedia
                 $homepage_beritas = isset($latest_beritas) ? $latest_beritas : \App\Models\Berita::with('kategori')->latest()->take(6)->get();
@@ -2194,60 +2401,77 @@ if (!isset($stats)) {
             
             @foreach($homepage_beritas as $berita)
             <a href="{{ route('berita.show', $berita->id) }}" class="uniform-card-link">
-                <div class="uniform-card">
+                <div class="berita-card">
                     <img src="{{ $berita->foto ? asset('storage/'.$berita->foto) : asset('img/example-image.jpg') }}"
                          alt="{{ $berita->judul }}"
-                         class="uniform-card-img">
-                    <div class="uniform-card-content">
-                        <h4 class="uniform-card-title">{{ Str::limit($berita->judul,50) }}</h4>
-                        <small class="uniform-card-date">
-                            {{ $berita->tanggal_event ? \Carbon\Carbon::parse($berita->tanggal_event)->translatedFormat('d M Y') : $berita->created_at->translatedFormat('d M Y') }}
+                         class="berita-card-img">
+                    <div class="content">
+                        <h4>{{ Str::limit($berita->judul, 50) }}</h4>
+                        <small>
+                            📅 {{ $berita->tanggal_event ? \Carbon\Carbon::parse($berita->tanggal_event)->translatedFormat('d F Y') : $berita->created_at->translatedFormat('d F Y') }}
+                            @if($berita->kategori) | 📍 {{ $berita->kategori->nama ?? 'Umum' }} @endif
                         </small>
-                        <p class="uniform-card-text">{{ Str::limit(strip_tags($berita->isi), 80) }}</p>
+                        <p>{{ Str::limit(strip_tags($berita->deskripsi_singkat ?? $berita->isi), 120) }}</p>
                     </div>
                 </div>
             </a>
             @endforeach
         </div>
+
         <div class="btn-view-all-container">
-            <a href="{{ route('berita') }}" class="btn-view-all">Lihat Semua Berita</a>
+            <a href="{{ route('berita') }}" class="btn-view-all">
+                <i class="fas fa-newspaper me-2"></i>Lihat Semua Berita
+            </a>
         </div>
     </div>
 </div>
 
-{{-- ---------------- Agenda Section ---------------- --}}
+{{-- ---------------- Agenda Section dengan Card Baru ---------------- --}}
 <div class="agenda-section">
-    <div class="uniform-grid-container">
-        <h2 class="section-title">Agenda Desa Terbaru</h2>
-        <div class="uniform-grid">
+    <div class="container-main">
+        <div class="text-center mb-4 mt-2 px-2 gallery-header">
+            <h2 class="fw-semibold display-4 mb-2 gallery-title">
+                AGENDA TERBARU
+            </h2>
+        </div>
+
+        <div class="agenda-grid">
             @foreach($latest_agendas->take(6) as $agenda)
             <a href="{{ route('agenda.show', $agenda->id) }}" class="uniform-card-link">
-                <div class="uniform-card">
+                <div class="agenda-card">
                     <img src="{{ $agenda->foto ? asset('storage/'.$agenda->foto) : asset('img/example-image.jpg') }}"
                          alt="{{ $agenda->nama_kegiatan }}"
-                         class="uniform-card-img">
-                    <div class="uniform-card-content">
-                        <h4 class="uniform-card-title">{{ Str::limit($agenda->nama_kegiatan,50) }}</h4>
-                        <small class="uniform-card-date">
-                            {{ $agenda->waktu_pelaksanaan ? \Carbon\Carbon::parse($agenda->waktu_pelaksanaan)->translatedFormat('d M Y') : '' }}
-                            @if($agenda->kategori) | {{ $agenda->kategori }} @endif
+                         class="agenda-card-img">
+                    <div class="content">
+                        <h4>{{ Str::limit($agenda->nama_kegiatan, 50) }}</h4>
+                        <small>
+                            📅 {{ $agenda->waktu_pelaksanaan ? \Carbon\Carbon::parse($agenda->waktu_pelaksanaan)->translatedFormat('d F Y') : 'Tanggal belum ditentukan' }}
+                            @if($agenda->kategori) | 📍 {{ $agenda->kategori }} @endif
                         </small>
-                        <p class="uniform-card-text">{{ Str::limit(strip_tags($agenda->deskripsi), 80) }}</p>
+                        <p>{{ Str::limit(strip_tags($agenda->deskripsi), 120) }}</p>
                     </div>
                 </div>
             </a>
             @endforeach
         </div>
+
         <div class="btn-view-all-container">
-            <a href="{{ route('agenda') }}" class="btn-view-all">Lihat Semua Agenda</a>
+            <a href="{{ route('agenda') }}" class="btn-view-all">
+                <i class="fas fa-calendar-alt me-2"></i>Lihat Semua Agenda
+            </a>
         </div>
     </div>
 </div>
 
-{{-- ---------------- UMKM Section ---------------- --}}
+{{-- ---------------- PERBAIKAN UMKM Section ---------------- --}}
 <div class="umkm-section">
-    <div class="uniform-grid-container">
-        <h2 class="section-title">UMKM Desa</h2>
+    <div class="container-main">
+        <div class="text-center mb-4 mt-2 px-2 gallery-header">
+            <h2 class="fw-semibold display-4 mb-2 gallery-title">
+                UMKM DESA
+            </h2>
+        </div>
+
         <div class="uniform-grid">
             @foreach($belanjas->take(6) as $umkm)
             <div class="uniform-card umkm-card" onclick="window.location.href='{{ route('belanja.usershow', $umkm->id) }}'" style="cursor: pointer;" tabindex="0">
@@ -2314,15 +2538,22 @@ if (!isset($stats)) {
             @endforeach
         </div>
         <div class="btn-view-all-container">
-            <a href="{{ route('belanja') }}" class="btn-view-all">Lihat Semua UMKM</a>
+            <a href="{{ route('belanja') }}" class="btn-view-all">
+                <i class="fas fa-store me-2"></i>Lihat Semua UMKM
+            </a>
         </div>
     </div>
 </div>
 
-{{-- ---------------- Galeri Section ---------------- --}}
+{{-- ---------------- PERBAIKAN Galeri Section - CARD SERAGAM ---------------- --}}
 <div class="galeri-section">
-    <div class="uniform-grid-container">
-        <h2 class="section-title">Galeri Desa</h2>
+    <div class="container-main">
+        <div class="text-center mb-4 mt-2 px-2 gallery-header">
+            <h2 class="fw-semibold display-4 mb-2 gallery-title">
+                GALERI DESA
+            </h2>
+        </div>
+
         <div class="uniform-grid">
             @foreach($galeris->take(6) as $galeri)
             <div class="uniform-card position-relative">
@@ -2339,7 +2570,9 @@ if (!isset($stats)) {
             @endforeach
         </div>
         <div class="btn-view-all-container">
-            <a href="{{ route('galeri.user.index') }}" class="btn-view-all">Lihat Semua Galeri</a>
+            <a href="{{ route('galeri.user.index') }}" class="btn-view-all">
+                <i class="fas fa-images me-2"></i>Lihat Semua Galeri
+            </a>
         </div>
     </div>
 </div>

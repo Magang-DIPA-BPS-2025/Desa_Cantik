@@ -10,7 +10,11 @@
 .apb-right { flex: 1.2; min-width: 400px; }
 .apb-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
 .apb-card { border-radius: 12px; padding: 22px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.apb-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+.apb-card h3 {
+    font-variant: normal !important;
+    font-feature-settings: "smcp" off, "c2sc" off !important;
+    text-transform: none !important;
+}
 .apb-card p { font-size: 20px; font-weight: 700; margin: 0; }
 .apb-card i { font-size: 26px; margin-bottom: 6px; }
 .bg-green { background: #2e7d32; }
@@ -117,7 +121,8 @@ canvas { max-height: 280px; width: 100% !important; }
     color: #2e7d32; 
     padding: 5px 15px; 
     border-radius: 20px; 
-    font-size: 20px; 
+    font-size: 38px; /* Sama dengan ukuran font judul */
+    font-weight: 700; /* Sama dengan ketebalan font judul */
     margin-left: 10px; 
     vertical-align: middle;
 }
@@ -129,67 +134,155 @@ canvas { max-height: 280px; width: 100% !important; }
 
 /* === RESPONSIVE FIX UNTUK TAMPILAN HP / LAYAR KECIL === */
 @media (max-width: 768px) {
+    .apb-desa {
+        padding: 30px 15px;
+    }
+    
     .apb-container {
         flex-direction: column;
-        align-items: center;
-        text-align: left;
+        gap: 30px;
     }
-
+    
     /* Judul di kiri saat HP */
+    .apb-info {
+        width: 100%;
+        align-items: flex-start;
+    }
+    
     .apb-info h2 {
         text-align: left;
         font-size: 28px;
         width: 100%;
         display: flex;
-        flex-direction: column;   /* bikin tahun turun ke bawah */
-        align-items: center;      /* tahun jadi di tengah */
-    }
-
-    /* Tahun di bawah dan center */
-    .year-badge {
-        margin: 8px 0 0 0;        /* jarak dari judul */
-        font-size: 18px;
-        text-align: center;
-    }
-
-    /* Card tetap di tengah */
-    .apb-right {
-        display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        align-items: flex-start;
+    }
+
+    /* Tahun di bawah dan rata kiri - dengan ukuran yang sama */
+    .year-badge {
+        margin: 8px 0 0 0;
+        font-size: 28px; /* Sama dengan ukuran font judul di mobile */
+        text-align: left;
+        align-self: flex-start;
+    }
+
+    /* Filter container responsif */
+    .filter-container {
+        max-width: 100%;
+        margin: 20px 0;
+    }
+    
+    .filter-controls {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .filter-select, .filter-btn {
+        width: 100%;
+    }
+
+    /* Card tetap di tengah dengan ukuran seragam */
+    .apb-right {
+        width: 100%;
+        min-width: unset;
     }
 
     .apb-grid {
-        justify-content: center;
+        grid-template-columns: 1fr;
+        gap: 15px;
     }
-
+    
+    /* Semua card memiliki ukuran yang sama */
     .apb-card {
-        width: 90%;
-        max-width: 320px;
-        margin: auto;
-    }
-
-    .card-box {
         width: 100%;
+        min-height: 140px;
+        padding: 20px;
         text-align: center;
     }
     
-    /* Responsif untuk dropdown */
-    .download-dropdown {
-        margin-top: 10px;
+    .apb-card h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
     }
     
-    .download-content {
-        right: auto;
-        left: 0;
-        min-width: 180px;
+    .apb-card p {
+        font-size: 18px;
     }
     
+    .apb-card i {
+        font-size: 22px;
+    }
+
+    /* Card box responsif */
+    .card-box {
+        padding: 20px 15px;
+        margin-top: 30px;
+    }
+    
+    /* Header card box dengan judul dan tombol download di bawah */
     .card-box h3 {
         flex-direction: column;
         gap: 15px;
-        text-align: center;
+        align-items: flex-start;
+    }
+    
+    /* Tombol download di kanan untuk mobile */
+    .download-dropdown {
+        align-self: flex-end;
+        margin-top: 0;
+    }
+    
+    .download-content {
+        right: 0;
+        left: auto;
+        min-width: 180px;
+    }
+    
+    /* Chart container responsif */
+    .chart-container {
+        height: 250px;
+    }
+    
+    /* Progress card responsif */
+    .progress-card {
+        padding: 15px;
+    }
+    
+    .progress-label {
+        font-size: 14px;
+    }
+}
+
+/* Untuk layar sangat kecil (mobile kecil) */
+@media (max-width: 480px) {
+    .apb-info h2 {
+        font-size: 24px;
+    }
+    
+    .year-badge {
+        font-size: 24px; /* Sama dengan ukuran font judul di mobile kecil */
+    }
+    
+    .apb-card {
+        min-height: 120px;
+        padding: 15px;
+    }
+    
+    .apb-card h3 {
+        font-size: 16px;
+    }
+    
+    .apb-card p {
+        font-size: 16px;
+    }
+    
+    .card-box h3 {
+        font-size: 18px;
+    }
+    
+    .download-btn {
+        padding: 8px 12px;
+        font-size: 13px;
     }
 }
 
@@ -205,7 +298,7 @@ body.sidebar-active .apb-info h2 {
         {{-- Judul dan Filter --}}
         <div class="apb-info">
             <h2>
-                APBD Desa Manggalung 
+                APBD Desa Manggalung
                 <span class="year-badge">{{ $apbd->tahun ?? 'N/A' }}</span>
             </h2>
             
@@ -240,12 +333,12 @@ body.sidebar-active .apb-info h2 {
                     <div class="apb-card bg-green">
                         <i class="fas fa-wallet"></i>
                         <h3 style="color:white;">Total Pendapatan</h3>
-                        <p>Rp{{ number_format($apbd->total_pendapatan ?? 0,0,',','.') }}</p>
+                        <p>Rp. {{ number_format($apbd->total_pendapatan ?? 0,0,',','.') }}</p>
                     </div>
                     <div class="apb-card bg-red">
                         <i class="fas fa-shopping-cart"></i>
                         <h3 style="color:white;">Total Belanja</h3>
-                        <p>Rp{{ number_format($apbd->total_belanja ?? 0,0,',','.') }}</p>
+                        <p>Rp. {{ number_format($apbd->total_belanja ?? 0,0,',','.') }}</p>
                     </div>
                 </div>
 
@@ -253,20 +346,20 @@ body.sidebar-active .apb-info h2 {
                     <div class="apb-card bg-green">
                         <i class="fas fa-arrow-down"></i>
                         <h3 style="color:white;">Penerimaan</h3>
-                        <p>Rp{{ number_format($apbd->penerimaan ?? 0,0,',','.') }}</p>
+                        <p>Rp. {{ number_format($apbd->penerimaan ?? 0,0,',','.') }}</p>
                     </div>
 
                     <div class="apb-card bg-red">
                         <i class="fas fa-arrow-up"></i>
                         <h3 style="color:white;">Pengeluaran</h3>
-                        <p>Rp{{ number_format($apbd->pengeluaran ?? 0,0,',','.') }}</p>
+                        <p>Rp. {{ number_format($apbd->pengeluaran ?? 0,0,',','.') }}</p>
                     </div>
                 </div>
 
                 <div class="apb-card bg-blue" style="margin-top:20px;">
                     <i class="fas fa-balance-scale"></i>
                     <h3 style="color:white;">Surplus/Defisit</h3>
-                    <p>Rp{{ number_format($apbd->surplus_defisit ?? 0,0,',','.') }}</p>
+                    <p>Rp. {{ number_format($apbd->surplus_defisit ?? 0,0,',','.') }}</p>
                 </div>
 
                 @if(!empty($apbd->updated_at))

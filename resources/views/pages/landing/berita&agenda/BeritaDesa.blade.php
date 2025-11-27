@@ -39,7 +39,7 @@ body {
 
 .gallery-header p {
     font-size: 1.1rem;
-    color: #000; /* Diubah dari #666 menjadi #000 */
+    color: #000;
     margin-bottom: 0;
 }
 
@@ -51,14 +51,15 @@ body {
   margin-top: 2rem;
 }
 
-/* Grid berita */
+/* Grid berita dengan tinggi seragam */
 .berita-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  align-items: stretch; /* Memastikan semua item memiliki tinggi yang sama */
 }
 
-/* Card berita */
+/* Card berita dengan tinggi konsisten */
 .berita-card {
   background: #fff;
   border-radius: 14px;
@@ -67,6 +68,9 @@ body {
   transition: transform .3s ease, box-shadow .3s ease;
   cursor: pointer;
   border: none;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Menggunakan tinggi penuh dari grid cell */
 }
 
 .berita-card:hover {
@@ -74,37 +78,54 @@ body {
   box-shadow: 0 12px 28px rgba(0,0,0,0.12);
 }
 
+/* Gambar dengan rasio tetap */
 .berita-card img {
   width: 100%;
   height: 200px;
   object-fit: cover;
+  flex-shrink: 0; /* Mencegah gambar menyusut */
 }
 
+/* Konten card yang fleksibel */
 .berita-card .content {
   padding: 20px;
+  flex: 1; /* Mengisi sisa ruang yang tersedia */
+  display: flex;
+  flex-direction: column;
 }
 
 .berita-card h4 {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #000; /* Diubah dari #2c3e50 menjadi #000 */
+  color: #000;
   margin-bottom: 8px;
   font-family: 'Poppins', sans-serif;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Batasi judul menjadi 2 baris */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .berita-card small {
   display: block;
   font-size: 0.85rem;
-  color: #000; /* Diubah dari #888 menjadi #000 */
+  color: #000;
   margin-bottom: 10px;
   font-family: 'Open Sans', sans-serif;
+  flex-shrink: 0; /* Mencegah elemen kecil menyusut */
 }
 
 .berita-card p {
   font-size: 0.9rem;
-  color: #000; /* Diubah dari #555 menjadi #000 */
+  color: #000;
   margin-bottom: 0;
   font-family: 'Open Sans', sans-serif;
+  flex: 1; /* Deskripsi mengisi sisa ruang */
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Batasi deskripsi menjadi 3 baris */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Sidebar */
@@ -128,7 +149,7 @@ body {
   transition: all 0.3s ease;
   background: #fafafa;
   font-family: 'Open Sans', sans-serif;
-  color: #000; /* Ditambahkan warna hitam */
+  color: #000;
 }
 
 .search-box input[type="text"]:focus {
@@ -152,7 +173,7 @@ body {
   transform: translateY(-50%);
   width: 12px;
   height: 12px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.762L10.825 4z'/%3E%3C/svg%3E"); /* Diubah dari %23333 menjadi %23000 */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.762L10.825 4z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
   pointer-events: none;
@@ -174,7 +195,7 @@ body {
   border-radius: 10px;
   border: 1px solid #e0e0e0;
   background: #fafafa;
-  color: #000; /* Diubah dari #333 menjadi #000 */
+  color: #000;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -318,7 +339,7 @@ body {
   font-size: 14px;
   background: #fafafa;
   font-family: 'Open Sans', sans-serif;
-  color: #000; /* Ditambahkan warna hitam */
+  color: #000;
 }
 
 .mobile-search-box input[type="text"]:focus {
@@ -341,7 +362,7 @@ body {
   transform: translateY(-50%);
   width: 12px;
   height: 12px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.762L10.825 4z'/%3E%3C/svg%3E"); /* Diubah dari %23333 menjadi %23000 */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.762L10.825 4z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
   pointer-events: none;
@@ -359,7 +380,7 @@ body {
   border-radius: 10px;
   border: 1px solid #e0e0e0;
   background: #fafafa;
-  color: #000; /* Diubah dari #333 menjadi #000 */
+  color: #000;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -392,7 +413,7 @@ body {
 .mobile-berita-terbaru h4 {
   font-weight: 700;
   margin-bottom: 20px;
-  color: #000; /* Diubah dari #2c3e50 menjadi #000 */
+  color: #000;
   font-size: 18px;
   padding-bottom: 12px;
   border-bottom: 2px solid #16a34a;
@@ -441,7 +462,7 @@ body {
 
 .mobile-berita-content .judul {
   font-weight: 600;
-  color: #000; /* Diubah dari #2c3e50 menjadi #000 */
+  color: #000;
   margin-bottom: 6px;
   font-size: 14px;
   line-height: 1.3;
@@ -453,7 +474,7 @@ body {
 }
 
 .mobile-berita-content .tanggal {
-  color: #000; /* Diubah dari #666 menjadi #000 */
+  color: #000;
   font-size: 12px;
   font-weight: 500;
   font-family: 'Open Sans', sans-serif;
@@ -540,6 +561,7 @@ body {
 }
 </style>
 
+<!-- HTML content tetap sama -->
 <div class="container-main">
     <div class="text-start mb-4 mt-2 px-2 gallery-header">
         <h2 class="fw-semibold display-4 mb-2 gallery-title">
@@ -575,7 +597,6 @@ body {
     </div>
 
     <div class="container-berita">
-        <!-- Bagian kiri: Berita -->
         <div>
             <div class="berita-grid" id="berita-container">
             @forelse($beritas as $berita)
@@ -672,6 +693,7 @@ body {
 </div>
 
 <script>
+// JavaScript tetap sama
 // Auto submit form ketika pencarian selesai (setelah user berhenti mengetik)
 let searchTimeout;
 document.querySelectorAll('input[name="search"]').forEach(input => {
