@@ -249,6 +249,7 @@ Route::group(
 
             Route::resource('pemerintah-desa', PemerintahDesaController::class);
             
+            
 
             Route::resource('apbd', ApbdController::class);
 
@@ -317,6 +318,14 @@ Route::group(
                 Route::get('/izin/cetak/{id}', [IzinController::class, 'cetak'])->name('izin.cetak');
             });
 
+              Route::middleware(['is_admin'])->group(function () {
+                Route::get('/akun', [AkunController::class, 'index'])->name('akun.index');
+                Route::get('/akun/create', [AkunController::class, 'create'])->name('akun.create'); 
+                Route::post('/akun', [AkunController::class, 'store'])->name('akun.store'); 
+                Route::get('/akun/edit/{id}', [AkunController::class, 'edit'])->name('akun.edit');
+                Route::put('/akun/{id}', [AkunController::class, 'update'])->name('akun.update'); 
+                Route::delete('/akun/delete/{id}', [AkunController::class, 'destroy'])->name('akun.destroy');
+            });
 
             Route::resource('ppid', PPIDController::class);
 
