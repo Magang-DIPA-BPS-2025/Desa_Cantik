@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AkunController extends Controller
 {
@@ -16,11 +15,6 @@ class AkunController extends Controller
     // Tampilkan semua akun
     public function index()
     {
-        // Debug: Cek user yang login
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu');
-        }
-
         $datas = Admin::latest()->get();
         return view('pages.admin.akun.index', [
             'menu' => 'akun',
@@ -51,16 +45,16 @@ class AkunController extends Controller
                 'password' => $request->password, // mutator di model otomatis hash
             ]);
 
-            return redirect()->route('akun.index')->with('success', 'Akun berhasil dibuat');
+            return redirect()->route('akun.index')->with('message', 'store');
         } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect()->back()
                 ->withErrors($e->validator)
                 ->withInput()
-                ->with('error', 'Validasi gagal: ' . $e->getMessage());
+                ->with('message', 'Validasi gagal: ' . $e->getMessage());
         } catch (\Exception $e) {
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Gagal membuat akun: ' . $e->getMessage());
+                ->with('message', 'Gagal membuat akun: ' . $e->getMessage());
         }
     }
 
@@ -96,16 +90,16 @@ class AkunController extends Controller
 
             $akun->save();
 
-            return redirect()->route('akun.index')->with('success', 'Akun berhasil diperbarui');
+            return redirect()->route('akun.index')->with('message', 'update');
         } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect()->back()
                 ->withErrors($e->validator)
                 ->withInput()
-                ->with('error', 'Validasi gagal: ' . $e->getMessage());
+                ->with('message', 'Validasi gagal: ' . $e->getMessage());
         } catch (\Exception $e) {
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Gagal memperbarui akun: ' . $e->getMessage());
+                ->with('message', 'Gagal memperbarui akun: ' . $e->getMessage());
         }
     }
 
@@ -115,16 +109,16 @@ class AkunController extends Controller
         try {
             $akun = Admin::findOrFail($id);
             
-            // Cegah penghapusan akun sendiri - perbaiki session menjadi Auth
-            if (Auth::id() == $akun->id) {
-                return redirect()->route('akun.index')->with('error', 'Tidak dapat menghapus akun yang sedang digunakan');
+            // Cegah penghapusan akun sendiri
+            if (session('user_id') == $akun->id) {
+                return redirect()->route('akun.index')->with('message', 'Tidak dapat menghapus akun yang sedang digunakan');
             }
             
             $akun->delete();
 
-            return redirect()->route('akun.index')->with('success', 'Akun berhasil dihapus');
+            return redirect()->route('akun.index')->with('message', 'Akun berhasil dihapus');
         } catch (\Exception $e) {
-            return redirect()->route('akun.index')->with('error', 'Gagal menghapus akun: ' . $e->getMessage());
+            return redirect()->route('akun.index')->with('message', 'Gagal menghapus akun: ' . $e->getMessage());
         }
     }
 }
