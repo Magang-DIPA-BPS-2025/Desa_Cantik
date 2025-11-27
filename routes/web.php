@@ -309,7 +309,7 @@ Route::group(
 
 
 
-              Route::middleware(['auth', 'is_admin'])->group(function () {
+              Route::middleware(['is_admin'])->group(function () {
                 Route::get('/akun', [AkunController::class, 'index'])->name('akun.index');
                 Route::get('/akun/create', [AkunController::class, 'create'])->name('akun.create'); 
                 Route::post('/akun', [AkunController::class, 'store'])->name('akun.store'); 
