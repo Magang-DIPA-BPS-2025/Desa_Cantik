@@ -10,10 +10,7 @@ use Illuminate\Support\Facades\URL;
 
 class SkuController extends Controller
 {
-    /** -------------------------------
-     *  TAMPILKAN DATA SKU - INDEX
-     *  -------------------------------
-     */
+ 
     public function index(Request $request)
     {
         $keyword = $request->input('keyword');
@@ -24,11 +21,11 @@ class SkuController extends Controller
                 ->orWhere('nama_usaha', 'like', "%{$keyword}%");
         });
 
-        // Pagination dengan custom per_page
+       
         $perPage = $request->get('per_page', 10);
         $skus = $query->latest()->paginate($perPage);
         
-        // Tambahkan parameter ke pagination links
+    
         $skus->appends([
             'keyword' => $keyword,
             'per_page' => $perPage
@@ -41,10 +38,7 @@ class SkuController extends Controller
         ]);
     }
 
-    /** -------------------------------
-     *  TAMPILKAN FORM TAMBAH - CREATE
-     *  -------------------------------
-     */
+  
     public function create()
     {
         return view('pages.admin.sku.create', [
@@ -53,10 +47,6 @@ class SkuController extends Controller
         ]);
     }
 
-    /** -------------------------------
-     *  SIMPAN DATA SKU BARU - STORE
-     *  -------------------------------
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -72,7 +62,6 @@ class SkuController extends Controller
             'tanggal_dibuat' => 'required|date', 
         ]);
 
-        // Cara 2: Explicitly define semua field
         Sku::create([
             'nik' => $request->nik,
             'nama' => $request->nama,
@@ -90,10 +79,7 @@ class SkuController extends Controller
         return redirect()->route('pengantar')->with('success', 'Data SKU berhasil ditambahkan.');
     }
 
-    /** -------------------------------
-     *  TAMPILKAN DETAIL SKU - SHOW
-     *  -------------------------------
-     */
+   
     public function show($id)
     {
         $sku = Sku::findOrFail($id);
@@ -105,10 +91,6 @@ class SkuController extends Controller
         ]);
     }
 
-    /** -------------------------------
-     *  TAMPILKAN FORM EDIT - EDIT
-     *  -------------------------------
-     */
     public function edit($id)
     {
         $sku = Sku::findOrFail($id);
@@ -120,10 +102,7 @@ class SkuController extends Controller
         ]);
     }
 
-    /** -------------------------------
-     *  UPDATE DATA SKU - UPDATE
-     *  -------------------------------
-     */
+    
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -136,7 +115,7 @@ class SkuController extends Controller
             'no_hp' => 'nullable|string|max:15',
             'email' => 'nullable|email',
             'keperluan' => 'nullable|string',
-            'nomor_surat' => 'nullable|string|max:50', // Tambahan field nomor surat
+            'nomor_surat' => 'nullable|string|max:50',
         ]);
 
         $sku = Sku::findOrFail($id);
@@ -157,10 +136,7 @@ class SkuController extends Controller
             ->with('success', 'Data SKU berhasil diperbarui!');
     }
 
-    /** -------------------------------
-     *  HAPUS DATA SKU - DESTROY
-     *  -------------------------------
-     */
+   
     public function destroy($id)
     {
         $sku = Sku::findOrFail($id);
@@ -169,10 +145,7 @@ class SkuController extends Controller
         return redirect()->route('sku.index')->with('success', 'Data SKU berhasil dihapus.');
     }
 
-    /** -------------------------------
-     *  VERIFIKASI SKU - CUSTOM METHOD
-     *  -------------------------------
-     */
+
     public function verifikasi($id)
     {
         $sku = Sku::findOrFail($id);
@@ -182,10 +155,7 @@ class SkuController extends Controller
         return redirect()->route('sku.index')->with('success', 'Data SKU berhasil diverifikasi.');
     }
 
-    /** -------------------------------
-     *  CETAK SURAT SKU (PDF) - CUSTOM METHOD
-     *  -------------------------------
-     */
+  
     public function cetak($id)
     {
         $sku = Sku::findOrFail($id);
@@ -196,7 +166,7 @@ class SkuController extends Controller
 
         $linkVerifikasi = route('verifikasi.surat', ['id' => $sku->id]);
         
-        // Untuk sementara, kita skip QR code dulu
+        
         $qrCodeSuccess = false;
         $qrCodeBase64 = '';
 
@@ -214,10 +184,7 @@ class SkuController extends Controller
         return $pdf->stream('Surat-Keterangan-Usaha-' . $sku->nama . '.pdf');
     }
 
-    /** -------------------------------
-     *  HALAMAN VERIFIKASI SURAT - CUSTOM METHOD
-     *  -------------------------------
-     */
+   
     public function verifikasiSurat($id)
     {
         $sku = Sku::find($id);
@@ -235,10 +202,7 @@ class SkuController extends Controller
         ]);
     }
 
-    /** -------------------------------
-     *  FORCE GD BACKEND UNTUK QR CODE
-     *  -------------------------------
-     */
+   
     private function forceGDBackend()
     {
         putenv('QR_CODE_BACKEND=gd');

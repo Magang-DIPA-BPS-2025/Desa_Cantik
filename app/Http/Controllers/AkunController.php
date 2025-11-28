@@ -12,7 +12,6 @@ class AkunController extends Controller
         $this->middleware('is_admin');
     }
 
-    // Tampilkan semua akun
     public function index()
     {
         $datas = Admin::latest()->get();
@@ -22,13 +21,12 @@ class AkunController extends Controller
         ]);
     }
 
-    // Form tambah akun (redirect ke index karena form ada di index)
     public function create()
     {
         return redirect()->route('akun.index');
     }
 
-    // Simpan akun baru
+
     public function store(Request $request)
     {
         try {
@@ -42,7 +40,7 @@ class AkunController extends Controller
                 'name' => $request->name,
                 'username' => strtolower(str_replace(' ', '', $request->username)),
                 'role' => $request->role ?? 'admin',
-                'password' => $request->password, // mutator di model otomatis hash
+                'password' => $request->password, 
             ]);
 
             return redirect()->route('akun.index')->with('message', 'store');
@@ -58,7 +56,7 @@ class AkunController extends Controller
         }
     }
 
-    // Edit akun
+
     public function edit($id)
     {
         $data = Admin::findOrFail($id);
@@ -68,7 +66,7 @@ class AkunController extends Controller
         ]);
     }
 
-    // Update akun
+
     public function update(Request $request, $id)
     {
         try {
@@ -80,12 +78,12 @@ class AkunController extends Controller
                 'password' => 'nullable|string|min:6',
             ]);
 
-            // Update properti langsung agar mutator jalan
+            
             $akun->name = $request->name;
             $akun->username = strtolower(str_replace(' ', '', $request->username));
 
             if ($request->filled('password')) {
-                $akun->password = $request->password; // mutator otomatis hash
+                $akun->password = $request->password; 
             }
 
             $akun->save();

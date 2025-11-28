@@ -10,7 +10,6 @@
         color: #333;
     }
     
-    /* Header Section */
     .container-main { 
         max-width: 1600px;
         margin: auto; 
@@ -38,7 +37,6 @@
         font-family: 'Open Sans', sans-serif;
     }
 
-    /* Card Style */
     .card { 
         background: #fff; 
         border-radius: 14px; 
@@ -54,7 +52,6 @@
         box-shadow: 0 12px 28px rgba(0,0,0,0.12); 
     }
 
-    /* Form Styles */
     .form-group { 
         margin-bottom: 25px; 
         text-align: left;
@@ -94,7 +91,6 @@
         min-height: 100px;
     }
     
-    /* Tombol Simpan */
     .btn-submit { 
         background: linear-gradient(135deg, #2E7D32, #4CAF50); 
         color: #fff; 
@@ -141,7 +137,6 @@
         box-shadow: 0 4px 8px rgba(13, 110, 253, 0.2);
     }
 
-    /* Dropdown Styles */
     .dropdown {
         position: relative;
         display: inline-block;
@@ -189,7 +184,6 @@
         background: linear-gradient(135deg, #1B5E20, #1B5E20);
     }
 
-    /* Table Styles */
     .table-container {
         overflow-x: auto;
         margin-top: 18px;
@@ -205,7 +199,6 @@
         min-width: 1000px;
     }
 
-    /* Garis untuk setiap sel */
     .data-table th, .data-table td { 
         padding: 12px 10px; 
         text-align: left; 
@@ -232,7 +225,6 @@
         font-size: 13px;
     }
 
-    /* Lebar kolom dengan garis */
     .data-table th:nth-child(1), .data-table td:nth-child(1) { 
         width: 70px; 
         text-align: center;
@@ -261,7 +253,6 @@
         border-right: 1px solid #e5e7eb;
     }
 
-    /* Alert Styles */
     .alert {
         padding: 15px 20px;
         border-radius: 8px;
@@ -284,7 +275,6 @@
         border-left: 4px solid #dc3545;
     }
 
-    /* Row dan Column Layout */
     .form-row {
         display: flex;
         gap: 25px;
@@ -295,7 +285,6 @@
         flex: 1;
     }
 
-    /* Header Table Container */
     .table-header-container {
         display: flex;
         justify-content: space-between;
@@ -314,7 +303,6 @@
         flex: 0 0 auto;
     }
 
-    /* TTD Section */
     .ttd-section {
         border-top: 2px dashed #e2e8f0;
         padding-top: 25px;
@@ -350,7 +338,6 @@
         cursor: crosshair;
     }
 
-    /* Container untuk label dan tombol hapus */
     .ttd-header {
         display: flex;
         justify-content: space-between;
@@ -367,7 +354,6 @@
         margin: 0;
     }
 
-    /* Tombol hapus TTD di kanan sejajar dengan label */
     .ttd-clear-btn {
         background: #dc3545;
         color: white;
@@ -397,7 +383,6 @@
         text-align: left;
     }
 
-    /* TTD Preview di Tabel */
     .ttd-preview {
         width: 60px;
         height: 30px;
@@ -417,7 +402,6 @@
         object-fit: contain;
     }
 
-    /* Modal TTD */
     .ttd-modal .modal-content {
         border-radius: 12px;
         border: none;
@@ -437,7 +421,6 @@
         font-weight: 600;
     }
     
-    /* Tombol close (X) */
     .ttd-modal .modal-header .btn-close {
         filter: invert(1);
         opacity: 0.9;
@@ -464,7 +447,6 @@
         gap: 10px;
     }
     
-    /* Tombol tutup modal */
     .ttd-modal .modal-footer .btn {
         padding: 8px 20px;
         border-radius: 6px;
@@ -486,7 +468,6 @@
         transform: translateY(-1px);
     }
 
-    /* Pagination */
     .pagination-info {
         font-family: 'Open Sans', sans-serif;
         color: #666;
@@ -617,7 +598,6 @@
             min-width: 160px;
         }
         
-        /* Perbaikan khusus untuk tampilan mobile yang sangat kecil */
         @media (max-width: 400px) {
             .table-title-section h5 {
                 font-size: 1.1rem;
@@ -635,12 +615,10 @@
     }
 </style>
 
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
 
 <div class="container-main">
-    <!-- Judul Halaman -->
     <div class="text-start mb-4 mt-2 px-2 gallery-header">
         <h2 class="fw-semibold display-4 mb-2 gallery-title">
             FORMULIR BUKU TAMU
@@ -650,7 +628,6 @@
         </p>
     </div>
 
-    <!-- Alert Messages -->
     @if(session('success'))
         <div class="alert alert-success">
             <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
@@ -669,7 +646,6 @@
         </div>
     @endif
 
-    <!-- Card Form Input -->
     <div class="card">
         <div class="form-group">
             <h5 class="form-section-title" style="color: #2E7D32; font-weight: 600; margin-bottom: 20px; font-family: 'Poppins', sans-serif;">
@@ -680,9 +656,7 @@
 
         <form action="{{ route('bukutamu') }}" method="POST" id="bukutamuForm">
             @csrf
-            
-            <!-- Data Pribadi -->
-            <div class="form-row">
+                <div class="form-row">
                 <div class="form-col">
                     <div class="form-group">
                         <label>Nama Lengkap <span class="text-danger">*</span></label>
@@ -705,7 +679,6 @@
                     </div>
                 </div>
                 <div class="form-col">
-                    <!-- PERBAIKAN: Tambahkan input tanggal -->
                     <div class="form-group">
                         <label>Tanggal Kunjungan <span class="text-danger">*</span></label>
                         <input type="datetime-local" name="waktu_kunjungan" value="{{ old('waktu_kunjungan') ? old('waktu_kunjungan') : date('Y-m-d\TH:i') }}" required>
@@ -718,7 +691,6 @@
                 <textarea name="keperluan" placeholder="Tuliskan keperluan kunjungan Anda secara detail" rows="4" required>{{ old('keperluan') }}</textarea>
             </div>
 
-            <!-- Section TTD -->
             <div class="ttd-section">
                 <div class="form-group">
                     <h6 style="color: #2E7D32; font-weight: 600; margin-bottom: 20px; font-family: 'Poppins', sans-serif;">
@@ -735,7 +707,6 @@
                             </div>
                         </div>
                         
-                        <!-- Header dengan label dan tombol hapus sejajar -->
                         <div class="ttd-header">
                             <div class="ttd-label">Tanda Tangan Pengunjung</div>
                             <button type="button" class="ttd-clear-btn" onclick="clearSignature()">
@@ -757,9 +728,7 @@
         </form>
     </div>
 
-    <!-- Card Tabel Data -->
     <div class="card">
-        <!-- Header Tabel yang Diperbaiki -->
         <div class="table-header-container">
             <div class="table-title-section">
                 <h5 class="form-section-title" style="color: #2E7D32; font-weight: 600; margin-bottom: 5px; font-family: 'Poppins', sans-serif;">
@@ -768,7 +737,6 @@
                 </h5>
             </div>
             <div class="table-export-section">
-                <!-- Dropdown untuk download -->
                 <div class="dropdown">
                     <button class="btn-export">
                         <i class="bi bi-download me-2"></i> Download Data
@@ -860,7 +828,6 @@
     </div>
 </div>
 
-<!-- Modal untuk menampilkan TTD -->
 <div class="modal fade ttd-modal" id="ttdModal" tabindex="-1" aria-labelledby="ttdModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -879,7 +846,6 @@
     </div>
 </div>
 
-<!-- Signature Pad Library -->
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -887,15 +853,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-// Initialize Signature Pad
 let signaturePad = null;
 let ttdModal = null;
 
-// Inisialisasi saat halaman dimuat
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM Content Loaded - Initializing components...');
     
-    // Initialize Signature Pad
     const canvas = document.createElement('canvas');
     const ttdPlaceholder = document.getElementById('ttdPlaceholder');
 
@@ -916,7 +879,6 @@ document.addEventListener('DOMContentLoaded', function() {
         maxWidth: 2
     });
 
-    // Inisialisasi modal dengan benar
     const modalElement = document.getElementById('ttdModal');
     if (modalElement) {
         ttdModal = new bootstrap.Modal(modalElement);
@@ -925,7 +887,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Modal element not found');
     }
 
-    // Handle form submission
     document.getElementById('bukutamuForm').addEventListener('submit', function(e) {
         if (signaturePad.isEmpty()) {
             if (!confirm('Anda belum memberikan tanda tangan. Lanjutkan tanpa tanda tangan?')) {
@@ -933,13 +894,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
         } else {
-            // Convert signature to data URL
             const ttdData = signaturePad.toDataURL();
             document.getElementById('ttdData').value = ttdData;
         }
     });
 
-    // Tambah event listener untuk tombol close manual
     const closeButtons = document.querySelectorAll('[data-bs-dismiss="modal"], .btn-close');
     closeButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -948,7 +907,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Fungsi untuk menampilkan TTD di modal
 function showSignature(ttdData, nama) {
     console.log('Showing signature modal');
     document.getElementById('ttdModalImage').src = ttdData;
@@ -958,7 +916,6 @@ function showSignature(ttdData, nama) {
         ttdModal.show();
     } else {
         console.error('Modal not initialized');
-        // Fallback: show modal manually
         const modalElement = document.getElementById('ttdModal');
         if (modalElement) {
             modalElement.classList.add('show');
@@ -968,24 +925,20 @@ function showSignature(ttdData, nama) {
     }
 }
 
-// Fungsi untuk menutup modal dengan beberapa cara
 function closeModal() {
     console.log('Closing modal');
     
-    // Cara 1: Gunakan Bootstrap modal method
     if (ttdModal) {
         ttdModal.hide();
         return;
     }
     
-    // Cara 2: Manual hide modal
     const modalElement = document.getElementById('ttdModal');
     if (modalElement) {
         modalElement.classList.remove('show');
         modalElement.style.display = 'none';
         document.body.classList.remove('modal-open');
         
-        // Hapus backdrop
         const backdrops = document.querySelectorAll('.modal-backdrop');
         backdrops.forEach(backdrop => {
             backdrop.remove();
@@ -1057,26 +1010,21 @@ function downloadPDF() {
     
     if (!confirm('Apakah Anda yakin ingin mengekspor data buku tamu ke PDF?')) return;
 
-    // Menggunakan jsPDF
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF('landscape');
     
-    // Judul
     doc.setFontSize(16);
     doc.setFont('helvetica', 'bold');
     doc.text('DATA BUKU TAMU DESA MANGGAUNG', 15, 15);
     
-    // Informasi ekspor
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
     doc.text(`Tanggal Ekspor: ${new Date().toLocaleDateString('id-ID', { timeZone: 'Asia/Makassar' })}`, 15, 22);
     doc.text(`Waktu Ekspor: ${new Date().toLocaleTimeString('id-ID', { timeZone: 'Asia/Makassar' })} WITA`, 15, 27);
     doc.text('Zona Waktu: Asia/Makassar (WITA)', 15, 32);
     
-    // Data tabel
     const tableData = [];
     
-    // Header tabel
     tableData.push([
         'No', 
         'Tanggal Kunjungan', 
@@ -1087,7 +1035,6 @@ function downloadPDF() {
         'Tanda Tangan'
     ]);
     
-    // Isi tabel
     @foreach($bukutamus as $index => $tamu)
     tableData.push([
         '{{ $index + 1 }}',
@@ -1100,7 +1047,6 @@ function downloadPDF() {
     ]);
     @endforeach
     
-    // Generate tabel
     doc.autoTable({
         startY: 40,
         head: [tableData[0]],
@@ -1128,7 +1074,6 @@ function downloadPDF() {
         margin: { top: 40 }
     });
     
-    // Simpan PDF
     doc.save(`Buku_Tamu_Desa_Manggalung_${new Date().toISOString().split('T')[0]}.pdf`);
 }
 </script>

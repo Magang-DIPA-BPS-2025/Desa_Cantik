@@ -10,7 +10,6 @@
         color: #333;
     }
     
-    /* Header Section - Mengikuti gaya dari halaman jumlah penduduk */
     .container-main { 
         max-width: 1400px; 
         margin: auto; 
@@ -38,7 +37,6 @@
         font-family: 'Open Sans', sans-serif;
     }
 
-    /* Card Style - Mengikuti gaya dari halaman jumlah penduduk */
     .card { 
         background: #fff; 
         border-radius: 14px; 
@@ -54,7 +52,6 @@
         box-shadow: 0 12px 28px rgba(0,0,0,0.12); 
     }
 
-    /* Form Styles */
     .form-group { 
         margin-bottom: 25px; 
         text-align: left;
@@ -80,7 +77,7 @@
         background: #f8fafc;
         text-align: left;
         font-family: 'Open Sans', sans-serif;
-        height: 52px; /* TINGGI SAMA DENGAN TOMBOL */
+        height: 52px; 
         box-sizing: border-box;
     }
     
@@ -104,7 +101,7 @@
         transition: all 0.3s ease;
         text-align: center;
         font-family: 'Poppins', sans-serif;
-        height: 52px; /* TINGGI SAMA DENGAN INPUT */
+        height: 52px; 
         display: flex;
         align-items: center;
         justify-content: center;
@@ -139,7 +136,6 @@
         text-decoration: none;
     }
 
-    /* Table Styles */
     .table { 
         width: 100%; 
         border-collapse: collapse; 
@@ -161,7 +157,6 @@
         font-family: 'Poppins', sans-serif; 
     }
 
-    /* Badge Styles */
     .badge {
         padding: 8px 16px;
         border-radius: 8px;
@@ -190,7 +185,6 @@
         color: white;
     }
 
-    /* Row dan Column Layout - PERBAIKAN UTAMA */
     .form-row {
         display: flex;
         gap: 15px;
@@ -212,12 +206,10 @@
         max-width: 200px;
     }
 
-    /* Loading State */
     .loading {
         display: none;
     }
     
-    /* Memastikan input dan tombol memiliki tinggi yang sama */
     .input-group {
         display: flex;
         align-items: stretch;
@@ -256,7 +248,7 @@
         
         .form-control-email,
         .btn-submit {
-            height: 48px; /* Sesuaikan tinggi untuk mobile */
+            height: 48px; 
         }
     }
 
@@ -288,12 +280,10 @@
     }
 </style>
 
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
 
 <div class="container-main">
-    <!-- Judul Halaman - Mengikuti gaya dari halaman jumlah penduduk -->
     <div class="text-start mb-4 mt-2 px-2 gallery-header">
         <h2 class="fw-semibold display-4 mb-2 gallery-title">
             STATUS PERMOHONAN INFORMASI PUBLIK
@@ -303,7 +293,6 @@
         </p>
     </div>
 
-    <!-- Card Form Pencarian - PERBAIKAN UTAMA -->
     <div class="card">
         <form id="statusForm" action="{{ route('permohonan.userStatus') }}" method="GET">
             <div class="form-group">
@@ -329,7 +318,6 @@
         </form>
     </div>
 
-    <!-- Card Tabel Data -->
     <div class="card">
         <div class="form-group">
             <h5 style="color: #2E7D32; font-weight: 600; margin-bottom: 20px; font-family: 'Poppins', sans-serif;">
@@ -416,8 +404,6 @@ document.addEventListener('DOMContentLoaded', function() {
             cekStatusLoading.style.display = 'inline';
         });
     }
-
-    // Reset loading state jika halaman direfresh
     if (cekStatusBtn) {
         cekStatusBtn.disabled = false;
         cekStatusText.style.display = 'inline';

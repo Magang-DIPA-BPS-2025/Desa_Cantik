@@ -28,7 +28,6 @@
             margin-bottom: 10px;
         }
 
-        /* Styling untuk tombol download Excel */
         .btn-download-excel { 
             background: #16a34a; 
             color: #fff; 
@@ -52,7 +51,6 @@
             text-decoration: none;
         }
 
-        /* Styling untuk DataTables controls - SAMA DENGAN KEMATIAN */
         .dataTables-controls {
             display: flex;
             justify-content: space-between;
@@ -95,7 +93,6 @@
             min-width: 150px;
         }
 
-        /* Styling untuk pagination */
         .pagination-container {
             margin-top: 20px;
             display: flex;
@@ -115,7 +112,6 @@
             justify-content: flex-end;
         }
 
-        /* Responsive untuk DataTables - TAMPILAN HP */
         @media (max-width: 576px) {
             .dataTables-controls {
                 flex-direction: column;
@@ -162,7 +158,6 @@
                 min-width: 120px;
             }
             
-            /* Pagination di HP */
             .pagination-container {
                 flex-direction: column;
                 text-align: center;
@@ -179,7 +174,6 @@
             }
         }
 
-        /* Desktop */
         @media (min-width: 577px) {
             .dataTables-controls {
                 flex-direction: row;
@@ -195,7 +189,6 @@
             }
         }
 
-        /* Table styling tanpa DataTables - SAMA DENGAN KEMATIAN */
         .table-custom {
             width: 100%;
             border-collapse: collapse;
@@ -219,7 +212,6 @@
             background-color: #f8f9fa;
         }
 
-        /* PERBAIKAN: Styling untuk tombol aksi - SEJAJAR HORIZONTAL */
         .aksi-container {
             display: flex;
             justify-content: center;
@@ -243,13 +235,11 @@
             margin: 0;
         }
 
-        /* Pastikan form dalam aksi tidak mempengaruhi layout */
         .aksi-container form {
             margin: 0;
             display: inline;
         }
 
-        /* Tombol khusus untuk verifikasi dan cetak */
         .btn-verifikasi {
             background-color: #28a745;
             border-color: #28a745;
@@ -275,7 +265,6 @@
                 <div class="card shadow-sm">
                     <div class="card-body">
 
-                        {{-- Notifikasi --}}
                         @if (session('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 {{ session('success') }}
@@ -294,14 +283,12 @@
                             </div>
                         @endif
 
-                        {{-- Tombol Download Excel --}}
                         <div class="table-top-controls mb-3">
                             <button class="btn-download-excel" onclick="downloadExcel()">
                                 <i class="fas fa-file-excel"></i> Download Excel
                             </button>
                         </div>
 
-                        {{-- Controls (Entri dan Pencarian) - SAMA DENGAN KEMATIAN --}}
                         <form method="GET" action="{{ route('sku.index') }}" id="filter-form">
                             <div class="dataTables-controls">
                                 <div class="dataTables-length">
@@ -324,7 +311,6 @@
                             </div>
                         </form>
 
-                        {{-- Tabel Data SKU - SAMA DENGAN KEMATIAN --}}
                         <div class="table-responsive">
                             <table class="table table-striped table-custom">
                                 <thead class="bg-light">
@@ -387,15 +373,12 @@
                                             </td>
                                             <td>{{ $sku->created_at ? $sku->created_at->format('d-m-Y') : '-' }}</td>
                                             <td>
-                                                {{-- PERBAIKAN: Container untuk tombol aksi SEJAJAR --}}
                                                 <div class="aksi-container">
-                                                    {{-- Tombol Edit --}}
                                                     <a href="{{ route('sku.edit', $sku->id) }}" class="btn btn-warning btn-aksi"
                                                         title="Edit Data">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                     
-                                                    {{-- Tombol Hapus --}}
                                                     <form action="{{ route('sku.destroy', $sku->id) }}" method="POST"
                                                         onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                                         @csrf
@@ -405,7 +388,6 @@
                                                         </button>
                                                     </form>
                                                     
-                                                    {{-- Tombol Verifikasi atau Cetak --}}
                                                     @if($sku->status_verifikasi === 'Belum Diverifikasi')
                                                         <a href="{{ route('sku.verifikasi', $sku->id) }}"
                                                             class="btn btn-success btn-aksi"
@@ -433,7 +415,6 @@
                             </table>
                         </div>
 
-                        {{-- Pagination dari Controller --}}
                         @if($skus->hasPages())
                         <div class="pagination-container">
                             <div class="pagination-info">
@@ -454,11 +435,9 @@
 @endsection
 
 @push('scripts')
-    {{-- Library untuk export Excel --}}
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
     <script>
-        // Download Excel Function
         function downloadExcel(){ 
             const wb = XLSX.utils.table_to_book(document.querySelector(".table-custom")); 
             XLSX.writeFile(wb, "Data_Surat_Usaha_Desa_Manggalung.xlsx"); 

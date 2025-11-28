@@ -12,14 +12,11 @@ use Illuminate\Support\Facades\Storage;
 
 class BelanjaDesaController extends Controller
 {
-    // ===========================
-    // ADMIN CRUD
-    // ===========================
+
     public function index()
     {
         $datas = BelanjaDesa::with('ratings.user')->latest()->paginate(10);
 
-        // PERBAIKAN: Hitung rating rata-rata yang benar
         $totalRating = 0;
         $umkmWithRating = 0;
         
@@ -38,7 +35,7 @@ class BelanjaDesaController extends Controller
         $stats = [
             'total'    => BelanjaDesa::count(),
             'lokasi'   => BelanjaDesa::withLokasi()->count(),
-            'rating'   => $avgRating, // PERBAIKAN: Gunakan perhitungan yang benar
+            'rating'   => $avgRating, 
             'kategori' => BelanjaDesa::distinct('kategori')->count('kategori'),
         ];
 
@@ -146,9 +143,7 @@ class BelanjaDesaController extends Controller
                          ->with('success', 'UMKM berhasil dihapus.');
     }
 
-    // ===========================
-    // LANDING PAGE UNTUK USER
-    // ===========================
+ 
     public function userIndex()
     {
         $belanjas = BelanjaDesa::with('ratings')->latest()->paginate(9);
@@ -171,26 +166,23 @@ class BelanjaDesaController extends Controller
         ]);
     }
 
-    // ===========================
-    // SIMPAN RATING PRODUK (BISA BERKALI-KALI - FIXED)
-    // ===========================
     public function storeRating(Request $request, $id)
 {
     $request->validate([
-        'nama_user' => 'required|string|max:100', // ✅ tambahkan validasi nama
+        'nama_user' => 'required|string|max:100',
         'rating'    => 'required|integer|min:1|max:5',
         'komentar'  => 'nullable|string|max:500',
     ]);
 
     $belanja = BelanjaDesa::findOrFail($id);
 
-    // user_id tetap null jika tidak login
+ 
     $userId = auth()->check() ? auth()->id() : null;
 
     Rating::create([
         'belanja_desa_id' => $belanja->id,
         'user_id'         => $userId,
-        'nama_user'       => $request->nama_user, // ✅ ambil nama dari input
+        'nama_user'       => $request->nama_user, 
         'rating'          => $request->rating,
         'komentar'        => $request->komentar,
     ]);

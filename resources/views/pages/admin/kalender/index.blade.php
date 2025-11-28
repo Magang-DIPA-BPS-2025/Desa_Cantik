@@ -37,7 +37,6 @@
 
             .pagination { justify-content: flex-end !important; }
 
-            /* Control bar */
             .control-bar { 
                 display: flex; 
                 justify-content: space-between; 
@@ -62,7 +61,6 @@
                 gap: 10px; 
             }
 
-            /* Search box */
             .search-container { 
                 position: relative; 
                 width: 300px; 
@@ -83,7 +81,6 @@
             }
             .clear-search:hover { color: #333; }
 
-            /* Table alignment fixes */
             .table-custom {
                 width: 100%;
                 border-collapse: collapse;
@@ -108,39 +105,37 @@
                 font-size: 14px;
             }
 
-            /* Atur lebar kolom spesifik untuk alignment yang konsisten */
-            .table-custom th:nth-child(1), /* No */
+            .table-custom th:nth-child(1), 
             .table-custom td:nth-child(1) {
                 width: 60px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(2), /* Nama Kegiatan */
+            .table-custom th:nth-child(2), 
             .table-custom td:nth-child(2) {
                 width: 250px;
                 text-align: left;
                 padding-left: 12px;
             }
 
-            .table-custom th:nth-child(3), /* Tanggal Kegiatan */
+            .table-custom th:nth-child(3), 
             .table-custom td:nth-child(3) {
                 width: 150px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(4), /* Dibuat Pada */
+            .table-custom th:nth-child(4), 
             .table-custom td:nth-child(4) {
                 width: 180px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(5), /* Aksi */
+            .table-custom th:nth-child(5), 
             .table-custom td:nth-child(5) {
                 width: 120px;
                 text-align: center;
             }
 
-            /* Dropdown Download */
             .download-dropdown {
                 position: relative;
                 display: inline-block;
@@ -262,7 +257,6 @@
                 <div class="card shadow-sm border-0">
                     <div class="card-body">
 
-                        <!-- Notifikasi -->
                         @if(session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
@@ -276,14 +270,12 @@
                         </div>
                         @endif
 
-                        <!-- Control Bar -->
                         <div class="control-bar">
                             <div class="left-controls">
                                 <a href="{{ route('kalenderDesa.create') }}" class="btn btn-primary">
                                     <i class="fas fa-plus"></i> Tambah Kegiatan
                                 </a>
 
-                                <!-- Dropdown Download -->
                                 <div class="download-dropdown">
                                     <button class="btn-download">
                                         <i class="fas fa-download"></i> Download
@@ -299,7 +291,6 @@
                                     </div>
                                 </div>
 
-                                <!-- Entries Control -->
                                 <div class="entries-control">
                                     <label for="entries-select" class="mb-0">Tampilkan</label>
                                     <select id="entries-select" class="form-control form-control-sm" style="width: auto;">
@@ -323,7 +314,6 @@
                             </div>
                         </div>
 
-                        <!-- Tabel Kegiatan -->
                         <div class="table-responsive">
                             <table class="table table-striped table-hover table-custom" id="table-kegiatan">
                                 <thead class="thead-dark">
@@ -363,7 +353,6 @@
                             </table>
                         </div>
 
-                        <!-- Pagination -->
                         @if($kegiatans->hasPages())
                         <div class="d-flex justify-content-between align-items-center mt-3">
                             <div>
@@ -393,7 +382,6 @@
                 const clearSearch = document.getElementById('clear-search');
                 const entriesSelect = document.getElementById('entries-select');
 
-                // Entries control
                 if(entriesSelect){
                     entriesSelect.addEventListener('change', function(){
                         const perPage = this.value;
@@ -403,7 +391,6 @@
                     });
                 }
 
-                // Search functionality
                 if(searchInput && clearSearch){
                     searchInput.addEventListener('input',()=>{ 
                         clearSearch.style.display = searchInput.value ? 'block':'none'; 
@@ -430,14 +417,11 @@
                         }
                     });
                 }
-
-                // Tampilkan clear button jika ada pencarian
                 @if(request('search'))
                     if(clearSearch) clearSearch.style.display = 'block';
                 @endif
             });
 
-            // PDF Download Function
             async function downloadPDF() {
                 const btn = document.querySelector('.btn-download');
                 const originalText = btn.innerHTML;
@@ -453,13 +437,11 @@
                     </div>`;
 
                     const table = document.querySelector('#table-kegiatan').cloneNode(true);
-                    // Hapus kolom aksi
                     table.querySelectorAll('tr').forEach(row => {
                         const cells = row.querySelectorAll('td, th');
                         if (cells.length > 0) row.removeChild(cells[cells.length - 1]);
                     });
 
-                    // Styling tabel untuk PDF
                     table.style.width = '100%';
                     table.style.borderCollapse = 'collapse';
                     table.style.fontSize = '10px';
@@ -480,7 +462,6 @@
                         td.style.verticalAlign = 'middle';
                     });
                     
-                    // Center untuk kolom no, tanggal, dan dibuat pada
                     table.querySelectorAll('td:nth-child(1), td:nth-child(3), td:nth-child(4)').forEach(td => {
                         td.style.textAlign = 'center';
                     });
@@ -504,7 +485,6 @@
                 }
             }
 
-            // Excel Download Function
             function downloadExcel() {
                 const btn = document.querySelector('.btn-download');
                 const originalText = btn.innerHTML;
@@ -512,25 +492,20 @@
                 btn.disabled = true;
 
                 try {
-                    // Ambil data dari tabel
                     const table = document.getElementById('table-kegiatan');
                     const data = [];
 
-                    // Ambil header
                     const headers = [];
                     table.querySelectorAll('thead th').forEach((th, index) => {
-                        // Skip kolom aksi (kolom terakhir)
                         if (index < table.querySelectorAll('thead th').length - 1) {
                             headers.push(th.innerText.trim());
                         }
                     });
                     data.push(headers);
 
-                    // Ambil data baris
                     table.querySelectorAll('tbody tr').forEach(tr => {
                         const row = [];
                         tr.querySelectorAll('td').forEach((td, index) => {
-                            // Skip kolom aksi (kolom terakhir)
                             if (index < tr.querySelectorAll('td').length - 1) {
                                 row.push(td.innerText.trim());
                             }
@@ -538,23 +513,19 @@
                         data.push(row);
                     });
 
-                    // Buat workbook dan worksheet
                     const ws = XLSX.utils.aoa_to_sheet(data);
                     
-                    // Atur lebar kolom
                     const colWidths = [
-                        { wch: 8 },   // No
-                        { wch: 40 },  // Nama Kegiatan
-                        { wch: 15 },  // Tanggal Kegiatan
-                        { wch: 20 }   // Dibuat Pada
+                        { wch: 8 },   
+                        { wch: 40 },  
+                        { wch: 15 },  
+                        { wch: 20 }   
                     ];
                     ws['!cols'] = colWidths;
 
-                    // Buat workbook
                     const wb = XLSX.utils.book_new();
                     XLSX.utils.book_append_sheet(wb, ws, 'Data Kalender Desa');
 
-                    // Download file
                     XLSX.writeFile(wb, `Data_Kalender_Desa_${new Date().toISOString().split('T')[0]}.xlsx`);
 
                 } catch(e) {

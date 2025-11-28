@@ -40,7 +40,7 @@ class Apbd extends Model
         'pembiayaan_pengeluaran_persen',
     ];
 
-    // Accessor untuk menghitung persentase otomatis jika tidak ada di database
+    
     public function getPendapatanPadPersenAttribute($value)
     {
         if ($value !== null) {

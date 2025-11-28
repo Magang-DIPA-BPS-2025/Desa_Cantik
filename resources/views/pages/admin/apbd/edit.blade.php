@@ -14,7 +14,7 @@
                         @csrf
                         @method('PUT')
 
-                        {{-- Tahun Anggaran --}}
+               
                         <div class="form-group">
                             <label for="tahun">Tahun Anggaran</label>
                             <select name="tahun" class="form-control @error('tahun') is-invalid @enderror" required>
@@ -30,7 +30,7 @@
                             @enderror
                         </div>
 
-                        {{-- Total Pendapatan dan Belanja --}}
+                      
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -60,7 +60,7 @@
                             </div>
                         </div>
 
-                        {{-- Penerimaan, Pengeluaran, Surplus/Defisit --}}
+                      
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -103,7 +103,7 @@
                             </div>
                         </div>
 
-                        {{-- Pendapatan --}}
+                      
                         <h5 class="mt-4 mb-3">Pendapatan</h5>
                         <div class="row">
                             <div class="col-md-4">
@@ -147,7 +147,6 @@
                             </div>
                         </div>
 
-                        {{-- Belanja --}}
                         <h5 class="mt-4 mb-3">Belanja</h5>
                         <div class="row">
                             <div class="col-md-6">
@@ -223,7 +222,7 @@
                             </div>
                         </div>
 
-                        {{-- Pembiayaan --}}
+                      
                         <h5 class="mt-4 mb-3">Pembiayaan</h5>
                         <div class="row">
                             <div class="col-md-6">
@@ -254,7 +253,7 @@
                             </div>
                         </div>
 
-                        {{-- Tombol Aksi --}}
+            
                         <div class="form-group mt-4">
                             <button type="submit" class="btn btn-success">
                                 <i class="fas fa-save"></i> Perbarui

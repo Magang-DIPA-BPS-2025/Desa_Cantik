@@ -8,9 +8,6 @@ use Illuminate\Http\Request;
 class SejarahDesaController extends Controller
 {
     
-    /**
-     * Menampilkan sejarah desa untuk user landing page
-     */
     public function userIndex()
     {
         $sejarahDesas = SejarahDesa::latest()->get();

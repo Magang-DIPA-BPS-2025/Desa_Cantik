@@ -10,14 +10,12 @@
         color: #333;
     }
     
-    /* Container utama */
     .status-pengaduan-container {
         max-width: 1400px;
         margin: 40px auto;
         padding: 0 20px;
     }
 
-    /* Card styling dengan shadow yang lebih soft */
     .card {
         border-radius: 12px;
         border: none;
@@ -31,7 +29,6 @@
         transform: translateY(-2px);
     }
 
-    /* Header styling - posisi kiri */
     .header-left {
         text-align: left;
         margin-bottom: 2rem;
@@ -51,7 +48,6 @@
         margin-bottom: 0;
     }
 
-    /* PERBAIKAN: Form styling untuk mobile */
     .form-container {
         padding: 1.5rem;
     }
@@ -86,7 +82,6 @@
         box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
     }
 
-    /* PERBAIKAN: Tabel responsive dengan scroll horizontal */
     .table-responsive-container {
         border-radius: 10px;
         overflow: hidden;
@@ -139,7 +134,6 @@
         background-color: #f8f9fa;
     }
 
-    /* Badge styling */
     .badge {
         padding: 8px 16px;
         border-radius: 8px;
@@ -172,7 +166,6 @@
         background: #6b7280;
     }
 
-    /* Status Info Cards */
     .status-cards-container {
         display: flex;
         justify-content: center;
@@ -228,7 +221,6 @@
         font-family: 'Open Sans', sans-serif;
     }
 
-    /* Jenis Surat Cards */
     .jenis-surat-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -305,7 +297,6 @@
         text-decoration: none;
     }
 
-    /* Loading state */
     #loadingCari, #loadingCariMobile {
         display: none;
     }
@@ -320,7 +311,6 @@
         display: inline-block;
     }
 
-    /* Responsive adjustments */
     @media (max-width: 768px) {
         .status-pengaduan-container {
             margin: 20px auto;
@@ -367,7 +357,6 @@
             padding: 6px 10px;
         }
 
-        /* PERBAIKAN: Form layout untuk mobile */
         .form-row-mobile {
             display: flex;
             flex-direction: column;
@@ -394,7 +383,6 @@
     }
 
     @media (min-width: 769px) {
-        /* PERBAIKAN: Desktop layout untuk form */
         .form-row-desktop {
             display: flex;
             gap: 1rem;
@@ -442,7 +430,6 @@
         }
     }
 
-    /* Animation untuk loading */
     @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
@@ -453,24 +440,20 @@
     }
 </style>
 
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
 <div class="status-pengaduan-container">
 
-    {{-- === JUDUL - POSISI KIRI === --}}
     <div class="header-left">
         <h2 class="header-title">STATUS SURAT PENGANTAR ONLINE</h2>
         <p class="header-subtitle">Masukkan NIK Anda untuk melihat status pengajuan surat warga Desa Manggalung</p>
     </div>
 
-    {{-- === CARD FORM PENCARIAN === --}}
     <div class="card">
         <div class="card-body form-container">
             <form action="{{ route('status') }}" method="GET" id="searchForm">
-                {{-- Desktop Layout --}}
                 <div class="form-row-desktop d-md-flex">
                     <div class="form-input-desktop">
                         <label class="form-label fw-semibold mb-2">Nomor Induk Kependudukan (NIK) <span class="text-danger">*</span></label>
@@ -490,7 +473,6 @@
                     </div>
                 </div>
                 
-                {{-- Mobile Layout --}}
                 <div class="form-row-mobile d-md-none">
                     <label class="form-label fw-semibold mb-2">Nomor Induk Kependudukan (NIK) <span class="text-danger">*</span></label>
                     <input type="text" name="nik" class="form-control form-control-lg"
@@ -509,7 +491,6 @@
         </div>
     </div>
 
-    {{-- === HASIL PENCARIAN === --}}
     @if(request('nik'))
     <div class="card">
         <div class="card-body form-container">
@@ -632,7 +613,6 @@
                 </div>
             </div>
             
-            {{-- Indikator bahwa tabel bisa di-scroll di mobile --}}
             <div class="d-md-none text-center mt-2">
                 <small class="text-muted">
                     <i class="fas fa-arrows-left-right me-1"></i>
@@ -645,7 +625,6 @@
                 <h5 class="text-muted mb-3">Tidak ada data surat ditemukan</h5>
                 <p class="text-muted mb-4">Tidak ada pengajuan surat untuk NIK <strong>{{ request('nik') }}</strong></p>
                 
-                <!-- Tampilkan semua jenis surat yang tersedia -->
                 <div class="jenis-surat-grid">
                     <div class="jenis-surat-card">
                         <div class="jenis-surat-icon" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">
@@ -696,7 +675,6 @@
         </div>
     </div>
     @else
-    <!-- Informasi Sebelum Pencarian -->
     <div class="card">
         <div class="card-body text-center py-4">
             <i class="bi bi-file-earmark-text fa-4x text-success mb-4"></i>
@@ -706,7 +684,6 @@
                 Anda dapat mengunduh surat yang sudah disetujui langsung dari halaman ini.
             </p>
             
-            <!-- Status cards layout baru yang center -->
             <div class="status-cards-container">
                 <div class="status-card">
                     <div class="status-info">
@@ -743,7 +720,6 @@
                 </div>
             </div>
 
-            <!-- Semua Jenis Surat yang Tersedia -->
             <div class="mt-5">
                 <h5 class="mb-4 text-center">Jenis Surat yang Tersedia</h5>
                 <div class="jenis-surat-grid">
@@ -805,7 +781,6 @@
     @endif
 </div>
 
-{{-- === SCRIPT LOADING TOMBOL === --}}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const searchForm = document.getElementById('searchForm');
@@ -816,12 +791,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadingCari = document.getElementById('loadingCari');
     const loadingCariMobile = document.getElementById('loadingCariMobile');
     
-    // Sembunyikan loading state awal
     loadingCari.style.display = 'none';
     loadingCariMobile.style.display = 'none';
     
     function handleFormSubmit(e) {
-        // Validasi form
         const nikInput = document.querySelector('input[name="nik"]');
         if (!nikInput.value.trim()) {
             e.preventDefault();
@@ -829,7 +802,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Validasi NIK harus 16 digit
         if (nikInput.value.length !== 16 || !/^\d+$/.test(nikInput.value)) {
             e.preventDefault();
             alert('NIK harus terdiri dari 16 digit angka');
@@ -837,14 +809,11 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Tampilkan loading state
         if (window.innerWidth >= 768) {
-            // Desktop
             btnCari.disabled = true;
             textCari.style.display = 'none';
             loadingCari.style.display = 'inline-block';
         } else {
-            // Mobile
             btnCariMobile.disabled = true;
             textCariMobile.style.display = 'none';
             loadingCariMobile.style.display = 'inline-block';
@@ -860,7 +829,6 @@ document.addEventListener('DOMContentLoaded', function() {
         btnCariMobile.addEventListener('click', handleFormSubmit);
     }
     
-    // Reset loading state jika form di-reset
     searchForm.addEventListener('reset', function() {
         btnCari.disabled = false;
         btnCariMobile.disabled = false;
@@ -872,7 +840,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Auto focus pada input NIK jika ada error atau pertama kali load
 document.addEventListener('DOMContentLoaded', function() {
     const nikInput = document.querySelector('input[name="nik"]');
     if (nikInput && !nikInput.value) {

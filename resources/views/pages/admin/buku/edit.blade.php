@@ -1,7 +1,6 @@
 @extends('layouts.app', ['title' => 'Edit Buku Tamu'])
 
 @push('styles')
-<!-- Signature Pad CSS -->
 <style>
     .signature-pad { 
         border: 1px solid #e2e8f0; 
@@ -84,7 +83,6 @@
                             @enderror
                         </div>
 
-                        {{-- Tanda Tangan --}}
                         <div class="form-group">
                             <label for="tanda_tangan">Tanda Tangan</label>
                             <div class="mb-2">
@@ -112,7 +110,6 @@
     </section>
 </div>
 
-<!-- Modal Signature Pad -->
 <div class="modal fade" id="signatureModal" tabindex="-1" role="dialog" aria-labelledby="signatureModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

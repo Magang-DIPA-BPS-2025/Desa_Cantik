@@ -9,7 +9,6 @@
         color: #333;
     }
     
-    /* Header Section - Mengikuti gaya dari halaman jumlah penduduk */
     .container-main { 
         max-width: 1400px; 
         margin: auto; 
@@ -37,7 +36,6 @@
         font-family: 'Open Sans', sans-serif;
     }
 
-    /* Card Style - Mengikuti gaya dari halaman jumlah penduduk */
     .card { 
         background: #fff; 
         border-radius: 14px; 
@@ -53,7 +51,6 @@
         box-shadow: 0 12px 28px rgba(0,0,0,0.12); 
     }
 
-    /* PERBAIKAN: PPID Top Section - Layout dengan 3 card sejajar teks (bukan judul) */
     .ppid-top {
         display: flex;
         justify-content: space-between;
@@ -83,11 +80,9 @@
         line-height: 1.7;
         text-align: left;
         font-family: 'Open Sans', sans-serif;
-        /* PERBAIKAN: Tambah jarak antara teks dan button */
         margin-bottom: 30px;
     }
 
-    /* PERBAIKAN: 3 Icon Card - Turunkan posisi agar sejajar dengan teks */
     .ppid-icons-container {
         flex: 1;
         min-width: 350px;
@@ -95,7 +90,6 @@
         display: flex;
         justify-content: space-between;
         gap: 20px;
-        /* PERBAIKAN: Turunkan card agar sejajar dengan teks (bukan judul) */
         margin-top: 60px;
     }
 
@@ -140,7 +134,6 @@
         text-align: center;
     }
 
-    /* Button Styles */
     .btn-primary { 
         background: linear-gradient(135deg, #2E7D32, #4CAF50); 
         color: #fff; 
@@ -206,7 +199,6 @@
         text-decoration: none;
     }
 
-    /* PPID Content Styles */
     .ppid-content {
         font-family: 'Open Sans', sans-serif;
         line-height: 1.6;
@@ -267,7 +259,6 @@
         margin-top: 15px;
     }
 
-    /* Alert Styles */
     .alert {
         padding: 15px 20px;
         border-radius: 8px;
@@ -284,7 +275,6 @@
         border-left: 4px solid #17a2b8;
     }
 
-    /* Permohonan Card di Tengah */
     .permohonan-card {
         background: #fff;
         border-radius: 14px;
@@ -302,7 +292,6 @@
         box-shadow: 0 12px 28px rgba(0,0,0,0.12);
     }
 
-    /* PERBAIKAN: Modal Styles yang lebih sederhana dan fix */
     .custom-modal {
         display: none;
         position: fixed;
@@ -474,7 +463,6 @@
         .ppid-icons-container {
             max-width: 100%;
             justify-content: space-between;
-            /* PERBAIKAN: Reset margin-top di tablet */
             margin-top: 0;
         }
         
@@ -591,15 +579,12 @@
     }
 </style>
 
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
 
 <div class="container-main">
     
-    <!-- PERBAIKAN: Layout dengan 3 card diturunkan agar sejajar dengan teks -->
     <div class="ppid-top">
-        <!-- KIRI: Tentang PPID TANPA CARD -->
         <div class="ppid-text">
             <h2>PPID</h2>
             <p class="ppid-content">
@@ -612,7 +597,6 @@
             </a>
         </div>
 
-        <!-- KANAN: 3 Icon Card Terpisah -->
         <div class="ppid-icons-container">
             <a href="{{ route('ppid.berkala') }}" class="ppid-icon-card">
                 <img src="{{ asset('img/berkala.png') }}" alt="Informasi Berkala" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDIyQzE3LjUyMjggMjIgMjIgMTcuNTIyOCAyMiAxMkMyMiA2LjQ3NzE1IDE3LjUyMjggMiAxMiAyQzYuNDc3MTUgMiAyIDYuNDc3MTUgMiAxMkMyIDE3LjUyMjggNi40NzcxNSAyMiAxMiAyMloiIGZpbGw9IiMyRTdEMzIiIGZpbGwtb3BhY2l0eT0iMC4xIi8+CjxwYXRoIGQ9Ik0xMiAxNkMxNC4yMDkxIDE2IDE2IDE0LjIwOTEgMTYgMTJDMTYgOS43OTA4NiAxNC4yMDkxIDggMTIgOEM5Ljc5MDg2IDggOCA5Ljc5MDg2IDggMTJDOCAxNC4yMDkxIDkuNzkwODYgMTYgMTIgMTZaIiBmaWxsPSIjMkU3RDMyIi8+CjxwYXRoIGQ9Ik0xMiA3VjEzIiBzdHJva2U9IiMyRTdEMzIiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxwYXRoIGQ9Ik03IDEySDE3IiBzdHJva2U9IiMyRTdEMzIiIHN0cm9rZS13aWR0aD0iIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+Cg=='">
@@ -631,7 +615,6 @@
         </div>
     </div>
 
-    <!-- PERBAIKAN: Informasi Publik Terbaru dengan null safety -->
 <div class="card">
     <div class="form-group">
         <h5 class="ppid-section-title">
@@ -642,10 +625,7 @@
             Update informasi publik resmi dari Desa Manggalung
         </p>
     </div>
-
-    {{-- PERBAIKAN UTAMA: Pastikan $ppids selalu ada --}}
     @php
-        // Jika $ppids null, buat empty collection
         $ppidsData = $ppids ?? collect();
     @endphp
 
@@ -688,7 +668,6 @@
     @endif
 </div>
 
-    <!-- Card Ajukan Permohonan -->
     <div class="permohonan-card">
         <h5 class="ppid-section-title mb-3">
             <i class="bi bi-file-earmark-plus me-2"></i>
@@ -703,7 +682,6 @@
     </div>
 </div>
 
-<!-- Modal dan JavaScript -->
 <div id="fileModal" class="custom-modal">
     <div class="custom-modal-content">
         <div class="custom-modal-header">
@@ -733,7 +711,6 @@
 </div>
 
 <script>
-// PERBAIKAN: Fungsi yang FIX untuk modal custom
 function showFileModal(fileUrl, title) {
     console.log('Membuka modal untuk:', fileUrl, title);
     
@@ -744,24 +721,18 @@ function showFileModal(fileUrl, title) {
     const directDownload = document.getElementById('directDownload');
     const loadingSpinner = document.getElementById('loadingSpinner');
     
-    // Reset semua state
     fileFrame.style.display = 'none';
     fileNotSupported.style.display = 'none';
     loadingSpinner.style.display = 'flex';
     
-    // Set judul modal
     modalTitle.textContent = title || 'Pratinjau Berkas PPID';
     
-    // Tampilkan modal terlebih dahulu
     modal.classList.add('show');
     document.body.style.overflow = 'hidden';
     
-    // PERBAIKAN: Pastikan URL file benar
     console.log('File URL:', fileUrl);
     
-    // Cek apakah file adalah PDF
     if (fileUrl.toLowerCase().endsWith('.pdf')) {
-        // Untuk PDF, gunakan Google Docs Viewer
         const pdfViewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(fileUrl)}&embedded=true`;
         console.log('PDF Viewer URL:', pdfViewerUrl);
         
@@ -777,9 +748,7 @@ function showFileModal(fileUrl, title) {
             showFallback(fileUrl);
         };
     } 
-    // Cek format file yang didukung untuk preview
     else if (fileUrl.toLowerCase().match(/\.(jpg|jpeg|png|gif|bmp|webp)$/)) {
-        // Untuk gambar, tampilkan langsung
         fileFrame.src = fileUrl;
         fileFrame.onload = function() {
             console.log('Gambar berhasil dimuat');
@@ -792,9 +761,7 @@ function showFileModal(fileUrl, title) {
             showFallback(fileUrl);
         };
     }
-    // Untuk file teks
     else if (fileUrl.toLowerCase().match(/\.(txt|html|htm)$/)) {
-        // Untuk teks, gunakan iframe langsung
         fileFrame.src = fileUrl;
         fileFrame.onload = function() {
             console.log('File teks berhasil dimuat');
@@ -807,7 +774,6 @@ function showFileModal(fileUrl, title) {
             showFallback(fileUrl);
         };
     }
-    // Untuk format lain yang tidak didukung
     else {
         console.log('Format file tidak didukung untuk preview');
         loadingSpinner.style.display = 'none';
@@ -837,11 +803,9 @@ function closeFileModal() {
     const fileNotSupported = document.getElementById('fileNotSupported');
     const loadingSpinner = document.getElementById('loadingSpinner');
     
-    // Sembunyikan modal
     modal.classList.remove('show');
     document.body.style.overflow = '';
     
-    // Reset semua state
     setTimeout(function() {
         fileFrame.src = '';
         fileFrame.style.display = 'none';
@@ -850,18 +814,15 @@ function closeFileModal() {
     }, 300);
 }
 
-// Event listener untuk klik di luar modal
 document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('fileModal');
     
-    // Tutup modal ketika klik di luar konten
     modal.addEventListener('click', function(event) {
         if (event.target === modal) {
             closeFileModal();
         }
     });
     
-    // Tutup modal dengan tombol ESC
     document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape') {
             closeFileModal();
@@ -871,7 +832,6 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Event listeners berhasil dipasang');
 });
 
-// Pastikan modal tertutup saat halaman dimuat
 window.addEventListener('load', function() {
     closeFileModal();
 });

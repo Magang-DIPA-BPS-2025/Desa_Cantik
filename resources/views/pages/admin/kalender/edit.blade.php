@@ -24,7 +24,6 @@
                                 @csrf
                                 @method('PUT')
 
-                                {{-- Nama Kegiatan --}}
                                 <div class="form-group">
                                     <label for="nama_kegiatan">Nama Kegiatan</label>
                                     <input 
@@ -39,7 +38,6 @@
                                     @enderror
                                 </div>
 
-                                {{-- Tanggal Kegiatan --}}
                                 <div class="form-group">
                                     <label for="tanggal_kegiatan">Tanggal Kegiatan</label>
                                     <input 
@@ -53,7 +51,6 @@
                                     @enderror
                                 </div>
 
-                                {{-- Tombol --}}
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fas fa-save"></i> Update
@@ -63,7 +60,7 @@
                                     </a>
                                 </div>
                             </form>
-                        </div> {{-- end card-body --}}
+                        </div> 
                     </div>
                 </div>
             </div>

@@ -18,7 +18,6 @@
                 <div class="card">
                     <div class="card-body">
 
-                        {{-- ALERT --}}
                         @if (session('message'))
                             @if (session('message') == 'store')
                                 <div class="alert alert-success">
@@ -39,7 +38,7 @@
                             @endif
                         @endif
 
-                        {{-- VALIDATION ERRORS --}}
+                     
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul class="mb-0">
@@ -50,7 +49,6 @@
                             </div>
                         @endif
 
-                        {{-- Form Tambah Akun --}}
                         <form action="{{ route('akun.store') }}" method="POST">
                             @csrf
                             <div class="row">
@@ -80,7 +78,6 @@
                             <button type="submit" class="btn btn-primary mt-3"><i class="fas fa-plus"></i> Tambah Akun</button>
                         </form>
 
-                        {{-- Table Akun --}}
                         <div class="table-responsive pt-4">
                             <table class="table table-striped" id="table-temp">
                                 <thead>

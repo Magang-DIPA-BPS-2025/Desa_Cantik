@@ -1,4 +1,3 @@
-<!-- Modal Preview File -->
 <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">

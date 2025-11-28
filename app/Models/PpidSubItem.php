@@ -16,7 +16,7 @@ class PpidSubItem extends Model
         'file',
     ];
 
-    // Relasi: sub-item milik satu PPID
+
     public function ppid()
     {
         return $this->belongsTo(Ppid::class, 'ppid_id');

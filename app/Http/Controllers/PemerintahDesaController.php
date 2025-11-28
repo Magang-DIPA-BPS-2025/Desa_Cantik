@@ -6,11 +6,11 @@ use App\Models\Kalender;
 use App\Models\PemerintahDesa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon; // IMPORT CARBON DI SINI
+use Carbon\Carbon;
 
 class PemerintahDesaController extends Controller
 {
-    // ===================== ADMIN =====================
+   
     public function index(Request $request)
 {
     $perPage = $request->get('perPage', 10);
@@ -18,7 +18,6 @@ class PemerintahDesaController extends Controller
 
     $query = PemerintahDesa::query();
 
-    // Filter berdasarkan pencarian
     if ($search) {
         $query->where(function($q) use ($search) {
             $q->where('nama', 'like', '%' . $search . '%')
@@ -103,16 +102,15 @@ class PemerintahDesaController extends Controller
             ->with('success', 'Data Pemerintah Desa berhasil dihapus.');
     }
 
-    // ===================== USER =====================
+  
 public function userIndex()
 {
     $pemerintahDesas = PemerintahDesa::all();
 
-    // Ambil bulan & tahun dari query string, default sekarang
+
     $month = request('month', \Carbon\Carbon::now()->month);
     $year  = request('year', \Carbon\Carbon::now()->year);
 
-    // Query events dari model Kalender - dengan namespace lengkap Carbon
     $events = Kalender::whereMonth('tanggal_kegiatan', $month)
             ->whereYear('tanggal_kegiatan', $year)
             ->get()
@@ -122,9 +120,8 @@ public function userIndex()
 
     $firstDay = \Carbon\Carbon::create($year, $month, 1);
     $daysInMonth = $firstDay->daysInMonth;
-    $startDayOfWeek = $firstDay->dayOfWeek; // Minggu=0, Senin=1, dst
+    $startDayOfWeek = $firstDay->dayOfWeek;
 
-    // Data untuk navigasi
     $prevMonth = $month == 1 ? 12 : $month - 1;
     $prevYear = $month == 1 ? $year - 1 : $year;
     $nextMonth = $month == 12 ? 1 : $month + 1;

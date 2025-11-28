@@ -61,7 +61,6 @@
                                         <i class="fas fa-file"></i> Lihat / Unduh File
                                     </a>
 
-                                    {{-- Jika kamu ingin preview langsung di bawahnya --}}
                                     @if(Str::endsWith($permohonan->file_path, ['jpg', 'jpeg', 'png']))
                                         <div class="mt-2">
                                             <img src="{{ asset('storage/' . $permohonan->file_path) }}" 

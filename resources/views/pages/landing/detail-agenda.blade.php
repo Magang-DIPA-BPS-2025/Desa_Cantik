@@ -3,11 +3,9 @@
 @section('content')
 <title>Desa Cantik - Detail Agenda</title>
 
-<!-- Font Awesome untuk icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
-/* ===== Container utama ===== */
 .container-detail {
     display: flex;
     flex-wrap: wrap;
@@ -17,7 +15,6 @@
     padding: 0 20px;
 }
 
-/* ===== Konten utama ===== */
 .content {
     flex: 3;
     background: #fff;
@@ -26,7 +23,6 @@
     padding: 25px 30px;
 }
 
-/* Judul */
 .content h1 {
     font-size: 28px;
     font-weight: 700;
@@ -34,7 +30,6 @@
     color: #000;
 }
 
-/* Meta info */
 .meta {
     display: flex;
     flex-wrap: wrap;
@@ -54,7 +49,6 @@
     color: #4CAF50;
 }
 
-/* Gambar utama */
 .content img.thumb {
     width: 100%;
     max-height: 460px;
@@ -63,7 +57,6 @@
     margin-bottom: 25px;
 }
 
-/* Isi konten */
 .isi-berita {
     line-height: 1.8;
     color: #000;
@@ -71,7 +64,6 @@
     text-align: justify;
 }
 
-/* Share buttons */
 .share-buttons {
     margin-top: 30px;
     padding-top: 20px;
@@ -105,7 +97,6 @@
     opacity: 0.85;
 }
 
-/* ===== BREADCRUMB - SEMUA WARNA PUTIH ===== */
 .breadcrumb {
     max-width: 1400px;
     margin: 20px auto;
@@ -128,21 +119,20 @@
 }
 
 .breadcrumb a {
-    color: #ffffff !important; /* Warna putih untuk link */
+    color: #ffffff !important; 
     text-decoration: none;
 }
 
 .breadcrumb li {
-    color: #ffffff !important; /* Warna putih untuk semua teks */
+    color: #ffffff !important; 
 }
 
 .breadcrumb li:not(:last-child)::after {
     content: "/";
     margin-left: 10px;
-    color: #ffffff !important; /* Warna putih untuk separator */
+    color: #ffffff !important; 
 }
 
-/* ===== STYLING AGENDA TERPOPULER ===== */
 .agenda-terbaru-box {
     background: #fff;
     border-radius: 14px;
@@ -221,7 +211,6 @@
     font-family: 'Open Sans', sans-serif;
 }
 
-/* Responsive */
 @media (max-width: 992px) {
     .container-detail {
         flex-direction: column;
@@ -283,7 +272,6 @@
 }
 </style>
 
-<!-- Breadcrumb -->
 <div class="breadcrumb">
     <nav>
         <ol>
@@ -295,7 +283,6 @@
 </div>
 
 <div class="container-detail">
-    <!-- Konten utama -->
     <div class="content">
         <h1>{{ $data->nama_kegiatan }}</h1>
       
@@ -318,7 +305,6 @@
             {!! nl2br(e($data->deskripsi)) !!}
         </div>
 
-        <!-- Share buttons -->
         <div class="share-buttons">
             <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" target="_blank" class="facebook">
                 <i class="fab fa-facebook"></i> Facebook
@@ -332,7 +318,6 @@
         </div>
     </div>
 
-    <!-- Sidebar Agenda Terpopuler -->
     <div class="agenda-terbaru-box">
         <h4>AGENDA TERPOPULER</h4> 
         <div class="agenda-terbaru-list">

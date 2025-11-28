@@ -38,7 +38,6 @@
 
     </form>
 
-    {{-- Tombol Kembali --}}
     <a href="{{ route('ppid') }}" class="btn btn-secondary mt-2">
         <i class="fas fa-arrow-left"></i> Kembali ke PPID
     </a>

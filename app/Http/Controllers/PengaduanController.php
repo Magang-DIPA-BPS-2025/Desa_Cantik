@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 
 class PengaduanController extends Controller
 {
-    /**
-     * Tampilkan semua pengaduan (untuk admin)
-     */
+ 
     public function index(Request $request)
 {
     $keyword = $request->input('keyword');
@@ -31,9 +29,7 @@ class PengaduanController extends Controller
 
 
 
-    /**
-     * Simpan pengaduan dari form user
-     */
+   
     public function store(Request $request)
 {
     $request->validate([
@@ -65,9 +61,7 @@ class PengaduanController extends Controller
     return redirect()->back()->with('success', 'Pengaduan berhasil dikirim.');
 }
     
-    /**
-     * Update status pengaduan (untuk admin)
-     */
+
     public function updateStatus(Request $request, $id)
     {
         $request->validate([
@@ -81,9 +75,7 @@ class PengaduanController extends Controller
         return redirect()->back()->with('success', 'Status pengaduan berhasil diperbarui.');
     }
 
-    /**
-     * Hapus pengaduan
-     */
+
     public function destroy($id)
     {
         $pengaduan = Pengaduan::findOrFail($id);
@@ -95,22 +87,18 @@ class PengaduanController extends Controller
         return redirect()->back()->with('success', 'Pengaduan berhasil dihapus.');
     }
 
-    /**
-     * Menampilkan form pengaduan untuk user
-     */
+
     public function userIndex()
     {
         return view('pages.landing.layananonline.Pengaduan');
     }
 
-    /**
-     * Menampilkan status pengaduan untuk user dengan pencarian email
-     */
+   
    public function userStatus(Request $request)
 {
     $email = $request->input('email');
 
-    // Ambil pengaduan berdasarkan email jika ada, atau kosong jika tidak ada
+
     $pengaduans = Pengaduan::when($email, function($query, $email) {
         $query->where('email', $email);
     })->latest()->get();

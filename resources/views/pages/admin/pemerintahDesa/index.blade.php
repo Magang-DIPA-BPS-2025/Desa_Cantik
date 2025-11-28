@@ -2,7 +2,6 @@
 
 @section('content')
 @push('styles')
-<!-- DataTables + Buttons -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap4.min.css">
 
@@ -22,13 +21,11 @@
 
     .pagination { justify-content: flex-end !important; }
 
-    /* Control bar */
     .control-bar { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 15px; flex-wrap: wrap; gap: 15px; }
     .left-controls { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
     .right-controls { display: flex; align-items: center; }
     .entries-control { display: flex; align-items: center; gap: 10px; }
 
-    /* Search box */
     .search-container { position: relative; width: 300px; }
     .search-container .form-control { padding-right: 40px; }
     .clear-search {
@@ -37,10 +34,8 @@
     }
     .clear-search:hover { color: #333; }
 
-    /* Foto */
     .img-thumbnail { border-radius: 8px; object-fit: cover; }
 
-    /* Tombol PDF */
     .btn-download-pdf { 
         background: #dc2626; color: #fff; border: none; border-radius: 8px; padding: 8px 14px; 
         display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; cursor: pointer; 
@@ -56,7 +51,6 @@
         <div class="section-body">
             <div class="card shadow-sm border-0">
                 <div class="card-body">
-                    <!-- Control Bar -->
                     <div class="control-bar">
                         <div class="left-controls">
                             <a href="{{ route('pemerintah-desa.create') }}" class="btn btn-primary">
@@ -86,7 +80,6 @@
                         </div>
                     </div>
 
-                    <!-- Tabel Data -->
                     <div class="table-responsive">
                         <table class="table table-striped table-hover" id="table-pemerintah-desa">
                             <thead class="thead-dark">

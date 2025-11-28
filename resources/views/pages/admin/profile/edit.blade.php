@@ -25,7 +25,6 @@
                     </div>
                     <div class="card-body">
 
-                        {{-- ALERT --}}
                         @if (session('message'))
                             @if (session('message') == 'update' || session('success'))
                                 <div class="alert alert-success alert-dismissible show fade">
@@ -48,7 +47,6 @@
                             @endif
                         @endif
 
-                        {{-- VALIDATION ERRORS --}}
                         @if ($errors->any())
                             <div class="alert alert-danger alert-dismissible show fade">
                                 <div class="alert-body">

@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surat Keterangan Kematian</title>
     <style>
-        /* Reset dan base styling */
-        * {
+        {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -22,7 +21,6 @@
             font-size: 12px;
         }
 
-        /* Container utama */
         .surat-container {
             max-width: 21cm;
             min-height: 29.7cm;
@@ -31,7 +29,6 @@
             position: relative;
         }
 
-        /* Kop surat */
         .kop-surat {
             text-align: center;
             border-bottom: 3px solid #000;
@@ -58,7 +55,6 @@
             margin-bottom: 0;
         }
 
-        /* Judul surat */
         .judul-surat {
             text-align: center;
             margin: 25px 0;
@@ -77,7 +73,6 @@
             font-weight: bold;
         }
 
-        /* Isi surat */
         .isi-surat {
             text-align: justify;
             line-height: 1.8;
@@ -89,7 +84,6 @@
             text-indent: 30px;
         }
 
-        /* Tabel data */
         .tabel-data {
             margin: 15px 0 15px 40px;
             border-collapse: collapse;
@@ -105,7 +99,6 @@
             width: 120px;
         }
 
-        /* Tanda tangan */
         .ttd-section {
             margin-top: 50px;
             text-align: right;
@@ -138,12 +131,10 @@
             margin-bottom: 3px;
         }
 
-        /* Clear float */
         .clear {
             clear: both;
         }
 
-        /* Untuk print */
         @media print {
             body {
                 padding: 0;
@@ -174,14 +165,12 @@
 
 <body>
     <div class="surat-container">
-        <!-- Kop Surat -->
         <div class="kop-surat">
             <h1>PEMERINTAH DESA MANGGALUNG</h1>
             <h2>KECAMATAN MANDALLE - KABUPATEN PANGKAJENE DAN KEPULAUAN</h2>
             <p><strong>Alamat:</strong> Jl. Desa Manggalung, Kec. Mandalle, Kab. Pangkajene dan Kepulauan</p>
         </div>
 
-        <!-- Judul Surat -->
         <div class="judul-surat">
             <h3>surat keterangan kematian</h3>
             <p>Nomor: 
@@ -193,7 +182,6 @@
             </p>
         </div>
 
-        <!-- Isi Surat -->
         <div class="isi-surat">
             <p>Yang bertanda tangan di bawah ini Kepala Desa Manggalung, Kecamatan Mandalle, Kabupaten Pangkajene dan Kepulauan, dengan ini menerangkan bahwa:</p>
 
@@ -249,13 +237,11 @@
             <p>Demikian surat keterangan ini dibuat dengan sebenarnya agar dapat dipergunakan sebagaimana mestinya.</p>
         </div>
 
-        <!-- Tanda Tangan -->
         <div class="ttd-section">
             <div class="ttd-info">
                 <p>Desa Manggalung, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
                 <p><strong>Kepala Desa</strong></p>
 
-                <!-- QR Code -->
                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data={{ urlencode($linkVerifikasi) }}"
                     alt="QR Code Verifikasi" class="qr-code">
 

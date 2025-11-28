@@ -7,18 +7,14 @@ use Illuminate\Http\Request;
 
 class IzinController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+ 
     public function index()
     {
         $izins = Izin::orderBy('created_at', 'desc')->paginate(10);
         return view('pages.admin.izin.index', compact('izins'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+  
     public function store(Request $request)
     {
         try {
@@ -50,18 +46,13 @@ class IzinController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
         $izin = Izin::findOrFail($id);
         return view('pages.admin.izin.edit', compact('izin'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+  
     public function update(Request $request, $id)
     {
         $izin = Izin::findOrFail($id);
@@ -86,9 +77,7 @@ class IzinController extends Controller
             ->with('success', 'Data surat izin berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+ 
     public function destroy($id)
     {
         $izin = Izin::findOrFail($id);
@@ -98,9 +87,7 @@ class IzinController extends Controller
             ->with('success', 'Data surat izin berhasil dihapus.');
     }
 
-    /**
-     * Verifikasi surat izin
-     */
+ 
     public function verifikasi($id)
     {
         $izin = Izin::findOrFail($id);
@@ -113,9 +100,7 @@ class IzinController extends Controller
             ->with('success', 'Surat izin berhasil diverifikasi.');
     }
 
-    /**
-     * Cetak surat izin
-     */
+
     public function cetak($id)
     {
         $izin = Izin::findOrFail($id);
@@ -143,9 +128,7 @@ class IzinController extends Controller
         return $pdf->stream('Surat-Izin-Kegiatan-' . $izin->nama . '.pdf');
     }
 
-    /**
-     * Verifikasi surat untuk user (public)
-     */
+
       public function verifikasiSurat($id)
     {
         $izin = Izin::find($id);

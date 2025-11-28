@@ -9,7 +9,7 @@ class SejarahDesa extends Model
 {
     use HasFactory;
 
-    protected $table = 'sejarah_desas'; // nama tabel (bisa disesuaikan kalau beda)
+    protected $table = 'sejarah_desas'; 
 
     protected $fillable = [
         'judul',

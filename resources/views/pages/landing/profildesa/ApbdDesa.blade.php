@@ -1,38 +1,132 @@
-{{-- resources/views/pages/landing/profildesa/APBDDesa.blade.php --}}
 @extends('layouts.landing.app')
 
 @section('content')
 <style>
-.apb-desa { background: #fff; padding: 60px 20px; }
-.apb-container { display: flex; justify-content: space-between; gap: 40px; max-width: 1400px; margin: auto; flex-wrap: wrap; }
-.apb-info { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.apb-info h2 { color: #2e7d32; font-size: 38px; font-weight: 700; margin-bottom: 20px; text-align: center; }
-.apb-right { flex: 1.2; min-width: 400px; }
-.apb-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
-.apb-card { border-radius: 12px; padding: 22px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.apb-desa { 
+    background: #fff; 
+    padding: 60px 20px; 
+}
+.apb-container { 
+    display: flex; 
+    justify-content: space-between; 
+    gap: 40px; max-width: 1400px; 
+    margin: auto; 
+    flex-wrap: wrap; 
+}
+.apb-info { 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+}
+.apb-info h2 { 
+    color: #2e7d32; 
+    font-size: 38px; 
+    font-weight: 700; 
+    margin-bottom: 20px; 
+    text-align: center; 
+}
+.apb-right { 
+    flex: 1.2; 
+    min-width: 400px; 
+}
+.apb-grid { 
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 25px; 
+}
+.apb-card { 
+    border-radius: 12px; 
+    padding: 22px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+    color: #fff; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+}
 .apb-card h3 {
     font-variant: normal !important;
     font-feature-settings: "smcp" off, "c2sc" off !important;
     text-transform: none !important;
 }
-.apb-card p { font-size: 20px; font-weight: 700; margin: 0; }
-.apb-card i { font-size: 26px; margin-bottom: 6px; }
-.bg-green { background: #2e7d32; }
-.bg-red { background: #d32f2f; }
-.bg-blue { background: #1976d2; }
-.bg-gray { background: #757575; }
-.card-box { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 30px; margin-top: 40px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
-.card-box h3 { font-size: 20px; font-weight: bold; color: #2e7d32; margin-bottom: 18px; display:flex; justify-content:space-between; align-items:center; }
-canvas { max-height: 280px; width: 100% !important; }
-.progress-card { background: #f9f9f9; border-radius: 12px; padding: 18px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-.progress-label { display: flex; justify-content: space-between; font-size: 15px; font-weight: 600; margin-bottom: 6px; }
-.progress-bar-bg { background: #e5e7eb; border-radius: 8px; height: 22px; overflow: hidden; }
-.progress-bar-fill { height: 22px; text-align: center; font-size: 12px; line-height: 22px; color: #fff; font-weight: bold; }
-.progress-bar-fill.green { background: #2e7d32; }
-.progress-bar-fill.red { background: #d32f2f; }
-.progress-bar-fill.blue { background: #1976d2; }
+.apb-card p { 
+    font-size: 20px; 
+    font-weight: 700; 
+    margin: 0; 
+}
+.apb-card i { 
+    font-size: 26px; 
+    margin-bottom: 6px; 
+}
+.bg-green { 
+    background: #2e7d32; 
+}
+.bg-red { 
+    background: #d32f2f; 
+}
+.bg-blue { 
+    background: #1976d2; 
+}
+.bg-gray { 
+    background: #757575; 
+}
+.card-box { 
+    background: #fff; 
+    border-radius: 12px; 
+    padding: 24px; 
+    margin-bottom: 30px; 
+    margin-top: 40px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+.card-box h3 { 
+    font-size: 20px; 
+    font-weight: bold; 
+    color: #2e7d32; 
+    margin-bottom: 18px; 
+    display:flex; 
+    justify-content:space-between; 
+    align-items:center; }
+canvas { 
+    max-height: 280px; width: 100% !important; }
+.progress-card { 
+    background: #f9f9f9; 
+    border-radius: 12px; 
+    padding: 18px; 
+    margin-bottom: 18px; 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
+}
+.progress-label { 
+    display: flex; 
+    justify-content: space-between; 
+    font-size: 15px; 
+    font-weight: 600; 
+    margin-bottom: 6px; 
+}
+.progress-bar-bg { 
+    background: #e5e7eb; 
+    border-radius: 8px; 
+    height: 22px; 
+    overflow: hidden; 
+}
+.progress-bar-fill {
+     height: 22px; 
+     text-align: center; 
+     font-size: 12px; 
+     line-height: 22px; 
+     color: #fff; 
+     font-weight: bold; 
+    }
+.progress-bar-fill.green { 
+    background: #2e7d32; 
+}
+.progress-bar-fill.red { 
+    background: #d32f2f; 
+}
+.progress-bar-fill.blue { 
+    background: #1976d2; 
+}
 
-/* Gaya untuk dropdown download yang diperbaiki */
 .download-dropdown {
     position: relative;
     display: inline-block;
@@ -106,23 +200,73 @@ canvas { max-height: 280px; width: 100% !important; }
     display: block;
 }
 
-.filter-container { background: #f8f9fa; border-radius: 12px; padding: 20px; margin: 20px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.05); max-width: 500px; width: 100%; }
-.filter-title { font-size: 16px; font-weight: 600; color: #2e7d32; margin-bottom: 10px; text-align: center; }
-.filter-controls { display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; }
-.filter-select { padding: 10px 15px; border-radius: 8px; border: 2px solid #e0e0e0; background: white; font-size: 14px; min-width: 120px; transition: border-color 0.3s; }
-.filter-select:focus { border-color: #2e7d32; outline: none; }
-.filter-btn { background: #2e7d32; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: background 0.3s; }
-.filter-btn:hover { background: #1b5e20; }
-.filter-btn.reset { background: #757575; }
-.filter-btn.reset:hover { background: #5d5d5d; }
-.no-data { text-align: center; padding: 40px; color: #757575; font-size: 16px; }
+.filter-container { 
+    background: #f8f9fa; 
+    border-radius: 12px; 
+    padding: 20px; 
+    margin: 20px 0; 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
+    max-width: 500px; 
+    width: 100%; 
+}
+.filter-title { 
+    font-size: 16px; 
+    font-weight: 600; 
+    color: #2e7d32; 
+    margin-bottom: 10px; 
+    text-align: center; }
+.filter-controls { 
+    display: flex; 
+    gap: 10px; 
+    align-items: center; 
+    justify-content: center; 
+    flex-wrap: wrap; 
+}
+.filter-select { 
+    padding: 10px 15px; 
+    border-radius: 8px; 
+    border: 2px solid #e0e0e0; 
+    background: white; 
+    font-size: 14px; 
+    min-width: 120px; 
+    transition: border-color 0.3s;
+ }
+.filter-select:focus { 
+    border-color: #2e7d32; 
+    outline: none; 
+}
+.filter-btn { 
+    background: #2e7d32; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-weight: 600; 
+    transition: background 0.3s;
+ }
+.filter-btn:hover { 
+    background: #1b5e20; 
+}
+.filter-btn.reset { 
+    background: #757575; 
+}
+.filter-btn.reset:hover { 
+    background: #5d5d5d; 
+}
+.no-data { 
+    text-align: center; 
+    padding: 40px; 
+    color: #757575; 
+    font-size: 16px; 
+}
 .year-badge { 
     background: #ffffffff; 
     color: #2e7d32; 
     padding: 5px 15px; 
     border-radius: 20px; 
-    font-size: 38px; /* Sama dengan ukuran font judul */
-    font-weight: 700; /* Sama dengan ketebalan font judul */
+    font-size: 38px; 
+    font-weight: 700; 
     margin-left: 10px; 
     vertical-align: middle;
 }
@@ -132,7 +276,6 @@ canvas { max-height: 280px; width: 100% !important; }
     margin-bottom: 20px;
 }
 
-/* === RESPONSIVE FIX UNTUK TAMPILAN HP / LAYAR KECIL === */
 @media (max-width: 768px) {
     .apb-desa {
         padding: 30px 15px;
@@ -143,7 +286,6 @@ canvas { max-height: 280px; width: 100% !important; }
         gap: 30px;
     }
     
-    /* Judul di kiri saat HP */
     .apb-info {
         width: 100%;
         align-items: flex-start;
@@ -158,15 +300,13 @@ canvas { max-height: 280px; width: 100% !important; }
         align-items: flex-start;
     }
 
-    /* Tahun di bawah dan rata kiri - dengan ukuran yang sama */
     .year-badge {
         margin: 8px 0 0 0;
-        font-size: 28px; /* Sama dengan ukuran font judul di mobile */
+        font-size: 28px; 
         text-align: left;
         align-self: flex-start;
     }
 
-    /* Filter container responsif */
     .filter-container {
         max-width: 100%;
         margin: 20px 0;
@@ -181,7 +321,6 @@ canvas { max-height: 280px; width: 100% !important; }
         width: 100%;
     }
 
-    /* Card tetap di tengah dengan ukuran seragam */
     .apb-right {
         width: 100%;
         min-width: unset;
@@ -192,7 +331,6 @@ canvas { max-height: 280px; width: 100% !important; }
         gap: 15px;
     }
     
-    /* Semua card memiliki ukuran yang sama */
     .apb-card {
         width: 100%;
         min-height: 140px;
@@ -213,20 +351,17 @@ canvas { max-height: 280px; width: 100% !important; }
         font-size: 22px;
     }
 
-    /* Card box responsif */
     .card-box {
         padding: 20px 15px;
         margin-top: 30px;
     }
     
-    /* Header card box dengan judul dan tombol download di bawah */
     .card-box h3 {
         flex-direction: column;
         gap: 15px;
         align-items: flex-start;
     }
     
-    /* Tombol download di kanan untuk mobile */
     .download-dropdown {
         align-self: flex-end;
         margin-top: 0;
@@ -238,12 +373,10 @@ canvas { max-height: 280px; width: 100% !important; }
         min-width: 180px;
     }
     
-    /* Chart container responsif */
     .chart-container {
         height: 250px;
     }
     
-    /* Progress card responsif */
     .progress-card {
         padding: 15px;
     }
@@ -253,14 +386,13 @@ canvas { max-height: 280px; width: 100% !important; }
     }
 }
 
-/* Untuk layar sangat kecil (mobile kecil) */
 @media (max-width: 480px) {
     .apb-info h2 {
         font-size: 24px;
     }
     
     .year-badge {
-        font-size: 24px; /* Sama dengan ukuran font judul di mobile kecil */
+        font-size: 24px; 
     }
     
     .apb-card {
@@ -286,7 +418,6 @@ canvas { max-height: 280px; width: 100% !important; }
     }
 }
 
-/* Jika sidebar aktif, pastikan judul tetap kiri */
 body.sidebar-active .apb-info h2 {
     text-align: left !important;
 }
@@ -295,14 +426,12 @@ body.sidebar-active .apb-info h2 {
 
 <div class="apb-desa">
     <div class="apb-container">
-        {{-- Judul dan Filter --}}
         <div class="apb-info">
             <h2>
                 APBD Desa Manggalung
                 <span class="year-badge">{{ $apbd->tahun ?? 'N/A' }}</span>
             </h2>
             
-            {{-- Filter Section --}}
             <div class="filter-container">
                 <div class="filter-title">Pilih Tahun APBD</div>
                 <div class="filter-controls">
@@ -326,7 +455,6 @@ body.sidebar-active .apb-info h2 {
             </div>
         </div>
 
-        {{-- Ringkasan --}}
         <div class="apb-right">
             @if($apbd)
                 <div class="apb-grid">
@@ -383,10 +511,8 @@ body.sidebar-active .apb-info h2 {
     </div>
 </div>
 
-{{-- Bagian Chart & Progress --}}
 @if($apbd)
 <div class="container mx-auto px-6 mt-10">
-    {{-- Pendapatan --}}
     <div class="card-box">
         <h3>
             Pendapatan Desa Tahun {{ $apbd->tahun }}
@@ -430,7 +556,6 @@ body.sidebar-active .apb-info h2 {
         @endforeach
     </div>
 
-    {{-- Belanja --}}
     <div class="card-box">
         <h3>
             Belanja Desa Tahun {{ $apbd->tahun }}
@@ -476,7 +601,6 @@ body.sidebar-active .apb-info h2 {
         @endforeach
     </div>
 
-    {{-- Pembiayaan --}}
     <div class="card-box">
         <h3>
             Pembiayaan Desa Tahun {{ $apbd->tahun }}
@@ -522,17 +646,15 @@ body.sidebar-active .apb-info h2 {
 </div>
 @endif
 
-{{-- Chart.js --}}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <script>
 @if($apbd)
-    // Pendapatan Chart - DIUBAH MENJADI DONUT CHART
     const ctxPendapatan = document.getElementById('chartPendapatan').getContext('2d');
     const pendapatanColors = [
-        '#2e7d32', // Hijau utama - PAD
-        '#4caf50', // Hijau medium - Transfer
-        '#81c784'  // Hijau terang - Lainnya
+        '#2e7d32', 
+        '#4caf50', 
+        '#81c784'  
     ];
     
     new Chart(ctxPendapatan, {
@@ -584,14 +706,13 @@ body.sidebar-active .apb-info h2 {
         }
     });
 
-    // Belanja Chart - Tetap bar chart
     const ctxBelanja = document.getElementById('chartBelanja').getContext('2d');
     const belanjaColors = [
-        '#d32f2f', // Merah utama
-        '#f44336', // Merah medium
-        '#e57373', // Merah terang
-        '#ef5350', // Merah medium 2
-        '#ff8a80'  // Merah terang 2
+        '#d32f2f', 
+        '#f44336', 
+        '#e57373', 
+        '#ef5350', 
+        '#ff8a80'  
     ];
     
     new Chart(ctxBelanja, {
@@ -637,7 +758,6 @@ body.sidebar-active .apb-info h2 {
         }
     });
 
-    // Pembiayaan Chart - Tetap donut chart
     const ctxPembiayaan = document.getElementById('chartPembiayaan').getContext('2d');
     new Chart(ctxPembiayaan, {
         type: 'doughnut',
@@ -645,7 +765,7 @@ body.sidebar-active .apb-info h2 {
             labels: @json(array_column($pembiayaanData,'jenis')), 
             datasets: [{ 
                 data: @json(array_column($pembiayaanData,'jumlah')), 
-                backgroundColor: ['#1976d2', '#42a5f5'], // Warna biru yang konsisten
+                backgroundColor: ['#1976d2', '#42a5f5'], 
                 borderWidth: 2, 
                 borderColor: '#fff',
                 hoverOffset: 15
@@ -686,7 +806,6 @@ body.sidebar-active .apb-info h2 {
     });
 @endif
 
-// Download chart function
 function downloadChart(canvasId, filename) {
     const canvas = document.getElementById(canvasId);
     const link = document.createElement('a');
@@ -695,9 +814,7 @@ function downloadChart(canvasId, filename) {
     link.click();
 }
 
-// Download Excel function
 function downloadExcel(type, tahun) {
-    // Membuat data untuk Excel berdasarkan tipe
     let data = [];
     let filename = '';
     
@@ -731,18 +848,14 @@ function downloadExcel(type, tahun) {
         filename = `Pembiayaan_Desa_${tahun}.xlsx`;
     }
     
-    // Membuat worksheet
     const ws = XLSX.utils.aoa_to_sheet(data);
     
-    // Membuat workbook
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Data");
     
-    // Download file
     XLSX.writeFile(wb, filename);
 }
 
-// Filter functionality
 document.addEventListener('DOMContentLoaded', function() {
     const resetFilterBtn = document.getElementById('resetFilter');
     const yearFilter = document.getElementById('yearFilter');
@@ -753,7 +866,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Auto-apply filter when year selection changes
     if (yearFilter) {
         yearFilter.addEventListener('change', function() {
             const selectedYear = this.value;
@@ -767,6 +879,5 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- Tambahkan library untuk export Excel -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 @endsection

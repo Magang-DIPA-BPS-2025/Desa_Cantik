@@ -1,10 +1,8 @@
-{{-- resources/views/pages/landing/detail-berita.blade.php --}}
 @extends('layouts.landing.app')
 
 @section('content')
 <title>Desa Cantik - Detail Berita</title>
 
-<!-- Font Awesome untuk icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
@@ -37,14 +35,14 @@
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 15px;
-  color: #000; /* Diubah dari #222 menjadi #000 */
+  color: #000; 
 }
 
 .meta {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  color: #000; /* Diubah dari #777 menjadi #000 */
+  color: #000; 
   font-size: 14px;
   margin-bottom: 15px;
 }
@@ -61,7 +59,7 @@
 
 .isi-berita {
   line-height: 1.8;
-  color: #000; /* Diubah dari #333 menjadi #000 */
+  color: #000; 
   font-size: 16px;
   text-align: justify;
 }
@@ -99,7 +97,6 @@
   opacity: 0.85;
 }
 
-/* ===== STYLING BERITA TERPOPULER ===== */
 .berita-terbaru-box {
     background: #fff;
     border-radius: 14px;
@@ -178,7 +175,6 @@
     font-family: 'Open Sans', sans-serif;
 }
 
-/* Breadcrumb */
 .breadcrumb {
     max-width: 1400px;
     margin: 20px auto;
@@ -215,7 +211,6 @@
     color: #ffffff !important;
 }
 
-/* Responsive */
 @media (max-width: 992px) {
   .container-detail {
     flex-direction: column;
@@ -277,7 +272,6 @@
 }
 </style>
 
-<!-- Breadcrumb -->
 <div class="breadcrumb">
     <nav>
         <ol>
@@ -308,7 +302,6 @@
       {!! nl2br(e($berita->deskripsi_singkat)) !!}
     </div>
 
-    <!-- Share buttons -->
     <div class="share-buttons">
       <h4 style="margin-bottom: 15px; color: #000;">Bagikan Berita Ini:</h4>
       <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" target="_blank" class="facebook">
@@ -323,7 +316,6 @@
     </div>
   </div>
 
-  <!-- Sidebar Berita Terpopuler -->
   <div class="berita-terbaru-box">
     <h4>BERITA TERPOPULER</h4> 
     <div class="berita-terbaru-list">

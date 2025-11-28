@@ -10,7 +10,6 @@
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
-                    {{-- Notifikasi --}}
                     @if (session('error'))
                         <div class="alert alert-danger" role="alert">
                             {{ session('error') }}
@@ -30,7 +29,6 @@
                             <form action="{{ route('admin.berita.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
-                                {{-- Judul --}}
                                 <div class="form-group">
                                     <label for="judul">Judul Berita</label>
                                     <input type="text" name="judul" id="judul"
@@ -41,7 +39,6 @@
                                     @enderror
                                 </div>
 
-                                {{-- Kategori --}}
                                 <div class="form-group mt-3">
                                     <label for="id_kategori">Kategori</label>
                                     <select name="id_kategori" id="id_kategori"
@@ -59,7 +56,6 @@
                                     @enderror
                                 </div>
 
-                                {{-- Deskripsi Singkat --}}
                                 <div class="form-group mt-3">
                                     <label for="deskripsi_singkat">Deskripsi Singkat</label>
                                     <textarea name="deskripsi_singkat" id="deskripsi_singkat" rows="5"
@@ -71,7 +67,6 @@
                                 </div>
 
 
-                                {{-- Tanggal Event (opsional) --}}
                                 <div class="form-group mt-3">
                                     <label for="tanggal_event">Tanggal Event (Opsional)</label>
                                     <input type="date" name="tanggal_event" id="tanggal_event"
@@ -82,7 +77,6 @@
                                     @enderror
                                 </div>
 
-                                {{-- Foto --}}
                                 <div class="form-group mt-3">
                                     <label for="foto">Foto Berita</label>
                                     <input type="file" name="foto" id="foto"
@@ -93,7 +87,6 @@
                                     @enderror
                                 </div>
 
-                                {{-- Tombol Aksi --}}
                                 <div class="d-flex justify-content-end mt-4">
                                     <a href="{{ route('admin.berita.index') }}" class="btn btn-secondary mr-2">
                                         <i class="fas fa-arrow-left"></i> Kembali

@@ -25,28 +25,24 @@
                                 @csrf
                                 @method('PUT')
 
-                                {{-- Judul --}}
                                 <div class="mb-3">
                                     <label for="judul" class="form-label">Judul</label>
                                     <input type="text" id="judul" name="judul" class="form-control @error('judul') is-invalid @enderror" value="{{ old('judul', $ppid->judul) }}" required>
                                     @error('judul')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
 
-                                {{-- Deskripsi --}}
                                 <div class="mb-3">
                                     <label for="deskripsi" class="form-label">Deskripsi</label>
                                     <textarea id="deskripsi" name="deskripsi" rows="5" class="form-control @error('deskripsi') is-invalid @enderror" required>{{ old('deskripsi', $ppid->deskripsi) }}</textarea>
                                     @error('deskripsi')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
 
-                                {{-- Tanggal --}}
                                 <div class="mb-3">
                                     <label for="tanggal" class="form-label">Tanggal</label>
                                     <input type="date" id="tanggal" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" value="{{ old('tanggal', $ppid->tanggal ? $ppid->tanggal->format('Y-m-d') : '') }}" required>
                                     @error('tanggal')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
 
-                                {{-- Kategori --}}
                                 <div class="mb-3">
     <label for="kategori" class="form-label">Kategori</label>
     <select name="kategori" id="kategori" class="form-control @error('kategori') is-invalid @enderror" required>
@@ -59,7 +55,6 @@
 </div>
 
 
-                                {{-- File Saat Ini --}}
                                 <div class="mb-3">
                                     <label class="form-label">File Saat Ini</label><br>
                                     @if($ppid->file)
@@ -69,13 +64,11 @@
                                     @endif
                                 </div>
 
-                                {{-- Ganti File --}}
                                 <div class="mb-3">
                                     <label for="file" class="form-label">Ganti File (opsional)</label>
                                     <input type="file" id="file" name="file" class="form-control" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
                                 </div>
 
-                                {{-- Tombol --}}
                                 <div class="d-flex flex-column flex-sm-row justify-content-end gap-2 mt-3">
                                     <a href="{{ route('ppid.index') }}" class="btn btn-secondary flex-fill flex-sm-auto">
                                         <i class="fas fa-arrow-left"></i> Batal

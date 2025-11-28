@@ -2,15 +2,46 @@
 
 @push('styles')
 <style>
-/* Sama seperti berkalas.blade.php */
-.ppid-card { border: 1px solid #ddd; border-radius: 6px; padding: 15px; margin-bottom: 15px; transition: box-shadow 0.2s; width: 100%; }
-.ppid-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-.ppid-card h5 { font-weight: 600; margin-bottom: 10px; cursor: pointer; }
-.sub-item { border-top: 1px solid #eee; padding-top: 10px; margin-top: 10px; }
-.sub-item h6 { margin-bottom: 5px; }
-.file-viewer { width: 100%; height: 70vh; border: none; border-radius: 6px; }
-.btn-group-file { display: flex; gap: 5px; margin-top: 10px; }
-.btn-group-file .btn-file { flex: 1; white-space: nowrap; text-align: center; font-size: 0.85rem; padding: 5px 0; }
+.ppid-card { 
+    border: 1px solid #ddd; 
+    border-radius: 6px; 
+    padding: 15px; 
+    margin-bottom: 15px; 
+    transition: box-shadow 0.2s; 
+    width: 100%; 
+}
+.ppid-card:hover { 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+}
+.ppid-card h5 { 
+    font-weight: 600; 
+    margin-bottom: 10px; 
+    cursor: pointer; 
+}
+.sub-item { 
+    border-top: 1px solid #eee; 
+    padding-top: 10px; 
+    margin-top: 10px; 
+}
+.sub-item h6 { 
+    margin-bottom: 5px; 
+}
+.file-viewer { width: 100%; 
+    height: 70vh; 
+    border: none; 
+    border-radius: 6px; 
+}
+.btn-group-file { 
+    display: flex; gap: 5px; 
+    margin-top: 10px; 
+}
+.btn-group-file .btn-file { 
+    flex: 1; 
+    white-space: nowrap; 
+    text-align: center; 
+    font-size: 0.85rem; 
+    padding: 5px 0; 
+}
 </style>
 @endpush
 
@@ -62,7 +93,6 @@
                 </div>
             </div>
         @endforeach
-        {{-- Tombol Kembali --}}
     <a href="{{ route('ppid') }}" class="btn btn-secondary mb-4">
         <i class="fas fa-arrow-left"></i> Kembali ke PPID
     </a>

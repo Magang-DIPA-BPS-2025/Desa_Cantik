@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 
 class ApbdController extends Controller
 {
-    /**
-     * Menampilkan semua data APBD Desa (Admin)
-     */
+   
     public function index()
     {
         $apbds = Apbd::orderBy('tahun','desc')->paginate(10);
@@ -20,9 +18,7 @@ class ApbdController extends Controller
         ]);
     }
 
-    /**
-     * Menampilkan form tambah data APBD
-     */
+   
     public function create()
     {
         return view('pages.admin.apbd.create', [
@@ -31,9 +27,7 @@ class ApbdController extends Controller
         ]);
     }
 
-    /**
-     * Menyimpan data APBD baru
-     */
+ 
     public function store(Request $request)
     {
         $request->validate([
@@ -55,10 +49,9 @@ class ApbdController extends Controller
             'pembiayaan_pengeluaran' => 'required|numeric|min:0',
         ]);
 
-        // Hitung persentase otomatis
+ 
         $data = $request->all();
 
-        // Hitung persentase pendapatan
         if ($data['total_pendapatan'] > 0) {
             $data['pendapatan_pad_persen'] = round(($data['pendapatan_pad'] / $data['total_pendapatan']) * 100, 2);
             $data['pendapatan_transfer_persen'] = round(($data['pendapatan_transfer'] / $data['total_pendapatan']) * 100, 2);
@@ -69,7 +62,7 @@ class ApbdController extends Controller
             $data['pendapatan_lain_persen'] = 0;
         }
 
-        // Hitung persentase belanja
+    
         if ($data['total_belanja'] > 0) {
             $data['belanja_pemerintahan_persen'] = round(($data['belanja_pemerintahan'] / $data['total_belanja']) * 100, 2);
             $data['belanja_pembangunan_persen'] = round(($data['belanja_pembangunan'] / $data['total_belanja']) * 100, 2);
@@ -84,7 +77,7 @@ class ApbdController extends Controller
             $data['belanja_bencana_persen'] = 0;
         }
 
-        // Hitung persentase pembiayaan
+
         $total_pembiayaan = $data['pembiayaan_penerimaan'] + $data['pembiayaan_pengeluaran'];
         if ($total_pembiayaan > 0) {
             $data['pembiayaan_penerimaan_persen'] = round(($data['pembiayaan_penerimaan'] / $total_pembiayaan) * 100, 2);
@@ -100,9 +93,7 @@ class ApbdController extends Controller
             ->with('success', 'Data APBD berhasil ditambahkan');
     }
 
-    /**
-     * Menampilkan form edit data APBD
-     */
+    
     public function edit($id)
     {
         $apbd = Apbd::findOrFail($id);
@@ -114,9 +105,7 @@ class ApbdController extends Controller
         ]);
     }
 
-    /**
-     * Memperbarui data APBD
-     */
+   
     public function update(Request $request, $id)
     {
         $apbd = Apbd::findOrFail($id);
@@ -140,10 +129,10 @@ class ApbdController extends Controller
             'pembiayaan_pengeluaran' => 'required|numeric|min:0',
         ]);
 
-        // Hitung persentase otomatis
+   
         $data = $request->all();
 
-        // Hitung persentase pendapatan
+
         if ($data['total_pendapatan'] > 0) {
             $data['pendapatan_pad_persen'] = round(($data['pendapatan_pad'] / $data['total_pendapatan']) * 100, 2);
             $data['pendapatan_transfer_persen'] = round(($data['pendapatan_transfer'] / $data['total_pendapatan']) * 100, 2);
@@ -154,7 +143,7 @@ class ApbdController extends Controller
             $data['pendapatan_lain_persen'] = 0;
         }
 
-        // Hitung persentase belanja
+
         if ($data['total_belanja'] > 0) {
             $data['belanja_pemerintahan_persen'] = round(($data['belanja_pemerintahan'] / $data['total_belanja']) * 100, 2);
             $data['belanja_pembangunan_persen'] = round(($data['belanja_pembangunan'] / $data['total_belanja']) * 100, 2);
@@ -169,7 +158,7 @@ class ApbdController extends Controller
             $data['belanja_bencana_persen'] = 0;
         }
 
-        // Hitung persentase pembiayaan
+  
         $total_pembiayaan = $data['pembiayaan_penerimaan'] + $data['pembiayaan_pengeluaran'];
         if ($total_pembiayaan > 0) {
             $data['pembiayaan_penerimaan_persen'] = round(($data['pembiayaan_penerimaan'] / $total_pembiayaan) * 100, 2);
@@ -185,9 +174,7 @@ class ApbdController extends Controller
             ->with('success', 'Data APBD berhasil diperbarui');
     }
 
-    /**
-     * Menghapus data APBD
-     */
+
     public function destroy($id)
     {
         $apbd = Apbd::findOrFail($id);
@@ -197,36 +184,31 @@ class ApbdController extends Controller
             ->with('success', 'Data APBD berhasil dihapus');
     }
 
-    /**
-     * Menampilkan data APBD untuk user landing page dengan fitur filtering
-     */
+  
     public function show(Request $request)
     {
-        // Ambil tahun yang dipilih dari request
+   
         $selectedYear = $request->get('tahun');
         
-        // Query untuk mendapatkan data APBD berdasarkan tahun
+     
         $apbdQuery = Apbd::query();
         
         if ($selectedYear) {
             $apbdQuery->where('tahun', $selectedYear);
         } else {
-            // Jika tidak ada tahun yang dipilih, ambil tahun terbaru
+   
             $selectedYear = Apbd::max('tahun');
             $apbdQuery->where('tahun', $selectedYear);
         }
         
         $apbd = $apbdQuery->first();
-        
-        // Ambil daftar tahun yang tersedia untuk dropdown
+
         $years = Apbd::distinct()->orderBy('tahun', 'desc')->pluck('tahun');
         
         return view('pages.landing.profildesa.APBDDesa', compact('apbd', 'years', 'selectedYear'));
     }
 
-    /**
-     * API untuk mendapatkan data APBD berdasarkan tahun (untuk AJAX requests)
-     */
+   
     public function getByYear($year)
     {
         $apbd = Apbd::where('tahun', $year)->first();

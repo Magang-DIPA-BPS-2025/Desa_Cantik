@@ -14,11 +14,11 @@
                                 </ol>
                             </nav>
                         </div>
-                    </div><!-- Col end -->
-                </div><!-- Row end -->
-            </div><!-- Container end -->
-        </div><!-- Banner text end -->
-    </div><!-- Banner area end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <section id="main-container" class="main-container">
         <div class="container">
@@ -29,7 +29,6 @@
                     <h3 class="section-sub-title">Temukan Lokasi</h3>
                 </div>
             </div>
-            <!--/ Title row end -->
 
             <div class="row">
                 <div class="col-md-4">
@@ -43,7 +42,7 @@
                               Selatan</p>
                         </div>
                     </div>
-                </div><!-- Col 1 end -->
+                </div>
 
                 <div class="col-md-4">
                     <div class="ts-service-box-bg text-center h-100">
@@ -55,7 +54,7 @@
                             <p>rpph@gmail.com </p>
                         </div>
                     </div>
-                </div><!-- Col 2 end -->
+                </div>
 
                 <div class="col-md-4">
                     <div class="ts-service-box-bg text-center h-100">
@@ -67,7 +66,7 @@
                             <p>(0411) 8898099, 998970 </p>
                         </div>
                     </div>
-                </div><!-- Col 3 end -->
+                </div>
 
             </div>1st row end
 
@@ -80,6 +79,6 @@
 
             <div class="gap-40"></div>
 
-        </div><!-- Conatiner end -->
-    </section><!-- Main container end -->
+        </div>
+    </section>
 @endsection

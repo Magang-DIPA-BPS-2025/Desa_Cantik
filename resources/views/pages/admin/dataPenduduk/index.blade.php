@@ -37,7 +37,6 @@
 
             .pagination { justify-content: flex-end !important; }
 
-            /* Control bar */
             .control-bar { 
                 display: flex; 
                 justify-content: space-between; 
@@ -62,7 +61,6 @@
                 gap: 10px; 
             }
 
-            /* Search box */
             .search-container { 
                 position: relative; 
                 width: 300px; 
@@ -83,7 +81,6 @@
             }
             .clear-search:hover { color: #333; }
 
-            /* Table alignment fixes */
             .table-custom {
                 width: 100%;
                 border-collapse: collapse;
@@ -108,136 +105,134 @@
                 font-size: 11px;
             }
 
-            /* Atur lebar kolom spesifik untuk alignment yang konsisten */
-            .table-custom th:nth-child(1), /* No */
+            .table-custom th:nth-child(1), 
             .table-custom td:nth-child(1) {
                 width: 50px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(2), /* NIK */
+            .table-custom th:nth-child(2),
             .table-custom td:nth-child(2) {
                 width: 120px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(3), /* No KK */
+            .table-custom th:nth-child(3), 
             .table-custom td:nth-child(3) {
                 width: 120px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(4), /* Nama */
+            .table-custom th:nth-child(4), 
             .table-custom td:nth-child(4) {
                 width: 150px;
                 text-align: left;
                 padding-left: 8px;
             }
 
-            .table-custom th:nth-child(5), /* Jenis Kelamin */
+            .table-custom th:nth-child(5), 
             .table-custom td:nth-child(5) {
                 width: 80px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(6), /* Tempat Lahir */
+            .table-custom th:nth-child(6), 
             .table-custom td:nth-child(6) {
                 width: 100px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(7), /* Tanggal Lahir */
+            .table-custom th:nth-child(7), 
             .table-custom td:nth-child(7) {
                 width: 90px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(8), /* Alamat */
+            .table-custom th:nth-child(8), 
             .table-custom td:nth-child(8) {
                 width: 150px;
                 text-align: left;
                 padding-left: 8px;
             }
 
-            .table-custom th:nth-child(9), /* Dusun */
+            .table-custom th:nth-child(9), 
             .table-custom td:nth-child(9) {
                 width: 80px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(10), /* RT */
+            .table-custom th:nth-child(10), 
             .table-custom td:nth-child(10) {
                 width: 50px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(11), /* RW */
+            .table-custom th:nth-child(11), 
             .table-custom td:nth-child(11) {
                 width: 50px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(12), /* Kel/Desa */
+            .table-custom th:nth-child(12), 
             .table-custom td:nth-child(12) {
                 width: 100px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(13), /* Kecamatan */
+            .table-custom th:nth-child(13), 
             .table-custom td:nth-child(13) {
                 width: 100px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(14), /* Agama */
+            .table-custom th:nth-child(14), 
             .table-custom td:nth-child(14) {
                 width: 80px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(15), /* Status Perkawinan */
+            .table-custom th:nth-child(15), 
             .table-custom td:nth-child(15) {
                 width: 100px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(16), /* Pekerjaan */
+            .table-custom th:nth-child(16), 
             .table-custom td:nth-child(16) {
                 width: 100px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(17), /* Kewarganegaraan */
+            .table-custom th:nth-child(17), 
             .table-custom td:nth-child(17) {
                 width: 100px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(18), /* Pendidikan */
+            .table-custom th:nth-child(18), 
             .table-custom td:nth-child(18) {
                 width: 80px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(19), /* Disabilitas */
+            .table-custom th:nth-child(19), 
             .table-custom td:nth-child(19) {
                 width: 70px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(20), /* Tahun */
+            .table-custom th:nth-child(20), 
             .table-custom td:nth-child(20) {
                 width: 60px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(21), /* Aksi */
+            .table-custom th:nth-child(21), 
             .table-custom td:nth-child(21) {
                 width: 80px;
                 text-align: center;
             }
 
-            /* Text ellipsis untuk kolom panjang */
             .text-ellipsis {
                 white-space: nowrap;
                 overflow: hidden;
@@ -246,7 +241,6 @@
                 display: inline-block;
             }
 
-            /* Dropdown Download */
             .download-dropdown {
                 position: relative;
                 display: inline-block;
@@ -312,7 +306,6 @@
                 display: block;
             }
 
-            /* Loading untuk PDF */
             .pdf-loading {
                 position: fixed;
                 top: 0;
@@ -376,7 +369,6 @@
                     min-width: 140px;
                 }
 
-                /* Sidebar auto close on mobile */
                 .main-content {
                     transition: margin-left 0.3s ease;
                 }
@@ -386,7 +378,6 @@
                 }
             }
 
-            /* Mobile sidebar auto close */
             @media (max-width: 768px) {
                 body.sidebar-open {
                     overflow: hidden;
@@ -417,7 +408,6 @@
                 <div class="card shadow-sm border-0">
                     <div class="card-body">
 
-                        <!-- Notifikasi -->
                         @if(session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
@@ -431,7 +421,6 @@
                         </div>
                         @endif
 
-                        <!-- Loading untuk PDF -->
                         <div class="pdf-loading" id="pdfLoading">
                             <div class="pdf-loading-content">
                                 <div class="spinner-border text-primary mb-3" role="status">
@@ -441,14 +430,12 @@
                             </div>
                         </div>
 
-                        <!-- Control Bar -->
                         <div class="control-bar">
                             <div class="left-controls">
                                 <a href="{{ route('dataPenduduk.create') }}" class="btn btn-primary">
                                     <i class="fas fa-plus"></i> Tambah Data Penduduk
                                 </a>
 
-                                <!-- Dropdown Download -->
                                 <div class="download-dropdown">
                                     <button class="btn-download">
                                         <i class="fas fa-download"></i> Download
@@ -464,7 +451,6 @@
                                     </div>
                                 </div>
 
-                                <!-- Entries Control -->
                                 <div class="entries-control">
                                     <label for="entries-select" class="mb-0">Tampilkan</label>
                                     <select id="entries-select" class="form-control form-control-sm" style="width: auto;">
@@ -488,7 +474,6 @@
                             </div>
                         </div>
 
-                        <!-- Tabel Penduduk -->
                         <div class="table-responsive">
                             <table class="table table-striped table-hover table-custom" id="table-penduduk">
                                 <thead class="thead-dark">
@@ -568,7 +553,6 @@
                             </table>
                         </div>
 
-                        <!-- Pagination -->
                         @if($datas->hasPages())
                         <div class="d-flex justify-content-between align-items-center mt-3">
                             <div>
@@ -600,7 +584,6 @@
                 const clearSearch = document.getElementById('clear-search');
                 const entriesSelect = document.getElementById('entries-select');
 
-                // Entries control
                 if(entriesSelect){
                     entriesSelect.addEventListener('change', function(){
                         const perPage = this.value;
@@ -610,7 +593,6 @@
                     });
                 }
 
-                // Search functionality
                 if(searchInput && clearSearch){
                     searchInput.addEventListener('input',()=>{ 
                         clearSearch.style.display = searchInput.value ? 'block':'none'; 
@@ -638,12 +620,10 @@
                     });
                 }
 
-                // Tampilkan clear button jika ada pencarian
                 @if(request('search'))
                     if(clearSearch) clearSearch.style.display = 'block';
                 @endif
 
-                // Auto close sidebar on mobile when clicking on content
                 const mainContent = document.querySelector('.main-content');
                 if (window.innerWidth <= 768) {
                     mainContent.addEventListener('click', function() {
@@ -660,28 +640,24 @@
                 }
             });
 
-            // PDF Download Function
             async function downloadPDF() {
                 const btn = document.querySelector('.btn-download');
                 const originalText = btn.innerHTML;
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Membuat PDF...';
                 btn.disabled = true;
 
-                // Tampilkan loading
                 const loadingElement = document.getElementById('pdfLoading');
                 loadingElement.style.display = 'flex';
 
                 try {
                     const { jsPDF } = window.jspdf;
                     
-                    // Buat PDF dengan orientasi landscape
                     const doc = new jsPDF({
                         orientation: 'landscape',
                         unit: 'mm',
                         format: 'a4'
                     });
                     
-                    // Judul
                     const title = "DATA PENDUDUK DESA";
                     const date = new Date().toLocaleDateString('id-ID', {
                         weekday: 'long',
@@ -690,17 +666,14 @@
                         day: 'numeric'
                     });
                     
-                    // Tambahkan judul di tengah halaman landscape
                     doc.setFontSize(16);
                     doc.setTextColor(40, 40, 40);
                     doc.text(title, 210 / 2, 15, { align: 'center' });
                     
-                    // Tanggal export
                     doc.setFontSize(10);
                     doc.setTextColor(100, 100, 100);
                     doc.text('Dicetak pada: ' + date, 210 / 2, 22, { align: 'center' });
                     
-                    // Siapkan headers
                     const headers = [
                         'No', 'NIK', 'No KK', 'Nama', 'Jenis Kelamin', 'Tempat Lahir', 
                         'Tanggal Lahir', 'Alamat', 'Dusun', 'RT', 'RW', 'Kel/Desa', 
@@ -708,7 +681,6 @@
                         'Kewarganegaraan', 'Pendidikan', 'Disabilitas', 'Tahun'
                     ];
                     
-                    // Siapkan data rows
                     const rows = [];
                     @foreach($datas as $index => $penduduk)
                         rows.push([
@@ -735,7 +707,6 @@
                         ]);
                     @endforeach
                     
-                    // Buat tabel dengan autoTable
                     doc.autoTable({
                         head: [headers],
                         body: rows,
@@ -763,7 +734,6 @@
                         pageBreak: 'auto',
                         showHead: 'everyPage',
                         didDrawPage: function(data) {
-                            // Footer untuk landscape
                             const pageCount = doc.internal.getNumberOfPages();
                             doc.setFontSize(8);
                             doc.setTextColor(150, 150, 150);
@@ -774,7 +744,6 @@
                         }
                     });
                     
-                    // Simpan PDF
                     const fileName = 'data_penduduk_desa_' + new Date().toISOString().split('T')[0] + '.pdf';
                     doc.save(fileName);
                     
@@ -788,7 +757,6 @@
                 }
             }
 
-            // Excel Download Function
             function downloadExcel() {
                 const btn = document.querySelector('.btn-download');
                 const originalText = btn.innerHTML;
@@ -796,25 +764,19 @@
                 btn.disabled = true;
 
                 try {
-                    // Ambil data dari tabel
                     const table = document.getElementById('table-penduduk');
                     const data = [];
 
-                    // Ambil header
                     const headers = [];
                     table.querySelectorAll('thead th').forEach((th, index) => {
-                        // Skip kolom aksi (kolom terakhir)
                         if (index < table.querySelectorAll('thead th').length - 1) {
                             headers.push(th.innerText.trim());
                         }
                     });
                     data.push(headers);
-
-                    // Ambil data baris
                     table.querySelectorAll('tbody tr').forEach(tr => {
                         const row = [];
                         tr.querySelectorAll('td').forEach((td, index) => {
-                            // Skip kolom aksi (kolom terakhir)
                             if (index < tr.querySelectorAll('td').length - 1) {
                                 row.push(td.innerText.trim());
                             }
@@ -822,39 +784,35 @@
                         data.push(row);
                     });
 
-                    // Buat workbook dan worksheet
                     const ws = XLSX.utils.aoa_to_sheet(data);
                     
-                    // Atur lebar kolom
                     const colWidths = [
-                        { wch: 8 },   // No
-                        { wch: 20 },  // NIK
-                        { wch: 20 },  // No KK
-                        { wch: 25 },  // Nama
-                        { wch: 15 },  // Jenis Kelamin
-                        { wch: 15 },  // Tempat Lahir
-                        { wch: 15 },  // Tanggal Lahir
-                        { wch: 30 },  // Alamat
-                        { wch: 12 },  // Dusun
-                        { wch: 8 },   // RT
-                        { wch: 8 },   // RW
-                        { wch: 15 },  // Kel/Desa
-                        { wch: 15 },  // Kecamatan
-                        { wch: 12 },  // Agama
-                        { wch: 18 },  // Status Perkawinan
-                        { wch: 15 },  // Pekerjaan
-                        { wch: 18 },  // Kewarganegaraan
-                        { wch: 15 },  // Pendidikan
-                        { wch: 12 },  // Disabilitas
-                        { wch: 10 }   // Tahun
+                        { wch: 8 },   
+                        { wch: 20 },  
+                        { wch: 20 },  
+                        { wch: 25 },  
+                        { wch: 15 },  
+                        { wch: 15 },  
+                        { wch: 15 },  
+                        { wch: 30 },  
+                        { wch: 12 },  
+                        { wch: 8 },   
+                        { wch: 8 },   
+                        { wch: 15 },  
+                        { wch: 15 },  
+                        { wch: 12 },  
+                        { wch: 18 },  
+                        { wch: 15 },  
+                        { wch: 18 },  
+                        { wch: 15 },  
+                        { wch: 12 },  
+                        { wch: 10 }   
                     ];
                     ws['!cols'] = colWidths;
 
-                    // Buat workbook
                     const wb = XLSX.utils.book_new();
                     XLSX.utils.book_append_sheet(wb, ws, 'Data Penduduk Desa');
 
-                    // Download file
                     XLSX.writeFile(wb, `Data_Penduduk_Desa_${new Date().toISOString().split('T')[0]}.xlsx`);
 
                 } catch(e) {
@@ -866,11 +824,9 @@
                 }
             }
 
-            // Auto close sidebar on mobile
             document.addEventListener('DOMContentLoaded', function() {
                 function handleMobileSidebar() {
                     if (window.innerWidth <= 768) {
-                        // Close sidebar when clicking on main content
                         document.querySelector('.main-content').addEventListener('click', function() {
                             const sidebar = document.querySelector('.sidebar');
                             const navbarCollapse = document.querySelector('.navbar-collapse');
@@ -884,7 +840,6 @@
                             }
                         });
 
-                        // Close sidebar when scrolling
                         window.addEventListener('scroll', function() {
                             const sidebar = document.querySelector('.sidebar');
                             const navbarCollapse = document.querySelector('.navbar-collapse');

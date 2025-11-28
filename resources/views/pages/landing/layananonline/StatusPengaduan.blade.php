@@ -2,14 +2,12 @@
 
 @section('content')
 <style>
-/* Custom styles untuk halaman status pengaduan */
 .status-pengaduan-container {
     max-width: 1400px;
     margin: 40px auto;
     padding: 0 20px;
 }
 
-/* Card styling dengan shadow yang lebih soft */
 .card {
     border-radius: 12px;
     border: none;
@@ -22,7 +20,6 @@
     transform: translateY(-2px);
 }
 
-/* Header styling - posisi kiri */
 .header-left {
     text-align: left;
     margin-bottom: 2rem;
@@ -42,7 +39,6 @@
     margin-bottom: 0;
 }
 
-/* PERBAIKAN: Form styling untuk mobile */
 .form-container {
     padding: 1.5rem;
 }
@@ -75,7 +71,6 @@
     box-shadow: 0 4px 12px rgba(25, 135, 84, 0.3);
 }
 
-/* PERBAIKAN: Tabel responsive dengan scroll horizontal */
 .table-responsive-container {
     border-radius: 10px;
     overflow: hidden;
@@ -122,7 +117,6 @@
     background-color: #f8f9fa;
 }
 
-/* Scrollbar styling untuk tabel */
 .table-wrapper::-webkit-scrollbar {
     height: 8px;
 }
@@ -141,7 +135,6 @@
     background: #a8a8a8;
 }
 
-/* PERBAIKAN: Badge styling dengan font putih untuk SEMUA status */
 .badge {
     font-size: 0.8rem;
     font-weight: 600;
@@ -174,13 +167,11 @@
     background: linear-gradient(135deg, #6c757d, #5a6268) !important; 
 }
 
-/* Text muted untuk empty state */
 .text-muted {
     color: #6c757d !important;
     font-style: italic;
 }
 
-/* Loading state */
 #loadingCari, #loadingCariMobile {
     display: none;
 }
@@ -195,7 +186,6 @@
     display: inline-block;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .status-pengaduan-container {
         margin: 20px auto;
@@ -243,7 +233,6 @@
         min-width: 70px;
     }
 
-    /* PERBAIKAN: Form layout untuk mobile */
     .form-row-mobile {
         display: flex;
         flex-direction: column;
@@ -256,7 +245,6 @@
 }
 
 @media (min-width: 769px) {
-    /* PERBAIKAN: Desktop layout untuk form */
     .form-row-desktop {
         display: flex;
         gap: 1rem;
@@ -299,7 +287,6 @@
         font-size: 0.8rem;
     }
     
-    /* Hide some columns on mobile */
     .table thead th:nth-child(2),
     .table tbody td:nth-child(2) {
         display: none;
@@ -310,7 +297,6 @@
     }
 }
 
-/* Animation untuk loading */
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -323,17 +309,14 @@
 
 <div class="status-pengaduan-container">
 
-    {{-- === JUDUL - POSISI KIRI === --}}
     <div class="header-left">
         <h2 class="header-title">Status Pengaduan Online Warga Desa</h2>
         <p class="header-subtitle">Masukkan email Anda untuk melihat status pengaduan yang telah dikirim.</p>
     </div>
 
-    {{-- === CARD FORM PENCARIAN === --}}
     <div class="card">
         <div class="card-body form-container">
             <form action="{{ route('pengaduan.userStatus') }}" method="GET" id="searchForm">
-                {{-- Desktop Layout --}}
                 <div class="form-row-desktop d-md-flex">
                     <div class="form-input-desktop">
                         <input type="email" name="email" class="form-control form-control-lg"
@@ -347,7 +330,6 @@
                     </div>
                 </div>
                 
-                {{-- Mobile Layout --}}
                 <div class="form-row-mobile d-md-none">
                     <input type="email" name="email" class="form-control form-control-lg"
                         placeholder="Masukkan email Anda..." value="{{ request('email') }}" required>
@@ -360,7 +342,6 @@
         </div>
     </div>
 
-    {{-- === CARD TABEL HASIL === --}}
     <div class="card">
         <div class="card-body form-container">
             <div class="table-responsive-container">
@@ -418,7 +399,6 @@
                 </div>
             </div>
             
-            {{-- Indikator bahwa tabel bisa di-scroll di mobile --}}
             <div class="d-md-none text-center mt-2">
                 <small class="text-muted">
                     <i class="fas fa-arrows-left-right me-1"></i>
@@ -430,7 +410,6 @@
 
 </div>
 
-{{-- === SCRIPT LOADING TOMBOL === --}}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const searchForm = document.getElementById('searchForm');
@@ -441,12 +420,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadingCari = document.getElementById('loadingCari');
     const loadingCariMobile = document.getElementById('loadingCariMobile');
     
-    // Sembunyikan loading state awal
     loadingCari.style.display = 'none';
     loadingCariMobile.style.display = 'none';
     
     function handleFormSubmit(e) {
-        // Validasi form
         const emailInput = document.querySelector('input[name="email"]');
         if (!emailInput.value.trim()) {
             e.preventDefault();
@@ -454,14 +431,11 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Tampilkan loading state
         if (window.innerWidth >= 768) {
-            // Desktop
             btnCari.disabled = true;
             textCari.style.display = 'none';
             loadingCari.style.display = 'inline-block';
         } else {
-            // Mobile
             btnCariMobile.disabled = true;
             textCariMobile.style.display = 'none';
             loadingCariMobile.style.display = 'inline-block';
@@ -477,7 +451,6 @@ document.addEventListener('DOMContentLoaded', function() {
         btnCariMobile.addEventListener('click', handleFormSubmit);
     }
     
-    // Reset loading state jika form di-reset
     searchForm.addEventListener('reset', function() {
         btnCari.disabled = false;
         btnCariMobile.disabled = false;
@@ -489,7 +462,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Auto focus pada input email jika ada error atau pertama kali load
 document.addEventListener('DOMContentLoaded', function() {
     const emailInput = document.querySelector('input[name="email"]');
     if (emailInput && !emailInput.value) {

@@ -37,7 +37,7 @@
 
             .pagination { justify-content: flex-end !important; }
 
-            /* Control bar */
+      
             .control-bar { 
                 display: flex; 
                 justify-content: space-between; 
@@ -62,7 +62,7 @@
                 gap: 10px; 
             }
 
-            /* Search box */
+          
             .search-container { 
                 position: relative; 
                 width: 300px; 
@@ -83,7 +83,7 @@
             }
             .clear-search:hover { color: #333; }
 
-            /* Foto */
+   
             .foto-agenda {
                 width: 80px;
                 height: 60px;
@@ -94,7 +94,7 @@
                 margin: 0 auto;
             }
 
-            /* Deskripsi styling */
+       
             .deskripsi-singkat {
                 max-width: 280px;
                 overflow: hidden;
@@ -102,7 +102,7 @@
                 white-space: nowrap;
             }
 
-            /* Table alignment fixes */
+           
             .table-custom {
                 width: 100%;
                 border-collapse: collapse;
@@ -127,59 +127,59 @@
                 font-size: 14px;
             }
 
-            /* Atur lebar kolom spesifik untuk alignment yang konsisten */
-            .table-custom th:nth-child(1), /* No */
+          
+            .table-custom th:nth-child(1),
             .table-custom td:nth-child(1) {
                 width: 60px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(2), /* Foto */
+            .table-custom th:nth-child(2),
             .table-custom td:nth-child(2) {
                 width: 100px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(3), /* Nama Kegiatan */
+            .table-custom th:nth-child(3),
             .table-custom td:nth-child(3) {
                 width: 200px;
                 text-align: left;
                 padding-left: 12px;
             }
 
-            .table-custom th:nth-child(4), /* Waktu Pelaksanaan */
+            .table-custom th:nth-child(4), 
             .table-custom td:nth-child(4) {
                 width: 160px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(5), /* Deskripsi */
+            .table-custom th:nth-child(5), 
             .table-custom td:nth-child(5) {
                 width: 260px;
                 text-align: left;
                 padding-left: 12px;
             }
 
-            .table-custom th:nth-child(6), /* Kategori */
+            .table-custom th:nth-child(6), 
             .table-custom td:nth-child(6) {
                 width: 100px;
                 text-align: center;
             }
 
-            .table-custom th:nth-child(7), /* Aksi */
+            .table-custom th:nth-child(7), 
             .table-custom td:nth-child(7) {
                 width: 100px;
                 text-align: center;
             }
 
-            /* Styling untuk sel tanpa foto */
+       
             .no-foto {
                 color: #6c757d;
                 font-style: italic;
                 font-size: 12px;
             }
 
-            /* Dropdown Download */
+        
             .download-dropdown {
                 position: relative;
                 display: inline-block;
@@ -310,7 +310,7 @@
                 <div class="card shadow-sm border-0">
                     <div class="card-body">
 
-                        <!-- Notifikasi -->
+                 
                         @if(session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
@@ -324,14 +324,14 @@
                         </div>
                         @endif
 
-                        <!-- Control Bar -->
+                      
                         <div class="control-bar">
                             <div class="left-controls">
                                 <a href="{{ route('AgendaDesa.create') }}" class="btn btn-primary">
                                     <i class="fas fa-plus"></i> Tambah Agenda
                                 </a>
 
-                                <!-- Dropdown Download -->
+                            
                                 <div class="download-dropdown">
                                     <button class="btn-download">
                                         <i class="fas fa-download"></i> Download
@@ -347,7 +347,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Entries Control -->
+                      
                                 <div class="entries-control">
                                     <label for="entries-select" class="mb-0">Tampilkan</label>
                                     <select id="entries-select" class="form-control form-control-sm" style="width: auto;">
@@ -371,7 +371,7 @@
                             </div>
                         </div>
 
-                        <!-- Tabel Agenda -->
+                
                         <div class="table-responsive">
                             <table class="table table-striped table-hover table-custom" id="table-agenda">
                                 <thead class="thead-dark">
@@ -423,7 +423,7 @@
                             </table>
                         </div>
 
-                        <!-- Pagination -->
+                        
                         <div class="d-flex justify-content-between align-items-center mt-3">
                             <div>
                                 Menampilkan {{ $datas->firstItem() ?? 0 }} hingga {{ $datas->lastItem() ?? 0 }} dari {{ $datas->total() }} entri
@@ -451,7 +451,7 @@
                 const clearSearch = document.getElementById('clear-search');
                 const entriesSelect = document.getElementById('entries-select');
 
-                // Entries control
+              
                 if(entriesSelect){
                     entriesSelect.addEventListener('change', function(){
                         const perPage = this.value;
@@ -461,7 +461,6 @@
                     });
                 }
 
-                // Search functionality
                 if(searchInput && clearSearch){
                     searchInput.addEventListener('input',()=>{ 
                         clearSearch.style.display = searchInput.value ? 'block':'none'; 
@@ -489,13 +488,13 @@
                     });
                 }
 
-                // Tampilkan clear button jika ada pencarian
+               
                 @if(request('search'))
                     if(clearSearch) clearSearch.style.display = 'block';
                 @endif
             });
 
-            // PDF Download Function
+        
             async function getBase64Image(img) {
                 return new Promise((resolve, reject) => {
                     const canvas = document.createElement('canvas');
@@ -528,13 +527,13 @@
                     </div>`;
 
                     const table = document.querySelector('#table-agenda').cloneNode(true);
-                    // Hapus kolom aksi
+                  
                     table.querySelectorAll('tr').forEach(row => {
                         const cells = row.querySelectorAll('td, th');
                         if (cells.length > 0) row.removeChild(cells[cells.length - 1]);
                     });
 
-                    // Proses gambar
+               
                     const fotoCells = table.querySelectorAll('td:nth-child(2)');
                     for (let i = 0; i < fotoCells.length; i++) {
                         const cell = fotoCells[i];
@@ -567,12 +566,11 @@
                         td.style.verticalAlign = 'middle';
                     });
                     
-                    // Center untuk kolom foto dan no
                     table.querySelectorAll('td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(6)').forEach(td => {
                         td.style.textAlign = 'center';
                     });
 
-                    // Atur lebar kolom deskripsi
+         
                     table.querySelectorAll('td:nth-child(5)').forEach(td => {
                         td.style.maxWidth = '200px';
                         td.style.wordWrap = 'break-word';
@@ -597,7 +595,7 @@
                 }
             }
 
-            // Excel Download Function
+      
             function downloadExcel() {
                 const btn = document.querySelector('.btn-download');
                 const originalText = btn.innerHTML;
@@ -605,30 +603,30 @@
                 btn.disabled = true;
 
                 try {
-                    // Ambil data dari tabel
+           
                     const table = document.getElementById('table-agenda');
                     const data = [];
 
-                    // Ambil header
+                   
                     const headers = [];
                     table.querySelectorAll('thead th').forEach((th, index) => {
-                        // Skip kolom aksi (kolom terakhir)
+                     
                         if (index < table.querySelectorAll('thead th').length - 1) {
                             headers.push(th.innerText.trim());
                         }
                     });
                     data.push(headers);
 
-                    // Ambil data baris
+           
                     table.querySelectorAll('tbody tr').forEach(tr => {
                         const row = [];
                         tr.querySelectorAll('td').forEach((td, index) => {
-                            // Skip kolom aksi (kolom terakhir)
+                            
                             if (index < tr.querySelectorAll('td').length - 1) {
-                                if (index === 1) { // Kolom foto
+                                if (index === 1) { 
                                     const img = td.querySelector('img');
                                     row.push(img ? 'Ada Foto' : 'Tidak Ada Foto');
-                                } else if (index === 4) { // Kolom deskripsi
+                                } else if (index === 4) { 
                                     row.push(td.getAttribute('title') || td.innerText.trim());
                                 } else {
                                     row.push(td.innerText.trim());
@@ -638,25 +636,25 @@
                         data.push(row);
                     });
 
-                    // Buat workbook dan worksheet
+                
                     const ws = XLSX.utils.aoa_to_sheet(data);
                     
-                    // Atur lebar kolom
+                  
                     const colWidths = [
-                        { wch: 5 },   // No
-                        { wch: 10 },  // Foto
-                        { wch: 25 },  // Nama Kegiatan
-                        { wch: 20 },  // Waktu Pelaksanaan
-                        { wch: 40 },  // Deskripsi
-                        { wch: 15 }   // Kategori
+                        { wch: 5 },   
+                        { wch: 10 },  
+                        { wch: 25 },  
+                        { wch: 20 },  
+                        { wch: 40 },
+                        { wch: 15 }   
                     ];
                     ws['!cols'] = colWidths;
 
-                    // Buat workbook
+              
                     const wb = XLSX.utils.book_new();
                     XLSX.utils.book_append_sheet(wb, ws, 'Data Agenda Desa');
 
-                    // Tambahkan header dengan judul
+               
                     if (!ws['A1'].v.includes('Data Agenda Desa')) {
                         XLSX.utils.sheet_add_aoa(ws, [['Data Agenda Desa']], { origin: 'A1' });
                         XLSX.utils.sheet_add_aoa(ws, [[`Tanggal: ${new Date().toLocaleDateString('id-ID')}`]], { origin: 'A2' });
@@ -664,7 +662,7 @@
                         XLSX.utils.sheet_add_aoa(ws, [headers], { origin: 'A4' });
                     }
 
-                    // Download file
+         
                     XLSX.writeFile(wb, `Data_Agenda_Desa_${new Date().toISOString().split('T')[0]}.xlsx`);
 
                 } catch(e) {

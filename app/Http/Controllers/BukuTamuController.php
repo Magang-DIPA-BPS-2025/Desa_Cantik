@@ -39,7 +39,6 @@ class BukuTamuController extends Controller
             ->with('success', 'Data berhasil disimpan! Terima kasih telah mengisi buku tamu.');
     }
 
-    // ✅ ADMIN INDEX
     public function adminIndex()
     {
         $menu = 'buku';
@@ -48,7 +47,7 @@ class BukuTamuController extends Controller
         return view('pages.admin.buku.index', compact('bukutamus', 'menu'));
     }
 
-    // ✅ EDIT DATA
+
     public function edit($id)
     {
         $menu = 'buku';
@@ -57,7 +56,7 @@ class BukuTamuController extends Controller
         return view('pages.admin.buku.edit', compact('bukuTamu', 'menu'));
     }
 
-    // ✅ UPDATE DATA
+   
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -76,7 +75,6 @@ class BukuTamuController extends Controller
             'jabatan' => $request->jabatan,
             'keperluan' => $request->keperluan,
             'tanda_tangan' => $request->ttd_data
-            // HAPUS 'tujuan'
         ]);
 
         return redirect()->route('admin.buku.index')

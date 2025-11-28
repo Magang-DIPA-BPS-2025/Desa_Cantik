@@ -115,7 +115,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const json = await res.json();
             if (json && json.success && json.data) {
                 const penduduk = json.data;
-                // If penduduk exists in dropdown, select it; otherwise append then select
                 let found = false;
                 for (const opt of pendudukSelect.options) {
                     if (opt.text.includes(penduduk.nik)) { found = true; setSelectedPenduduk(opt.value); break; }

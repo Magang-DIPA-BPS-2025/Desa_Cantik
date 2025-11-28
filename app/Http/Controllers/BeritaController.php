@@ -143,9 +143,7 @@ class BeritaController extends Controller
         return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil dihapus');
     }
 
-    /**
-     * Menampilkan berita untuk user landing page
-     */
+ 
     public function userIndex(Request $request)
     {
         $kategoriSelected = $request->query('kategori');
@@ -163,7 +161,7 @@ class BeritaController extends Controller
             $query->where('judul', 'like', '%' . $search . '%');
         }
 
-        // Tampilkan SEMUA berita tanpa pagination
+   
         $beritas = $query->get();
         
         $latest_beritas = Berita::with('kategori')
@@ -187,7 +185,7 @@ class BeritaController extends Controller
         $berita = Berita::with('kategori')->findOrFail($id);
         $berita->increment('dilihat');
 
-        // PERBAIKAN: Untuk sidebar detail berita, urutkan berdasarkan dilihat
+ 
         $latest_beritas = Berita::with('kategori')
                                ->orderBy('dilihat', 'desc')
                                ->take(5)
@@ -201,7 +199,7 @@ class BeritaController extends Controller
 
     public function userBeranda()
     {
-        // PERBAIKAN: Untuk homepage, tampilkan berita dengan dilihat terbanyak
+       
         $beritas = Berita::with('kategori')
                         ->orderBy('dilihat', 'desc')
                         ->take(6)

@@ -30,7 +30,6 @@
             vertical-align: middle;
         }
 
-        /* Tombol dengan gradient biru */
         .btn-gradient-primary {
             background: linear-gradient(90deg, #3B82F6, #31C48D);
             border: none;
@@ -57,7 +56,6 @@
             opacity: 0.9;
         }
 
-        /* Form styling */
         .form-control, .form-check-input {
             border-radius: 8px;
             padding: 10px;
@@ -85,13 +83,11 @@
             padding: 10px 20px;
         }
 
-        /* Card khusus form bawah */
         .form-card {
-            width: 100% !important;     /* isi penuh container */
-            max-width: 1200px;          /* biar tidak terlalu melebar */
+            width: 100% !important;     
+            max-width: 1200px;          
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .d-flex.justify-content-center {
                 flex-direction: column;
@@ -99,8 +95,6 @@
             }
         }
     </style>
-
-    {{-- Judul --}}
     <div class="card p-4">
         <h4 class="fw-bold">Form Permohonan & Keberatan Informasi untuk Penyandang Disabilitas</h4>
         <p class="mb-0">
@@ -110,7 +104,6 @@
         </p>
     </div>
 
-    {{-- Tabel Layanan --}}
     <div class="card">
         <div class="card-header">
             Tabel Layanan Formulir
@@ -148,9 +141,7 @@
         </div>
     </div>
 
-    {{-- Form Section --}}
     <div class="d-flex justify-content-center flex-column align-items-center">
-        {{-- Form Permohonan --}}
         <div id="formPermohonan" class="card p-4 mb-5 form-card d-none">
             <h5>Form Permohonan Informasi Disabilitas</h5>
             <form>
@@ -165,7 +156,6 @@
             </form>
         </div>
 
-        {{-- Form Keberatan --}}
         <div id="formKeberatan" class="card p-4 mb-5 form-card d-none">
             <h5>Form Pernyataan Keberatan Untuk Disabilitas</h5>
             <form>

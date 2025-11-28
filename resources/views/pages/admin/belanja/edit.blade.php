@@ -129,7 +129,7 @@
                         @method('PUT')
 
 <div class="row">
-    <!-- Kolom Kiri -->
+  
     <div class="col-md-6">
         <div class="form-group mb-4">
             <label for="judul" class="form-label required">Nama UMKM</label>
@@ -168,7 +168,7 @@
             <small class="text-muted">Contoh: 81234567890</small>
         </div>
 
-        <!-- Harga dan Rating sekarang pindah ke bawah WhatsApp -->
+    
         <div class="row mt-2">
             <div class="col-md-6">
                 <div class="form-group mb-4">
@@ -192,7 +192,7 @@
         </div>
     </div>
 
-    <!-- Kolom Kanan tetap sama -->
+ 
     <div class="col-md-6">
         <div class="form-group mb-4">
             <label for="foto" class="form-label">Foto UMKM</label>

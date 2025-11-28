@@ -9,12 +9,12 @@ class Akun extends Authenticatable
 {
     use HasFactory;
 
-    protected $table = 'akuns'; // nama tabel
+    protected $table = 'akuns';
 
     protected $fillable = [
         'name',
         'username',
-        'role',     // otomatis 'admin'
+        'role',  
         'password',
     ];
 

@@ -10,7 +10,6 @@
         color: #333;
     }
     
-    /* Header Section - DIPERBAIKI seperti halaman status surat */
     .container-main { 
         max-width: 1400px; 
         margin: auto; 
@@ -38,7 +37,6 @@
         font-family: 'Open Sans', sans-serif;
     }
 
-    /* Card Style - DIPERBAIKI seperti halaman status surat */
     .card { 
         background: #fff; 
         border-radius: 14px; 
@@ -114,7 +112,6 @@
         display: none; 
     }
     
-    /* Alert Styles */
     .alert {
         padding: 15px 20px;
         border-radius: 8px;
@@ -137,7 +134,6 @@
         border-left: 4px solid #dc3545;
     }
     
-    /* Row dan Column Layout */
     .form-row {
         display: flex;
         gap: 20px;
@@ -182,13 +178,10 @@
     }
 </style>
 
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
 
-<!-- DIPERBAIKI: Menggunakan struktur seperti halaman status surat -->
 <div class="container-main">
-    <!-- Judul Halaman - Mengikuti gaya dari halaman status surat -->
     <div class="text-start mb-4 mt-2 px-2 gallery-header">
         <h2 class="fw-semibold display-4 mb-2 gallery-title">
             FORMULIR LAYANAN ADMINISTRASI
@@ -198,7 +191,6 @@
         </p>
     </div>
 
-    <!-- Card Formulir - Menggunakan card style seperti halaman status surat -->
     <div class="card">
         @if (session('success'))
             <div class="alert alert-success">
@@ -211,12 +203,10 @@
             </div>
         @endif
 
-        {{-- Form utama --}}
         <form id="formLayanan" method="POST" action="#">
             @csrf
             <input type="hidden" name="tanggal_dibuat" value="{{ date('Y-m-d') }}">
 
-            {{-- Jenis Surat --}}
             <div class="form-group">
                 <label>Pilih Jenis Surat <span class="text-danger">*</span></label>
                 <select id="jenisSurat" name="jenis_surat" required>
@@ -228,7 +218,6 @@
                 </select>
             </div>
 
-            {{-- Form Umum --}}
             <div id="formUmum" class="hidden">
                 <div class="form-row">
                     <div class="form-col">
@@ -301,7 +290,6 @@
                 </div>
             </div>
 
-            {{-- Form SKU --}}
             <div id="formSKU" class="hidden">
                 <div class="form-group">
                     <label>Nama Usaha</label>
@@ -313,7 +301,6 @@
                 </div>
             </div>
 
-            {{-- Form SKTM --}}
             <div id="formSKTM" class="hidden">
                 <div class="form-group">
                     <label>Agama</label>
@@ -321,7 +308,6 @@
                 </div>
             </div>
 
-            {{-- Form SK Kematian --}}
             <div id="formKematian" class="hidden">
                 <div class="form-row">
                     <div class="form-col">
@@ -339,7 +325,6 @@
                 </div>
             </div>
 
-            {{-- Form Surat Izin Kegiatan --}}
             <div id="formIzin" class="hidden">
                 <div class="form-row">
                     <div class="form-col">
@@ -383,15 +368,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const formIzin = document.getElementById('formIzin');
     const formSKTM = document.getElementById('formSKTM');
 
-    // Saat jenis surat dipilih
     jenisSurat.addEventListener('change', function () {
-        // Sembunyikan semua form dulu
         [formUmum, formKematian, formSKU, formIzin, formSKTM].forEach(f => f.classList.add('hidden'));
 
-        // Tampilkan form umum dulu (selalu wajib)
         if (this.value) formUmum.classList.remove('hidden');
 
-        // Tentukan action dan tampilkan form tambahan
         switch (this.value) {
             case 'SURAT KETERANGAN USAHA (SKU)':
                 formSKU.classList.remove('hidden');
@@ -414,7 +395,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Ambil data penduduk otomatis berdasarkan NIK
     document.getElementById('nik').addEventListener('blur', function() {
         const nik = this.value.trim();
         if (!nik) return;

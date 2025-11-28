@@ -118,7 +118,7 @@
         }
     }
 
-    /* Pastikan semua elemen terlihat */
+ 
     .form-group {
         margin-bottom: 1.5rem;
     }
@@ -127,8 +127,7 @@
         display: block;
         width: 100%;
     }
-    
-    /* Hilangkan field rating dari create form */
+
     .rating-field {
         display: none !important;
     }
@@ -159,7 +158,7 @@
                                 @csrf
                                 
                                 <div class="row">
-                                    <!-- Kolom Kiri - Informasi Dasar -->
+                                 
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="judul" class="form-label required">Nama UMKM</label>
@@ -218,7 +217,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- Kolom Kanan - Informasi Tambahan -->
+                                  
                                     <div class="col-md-6">
                                         <div class="row">
                                             <div class="col-md-12">
@@ -239,8 +238,7 @@
                                             </div>
                                         </div>
 
-                                        <!-- HAPUS FIELD RATING DARI CREATE FORM -->
-                                        <!-- Rating akan otomatis 0 dan diisi oleh user nanti -->
+                                       
 
                                         <div class="form-group">
                                             <label for="foto" class="form-label">Foto UMKM</label>
@@ -282,7 +280,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Informasi Lokasi -->
+                               
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -308,7 +306,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Peta dan Koordinat -->
+                             
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
@@ -350,7 +348,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Deskripsi -->
+                                
                                 <div class="form-group">
                                     <label for="deskripsi" class="form-label required">Deskripsi UMKM</label>
                                     <textarea class="form-control @error('deskripsi') is-invalid @enderror" 
@@ -361,7 +359,6 @@
                                     @enderror
                                 </div>
 
-                                <!-- Tombol Aksi -->
                                 <div class="form-group btn-group-mobile">
                                     <div class="d-flex gap-2 flex-column flex-md-row">
                                         <button type="submit" class="btn btn-success btn-lg">
@@ -385,11 +382,11 @@
 @push('scripts')
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-// Koordinat default (sesuaikan dengan lokasi desa Anda)
+
 const defaultLat = -5.147665;
 const defaultLng = 119.432732;
 
-// Inisialisasi peta
+
 const map = L.map('map').setView([defaultLat, defaultLng], 15);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -398,41 +395,36 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 let marker = null;
 
-// Set default coordinates
+
 document.getElementById('latitude').value = defaultLat;
 document.getElementById('longitude').value = defaultLng;
 
-// Tambahkan marker default
 marker = L.marker([defaultLat, defaultLng]).addTo(map)
     .bindPopup('Lokasi UMKM Terpilih')
     .openPopup();
 
-// Event klik pada peta
 map.on('click', function(e) {
     const { lat, lng } = e.latlng;
-    
-    // Update input fields
+
     document.getElementById('latitude').value = lat.toFixed(8);
     document.getElementById('longitude').value = lng.toFixed(8);
     
-    // Hapus marker lama jika ada
     if (marker) {
         map.removeLayer(marker);
     }
     
-    // Tambahkan marker baru
+
     marker = L.marker([lat, lng]).addTo(map)
         .bindPopup('Lokasi UMKM Terpilih')
         .openPopup();
 });
 
-// Auto-center ke lokasi user (opsional)
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
         const userLat = position.coords.latitude;
         const userLng = position.coords.longitude;
         
-        // Jika belum ada input koordinat, gunakan lokasi user
+      
         if (!document.getElementById('latitude').value || document.getElementById('latitude').value == defaultLat) {
             document.getElementById('latitude').value = userLat.toFixed(8);
             document.getElementById('longitude').value = userLng.toFixed(8);
@@ -445,12 +437,12 @@ if (navigator.geolocation) {
                 .openPopup();
         }
         
-        // Center map ke lokasi user
+    
         map.setView([userLat, userLng], 15);
     });
 }
 
-// Fungsi preview gambar
+
 function previewImage(input) {
     const preview = document.getElementById('fotoPreview');
     const file = input.files[0];
@@ -469,17 +461,16 @@ function previewImage(input) {
     }
 }
 
-// Format nomor WhatsApp
+
 document.getElementById('wa').addEventListener('input', function(e) {
     this.value = this.value.replace(/[^0-9]/g, '');
 });
 
-// Format harga
+
 document.getElementById('harga').addEventListener('input', function(e) {
     this.value = this.value.replace(/[^0-9]/g, '');
 });
 
-// Validasi form
 document.getElementById('umkmForm').addEventListener('submit', function(e) {
     const requiredFields = this.querySelectorAll('[required]');
     let valid = true;

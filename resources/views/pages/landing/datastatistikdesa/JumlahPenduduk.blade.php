@@ -6,11 +6,9 @@
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-<!-- FONT -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-/* Terapkan font modern */
 body, .container-main, .card, .filter-toggle, .btn-download, .dropdown-content, .table, .layout-sidebar, .layout-main {
     font-family: 'Open Sans', sans-serif;
 }
@@ -31,7 +29,6 @@ body {
     padding: 20px; 
 }
 
-/* Header Section - Sama seperti halaman sejarah */
 .gallery-header {
     margin-bottom: 2rem;
     margin-top: -1rem;
@@ -265,13 +262,11 @@ body {
     margin-top: 25px; 
 }
 
-/* Chart container styling */
 .chart-container {
     position: relative;
     min-height: 420px;
 }
 
-/* Filter form styling */
 .filter-form {
     display: flex;
     flex-direction: column;
@@ -320,7 +315,6 @@ body {
     background: #5a6268;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .gallery-title { 
         font-size: 2.2rem; 
@@ -371,7 +365,6 @@ body {
 </style>
 
 <div class="container-main">
-    <!-- Judul Halaman - Sama seperti halaman sejarah -->
     <div class="text-start mb-4 mt-2 px-2 gallery-header">
         <h2 class="fw-semibold display-4 mb-2 gallery-title">
             JUMLAH PENDUDUK
@@ -382,8 +375,6 @@ body {
     </div>
 
     <div class="layout-wrapper">
-
-        <!-- Sidebar Filter -->
         <div class="layout-sidebar">
             <div class="card">
                 <div class="filter-toggle" onclick="toggleFilter(this)">
@@ -421,10 +412,7 @@ body {
             </div>
         </div>
 
-        <!-- Main Content -->
         <div class="layout-main">
-
-            <!-- Chart -->
             <div class="card">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
                     <h5 class="mb-0">
@@ -441,7 +429,6 @@ body {
                 </div>
             </div>
 
-            <!-- Table -->
             <div class="card">
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
                     <h5 class="mb-2 mb-md-0">
@@ -508,13 +495,11 @@ body {
 </div>
 
 <script>
-// Filter toggle - Default tertutup
 function toggleFilter(el){
     el.classList.toggle('active');
     el.nextElementSibling.classList.toggle('active');
 }
 
-// Dropdown toggle
 function toggleDropdown(event, btn){
     event.stopPropagation();
     const dropdown = btn.parentElement;
@@ -527,7 +512,6 @@ function toggleDropdown(event, btn){
     }, {once:true});
 }
 
-// Chart
 document.addEventListener("DOMContentLoaded", function () {
     const totalPenduduk = {{ $laki + $perempuan }};
     const chart = new ApexCharts(document.querySelector("#pie-chart-Penduduk"), {
@@ -590,7 +574,6 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 });
 
-// Download Table
 function downloadExcel(){ 
     const wb = XLSX.utils.table_to_book(document.getElementById("tabelPenduduk")); 
     XLSX.writeFile(wb, "Data_Penduduk_Desa_Manggalung.xlsx"); 
@@ -605,17 +588,14 @@ function downloadPDF(){
     const { jsPDF } = window.jspdf; 
     const doc = new jsPDF();
     
-    // Add title
     doc.setFont("Poppins", "bold");
     doc.setFontSize(18);
     doc.text("DATA PENDUDUK DESA MANGGAUNG", 105, 15, { align: "center" });
     
-    // Add date
     doc.setFont("Open Sans", "normal");
     doc.setFontSize(10);
     doc.text(`Dicetak pada: ${new Date().toLocaleDateString('id-ID')}`, 105, 22, { align: "center" });
     
-    // Add table
     doc.autoTable({
         html: '#tabelPenduduk',
         startY: 30,
@@ -637,16 +617,13 @@ function downloadPDF(){
     doc.save("Data_Penduduk_Desa_Manggalung.pdf"); 
 }
 
-// Prevent form submission on select change
 document.addEventListener('DOMContentLoaded', function() {
-    // Remove onchange events from selects
     const dusunSelect = document.getElementById('dusunSelect');
     const tahunSelect = document.getElementById('tahunSelect');
     
     dusunSelect.onchange = null;
     tahunSelect.onchange = null;
     
-    // Filter form submission
     const filterForm = document.getElementById('filterForm');
     filterForm.addEventListener('submit', function(e) {
         e.preventDefault();

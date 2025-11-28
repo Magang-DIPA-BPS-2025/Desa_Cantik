@@ -17,12 +17,12 @@ class Ppid extends Model
         'kategori',
     ];
 
-    // Cast tanggal menjadi Carbon instance
+   
     protected $casts = [
         'tanggal' => 'datetime',
     ];
 
-    // Relasi: satu PPID punya banyak sub-item
+  
     public function subItems()
     {
         return $this->hasMany(PpidSubItem::class, 'ppid_id');

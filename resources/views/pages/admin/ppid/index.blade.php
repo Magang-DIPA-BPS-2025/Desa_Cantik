@@ -2,7 +2,6 @@
 
 @push('styles')
 <style>
-    /* Tambahan agar modal lebih responsif */
     .modal-lg {
         max-width: 90%;
     }
@@ -13,7 +12,6 @@
         border-radius: 6px;
     }
 
-    /* Styling untuk tombol download Excel */
     .btn-download-excel { 
         background: #16a34a; 
         color: #fff; 
@@ -37,7 +35,6 @@
         text-decoration: none;
     }
 
-    /* Styling untuk pagination */
     .pagination-container {
         margin-top: 20px;
         display: flex;
@@ -57,7 +54,6 @@
         justify-content: flex-end;
     }
 
-    /* Control Bar */
     .control-bar {
         display: flex;
         justify-content: space-between;
@@ -79,7 +75,6 @@
         align-items: center;
     }
 
-    /* Styling untuk DataTables controls */
     .dataTables-controls {
         display: flex;
         justify-content: space-between;
@@ -122,7 +117,6 @@
         min-width: 150px;
     }
 
-    /* Responsive */
     @media (max-width: 576px) {
         .control-bar {
             flex-direction: column;
@@ -155,7 +149,6 @@
             border: 1px solid #e9ecef;
         }
         
-        /* Pagination di HP */
         .pagination-container {
             flex-direction: column;
             text-align: center;
@@ -186,21 +179,17 @@
                 <div class="col-12">
                     <div class="card shadow-sm">
                         <div class="card-body">
-                            {{-- Control Bar --}}
                             <div class="control-bar">
                                 <div class="left-controls">
                                     <a href="{{ route('ppid.create') }}" class="btn btn-primary">
                                         <i class="fas fa-plus"></i> Tambah PPID
                                     </a>
-
-                                    {{-- Tombol Download Excel --}}
                                     <button class="btn-download-excel" onclick="downloadExcel()">
                                         <i class="fas fa-file-excel"></i> Download Excel
                                     </button>
                                 </div>
                             </div>
 
-                            {{-- Controls (Entri dan Pencarian) --}}
                             <form method="GET" action="{{ route('ppid.index') }}" id="filter-form">
                                 <div class="dataTables-controls">
                                     <div class="dataTables-length">
@@ -224,7 +213,6 @@
                                 </div>
                             </form>
 
-                            {{-- Notifikasi sukses --}}
                             @if (session('success'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     {{ session('success') }}
@@ -234,7 +222,6 @@
                                 </div>
                             @endif
 
-                            {{-- Tabel Data --}}
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
@@ -287,7 +274,6 @@
                                 </table>
                             </div>
 
-                            {{-- Pagination --}}
                             @if($ppids->hasPages())
                             <div class="pagination-container">
                                 <div class="pagination-info">
@@ -309,7 +295,6 @@
     </section>
 </div>
 
-{{-- Modal Preview File --}}
 <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="fileModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -332,27 +317,21 @@
 </div>
 
 @push('scripts')
-<!-- Library untuk export Excel -->
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
 <script>
-    // Download Excel Function
     function downloadExcel(){ 
-        // Buat tabel sementara tanpa kolom aksi untuk Excel
         const originalTable = document.querySelector('table');
         const table = originalTable.cloneNode(true);
         
-        // Hapus kolom aksi (kolom terakhir) dari Excel
         const rows = table.querySelectorAll('tr');
         rows.forEach(row => {
             const cells = row.querySelectorAll('td, th');
             if (cells.length > 0) {
-                // Hapus kolom terakhir (aksi)
                 row.removeChild(cells[cells.length - 1]);
             }
         });
 
-        // Hapus tombol "Lihat" dan ganti dengan teks
         const fileCells = table.querySelectorAll('td:nth-child(5)');
         fileCells.forEach(cell => {
             const button = cell.querySelector('button');
@@ -368,12 +347,10 @@
     }
 
     $(document).ready(function () {
-        // Event klik tombol "Lihat"
         $('.btn-view-file').on('click', function() {
             const fileUrl = $(this).data('file');
             const fileViewer = $('#fileViewer');
 
-            // Deteksi jenis file dan tampilkan di iframe
             const fileExtension = fileUrl.split('.').pop().toLowerCase();
             if (['jpg', 'jpeg', 'png', 'gif'].includes(fileExtension)) {
                 fileViewer.attr('src', fileUrl);
@@ -383,28 +360,23 @@
                 fileViewer.attr('src', 'https://docs.google.com/gview?embedded=true&url=' + encodeURIComponent(fileUrl));
             }
 
-            // Tampilkan modal
             $('#fileModal').modal('show');
         });
 
-        // Bersihkan iframe saat modal ditutup
         $('#fileModal').on('hidden.bs.modal', function () {
             $('#fileViewer').attr('src', '');
         });
 
-        // Fungsi untuk handling form
         const filterForm = document.getElementById('filter-form');
         const perPageSelect = document.getElementById('per_page');
         const searchInput = document.getElementById('search');
 
-        // Handle perubahan select box
         if (perPageSelect) {
             perPageSelect.addEventListener('change', function() {
                 filterForm.submit();
             });
         }
 
-        // Handle pencarian dengan enter
         if (searchInput) {
             searchInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {

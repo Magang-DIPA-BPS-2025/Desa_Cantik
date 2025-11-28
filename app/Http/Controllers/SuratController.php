@@ -11,11 +11,7 @@ use Illuminate\Support\Facades\Schema;
 
 class SuratController extends Controller
 {
-    /**
-     * ============================
-     * ADMIN SIDE (CRUD SURAT)
-     * ============================
-     */
+  
     public function index(Request $request)
     {
         $status = $request->query('status');
@@ -123,11 +119,7 @@ class SuratController extends Controller
         return redirect()->route('surat.index')->with('success', 'Status surat diperbarui menjadi ' . $surat->status);
     }
 
-    /**
-     * ============================
-     * USER SIDE (PENGAJUAN SURAT)
-     * ============================
-     */
+
     public function userIndex(Request $request)
     {
         $jenisSurats = Schema::hasTable('jenis_surats')
@@ -156,7 +148,7 @@ class SuratController extends Controller
             'keterangan' => 'nullable|string',
         ]);
 
-        // Simpan ke model SKU
+       
         SKU::create(array_merge($validated, [
             'status_verifikasi' => 'Belum Diverifikasi',
             'nomor_surat' => null,

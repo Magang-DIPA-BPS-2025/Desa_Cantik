@@ -27,7 +27,6 @@
         color: white;
     }
 
-    /* Styling untuk tombol download Excel */
     .btn-download-excel { 
         background: #16a34a; 
         color: #fff; 
@@ -52,7 +51,6 @@
         text-decoration: none;
     }
 
-    /* Styling untuk DataTables controls */
     .dataTables-controls {
         display: flex;
         justify-content: space-between;
@@ -95,7 +93,6 @@
         min-width: 150px;
     }
 
-    /* Styling untuk pagination */
     .pagination-container {
         margin-top: 20px;
         display: flex;
@@ -115,7 +112,6 @@
         justify-content: flex-end;
     }
 
-    /* Responsive untuk DataTables - TAMPILAN HP */
     @media (max-width: 576px) {
         .dataTables-controls {
             flex-direction: column;
@@ -156,7 +152,6 @@
             min-width: 120px;
         }
         
-        /* Pagination di HP */
         .pagination-container {
             flex-direction: column;
             text-align: center;
@@ -173,7 +168,6 @@
         }
     }
 
-    /* Desktop */
     @media (min-width: 577px) {
         .dataTables-controls {
             flex-direction: row;
@@ -189,7 +183,6 @@
         }
     }
 
-    /* Styling untuk kolom dengan text overflow */
     td.permohonan-col {
         max-width: 200px;
         white-space: nowrap;
@@ -197,7 +190,6 @@
         text-overflow: ellipsis;
     }
 
-    /* Hover tampilkan full */
     td.permohonan-col:hover {
         white-space: normal;
         overflow: visible;
@@ -220,7 +212,6 @@
             <div class="card shadow">
                 <div class="card-body">
 
-                    {{-- Notifikasi sukses --}}
                     @if(session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <i class="fas fa-check-circle mr-2"></i>{{ session('success') }}
@@ -230,12 +221,10 @@
                         </div>
                     @endif
 
-                    {{-- Tombol Download Excel --}}
                     <button class="btn-download-excel" onclick="downloadExcel()">
                         <i class="fas fa-file-excel"></i> Download Excel
                     </button>
 
-                    {{-- Controls (Entri dan Pencarian) --}}
                     <form method="GET" action="{{ route('permohonan.index') }}" id="filter-form">
                         <div class="dataTables-controls">
                             <div class="dataTables-length">
@@ -258,7 +247,6 @@
                         </div>
                     </form>
 
-                    {{-- Tabel --}}
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover" id="table-permohonan">
                             <thead>
@@ -334,7 +322,6 @@
                         </table>
                     </div>
 
-                    {{-- Pagination dengan Info --}}
                     @if($permohonans->hasPages())
                     <div class="pagination-container">
                         <div class="pagination-info">
@@ -356,17 +343,14 @@
 
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<!-- Excel Export -->
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
 <script>
-// Download Excel Function
 function downloadExcel(){ 
     const wb = XLSX.utils.table_to_book(document.getElementById("table-permohonan")); 
     XLSX.writeFile(wb, "Data_Permohonan_Informasi_Desa_Manggalung.xlsx"); 
 }
 
-// Fungsi pencarian manual jQuery - TETAP BERFUNGSI
 $(document).ready(function() {
     $("#search").on("keyup", function() {
         var value = $(this).val().toLowerCase();

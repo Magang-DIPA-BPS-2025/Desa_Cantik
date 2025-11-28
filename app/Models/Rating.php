@@ -23,17 +23,12 @@ class Rating extends Model
         'rating' => 'integer',
     ];
 
-    /**
-     * Relasi ke tabel BelanjaDesa
-     */
+    
     public function belanja()
     {
         return $this->belongsTo(BelanjaDesa::class, 'belanja_desa_id');
     }
 
-    /**
-     * Relasi ke tabel User
-     */
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

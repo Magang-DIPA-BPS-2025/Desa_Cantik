@@ -4,9 +4,6 @@
 <title>Desa Cantik - Sejarah Desa</title>
 
 <style>
-/* TERAPKAN STYLING SAMA PERSIS DENGAN HALAMAN BERITA */
-
-/* Font modern sama seperti halaman berita */
 body, .container-main, .gallery-card, .content, .card, .alert {
     font-family: 'Open Sans', sans-serif;
 }
@@ -27,7 +24,6 @@ body {
     padding: 20px; 
 }
 
-/* PERBAIKAN: Header Sejarah - SAMA PERSIS dengan halaman berita */
 .gallery-header {
     margin-bottom: 2rem;
     margin-top: -1rem;
@@ -47,12 +43,10 @@ body {
     margin-bottom: 0;
 }
 
-/* Container utama sejarah */
 .gallery-section {
     margin-top: 2rem;
 }
 
-/* Card utama - SAMA PERSIS dengan card berita */
 .gallery-card {
     background: #fff;
     border-radius: 14px;
@@ -68,27 +62,25 @@ body {
     box-shadow: 0 12px 28px rgba(0,0,0,0.12);
 }
 
-/* PERBAIKAN: Gambar sejarah - lebar sama dengan container dan hilangkan celah atas */
 .gallery-image-wrapper {
     text-align: center;
     margin-bottom: 30px;
     width: 100%;
-    margin-left: -30px; /* Kompensasi padding container */
-    margin-right: -30px; /* Kompensasi padding container */
-    margin-top: -30px; /* PERBAIKAN: Hilangkan celah atas */
-    width: calc(100% + 60px); /* Lebarkan untuk mengisi container */
+    margin-left: -30px; 
+    margin-right: -30px; 
+    margin-top: -30px; 
+    width: calc(100% + 60px); 
 }
 
 .gallery-img {
     width: 100%;
     height: auto;
-    max-height: 500px; /* Batasi tinggi maksimal */
+    max-height: 500px; 
     object-fit: cover;
-    border-radius: 0; /* Hilangkan border radius untuk full width */
-    box-shadow: none; /* Hilangkan shadow untuk tampilan clean */
+    border-radius: 0; 
+    box-shadow: none; 
 }
 
-/* Meta Data */
 .gallery-meta {
     display: flex;
     justify-content: space-between;
@@ -112,7 +104,6 @@ body {
     margin-right: 5px;
 }
 
-/* Konten */
 .content {
     max-width: 1200px;
     margin: 0 auto;
@@ -131,7 +122,6 @@ body {
     color: #374151;
 }
 
-/* Card informasi */
 .card.bg-light {
     background: #f9fafb !important;
     border: 1px solid #e5e7eb;
@@ -158,7 +148,6 @@ body {
     color: #2E7D32;
 }
 
-/* Blockquote */
 .blockquote {
     background: #f0fdf4;
     border-left: 4px solid #16a34a !important;
@@ -173,7 +162,6 @@ body {
     margin-bottom: 0;
 }
 
-/* Alert */
 .alert-info {
     background: #f0fdf4;
     border: 1px solid #bbf7d0;
@@ -187,7 +175,6 @@ body {
     margin-bottom: 10px;
 }
 
-/* Card informasi tambahan */
 .card.border-0 {
     border-radius: 12px;
     transition: all 0.3s ease;
@@ -208,7 +195,6 @@ body {
     margin-bottom: 15px;
 }
 
-/* Tombol kembali */
 .btn-success {
     background: #16a34a;
     border: none;
@@ -224,7 +210,6 @@ body {
     box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
 }
 
-/* PERBAIKAN: Responsive design SAMA PERSIS dengan halaman berita */
 @media (max-width: 1200px) {
     .content {
         max-width: 100%;
@@ -263,16 +248,15 @@ body {
         font-size: 1.4rem;
     }
     
-    /* PERBAIKAN: Adjust gambar untuk mobile */
     .gallery-image-wrapper {
         margin-left: -20px;
         margin-right: -20px;
-        margin-top: -20px; /* PERBAIKAN: Sesuaikan untuk mobile */
+        margin-top: -20px; 
         width: calc(100% + 40px);
     }
     
     .gallery-img {
-        max-height: 300px; /* Kurangi tinggi di mobile */
+        max-height: 300px; 
     }
 }
 
@@ -292,12 +276,12 @@ body {
     .gallery-image-wrapper {
         margin-left: -15px;
         margin-right: -15px;
-        margin-top: -15px; /* PERBAIKAN: Sesuaikan untuk mobile kecil */
+        margin-top: -15px;
         width: calc(100% + 30px);
     }
     
     .gallery-img {
-        max-height: 250px; /* Lebih kecil di mobile kecil */
+        max-height: 250px; 
     }
     
     .content h3 {
@@ -311,7 +295,6 @@ body {
 </style>
 
 <div class="container-main">
-    <!-- PERBAIKAN: Judul dengan struktur dan styling sama persis seperti halaman berita -->
     <div class="text-start mb-4 mt-2 px-2 gallery-header">
         <h2 class="fw-semibold display-4 mb-2 gallery-title">
             SEJARAH DESA
@@ -322,16 +305,13 @@ body {
     </div>
 
     <div class="gallery-section">
-        {{-- Card Utama --}}
         <div class="gallery-card">
-            {{-- PERBAIKAN: Bagian Gambar - lebar sama dengan container dan tanpa celah atas --}}
             <div class="gallery-image-wrapper">
                 <img src="{{ asset('landing/images/footer/sejarah.png') }}" 
                      alt="Sejarah Desa Manggalung" 
                      class="gallery-img">
             </div>
 
-            {{-- Meta Data --}}
             <div class="gallery-meta">
                 <div class="d-flex flex-wrap">
                     <span><i class="bi bi-geo-alt-fill"></i> Desa Manggalung, Kec. Mandalle, Kab. Pangkajene dan Kepulauan</span>
@@ -342,16 +322,13 @@ body {
                 </div>
             </div>
 
-            {{-- Konten --}}
             <div class="content">
-                
                 <h3>Profil Desa Manggalung</h3>
                 <p><strong>Desa Manggalung</strong> adalah sebuah <strong>desa yang terletak di Kecamatan Mandalle, Kabupaten Pangkajene dan Kepulauan, Provinsi Sulawesi Selatan, Indonesia</strong>. Desa ini merupakan salah satu dari 8 desa dan kelurahan yang berada di Kecamatan Mandalle.</p>
 
                 <h3>Letak Geografis dan Wilayah</h3>
                 <p>Desa Manggalung berada di wilayah Kecamatan Mandalle yang terletak di bagian barat daya Kabupaten Pangkajene dan Kepulauan. Secara geografis, desa ini memiliki kontur tanah yang bervariasi dengan pemandangan khas pedesaan Sulawesi Selatan yang hijau dan asri.</p>
 
-                {{-- Informasi Wilayah --}}
                 <div class="row mt-4">
                     <div class="col-md-6">
                         <div class="card bg-light h-100">
@@ -407,7 +384,6 @@ body {
                 <p>Desa Manggalung berkomitmen untuk menjadi <strong>desa yang mandiri, sejahtera, dan berkelanjutan</strong>.</p>
             </div>
 
-            {{-- Informasi Tambahan --}}
             <div class="row mt-5 pt-4 border-top">
                 <div class="col-md-4 mb-3">
                     <div class="card border-0 h-100 text-center">
@@ -438,7 +414,6 @@ body {
                 </div>
             </div>
 
-            {{-- Tombol Kembali --}}
             <div class="text-center mt-5 pt-3 border-top">
                 <a href="{{ url('/') }}" class="btn btn-success btn-lg">
                     <i class="bi bi-arrow-left me-2"></i> Kembali ke Beranda

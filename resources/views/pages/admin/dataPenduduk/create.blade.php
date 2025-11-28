@@ -8,7 +8,6 @@
         <link rel="stylesheet" href="{{ asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">
         <link rel="stylesheet" href="{{ asset('library/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
         <style>
-            /* Styling untuk tombol */
             .form-buttons {
                 display: flex;
                 justify-content: flex-end;
@@ -31,7 +30,6 @@
                 padding: 8px 20px;
             }
             
-            /* Styling untuk dropdown agar font ditengah */
             .selectric .label {
                 display: flex;
                 align-items: center;
@@ -69,7 +67,6 @@
                                         </div>
                                     @endif
 
-                                    <!-- Field-field form -->
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-3">NIK</label>
                                         <div class="col-md-7">
@@ -94,7 +91,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- Jenis Kelamin -->
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-3">Jenis Kelamin</label>
                                         <div class="col-md-7">
@@ -203,7 +199,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- Pekerjaan -->
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-3">Pekerjaan</label>
                                         <div class="col-md-7">
@@ -230,7 +225,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- Pendidikan -->
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-3">Pendidikan</label>
                                         <div class="col-md-7">
@@ -250,7 +244,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- Disabilitas -->
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-3">Disabilitas</label>
                                         <div class="col-md-7">
@@ -266,7 +259,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- Tahun -->
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-3">Tahun</label>
                                         <div class="col-md-7">
@@ -309,10 +301,8 @@
         <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script>
         <script>
             $(document).ready(function() {
-                // Inisialisasi semua select dengan selectric
                 $('select').selectric();
                 
-                // Styling untuk teks di tengah dropdown
                 $('.selectric .label').css({
                     'display': 'flex',
                     'align-items': 'center',

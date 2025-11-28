@@ -14,7 +14,6 @@
         padding: 20px;
     }
 
-    /* Hero Section */
     .hero-card {
         background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
         color: #fff;
@@ -54,7 +53,6 @@
         position: relative;
     }
 
-    /* Statistik Cards */
     .stat-card {
         border-radius: 16px;
         text-align: center;
@@ -85,7 +83,6 @@
         font-size: 15px;
     }
 
-    /* Cards Umum */
     .card {
         border-radius: 16px;
         box-shadow: 0 5px 15px rgba(0,0,0,0.08);
@@ -110,7 +107,6 @@
         font-size: 1.25rem;
     }
 
-    /* Chart Container Modern */
     .chart-container {
         position: relative;
         height: 320px;
@@ -155,7 +151,6 @@
         border-radius: 50%;
     }
 
-    /* Calendar Modern */
     .calendar-container {
         background: white;
         border-radius: 16px;
@@ -270,7 +265,6 @@
         background: white;
     }
 
-    /* Table */
     .table {
         margin-bottom: 0;
     }
@@ -294,7 +288,6 @@
         border-radius: 12px; 
     }
 
-    /* Tautan Cepat */
     .quick-links .btn {
         font-weight: 500;
         border-radius: 12px;
@@ -318,7 +311,6 @@
         text-align: center;
     }
 
-    /* Section Header */
     .section-header {
         margin-bottom: 25px;
     }
@@ -331,7 +323,6 @@
         color: #6c757d;
     }
 
-    /* Responsive */
     @media (max-width: 768px) {
         .main-content {
             padding: 15px;
@@ -379,7 +370,6 @@
 <div class="main-content">
 <section class="section">
 
-    {{-- HEADER --}}
     <div class="section-header mb-4">
         <h1>Admin Dashboard</h1>
         <div class="section-header-breadcrumb">
@@ -387,7 +377,6 @@
         </div>
     </div>
 
-    {{-- HERO --}}
     <div class="row mb-4">
         <div class="col-12">
             <div class="card hero-card">
@@ -397,7 +386,6 @@
         </div>
     </div>
 
-   {{-- STATISTIK CARDS --}}
 <div class="row mb-4">
     @php
         $stats = [
@@ -418,7 +406,6 @@
     @endforeach
 </div>
 
-    {{-- CHART & CALENDAR --}}
     <div class="row mb-4">
         <div class="col-lg-7 mb-3">
             <div class="card shadow-sm border-0">
@@ -469,7 +456,6 @@
                             <div class="weekday">Sab</div>
                         </div>
                         <div class="calendar-days" id="calendarDays">
-                            <!-- Calendar days will be populated by JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -477,7 +463,6 @@
         </div>
     </div>
 
-    {{-- PENGADUAN TERBARU & TAUTAN CEPAT --}}
     <div class="row">
         <div class="col-lg-7 mb-3">
             <div class="card shadow-sm border-0">
@@ -550,15 +535,12 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 
-    // === Ambil data dari controller ===
     const kegiatanDates = {!! json_encode($agendaDates ?? []) !!}; 
     const labelsPenduduk = {!! json_encode($labelsPenduduk ?? ['Sukamaju', 'Mihasa', 'Hannry', 'Antara']) !!};
     const dataPenduduk = {!! json_encode($dataPenduduk ?? [10, 8, 12, 9]) !!};
 
-    // === Chart penduduk yang diperbarui ===
     const ctx = document.getElementById('populationChart').getContext('2d');
     
-    // Gradien untuk chart
     const gradient = ctx.createLinearGradient(0, 0, 0, 300);
     gradient.addColorStop(0, 'rgba(78, 115, 223, 0.8)');
     gradient.addColorStop(0.7, 'rgba(78, 115, 223, 0.4)');
@@ -644,7 +626,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // === Kalender Modern ===
     let currentDate = new Date();
     
     function renderCalendar(date) {
@@ -654,38 +635,31 @@ document.addEventListener('DOMContentLoaded', function() {
         const year = date.getFullYear();
         const month = date.getMonth();
         
-        // Set month and year title
         const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
                            "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
         currentMonthYear.textContent = `${monthNames[month]} ${year}`;
         
-        // Get first and last day of month
         const firstDay = new Date(year, month, 1);
         const lastDay = new Date(year, month + 1, 0);
         const today = new Date();
         
-        // Clear previous calendar
         calendarDays.innerHTML = '';
         
-        // Add empty cells for days before the first day of month
         for (let i = 0; i < firstDay.getDay(); i++) {
             const emptyDay = document.createElement('div');
             emptyDay.className = 'calendar-day other-month';
             calendarDays.appendChild(emptyDay);
         }
         
-        // Add days of the month
         for (let day = 1; day <= lastDay.getDate(); day++) {
             const dayElement = document.createElement('div');
             dayElement.className = 'calendar-day';
             dayElement.textContent = day;
             
-            // Check if today
             if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
                 dayElement.classList.add('today');
             }
             
-            // Check if has event
             const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
             if (kegiatanDates.includes(dateString)) {
                 dayElement.classList.add('event');
@@ -698,10 +672,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Initialize calendar
     renderCalendar(currentDate);
     
-    // Navigation buttons
     document.getElementById('prevMonth').addEventListener('click', function() {
         currentDate.setMonth(currentDate.getMonth() - 1);
         renderCalendar(currentDate);

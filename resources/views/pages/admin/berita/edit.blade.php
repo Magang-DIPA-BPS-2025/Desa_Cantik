@@ -30,7 +30,6 @@
                                 @csrf
                                 @method('PUT')
 
-                                {{-- Judul --}}
                                 <div class="form-group">
                                     <label for="judul">Judul</label>
                                     <input type="text" name="judul" id="judul"
@@ -41,7 +40,6 @@
                                     @enderror
                                 </div>
 
-                                {{-- Kategori --}}
                                 <div class="form-group mt-3">
                                     <label for="id_kategori">Kategori</label>
                                     <select name="id_kategori" id="id_kategori"
@@ -59,7 +57,6 @@
                                     @enderror
                                 </div>
 
-                                {{-- Deskripsi Singkat --}}
                                 <div class="form-group mt-3">
                                     <label for="deskripsi_singkat">Deskripsi Singkat</label>
                                     <textarea name="deskripsi_singkat" id="deskripsi_singkat" rows="4"
@@ -70,7 +67,6 @@
                                     @enderror
                                 </div>
 
-                                {{-- Tanggal Event (opsional) --}}
                                 <div class="form-group mt-3">
                                     <label for="tanggal_event">Tanggal Event (opsional)</label>
                                     <input type="date" name="tanggal_event" id="tanggal_event"
@@ -81,7 +77,6 @@
                                     @enderror
                                 </div>
 
-                                {{-- Foto --}}
                                 <div class="form-group mt-3">
                                     <label for="foto">Foto</label>
                                     <div class="mb-2">
@@ -99,7 +94,6 @@
                                     @enderror
                                 </div>
 
-                                {{-- Tombol Aksi --}}
                                 <div class="d-flex justify-content-end mt-4">
                                     <a href="{{ route('admin.berita.index') }}" class="btn btn-secondary mr-2">Batal</a>
                                     <button type="submit" class="btn btn-primary">Update</button>

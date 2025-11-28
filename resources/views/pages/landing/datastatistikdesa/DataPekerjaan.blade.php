@@ -3,17 +3,14 @@
 @section('content')
 <title>Desa Cantik - Data Pekerjaan</title>
 
-<!-- Library -->
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.1/jspdf.plugin.autotable.min.js"></script>
 
-<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-/* Terapkan font modern */
 body, .container-main, .card, .filter-toggle, .btn-download, .dropdown-content, .table, .layout-sidebar, .layout-main {
     font-family: 'Open Sans', sans-serif;
 }
@@ -34,7 +31,6 @@ body {
     padding: 20px; 
 }
 
-/* Header Section - Sama seperti halaman sejarah */
 .gallery-header {
     margin-bottom: 2rem;
     margin-top: -1rem;
@@ -97,7 +93,6 @@ body {
     box-shadow: 0 12px 28px rgba(0,0,0,0.12); 
 }
 
-/* Filter */
 .filter-toggle { 
     background: #16a34a; 
     color: #fff; 
@@ -163,7 +158,6 @@ body {
     text-decoration: none;
 }
 
-/* Download Button */
 .btn-download { 
     background: #16a34a; 
     color: #fff; 
@@ -187,7 +181,6 @@ body {
     text-decoration: none;
 }
 
-/* Dropdown */
 .dropdown { 
     position: relative; 
     display: inline-block; 
@@ -247,7 +240,6 @@ body {
     transform: rotate(180deg); 
 }
 
-/* Table */
 .table { 
     width: 100%; 
     border-collapse: collapse; 
@@ -269,13 +261,11 @@ body {
     font-family: 'Poppins', sans-serif; 
 }
 
-/* Chart container styling */
 .chart-container {
     position: relative;
     min-height: 420px;
 }
 
-/* Loading state */
 .loading {
     opacity: 0.6;
     pointer-events: none;
@@ -307,7 +297,6 @@ body {
     }
 }
 
-/* Filter form styling */
 .filter-form {
     display: flex;
     flex-direction: column;
@@ -356,7 +345,6 @@ body {
     background: #5a6268;
 }
 
-/* Empty state */
 .empty-state {
     text-align: center;
     padding: 40px 20px;
@@ -369,7 +357,6 @@ body {
     color: #ccc;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .gallery-title { 
         font-size: 2.2rem; 
@@ -420,7 +407,6 @@ body {
 </style>
 
 <div class="container-main">
-    <!-- Judul Halaman - Sama seperti halaman sejarah -->
     <div class="text-start mb-4 mt-2 px-2 gallery-header">
         <h2 class="fw-semibold display-4 mb-2 gallery-title">
             DATA PEKERJAAN
@@ -431,9 +417,7 @@ body {
     </div>
 
     <div class="layout-wrapper">
-
-        <!-- FILTER SIDEBAR -->
-        <div class="layout-sidebar">
+       <div class="layout-sidebar">
             <div class="card">
                 <div class="filter-toggle" onclick="toggleFilter(this)">
                     <span>Filter Data</span>
@@ -470,16 +454,12 @@ body {
             </div>
         </div>
 
-        <!-- MAIN -->
         <div class="layout-main">
-
-            <!-- Loading Spinner -->
             <div class="loading-spinner" id="loadingSpinner">
                 <div class="spinner"></div>
                 <p class="mt-2">Memuat data...</p>
             </div>
 
-            <!-- CHART -->
             <div class="card" id="chartCard">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
                     <h5 class="mb-0">
@@ -504,7 +484,6 @@ body {
                 </div>
             </div>
 
-            <!-- TABLE -->
             <div class="card" id="tableCard">
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
                     <h5 class="mb-2 mb-md-0">
@@ -566,13 +545,11 @@ body {
 </div>
 
 <script>
-  // Toggle Filter
   function toggleFilter(el){
     el.classList.toggle('active');
     el.nextElementSibling.classList.toggle('active');
   }
 
-  // Toggle Dropdown & Arrow
   function toggleDropdown(event, btn){
     event.stopPropagation();
     const dropdown = btn.parentElement;
@@ -585,7 +562,6 @@ body {
     }, {once:true});
   }
 
-  // Chart
   document.addEventListener("DOMContentLoaded",function(){
     const data = @json($pekerjaanStats);
     const total = data.reduce((sum, d) => sum + d.jumlah, 0);
@@ -656,7 +632,6 @@ body {
     }
   });
 
-  // Download Table
   function downloadExcel(){ 
     if (document.getElementById("tabelPekerjaan").rows.length <= 1) {
         alert('Tidak ada data untuk didownload');
@@ -686,17 +661,14 @@ body {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     
-    // Add title
     doc.setFont("Poppins", "bold");
     doc.setFontSize(18);
     doc.text("DATA PEKERJAAN DESA MANGGAUNG", 105, 15, { align: "center" });
     
-    // Add date
     doc.setFont("Open Sans", "normal");
     doc.setFontSize(10);
     doc.text(`Dicetak pada: ${new Date().toLocaleDateString('id-ID')}`, 105, 22, { align: "center" });
     
-    // Add table
     doc.autoTable({
         html: '#tabelPekerjaan',
         startY: 30,
@@ -718,36 +690,29 @@ body {
     doc.save("Data_Pekerjaan_Desa_Manggalung.pdf");
   }
 
-  // Enhanced form handling
   document.addEventListener('DOMContentLoaded', function() {
     const filterForm = document.getElementById('filterForm');
     const loadingSpinner = document.getElementById('loadingSpinner');
     const chartCard = document.getElementById('chartCard');
     const tableCard = document.getElementById('tableCard');
     
-    // Remove onchange events from selects
     const dusunSelect = document.getElementById('dusunSelect');
     const tahunSelect = document.getElementById('tahunSelect');
     
     dusunSelect.onchange = null;
     tahunSelect.onchange = null;
     
-    // Filter form submission with loading state
     filterForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Show loading state
         loadingSpinner.classList.add('active');
         chartCard.classList.add('loading');
         tableCard.classList.add('loading');
-        
-        // Submit form after a small delay to show loading state
-        setTimeout(() => {
+            setTimeout(() => {
             this.submit();
         }, 500);
     });
     
-    // Auto-close filter on mobile after selection
     if (window.innerWidth <= 768) {
         const filterToggle = document.querySelector('.filter-toggle');
         filterForm.addEventListener('change', function() {

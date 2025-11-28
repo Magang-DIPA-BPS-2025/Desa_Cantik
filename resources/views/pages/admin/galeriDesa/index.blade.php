@@ -22,7 +22,6 @@
                     @forelse($galeris as $galeri)
                         <div class="col-12 col-md-6 col-lg-3 mb-4">
                             <div class="card h-100 shadow-sm">
-                                {{-- Gambar --}}
                                 @if($galeri->gambar)
                                     <img src="{{ asset('storage/' . $galeri->gambar) }}"
                                          class="card-img-top rounded-top"
@@ -34,14 +33,12 @@
                                          alt="No Image">
                                 @endif
 
-                                {{-- Judul --}}
                                 <div class="card-body text-center py-2">
                                     <h6 class="mb-0 fw-bold">
                                         {{ $galeri->judul ?? 'Tanpa Judul' }}
                                     </h6>
                                 </div>
 
-                                {{-- Aksi --}}
                                 <div class="card-footer d-flex justify-content-center p-2">
                                     <a href="{{ route('galeriDesa.edit', $galeri->id) }}"
                                        class="btn btn-warning btn-sm mx-2">

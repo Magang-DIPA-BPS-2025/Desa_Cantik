@@ -24,7 +24,7 @@
                             <div class="card">
                                 <div class="card-body">
 
-                                    {{-- ALERT --}}
+                                 
                                     @if (session('message'))
                                         @if (session('message') == 'update')
                                             <div class="alert alert-success">
@@ -41,7 +41,7 @@
                                         @endif
                                     @endif
 
-                                    {{-- VALIDATION ERRORS --}}
+                               
                                     @if ($errors->any())
                                         <div class="alert alert-danger">
                                             <ul class="mb-0">

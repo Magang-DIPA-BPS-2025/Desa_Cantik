@@ -8,14 +8,12 @@ use Illuminate\Support\Facades\Storage;
 
 class sKematianController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+ 
     public function index(Request $request)
     {
         $query = SKematian::orderBy('created_at', 'desc');
         
-        // Search functionality
+      
         if ($request->has('search') && !empty($request->search)) {
             $searchTerm = $request->search;
             $query->where(function($q) use ($searchTerm) {
@@ -25,12 +23,10 @@ class sKematianController extends Controller
                   ->orWhere('alamat', 'LIKE', "%{$searchTerm}%");
             });
         }
-        
-        // Pagination dengan custom per_page
+    
         $perPage = $request->get('per_page', 10);
         $kematians = $query->paginate($perPage);
         
-        // Tambahkan parameter search ke pagination links
         if ($request->has('search')) {
             $kematians->appends(['search' => $request->search]);
         }
@@ -38,9 +34,7 @@ class sKematianController extends Controller
         return view('pages.admin.skematian.index', compact('kematians'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         try {
@@ -74,27 +68,20 @@ class sKematianController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
+   
     public function show(string $id)
     {
         $kematian = SKematian::findOrFail($id);
         return view('pages.admin.skematian.show', compact('kematian'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+   
     public function edit(string $id)
     {
         $kematian = SKematian::findOrFail($id);
         return view('pages.admin.skematian.edit', compact('kematian'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $kematian = SKematian::findOrFail($id);
@@ -120,9 +107,7 @@ class sKematianController extends Controller
             ->with('success', 'Data surat kematian berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+   
     public function destroy(string $id)
     {
         $kematian = SKematian::findOrFail($id);
@@ -132,9 +117,7 @@ class sKematianController extends Controller
             ->with('success', 'Data surat kematian berhasil dihapus.');
     }
 
-    /**
-     * Verifikasi surat kematian
-     */
+
     public function verifikasi($id)
     {
         $kematian = SKematian::findOrFail($id);
@@ -147,9 +130,7 @@ class sKematianController extends Controller
             ->with('success', 'Surat kematian berhasil diverifikasi.');
     }
 
-    /**
-     * Cetak surat kematian
-     */
+  
     public function cetak($id)
     {
         $kematian = SKematian::findOrFail($id);
@@ -160,7 +141,6 @@ class sKematianController extends Controller
 
         $linkVerifikasi = route('verifikasi.surat.kematian', ['id' => $kematian->id]);
 
-        // Untuk sementara, kita skip QR code dulu
         $qrCodeSuccess = false;
         $qrCodeBase64 = '';
 
@@ -178,9 +158,6 @@ class sKematianController extends Controller
         return $pdf->stream('Surat-Keterangan-Kematian-' . $kematian->nama . '.pdf');
     }
 
-    /**
-     * Verifikasi surat untuk user (public)
-     */
     public function verifikasiSurat($id)
 {
     $kematian = SKematian::find($id);

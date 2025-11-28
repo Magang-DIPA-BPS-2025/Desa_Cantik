@@ -9,10 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 class SktmController extends Controller
 {
-    /** -------------------------------
-     *  TAMPILKAN DATA SKTM - INDEX
-     *  -------------------------------
-     */
+   
     public function index(Request $request)
     {
         $keyword = $request->input('keyword');
@@ -48,10 +45,7 @@ class SktmController extends Controller
 }
 
 
-    /** -------------------------------
-     *  TAMPILKAN FORM TAMBAH - CREATE
-     *  -------------------------------
-     */
+ 
     public function create()
     {
         return view('pages.admin.sktm.create', [
@@ -60,10 +54,7 @@ class SktmController extends Controller
         ]);
     }
 
-    /** -------------------------------
-     *  SIMPAN DATA SKTM BARU - STORE
-     *  -------------------------------
-     */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -76,7 +67,7 @@ class SktmController extends Controller
             'email' => 'nullable|email|max:100',
         ]);
 
-        // Tambahkan status_verifikasi default
+      
         $data = $request->all();
         $data['status_verifikasi'] = 'Belum Diverifikasi';
 
@@ -85,10 +76,7 @@ class SktmController extends Controller
         return redirect()->route('pengantar')->with('success', 'Data SKTM berhasil ditambahkan.');
     }
 
-    /** -------------------------------
-     *  TAMPILKAN DETAIL SKTM - SHOW
-     *  -------------------------------
-     */
+
     public function show($id)
     {
         $sktm = Sktm::findOrFail($id);
@@ -100,10 +88,7 @@ class SktmController extends Controller
         ]);
     }
 
-    /** -------------------------------
-     *  TAMPILKAN FORM EDIT - EDIT
-     *  -------------------------------
-     */
+    
     public function edit($id)
     {
         $sktm = Sktm::findOrFail($id);
@@ -115,10 +100,7 @@ class SktmController extends Controller
         ]);
     }
 
-    /** -------------------------------
-     *  UPDATE DATA SKTM - UPDATE
-     *  -------------------------------
-     */
+ 
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -151,10 +133,6 @@ class SktmController extends Controller
             ->with('success', 'Data SKTM berhasil diperbarui!');
     }
 
-    /** -------------------------------
-     *  HAPUS DATA SKTM - DESTROY
-     *  -------------------------------
-     */
     public function destroy($id)
     {
         $sktm = Sktm::findOrFail($id);
@@ -163,10 +141,7 @@ class SktmController extends Controller
         return redirect()->route('sktm.index')->with('success', 'Data SKTM berhasil dihapus.');
     }
 
-    /** -------------------------------
-     *  VERIFIKASI SKTM - CUSTOM METHOD
-     *  -------------------------------
-     */
+ 
     public function verifikasi($id)
     {
         try {
@@ -181,16 +156,12 @@ class SktmController extends Controller
         }
     }
 
-    /** -------------------------------
-     *  CETAK SURAT SKTM (PDF) - CUSTOM METHOD
-     *  -------------------------------
-     */
     public function cetak($id)
     {
         try {
             $sktm = Sktm::findOrFail($id);
 
-            // Cek apakah status_verifikasi ada dan bernilai 'Terverifikasi'
+            
             if (!$sktm->status_verifikasi || $sktm->status_verifikasi !== 'Terverifikasi') {
                 return redirect()->back()->with('error', 'Data belum diverifikasi, tidak dapat dicetak.');
             }
@@ -214,10 +185,7 @@ class SktmController extends Controller
         }
     }
 
-    /** -------------------------------
-     *  HALAMAN VERIFIKASI SURAT - CUSTOM METHOD
-     *  -------------------------------
-     */
+
     public function verifikasiSurat($id)
     {
         try {

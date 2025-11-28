@@ -257,12 +257,10 @@
                                 </div>
                             @endif
 
-                            {{-- Tombol Download Excel --}}
                             <button class="btn-download-excel" onclick="downloadExcel()">
                                 <i class="fas fa-file-excel"></i> Download Excel
                             </button>
 
-                            {{-- Controls (Entri dan Pencarian) --}}
                             <form method="GET" action="{{ route('admin.buku.index') }}" id="filter-form">
                                 <div class="dataTables-controls">
                                     <div class="dataTables-length">
@@ -357,7 +355,6 @@
                                 </table>
                             </div>
 
-                            {{-- Pagination dengan Info --}}
                             @if($bukutamus->hasPages())
                             <div class="pagination-container">
                                 <div class="pagination-info">
@@ -379,7 +376,6 @@
     </section>
 </div>
 
-<!-- Modal untuk menampilkan TTD -->
 <div class="modal fade" id="ttdModal" tabindex="-1" role="dialog" aria-labelledby="ttdModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
@@ -405,12 +401,10 @@
 <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('library/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('library/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
-<!-- Excel Export -->
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
 <script>
 $(document).ready(function () {
-    // DataTables initialization
     $('#table-bukutamu').DataTable({
         paging: false,
         searching: false,
@@ -430,14 +424,12 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
 
-// Fungsi untuk menampilkan TTD di modal
 function showTTD(ttdData, nama) {
     document.getElementById('ttdModalImage').src = ttdData;
     document.getElementById('ttdModalName').textContent = 'Tanda Tangan: ' + nama;
     $('#ttdModal').modal('show');
 }
 
-// Download Excel Function
 function downloadExcel(){ 
     const wb = XLSX.utils.book_new();
     const excelData = [

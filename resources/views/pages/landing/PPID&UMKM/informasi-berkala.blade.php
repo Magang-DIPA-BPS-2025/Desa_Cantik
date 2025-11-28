@@ -38,7 +38,6 @@
     border-radius: 6px;
 }
 
-/* Tombol sama lebar di kanan bawah */
 .btn-group-file {
     display: flex;
     gap: 5px;
@@ -73,7 +72,6 @@
                 <div class="collapse mt-2" id="ppid-{{ $ppid->id }}">
                     <p>{{ $ppid->deskripsi }}</p>
 
-                    {{-- Sub-items --}}
                   @if($ppid->sub_items && $ppid->sub_items->isNotEmpty())
                         @foreach($ppid->sub_items as $sub)
                             <div class="sub-item">
@@ -92,7 +90,6 @@
                             </div>
                         @endforeach
                     @elseif($ppid->file)
-                        {{-- File utama --}}
                         <div class="btn-group-file">
                             <button type="button" class="btn btn-info btn-sm btn-view-file btn-file" data-file="{{ asset('storage/' . $ppid->file) }}">
                                 <i class="fas fa-eye"></i> Lihat
@@ -105,14 +102,12 @@
                 </div>
             </div>
         @endforeach
-        {{-- Tombol Kembali --}}
     <a href="{{ route('ppid') }}" class="btn btn-secondary mb-4">
         <i class="fas fa-arrow-left"></i> Kembali ke PPID
     </a>
     @endif
 </div>
 
-<!-- Modal Preview File -->
 <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -136,7 +131,6 @@
 @push('scripts')
 <script>
 $(document).ready(function(){
-    // Preview file
     $(document).on('click', '.btn-view-file', function(){
         let fileUrl = $(this).data('file');
         let fileViewer = $('#fileViewer');

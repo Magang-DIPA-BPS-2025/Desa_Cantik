@@ -10,7 +10,7 @@
         <div class="section-body">
             <div class="card">
                 <div class="card-body">
-                    {{-- Tambahkan enctype agar bisa upload file --}}
+                  
                     <form action="{{ route('AgendaDesa.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
@@ -60,7 +60,7 @@
                             @enderror
                         </div>
 
-                        {{-- === Tambahan field foto === --}}
+                    
                         <div class="form-group">
                             <label for="foto">Foto Agenda</label>
                             <input type="file" name="foto" id="foto"
@@ -70,7 +70,7 @@
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
 
-                            {{-- Preview gambar --}}
+                           
                             <div class="mt-3">
                                 <img id="preview" src="#" alt="Preview Foto"
                                      style="display: none; width: 150px; height: 150px; object-fit: cover; border-radius: 8px; border: 1px solid #ddd;">
@@ -91,7 +91,7 @@
     </section>
 </div>
 
-{{-- Script untuk preview foto --}}
+
 <script>
     function previewImage(event) {
         const preview = document.getElementById('preview');

@@ -1,11 +1,9 @@
 @extends('layouts.landing.app')
 
 @section('content')
-<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-/* Terapkan font modern */
 body, .pengaduan-container, .card, .form-control, .form-label, small, p {
     font-family: 'Open Sans', sans-serif;
 }
@@ -15,7 +13,6 @@ h2, h5, .fw-bold, .step-title, .btn-submit {
     font-weight: 600;
 }
 
-/* Container khusus halaman pengaduan */
 .pengaduan-container {
     max-width: 1400px;
     margin: 30px auto;
@@ -25,17 +22,15 @@ h2, h5, .fw-bold, .step-title, .btn-submit {
 .card {
     background-color: #ffffff;
     border-radius: 15px;
-    /* Shadow dikurangi */
     box-shadow: 0 4px 12px rgba(0,0,0,0.06);
     padding: 30px;
-    margin-bottom: 60px; /* Jarak card ke bawah dikurangi */
+    margin-bottom: 60px; 
     transition: transform 0.3s, box-shadow 0.3s;
     border: none;
 }
 
 .card:hover {
     transform: translateY(-2px);
-    /* Shadow hover juga dikurangi */
     box-shadow: 0 6px 16px rgba(0,0,0,0.08);
 }
 
@@ -45,9 +40,8 @@ h2, h5, .fw-bold, .step-title, .btn-submit {
     margin-bottom: 8px;
 }
 
-/* Header Section - Posisi kiri seperti halaman sejarah */
 .gallery-header {
-    margin-bottom: 2rem; /* Jarak judul ke steps dikurangi */
+    margin-bottom: 2rem; 
     margin-top: -1rem;
     text-align: left;
 }
@@ -72,9 +66,8 @@ p {
     line-height: 1.6;
 }
 
-/* Steps Container - Jarak ke form dikurangi */
 .steps-container {
-    margin: 2rem 0; /* Jarak steps dikurangi */
+    margin: 2rem 0; 
     padding: 1.5rem 0;
 }
 
@@ -83,31 +76,30 @@ p {
     justify-content: center;
     align-items: flex-start;
     flex-wrap: nowrap;
-    gap: 30px; /* Jarak antar step diperbesar */
+    gap: 30px; 
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 15px 0; /* Padding atas-bawah diperbesar */
+    padding: 15px 0; 
 }
 
 .step-item {
     flex: 0 0 auto;
     text-align: center;
-    min-width: 150px; /* Minimum width diperbesar */
+    min-width: 150px; 
 }
 
 .icon-step {
-    width: 120px; /* Ukuran icon diperbesar */
-    height: 120px; /* Ukuran icon diperbesar */
+    width: 120px; 
+    height: 120px; 
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto;
     transition: transform 0.3s;
     background: #f8f9fa;
-    border-radius: 20px; /* Border radius diperbesar */
-    padding: 20px; /* Padding icon diperbesar */
-    /* Shadow icon dikurangi */
+    border-radius: 20px; 
+    padding: 20px; 
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
@@ -119,14 +111,14 @@ p {
 }
 
 .icon-step:hover {
-    transform: scale(1.05); /* Efek hover dikurangi */
+    transform: scale(1.05); 
 }
 
 .step-title {
-    margin-top: 20px; /* Jarak title dari icon diperbesar */
+    margin-top: 20px; 
     font-weight: 600;
     color: #2E7D32;
-    font-size: 1rem; /* Font size title diperbesar */
+    font-size: 1rem; 
     line-height: 1.3;
 }
 
@@ -147,7 +139,6 @@ p {
     box-shadow: 0 4px 12px rgba(25, 135, 84, 0.3);
 }
 
-/* Form styling */
 .form-control {
     border-radius: 10px;
     border: 2px solid #e9ecef;
@@ -167,7 +158,6 @@ textarea.form-control {
     min-height: 100px;
 }
 
-/* Section headers */
 .section-header {
     color: #2E7D32;
     font-size: 1.3rem;
@@ -176,7 +166,6 @@ textarea.form-control {
     border-bottom: 2px solid #e9ecef;
 }
 
-/* Responsive adjustments */
 @media (max-width: 1200px) {
     .step-item {
         min-width: 140px;
@@ -215,12 +204,12 @@ textarea.form-control {
     }
     
     .steps-container {
-        margin: 1.5rem 0; /* Jarak steps di mobile dikurangi */
+        margin: 1.5rem 0; 
         padding: 1rem 0;
     }
     
     .steps-row {
-        gap: 25px; /* Jarak antar step di mobile */
+        gap: 25px; 
         padding: 10px 0;
     }
     
@@ -241,7 +230,7 @@ textarea.form-control {
     
     .card {
         padding: 20px;
-        margin-bottom: 30px; /* Jarak card di mobile dikurangi */
+        margin-bottom: 30px; 
     }
     
     .btn-submit {
@@ -256,7 +245,7 @@ textarea.form-control {
     }
     
     .gallery-header {
-        margin-bottom: 1.5rem; /* Jarak judul di mobile dikurangi */
+        margin-bottom: 1.5rem; 
     }
     
     .gallery-header p {
@@ -293,7 +282,7 @@ textarea.form-control {
     }
     
     .card {
-        margin-bottom: 25px; /* Jarak card di mobile kecil dikurangi */
+        margin-bottom: 25px; 
     }
 }
 
@@ -338,12 +327,10 @@ textarea.form-control {
     }
 }
 
-/* Custom file input */
 .form-control[type="file"] {
     padding: 10px 15px;
 }
 
-/* Success message styling */
 .alert-success {
     border-radius: 10px;
     border: none;
@@ -352,7 +339,6 @@ textarea.form-control {
     font-family: 'Open Sans', sans-serif;
 }
 
-/* Hide scrollbar for steps row but keep functionality */
 .steps-row::-webkit-scrollbar {
     display: none;
 }
@@ -362,7 +348,6 @@ textarea.form-control {
     scrollbar-width: none;
 }
 
-/* Tambahan untuk memperbaiki layout secara keseluruhan */
 .step-item {
     transition: all 0.3s ease;
 }
@@ -371,20 +356,16 @@ textarea.form-control {
     background: #e9f5e9;
 }
 
-/* Perbaikan spacing untuk form sections */
 .col-md-6.mb-4 {
     margin-bottom: 2rem !important;
 }
 
-/* Perbaikan untuk tombol submit */
 .text-center.mt-4 {
     margin-top: 2rem !important;
 }
 </style>
 
 <div class="pengaduan-container mt-4">
-
-    {{-- Header --}}
     <div class="text-start mb-4 px-2 gallery-header">
         <h2 class="fw-semibold display-4 mb-2 gallery-title">
             PENGADUAN MASYARAKAT</h2>
@@ -393,7 +374,6 @@ textarea.form-control {
         </p>
     </div>
 
-    {{-- Langkah-langkah --}}
     <div class="steps-container">
         <div class="steps-row">
             <div class="step-item">
@@ -417,12 +397,10 @@ textarea.form-control {
         </div>
     </div>
 
-    {{-- Form --}}
     <div class="card">
         <form action="{{ route('pengaduan.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
-                {{-- A. Data Diri --}}
                 <div class="col-md-6 mb-4">
                     <h5 class="section-header">A. DATA DIRI</h5>
                     <div class="mb-3">
@@ -444,7 +422,6 @@ textarea.form-control {
                     <small class="text-muted">Data diri pelapor dijamin kerahasiaannya oleh pemerintah desa</small>
                 </div>
 
-                {{-- B. Uraian Pengaduan --}}
                 <div class="col-md-6 mb-4">
                     <h5 class="section-header">B. URAIAN PENGADUAN</h5>
                     <div class="mb-3">
@@ -463,7 +440,6 @@ textarea.form-control {
                 </div>
             </div>
 
-            {{-- Submit --}}
             <div class="text-center mt-4">
                 <button type="submit" class="btn btn-submit w-100 py-3">
                     Kirim Pengaduan
@@ -475,7 +451,6 @@ textarea.form-control {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Form validation enhancement
     const form = document.querySelector('form');
     const inputs = form.querySelectorAll('input[required], textarea[required]');
     
@@ -484,7 +459,6 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             this.classList.add('is-invalid');
             
-            // Custom validation message
             if (this.validity.valueMissing) {
                 this.setCustomValidity('Field ini wajib diisi');
             } else if (this.validity.typeMismatch) {
@@ -498,19 +472,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // File size validation
     const fileInput = document.getElementById('lampiran');
     if (fileInput) {
         fileInput.addEventListener('change', function() {
             const file = this.files[0];
-            if (file && file.size > 5 * 1024 * 1024) { // 5MB limit
+            if (file && file.size > 5 * 1024 * 1024) { 
                 alert('Ukuran file terlalu besar. Maksimal 5MB.');
                 this.value = '';
             }
         });
     }
 
-    // Ensure steps row is properly centered on all devices
     const stepsRow = document.querySelector('.steps-row');
     if (stepsRow) {
         const updateStepsLayout = () => {
@@ -528,7 +500,6 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('resize', updateStepsLayout);
     }
 
-    // Add smooth animation for steps
     const stepItems = document.querySelectorAll('.step-item');
     stepItems.forEach((item, index) => {
         item.style.opacity = '0';

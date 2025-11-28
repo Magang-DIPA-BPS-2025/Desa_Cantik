@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+  
     public function login()
     {
         return view('pages.auth.login', ['menu' => 'login']);
@@ -30,41 +28,36 @@ class AuthController extends Controller
             'password.required' => 'Password harus diisi',
         ]);
 
-        // Set default role - ambil dari request atau set default 'admin'
         $role = $request->role ?? 'admin';
         
-        // Jika role masih kosong dan username adalah 'admin', set ke 'admin'
         if (empty($role) && $request->username == 'admin') {
             $role = 'admin';
         }
 
-        // Pastikan role tidak kosong
         if (empty($role)) {
-            $role = 'admin'; // Default ke admin
+            $role = 'admin'; 
         }
 
-        // Cari user di Admin model terlebih dahulu
+  
         $user = Admin::where('username', $request->username)
             ->where('role', $role)
             ->first();
 
-        // Jika tidak ditemukan di Admin, coba tanpa filter role dulu
         if (!$user) {
             $user = Admin::where('username', $request->username)->first();
             if ($user) {
-                // Jika ditemukan dengan role berbeda, update role dari request
+
                 $role = $user->role;
             }
         }
 
-        // Jika masih tidak ditemukan di Admin, cari di User model
         if (!$user) {
             $user = User::where('username', $request->username)
                 ->where('role', $role)
                 ->first();
         }
 
-        // Cek apakah user ditemukan
+      
         if (!$user) {
             \Log::warning('Login failed - User not found', [
                 'username' => $request->username,
@@ -77,7 +70,6 @@ class AuthController extends Controller
                 ->with('message', 'gagal login');
         }
 
-        // Verifikasi password
         $passwordMatch = \Hash::check($request->password, $user->password);
 
         if (!$passwordMatch) {
@@ -94,17 +86,14 @@ class AuthController extends Controller
                 ->with('message', 'gagal login');
         }
 
-        // Set session - PASTIKAN semua session di-set
         Session::put('user_id', $user->id);
         Session::put('name', $user->name);
         Session::put('username', $user->username);
         Session::put('role', $user->role);
         Session::put('cek', true);
 
-        // Simpan session
         Session::save();
 
-        // Login menggunakan Auth untuk middleware (opsional, karena kita pakai session)
         try {
             if ($user instanceof Admin) {
                 Auth::guard('admin')->login($user);
@@ -112,7 +101,7 @@ class AuthController extends Controller
                 Auth::login($user);
             }
         } catch (\Exception $e) {
-            // Jika Auth login gagal, tetap lanjutkan dengan session saja
+
             \Log::warning('Auth login failed, using session only', ['error' => $e->getMessage()]);
         }
 

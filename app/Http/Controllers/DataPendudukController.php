@@ -7,13 +7,7 @@ use Illuminate\Http\Request;
 
 class DataPendudukController extends Controller
 {
-    /**
-     * Method untuk landing page dengan statistik
-     */
-
-    /**
-     * Method untuk halaman admin - index data penduduk
-     */
+    
     public function index()
     {
         $datas = DataPenduduk::latest()->paginate(10);
@@ -123,9 +117,7 @@ class DataPendudukController extends Controller
             ->with('success', 'Data penduduk berhasil dihapus');
     }
 
-    /**
-     * Method untuk statistik jumlah penduduk
-     */
+   
     public function statistik(Request $request)
     {
         $query = DataPenduduk::query();

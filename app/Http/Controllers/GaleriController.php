@@ -37,7 +37,7 @@ class GaleriController extends Controller
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        // Simpan file gambar
+       
         if ($request->hasFile('gambar')) {
             $validated['gambar'] = $request->file('gambar')->store('galeri', 'public');
         }
@@ -66,7 +66,7 @@ class GaleriController extends Controller
 
         $data = ['judul' => $validated['judul']];
 
-        // Handle upload gambar baru
+     
         if ($request->hasFile('gambar')) {
             if ($galeri->gambar && Storage::disk('public')->exists($galeri->gambar)) {
                 Storage::disk('public')->delete($galeri->gambar);
@@ -97,7 +97,7 @@ class GaleriController extends Controller
     public function userIndex(Request $request)
     {
         $page = $request->input('page', 1);
-        $perPage = 12; // Bisa disesuaikan, lebih banyak untuk infinite scroll
+        $perPage = 12;
         
         $galeris = Galeri::latest()->paginate($perPage, ['*'], 'page', $page);
         
@@ -127,7 +127,7 @@ class GaleriController extends Controller
             ]);
         }
         
-        // Untuk load pertama, tampilkan semua data tanpa pagination
+
         $initialGaleris = Galeri::latest()->get();
         
         return view('pages.landing.profildesa.GaleriDesa', compact('initialGaleris'));

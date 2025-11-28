@@ -40,11 +40,10 @@ body {
 
 .gallery-header p {
     font-size: 1.1rem;
-    color: #000; /* Diubah dari #666 menjadi #000 */
+    color: #000; 
     margin-bottom: 0;
 }
 
-/* Container utama agenda */
 .container-agenda {
   display: grid;
   grid-template-columns: 1fr 350px;
@@ -52,14 +51,12 @@ body {
   margin-top: 2rem;
 }
 
-/* Grid agenda */
 .agenda-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
-/* Card agenda */
 .agenda-card {
   background: #fff;
   border-radius: 14px;
@@ -88,7 +85,7 @@ body {
 .agenda-card h4 {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #000; /* Diubah dari #000000ff menjadi #000 */
+  color: #000; 
   margin-bottom: 8px;
   font-family: 'Poppins', sans-serif;
 }
@@ -96,26 +93,24 @@ body {
 .agenda-card small {
   display: block;
   font-size: 0.85rem;
-  color: #000; /* Diubah dari #888 menjadi #000 */
+  color: #000; 
   margin-bottom: 10px;
   font-family: 'Open Sans', sans-serif;
 }
 
 .agenda-card p {
   font-size: 0.9rem;
-  color: #000; /* Diubah dari #555 menjadi #000 */
+  color: #000;
   margin-bottom: 0;
   font-family: 'Open Sans', sans-serif;
 }
 
-/* Sidebar */
 .sidebar {
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
 
-/* Form pencarian dan kategori */
 .search-box, .kategori-box {
   margin-bottom: 20px;
 }
@@ -129,7 +124,7 @@ body {
   transition: all 0.3s ease;
   background: #fafafa;
   font-family: 'Open Sans', sans-serif;
-  color: #000; /* Ditambahkan untuk memastikan teks input berwarna hitam */
+  color: #000; 
 }
 
 .search-box input[type="text"]:focus {
@@ -139,7 +134,6 @@ body {
   background: #fff;
 }
 
-/* Dropdown Kategori dengan panah custom */
 .kategori-wrapper {
   position: relative;
   width: 100%;
@@ -153,7 +147,7 @@ body {
   transform: translateY(-50%);
   width: 12px;
   height: 12px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.762L10.825 4z'/%3E%3C/svg%3E"); /* Diubah dari %23333 menjadi %23000 */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.762L10.825 4z'/%3E%3C/svg%3E"); 
   background-repeat: no-repeat;
   background-position: center;
   pointer-events: none;
@@ -175,7 +169,7 @@ body {
   border-radius: 10px;
   border: 1px solid #e0e0e0;
   background: #fafafa;
-  color: #000; /* Diubah dari #333 menjadi #000 */
+  color: #000; 
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -200,7 +194,6 @@ body {
   background: #fff;
 }
 
-/* Agenda terbaru */
 .agenda-terbaru-box {
   background: #fff;
   border-radius: 14px;
@@ -212,7 +205,7 @@ body {
 .agenda-terbaru-box h4 {
   font-weight: 700;
   margin-bottom: 20px;
-  color: #000; /* Diubah dari #000000ff menjadi #000 */
+  color: #000; 
   font-size: 18px;
   padding-bottom: 12px;
   border-bottom: 2px solid #16a34a;
@@ -261,7 +254,7 @@ body {
 
 .agenda-terbaru-content .judul {
   font-weight: 600;
-  color: #000; /* Diubah dari #000000ff menjadi #000 */
+  color: #000; 
   margin-bottom: 6px;
   font-size: 14px;
   line-height: 1.4;
@@ -273,13 +266,13 @@ body {
 }
 
 .agenda-terbaru-content .tanggal {
-  color: #000; /* Diubah dari #666 menjadi #000 */
+  color: #000; 
   font-size: 12px;
   font-weight: 500;
   font-family: 'Open Sans', sans-serif;
 }
 
-/* Loading indicator */
+
 .loading-indicator {
   text-align: center;
   padding: 20px;
@@ -301,7 +294,6 @@ body {
   100% { transform: rotate(360deg); }
 }
 
-/* Mobile Filter */
 .mobile-filter {
   display: none;
   margin-bottom: 20px;
@@ -319,7 +311,7 @@ body {
   font-size: 14px;
   background: #fafafa;
   font-family: 'Open Sans', sans-serif;
-  color: #000; /* Ditambahkan untuk memastikan teks input berwarna hitam */
+  color: #000; 
 }
 
 .mobile-search-box input[type="text"]:focus {
@@ -328,7 +320,6 @@ body {
   background: #fff;
 }
 
-/* Mobile Dropdown Kategori */
 .mobile-kategori-wrapper {
   position: relative;
   width: 100%;
@@ -342,7 +333,7 @@ body {
   transform: translateY(-50%);
   width: 12px;
   height: 12px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.762L10.825 4z'/%3E%3C/svg%3E"); /* Diubah dari %23333 menjadi %23000 */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.762L10.825 4z'/%3E%3C/svg%3E"); 
   background-repeat: no-repeat;
   background-position: center;
   pointer-events: none;
@@ -360,7 +351,7 @@ body {
   border-radius: 10px;
   border: 1px solid #e0e0e0;
   background: #fafafa;
-  color: #000; /* Diubah dari #333 menjadi #000 */
+  color: #000; 
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -379,7 +370,6 @@ body {
   background: #fff;
 }
 
-/* Mobile Agenda Terbaru */
 .mobile-agenda-terbaru {
   display: none;
   margin-top: 20px;
@@ -393,7 +383,7 @@ body {
 .mobile-agenda-terbaru h4 {
   font-weight: 700;
   margin-bottom: 20px;
-  color: #000; /* Diubah dari #000000ff menjadi #000 */
+  color: #000; 
   font-size: 18px;
   padding-bottom: 12px;
   border-bottom: 2px solid #16a34a;
@@ -442,7 +432,7 @@ body {
 
 .mobile-agenda-content .judul {
   font-weight: 600;
-  color: #000; /* Diubah dari #000000ff menjadi #000 */
+  color: #000;
   margin-bottom: 6px;
   font-size: 14px;
   line-height: 1.3;
@@ -454,13 +444,12 @@ body {
 }
 
 .mobile-agenda-content .tanggal {
-  color: #000; /* Diubah dari #666 menjadi #000 */
+  color: #000;
   font-size: 12px;
   font-weight: 500;
   font-family: 'Open Sans', sans-serif;
 }
 
-/* Hide desktop sidebar elements on mobile */
 .desktop-only {
   display: block;
 }
@@ -469,9 +458,8 @@ body {
   display: none;
 }
 
-/* Pesan tidak ada agenda */
 .text-muted {
-  color: #000 !important; /* Diubah untuk memastikan teks tetap terlihat jelas */
+  color: #000 !important; 
 }
 
 @media (max-width: 1200px) {
@@ -500,7 +488,6 @@ body {
     grid-template-columns: 1fr; 
   }
   
-  /* Show mobile sections and hide desktop sidebar */
   .mobile-filter {
     display: block;
   }
@@ -551,7 +538,6 @@ body {
         </p>
     </div>
 
-    <!-- Mobile Filter Section (Hanya tampil di mobile) -->
     <div class="mobile-filter mobile-only">
         <div class="mobile-search-box">
             <form method="GET" action="{{ route('agenda') }}" id="mobileSearchForm">
@@ -576,7 +562,6 @@ body {
     </div>
 
     <div class="container-agenda">
-        <!-- Bagian kiri: Agenda -->
         <div>
             <div class="agenda-grid" id="agenda-container">
             @forelse($agendas as $agenda)
@@ -600,23 +585,19 @@ body {
             @endforelse
             </div>
 
-            <!-- Loading indicator untuk infinite scroll -->
             <div class="loading-indicator" id="loading-indicator">
             <div class="loading-spinner"></div>
             <p style="margin-top: 10px;">Memuat agenda...</p>
             </div>
         </div>
 
-        <!-- Sidebar (Desktop Only) -->
         <div class="sidebar desktop-only">
-            {{-- Pencarian --}}
             <div class="search-box">
             <form method="GET" action="{{ route('agenda') }}">
                 <input type="text" name="search" placeholder="Cari agenda..." value="{{ request('search') }}">
             </form>
             </div>
 
-            {{-- Kategori --}}
             <div class="kategori-box">
             <div class="kategori-wrapper">
                 <select class="kategori-dropdown" onchange="window.location.href=this.value">
@@ -631,7 +612,6 @@ body {
             </div>
             </div>
 
-            {{-- Agenda Terpopuler --}}
 <div class="agenda-terbaru-box">
     <h4> AGENDA TERPOPULER</h4> 
     <div class="agenda-terbaru-list">
@@ -652,7 +632,6 @@ body {
         </div>
     </div>
 
-    <!-- Mobile Agenda Terbaru Section (Hanya tampil di mobile) -->
     <div class="mobile-agenda-terbaru mobile-only">
         <h4>AGENDA TERBARU</h4>
         <div class="mobile-agenda-list">
@@ -672,35 +651,30 @@ body {
 </div>
 
 <script>
-// Auto submit form ketika pencarian selesai (setelah user berhenti mengetik)
 let searchTimeout;
 document.querySelectorAll('input[name="search"]').forEach(input => {
     input.addEventListener('input', function() {
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => {
         this.form.submit();
-    }, 800); // Submit setelah 800ms berhenti mengetik
+    }, 800); 
     });
 });
 
-// Untuk kategori dropdown (desktop dan mobile)
 document.querySelectorAll('.kategori-dropdown, .mobile-kategori-select').forEach(select => {
     select.addEventListener('change', function() {
     window.location.href = this.value;
     });
 });
 
-// Infinite scroll implementation
 let isLoading = false;
 let page = 1;
 let hasMore = true;
 
-// Check if we're at the bottom of the page
 function isBottomOfPage() {
     return window.innerHeight + window.scrollY >= document.body.offsetHeight - 500;
 }
 
-// Load more agenda
 async function loadMoreAgenda() {
     if (isLoading || !hasMore) return;
     
@@ -728,7 +702,6 @@ async function loadMoreAgenda() {
         document.getElementById('agenda-container').insertAdjacentHTML('beforeend', data.html);
     }
     
-    // Check if there are more pages
     if (!data.hasMore) {
         hasMore = false;
     }
@@ -741,23 +714,19 @@ async function loadMoreAgenda() {
     }
 }
 
-// Scroll event listener
 window.addEventListener('scroll', () => {
     if (isBottomOfPage()) {
     loadMoreAgenda();
     }
 });
 
-// Initial check in case the page is already at the bottom
 window.addEventListener('load', () => {
     if (isBottomOfPage()) {
     loadMoreAgenda();
     }
 });
 
-// JavaScript untuk animasi panah dropdown dengan class toggle
 document.addEventListener('DOMContentLoaded', function() {
-    // Untuk dropdown desktop
     const desktopDropdown = document.querySelector('.kategori-dropdown');
     const desktopWrapper = document.querySelector('.kategori-wrapper');
     
@@ -771,7 +740,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     }
     
-    // Untuk dropdown mobile
     const mobileDropdown = document.querySelector('.mobile-kategori-select');
     const mobileWrapper = document.querySelector('.mobile-kategori-wrapper');
     
@@ -788,7 +756,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
-/* Tambahan CSS untuk animasi dengan JavaScript */
 .kategori-wrapper.dropdown-focused::after {
     transform: translateY(-50%) rotate(180deg) !important;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%2316a34a' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.762L10.825 4z'/%3E%3C/svg%3E") !important;

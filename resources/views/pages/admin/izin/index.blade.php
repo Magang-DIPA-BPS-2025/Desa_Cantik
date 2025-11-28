@@ -94,7 +94,6 @@
             min-width: 150px;
         }
 
-        /* Styling untuk pagination */
         .pagination-container {
             margin-top: 20px;
             display: flex;
@@ -114,7 +113,6 @@
             justify-content: flex-end;
         }
 
-        /* Responsive untuk DataTables - TAMPILAN HP */
         @media (max-width: 576px) {
             .dataTables-controls {
                 flex-direction: column;
@@ -161,7 +159,6 @@
                 min-width: 120px;
             }
             
-            /* Pagination di HP */
             .pagination-container {
                 flex-direction: column;
                 text-align: center;
@@ -178,7 +175,6 @@
             }
         }
 
-        /* Desktop */
         @media (min-width: 577px) {
             .dataTables-controls {
                 flex-direction: row;
@@ -218,7 +214,6 @@
             background-color: #f8f9fa;
         }
 
-        /* PERBAIKAN: Styling untuk tombol aksi - SEJAJAR HORIZONTAL */
         .aksi-container {
             display: flex;
             justify-content: center;
@@ -242,7 +237,6 @@
             margin: 0;
         }
 
-        /* Pastikan form dalam aksi tidak mempengaruhi layout */
         .aksi-container form {
             margin: 0;
             display: inline;
@@ -261,7 +255,6 @@
                 <div class="card shadow-sm">
                     <div class="card-body">
 
-                        {{-- Notifikasi --}}
                         @if (session('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 {{ session('success') }}
@@ -280,7 +273,6 @@
                             </div>
                         @endif
 
-                        {{-- Tombol Download Excel --}}
                         <div class="table-top-controls mb-3">
                             <button class="btn-download-excel" onclick="downloadExcel()">
                                 <i class="fas fa-file-excel"></i> Download Excel
@@ -372,15 +364,12 @@
                                             </td>
                                             <td>{{ $izin->created_at ? $izin->created_at->format('d-m-Y') : '-' }}</td>
                                             <td>
-                                                {{-- PERBAIKAN: Container untuk tombol aksi SEJAJAR --}}
                                                 <div class="aksi-container">
-                                                    {{-- Tombol Edit --}}
                                                     <a href="{{ route('izin.edit', $izin->id) }}" class="btn btn-warning btn-aksi"
                                                         title="Edit Data">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                     
-                                                    {{-- Tombol Hapus --}}
                                                     <form action="{{ route('izin.destroy', $izin->id) }}" method="POST"
                                                         onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                                         @csrf
@@ -390,7 +379,6 @@
                                                         </button>
                                                     </form>
                                                     
-                                                    {{-- Tombol Verifikasi atau Cetak --}}
                                                     @if($izin->status_verifikasi === 'Belum Diverifikasi')
                                                         <a href="{{ route('izin.verifikasi', $izin->id) }}"
                                                             class="btn btn-success btn-aksi"
@@ -439,11 +427,9 @@
 @endsection
 
 @push('scripts')
-    {{-- Library untuk export Excel --}}
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
     <script>
-        // Download Excel Function
         function downloadExcel(){ 
             const wb = XLSX.utils.table_to_book(document.querySelector(".table-custom")); 
             XLSX.writeFile(wb, "Data_Surat_Izin_Kegiatan_Desa_Manggalung.xlsx"); 

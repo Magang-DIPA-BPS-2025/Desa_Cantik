@@ -43,7 +43,6 @@ body {
     margin-bottom: 0;
 }
 
-/* Container utama berita */
 .container-berita {
   display: grid;
   grid-template-columns: 1fr 350px;
@@ -51,15 +50,13 @@ body {
   margin-top: 2rem;
 }
 
-/* Grid berita dengan tinggi seragam */
 .berita-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  align-items: stretch; /* Memastikan semua item memiliki tinggi yang sama */
+  align-items: stretch;
 }
 
-/* Card berita dengan tinggi konsisten */
 .berita-card {
   background: #fff;
   border-radius: 14px;
@@ -70,7 +67,7 @@ body {
   border: none;
   display: flex;
   flex-direction: column;
-  height: 100%; /* Menggunakan tinggi penuh dari grid cell */
+  height: 100%;
 }
 
 .berita-card:hover {
@@ -78,18 +75,16 @@ body {
   box-shadow: 0 12px 28px rgba(0,0,0,0.12);
 }
 
-/* Gambar dengan rasio tetap */
 .berita-card img {
   width: 100%;
   height: 200px;
   object-fit: cover;
-  flex-shrink: 0; /* Mencegah gambar menyusut */
+  flex-shrink: 0; 
 }
 
-/* Konten card yang fleksibel */
 .berita-card .content {
   padding: 20px;
-  flex: 1; /* Mengisi sisa ruang yang tersedia */
+  flex: 1; 
   display: flex;
   flex-direction: column;
 }
@@ -102,7 +97,7 @@ body {
   font-family: 'Poppins', sans-serif;
   line-height: 1.3;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Batasi judul menjadi 2 baris */
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -113,7 +108,7 @@ body {
   color: #000;
   margin-bottom: 10px;
   font-family: 'Open Sans', sans-serif;
-  flex-shrink: 0; /* Mencegah elemen kecil menyusut */
+  flex-shrink: 0; 
 }
 
 .berita-card p {
@@ -121,21 +116,19 @@ body {
   color: #000;
   margin-bottom: 0;
   font-family: 'Open Sans', sans-serif;
-  flex: 1; /* Deskripsi mengisi sisa ruang */
+  flex: 1; 
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Batasi deskripsi menjadi 3 baris */
+  -webkit-line-clamp: 3; 
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-/* Sidebar */
 .sidebar {
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
 
-/* Form pencarian dan kategori */
 .search-box, .kategori-box {
   margin-bottom: 20px;
 }
@@ -159,7 +152,6 @@ body {
   background: #fff;
 }
 
-/* Dropdown Kategori dengan panah custom */
 .kategori-wrapper {
   position: relative;
   width: 100%;
@@ -220,7 +212,6 @@ body {
   background: #fff;
 }
 
-/* ===== STYLING BERITA TERPOPULER ===== */
 .berita-terbaru-box {
     background: #fff;
     border-radius: 14px;
@@ -299,7 +290,6 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-/* Loading indicator */
 .loading-indicator {
   text-align: center;
   padding: 20px;
@@ -321,7 +311,6 @@ body {
   100% { transform: rotate(360deg); }
 }
 
-/* Mobile Filter */
 .mobile-filter {
   display: none;
   margin-bottom: 20px;
@@ -348,7 +337,6 @@ body {
   background: #fff;
 }
 
-/* Mobile Dropdown Kategori */
 .mobile-kategori-wrapper {
   position: relative;
   width: 100%;
@@ -399,7 +387,6 @@ body {
   background: #fff;
 }
 
-/* Mobile Berita Terbaru */
 .mobile-berita-terbaru {
   display: none;
   margin-top: 20px;
@@ -480,7 +467,6 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-/* Hide desktop sidebar elements on mobile */
 .desktop-only {
   display: block;
 }
@@ -489,7 +475,6 @@ body {
   display: none;
 }
 
-/* Pesan tidak ada berita */
 .text-muted {
   color: #000 !important;
 }
@@ -520,7 +505,6 @@ body {
     grid-template-columns: 1fr; 
   }
   
-  /* Show mobile sections and hide desktop sidebar */
   .mobile-filter {
     display: block;
   }
@@ -560,8 +544,6 @@ body {
   }
 }
 </style>
-
-<!-- HTML content tetap sama -->
 <div class="container-main">
     <div class="text-start mb-4 mt-2 px-2 gallery-header">
         <h2 class="fw-semibold display-4 mb-2 gallery-title">
@@ -572,7 +554,6 @@ body {
         </p>
     </div>
 
-    <!-- Mobile Filter Section (Hanya tampil di mobile) -->
     <div class="mobile-filter mobile-only">
         <div class="mobile-search-box">
             <form method="GET" action="{{ route('berita') }}" id="mobileSearchForm">
@@ -620,23 +601,19 @@ body {
             @endforelse
             </div>
 
-            <!-- Loading indicator untuk infinite scroll -->
             <div class="loading-indicator" id="loading-indicator">
             <div class="loading-spinner"></div>
             <p style="margin-top: 10px;">Memuat berita...</p>
             </div>
         </div>
 
-        <!-- Sidebar (Desktop Only) -->
         <div class="sidebar desktop-only">
-            {{-- Pencarian --}}
             <div class="search-box">
             <form method="GET" action="{{ route('berita') }}">
                 <input type="text" name="search" placeholder="Cari berita..." value="{{ $search }}">
             </form>
             </div>
 
-            {{-- Kategori --}}
             <div class="kategori-box">
             <div class="kategori-wrapper">
                 <select class="kategori-dropdown" onchange="window.location.href=this.value">
@@ -651,7 +628,6 @@ body {
             </div>
             </div>
 
-            {{-- Berita Terpopuler --}}
             <div class="berita-terbaru-box">
                 <h4>BERITA TERPOPULER</h4> 
                 <div class="berita-terbaru-list">
@@ -672,7 +648,6 @@ body {
         </div>
     </div>
 
-    <!-- Mobile Berita Terbaru Section (Hanya tampil di mobile) -->
     <div class="mobile-berita-terbaru mobile-only">
         <h4>BERITA TERPOPULER</h4>
         <div class="mobile-berita-list">
@@ -693,36 +668,31 @@ body {
 </div>
 
 <script>
-// JavaScript tetap sama
-// Auto submit form ketika pencarian selesai (setelah user berhenti mengetik)
 let searchTimeout;
 document.querySelectorAll('input[name="search"]').forEach(input => {
     input.addEventListener('input', function() {
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => {
         this.form.submit();
-    }, 800); // Submit setelah 800ms berhenti mengetik
+    }, 800); 
     });
 });
 
-// Untuk kategori dropdown (desktop dan mobile)
+
 document.querySelectorAll('.kategori-dropdown, .mobile-kategori-select').forEach(select => {
     select.addEventListener('change', function() {
     window.location.href = this.value;
     });
 });
 
-// Infinite scroll implementation
 let isLoading = false;
 let page = 1;
 let hasMore = true;
 
-// Check if we're at the bottom of the page
 function isBottomOfPage() {
     return window.innerHeight + window.scrollY >= document.body.offsetHeight - 500;
 }
 
-// Load more berita
 async function loadMoreBerita() {
     if (isLoading || !hasMore) return;
     
@@ -750,7 +720,6 @@ async function loadMoreBerita() {
         document.getElementById('berita-container').insertAdjacentHTML('beforeend', data.html);
     }
     
-    // Check if there are more pages
     if (!data.hasMore) {
         hasMore = false;
     }
@@ -763,23 +732,19 @@ async function loadMoreBerita() {
     }
 }
 
-// Scroll event listener
 window.addEventListener('scroll', () => {
     if (isBottomOfPage()) {
     loadMoreBerita();
     }
 });
 
-// Initial check in case the page is already at the bottom
 window.addEventListener('load', () => {
     if (isBottomOfPage()) {
     loadMoreBerita();
     }
 });
 
-// JavaScript untuk animasi panah dropdown dengan class toggle
 document.addEventListener('DOMContentLoaded', function() {
-    // Untuk dropdown desktop
     const desktopDropdown = document.querySelector('.kategori-dropdown');
     const desktopWrapper = document.querySelector('.kategori-wrapper');
     
@@ -793,7 +758,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     }
     
-    // Untuk dropdown mobile
     const mobileDropdown = document.querySelector('.mobile-kategori-select');
     const mobileWrapper = document.querySelector('.mobile-kategori-wrapper');
     
@@ -810,7 +774,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
-/* Tambahan CSS untuk animasi dengan JavaScript */
 .kategori-wrapper.dropdown-focused::after {
     transform: translateY(-50%) rotate(180deg) !important;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%2316a34a' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.762L10.825 4z'/%3E%3C/svg%3E") !important;

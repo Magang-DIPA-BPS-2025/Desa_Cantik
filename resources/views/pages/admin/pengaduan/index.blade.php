@@ -46,7 +46,6 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                {{-- Notifikasi --}}
                                 @if (session('success'))
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                                         {{ session('success') }}
@@ -65,7 +64,6 @@
                                     </div>
                                 @endif
 
-                                {{-- Tombol Download Excel --}}
                                 <button class="btn btn-success mb-4" onclick="downloadExcel()">
                                     <i class="fas fa-file-excel"></i> Download Excel
                                 </button>
@@ -148,12 +146,10 @@
         <script src="{{ asset('library/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
         <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
         
-        <!-- Excel Export -->
         <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
         <script type="text/javascript">
             $(document).ready(function () {
-                // DataTable initialization
                 var tablePengaduan = $('#table-pengaduan').DataTable({
                     paging: true,
                     searching: true,
@@ -163,7 +159,6 @@
                 });
             });
 
-            // Download Excel Function
             function downloadExcel(){ 
                 const wb = XLSX.utils.table_to_book(document.getElementById("table-pengaduan")); 
                 XLSX.writeFile(wb, "Data_Pengaduan_Desa.xlsx"); 

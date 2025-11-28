@@ -9,7 +9,7 @@ use App\Models\Surat;
 use App\Models\Agenda;
 use App\Models\Galeri;
 use App\Models\BelanjaDesa;
-use App\Models\Apbd; // TAMBAHKAN INI
+use App\Models\Apbd; 
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -18,7 +18,7 @@ class HomeController extends Controller
     {
         $currentYear = date('Y');
 
-        // ========== BAGIAN STATISTIK ========== //
+      
         try {
             $totalPenduduk = DataPenduduk::where('tahun', $currentYear)->count();
             $laki = DataPenduduk::where('tahun', $currentYear)->where('jenis_kelamin', 'Laki-laki')->count();
@@ -74,29 +74,29 @@ class HomeController extends Controller
             ];
         }
 
-        // ========== BAGIAN KONTEN (BERITA, AGENDA, DLL) ========== //
+    
         $beritas = Berita::with('kategori')->latest()->take(6)->get();
         $latest_agendas = Agenda::latest()->take(6)->get();
         $belanjas = BelanjaDesa::latest()->take(6)->get();
         $galeris = Galeri::latest()->take(6)->get();
 
-        // ========== BAGIAN APBD ========== //
+        
         try {
-            // Ambil data APBD terbaru - sama seperti di ApbdController
+            
             $apbd = Apbd::orderBy('tahun', 'desc')->first();
         } catch (\Exception $e) {
             \Log::error('Error fetching APBD data: ' . $e->getMessage());
-            $apbd = null; // Jika error, set null
+            $apbd = null;
         }
 
-        // ========== RETURN KE VIEW ========== //
+   
         return view('pages.landing.index', [
             'beritas' => $beritas,
             'latest_agendas' => $latest_agendas,
             'belanjas' => $belanjas,
             'galeris' => $galeris,
             'stats' => $stats,
-            'apbd' => $apbd, // TAMBAHKAN INI
+            'apbd' => $apbd,
         ]);
     }
 }

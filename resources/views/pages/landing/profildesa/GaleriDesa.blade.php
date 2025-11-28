@@ -25,7 +25,6 @@ body {
     padding: 20px; 
 }
 
-/* PERBAIKAN: Header Galeri - SAMA PERSIS dengan halaman agenda */
 .gallery-header {
     margin-bottom: 2rem;
     margin-top: -1rem;
@@ -45,19 +44,16 @@ body {
     margin-bottom: 0;
 }
 
-/* Container utama galeri */
 .gallery-section {
     margin-top: 2rem;
 }
 
-/* Grid Galeri */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
 
-/* Card Galeri - SAMA PERSIS dengan card agenda */
 .gallery-card {
     background: #fff;
     border-radius: 14px;
@@ -78,7 +74,6 @@ body {
     height: 100%;
 }
 
-/* Gambar galeri */
 .gallery-img {
     width: 100%;
     height: 300px;
@@ -90,7 +85,6 @@ body {
     transform: scale(1.05);
 }
 
-/* Overlay hover */
 .gallery-overlay {
     position: absolute;
     top: 0;
@@ -124,7 +118,6 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-/* Alert untuk galeri kosong */
 .alert-info {
     background: #f0fdf4;
     border: 1px solid #bbf7d0;
@@ -133,7 +126,6 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-/* Loading indicator */
 .loading-indicator {
     text-align: center;
     padding: 20px;
@@ -155,7 +147,6 @@ body {
     100% { transform: rotate(360deg); }
 }
 
-/* Modal Popup */
 .galeri-modal {
     display: none;
     position: fixed;
@@ -185,7 +176,6 @@ body {
     min-height: 95vh;
 }
 
-/* Container untuk gambar dan tombol close */
 .image-container {
     position: relative;
     display: inline-block;
@@ -208,7 +198,6 @@ body {
     cursor: zoom-out;
 }
 
-/* Tombol Close */
 .galeri-close {
     position: absolute;
     top: 15px;
@@ -236,7 +225,6 @@ body {
     border-color: #ff4444;
 }
 
-/* PERBAIKAN: Responsive design SAMA PERSIS dengan halaman agenda */
 @media (max-width: 1200px) {
     .gallery-grid { 
         grid-template-columns: repeat(2, 1fr); 
@@ -313,7 +301,6 @@ body {
     </div>
 
     <div class="gallery-section">
-        {{-- Grid Galeri --}}
         <div class="gallery-grid" id="gallery-container">
             @forelse ($initialGaleris as $galeri)
                 <div class="gallery-card">
@@ -340,7 +327,6 @@ body {
             @endforelse
         </div>
 
-        {{-- Loading indicator untuk infinite scroll --}}
         <div class="loading-indicator" id="loading-indicator">
             <div class="loading-spinner"></div>
             <p style="margin-top: 10px;">Memuat galeri...</p>
@@ -348,7 +334,6 @@ body {
     </div>
 </div>
 
-{{-- Modal Popup Gambar --}}
 <div id="galeriModal" class="galeri-modal">
     <div class="galeri-modal-content">
         <div class="image-container">
@@ -359,7 +344,6 @@ body {
 </div>
 
 <script>
-// Infinite scroll implementation untuk galeri
 let isLoading = false;
 let page = 1;
 let hasMore = true;
@@ -380,12 +364,10 @@ function closeModal() {
     document.body.style.overflow = 'auto';
 }
 
-// Check if we're at the bottom of the page
 function isBottomOfPage() {
     return window.innerHeight + window.scrollY >= document.body.offsetHeight - 500;
 }
 
-// Load more galeri
 async function loadMoreGaleri() {
     if (isLoading || !hasMore) return;
     
@@ -408,7 +390,6 @@ async function loadMoreGaleri() {
             document.getElementById('gallery-container').insertAdjacentHTML('beforeend', data.html);
         }
         
-        // Update status hasMore
         hasMore = data.hasMore;
         
     } catch (error) {
@@ -420,7 +401,6 @@ async function loadMoreGaleri() {
     }
 }
 
-// Event listeners
 window.addEventListener('scroll', () => {
     if (isBottomOfPage()) loadMoreGaleri();
 });

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class KategoriController extends Controller
 {
-    // Tampilkan semua kategori dengan pagination dan search
+
     public function index(Request $request)
     {
         $search = $request->get('search');
@@ -28,7 +28,7 @@ class KategoriController extends Controller
         ]);
     }
 
-    // Form tambah kategori
+
     public function create()
     {
         return view('pages.admin.kategori.create', [
@@ -37,7 +37,7 @@ class KategoriController extends Controller
         ]);
     }
 
-    // Simpan kategori baru
+ 
     public function store(Request $request)
     {
         $request->validate([
@@ -66,7 +66,7 @@ class KategoriController extends Controller
         }
     }
 
-    // Form edit kategori
+   
     public function edit($id)
     {
         try {
@@ -84,7 +84,7 @@ class KategoriController extends Controller
         }
     }
 
-    // Update kategori
+ 
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -114,13 +114,12 @@ class KategoriController extends Controller
         }
     }
 
-    // Hapus kategori
     public function destroy($id)
     {
         try {
             $kategori = Kategori::findOrFail($id);
             
-            // Cek apakah kategori digunakan di berita
+       
             $usedInBerita = DB::table('beritas')->where('kategori_id', $id)->exists();
             
             if ($usedInBerita) {
@@ -139,7 +138,6 @@ class KategoriController extends Controller
         }
     }
 
-    // Download data kategori (untuk API/export)
     public function download(Request $request)
     {
         $type = $request->get('type', 'excel');
@@ -153,31 +151,26 @@ class KategoriController extends Controller
             ->get();
 
         if ($type === 'pdf') {
-            // Logic untuk generate PDF
+        
             return $this->generatePDF($kategoris);
         } else {
-            // Logic untuk generate Excel
+      
             return $this->generateExcel($kategoris);
         }
     }
 
-    // Generate PDF (placeholder - bisa diimplementasi dengan library PDF)
     private function generatePDF($kategoris)
     {
-        // Implementasi generate PDF
-        // Contoh menggunakan DomPDF atau library lainnya
+     
         return response()->json(['message' => 'PDF download akan diimplementasi']);
     }
 
-    // Generate Excel (placeholder - bisa diimplementasi dengan library Excel)
     private function generateExcel($kategoris)
     {
-        // Implementasi generate Excel
-        // Contoh menggunakan Maatwebsite/Laravel-Excel atau library lainnya
+
         return response()->json(['message' => 'Excel download akan diimplementasi']);
     }
 
-    // Get data kategori untuk API/select2
     public function getKategoris(Request $request)
     {
         $search = $request->get('search');

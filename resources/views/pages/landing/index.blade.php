@@ -4,7 +4,6 @@
 
 @push('styles')
 <style>
-/* ---------------- Body ---------------- */
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f8fafc;
@@ -14,7 +13,6 @@ body {
     overflow-x: hidden;
 }
 
-/* ---------------- Hero Section dengan Search ---------------- */
 .hero-section {
     background:
         linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
@@ -75,7 +73,6 @@ body {
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-/* ---------------- Search Box di Hero ---------------- */
 .hero-search {
     max-width: 500px;
     margin: 0 auto;
@@ -139,7 +136,6 @@ body {
     }
 }
 
-/* ---------------- Search Results ---------------- */
 .search-results {
     display: none;
     background: white;
@@ -249,7 +245,6 @@ body {
     margin-bottom: 10px;
 }
 
-/* ---------------- PERBAIKAN Statistik Slider ---------------- */
 .statistik {
     background: linear-gradient(135deg, #2E7D32, #C0D09D);
     padding: 70px 20px;
@@ -362,7 +357,6 @@ body {
     right: -20px;
 }
 
-/* ---------------- Profil Desa ---------------- */
 .profil {
     padding: 70px 20px;
     display: flex;
@@ -402,7 +396,6 @@ body {
     cursor: pointer;
 }
 
-/* ---------------- Chart ---------------- */
 .chart-section {
     padding: 60px 20px;
     background: #f8fafc;
@@ -420,7 +413,6 @@ body {
     margin: auto;
 }
 
-/* ---------------- APB Desa ---------------- */
 .apb-desa {
     padding: 80px 20px;
     background: #f8fafc;
@@ -530,7 +522,6 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-/* ---------------- Section Title ---------------- */
 .section-title {
     text-align:center;
     color:#2e7d32;
@@ -539,7 +530,6 @@ body {
     font-weight:700;
 }
 
-/* ---------------- PERBAIKAN Jadwal Sholat - WARNA HIJAU ---------------- */
 .jadwal-sholat-section {
     background: #f8fafc;
     padding: 80px 20px;
@@ -881,7 +871,6 @@ body {
     }
 }
 
-/* ---------------- Berita Section dengan Card Baru ---------------- */
 .berita-section {
     background: #f9fafb;
     padding: 80px 0;
@@ -993,7 +982,6 @@ body {
   line-height: 1.5;
 }
 
-/* ---------------- Agenda Section dengan Card Baru ---------------- */
 .agenda-section {
     background: #f9fafb;
     padding: 80px 0;
@@ -1510,7 +1498,6 @@ body {
         max-width: 100%;
     }
 
-    /* Hero Section Responsive untuk Tablet */
     .hero-section {
         padding: 100px 20px;
         min-height: 450px;
@@ -1533,7 +1520,6 @@ body {
         max-width: 450px;
     }
 
-    /* PERBAIKAN TOMBOL PENCARIAN TABLET - TOMBOL BULAT */
     .hero-search-btn {
         border-radius: 50% !important;
         min-width: 50px !important;
@@ -1545,7 +1531,6 @@ body {
         grid-template-columns: 1fr;
     }
 
-    /* PERBAIKAN STATISTIK TABLET */
     .statistik {
         padding: 60px 20px;
     }
@@ -1555,7 +1540,6 @@ body {
     }
 }
 
-/* Mobile Portrait */
 @media (max-width: 768px) {
     .uniform-grid {
         grid-template-columns: 1fr;
@@ -1589,7 +1573,6 @@ body {
         gap: 25px;
     }
 
-    /* PERBAIKAN HERO SEARCH MOBILE - Tombol Bulat */
     .hero-search-box {
         flex-direction: row !important;
         gap: 0 !important;
@@ -1618,7 +1601,6 @@ body {
         font-size: 14px !important;
     }
 
-    /* Hero Section Responsive untuk Mobile */
     .hero-section {
         padding: 80px 20px;
         min-height: 400px;
@@ -1658,7 +1640,6 @@ body {
         margin-bottom: 30px;
     }
 
-    /* PERBAIKAN PROFIL MOBILE - Rata Kiri */
     .profil {
         padding: 50px 20px;
         text-align: left;
@@ -1682,7 +1663,6 @@ body {
         text-align: center;
     }
 
-    /* PERBAIKAN APB DESA MOBILE - Side by Side */
     .apb-desa {
         padding: 50px 20px;
     }
@@ -1801,13 +1781,11 @@ body {
         justify-content: center;
     }
 
-    /* Container tombol UMKM */
     .d-grid.gap-2 {
         gap: 12px !important;
     }
 }
 
-/* Mobile Small */
 @media (max-width: 576px) {
     .uniform-grid-container {
         padding: 0 10px;
@@ -1817,7 +1795,6 @@ body {
         flex: 0 0 calc(100% - 10px);
     }
 
-    /* Hero Section Responsive untuk Small Mobile */
     .hero-section {
         padding: 60px 15px;
         min-height: 350px;
@@ -1843,7 +1820,6 @@ body {
         max-width: 100%;
     }
 
-    /* PERBAIKAN HERO SEARCH MOBILE KECIL - Tombol Tetap Bulat */
     .hero-search-input {
         padding: 10px 14px !important;
         font-size: 13px !important;
@@ -1888,7 +1864,6 @@ body {
         width: 50px;
     }
 
-    /* PERBAIKAN PROFIL MOBILE KECIL */
     .profil {
         padding: 40px 15px;
         gap: 25px;
@@ -1899,7 +1874,6 @@ body {
         text-align: left;
     }
 
-    /* PERBAIKAN APB DESA MOBILE KECIL */
     .apb-desa {
         padding: 40px 15px;
     }
@@ -2011,16 +1985,13 @@ body {
         padding: 15px;
     }
 
-    /* Perbaikan tambahan untuk tombol UMKM di mobile kecil */
     .umkm-btn, .btn-outline-success {
         padding: 12px 16px;
         font-size: 0.85rem;
     }
 }
 
-/* Mobile Extra Small */
 @media (max-width: 400px) {
-    /* Hero Section Responsive untuk Extra Small Mobile */
     .hero-section {
         padding: 50px 12px;
         min-height: 300px;
@@ -2040,7 +2011,6 @@ body {
         padding: 4px 10px;
     }
 
-    /* PERBAIKAN HERO SEARCH MOBILE SANGAT KECIL - Tombol Tetap Bulat */
     .hero-search-input {
         padding: 8px 12px !important;
         font-size: 12px !important;
@@ -2065,14 +2035,12 @@ body {
         font-size: 18px;
     }
 
-    /* PERBAIKAN PROFIL MOBILE SANGAT KECIL */
     .profil-text h2,
     .apb-info h2 {
         font-size: 22px;
         text-align: left;
     }
 
-    /* PERBAIKAN APB DESA MOBILE SANGAT KECIL */
     .apb-container {
         flex-direction: row;
         gap: 12px;
@@ -2110,20 +2078,17 @@ body {
         font-size: 18px;
     }
 
-    /* Perbaikan tombol UMKM untuk mobile sangat kecil */
     .umkm-btn, .btn-outline-success {
         padding: 10px 12px;
         font-size: 0.8rem;
     }
 }
 
-/* Optimize images for mobile */
 img {
     max-width: 100%;
     height: auto;
 }
 
-/* Improve touch targets for mobile */
 @media (max-width: 768px) {
     .hero-search-btn,
     .slider-btn,
@@ -2138,7 +2103,6 @@ img {
     }
 }
 
-/* Improve text readability on mobile */
 @media (max-width: 768px) {
     body {
         font-size: 14px;
@@ -2152,7 +2116,6 @@ img {
     }
 }
 
-/* Smooth scrolling for better mobile experience */
 @media (prefers-reduced-motion: no-preference) {
     html {
         scroll-behavior: smooth;
@@ -2161,14 +2124,12 @@ img {
 </style>
 @endpush
 
-{{-- ---------------- Hero Section dengan Search ---------------- --}}
 <div class="hero-section">
     <div class="hero-content">
         <h2 class="typing-text">Selamat Datang di Website Resmi</h2>
         <h1>Desa Cantik Desa Manggalung</h1>
         <h3>Badan Pusat Statistik Sulsel</h3>
 
-        {{-- Search Box di Hero --}}
         <div class="hero-search">
             <div class="hero-search-box">
                 <input type="text" class="hero-search-input" placeholder="Cari berita, agenda, UMKM, statistik...">
@@ -2177,14 +2138,12 @@ img {
                 </button>
             </div>
 
-            {{-- Search Results --}}
             <div class="search-results" id="searchResults">
                 <div class="search-results-header">
                     <h3 class="search-results-title">Hasil Pencarian</h3>
                     <span class="search-results-count" id="resultsCount">0 hasil</span>
                 </div>
                 <div class="search-results-list" id="resultsList">
-                    {{-- Hasil pencarian akan ditampilkan di sini --}}
                 </div>
             </div>
         </div>
@@ -2207,14 +2166,12 @@ if (!isset($stats)) {
 }
 ?>
 
-{{-- ---------------- Statistik Section dengan Data Dinamis ---------------- --}}
 <div class="statistik">
     <h2>Statistik Penduduk Desa Manggalung Tahun {{ $stats['tahun'] ?? date('Y') }}</h2>
     <button class="slider-btn left" id="slideLeft"><i class="fa fa-chevron-left"></i></button>
     <button class="slider-btn right" id="slideRight"><i class="fa fa-chevron-right"></i></button>
     <div class="slider-wrapper overflow-hidden">
         <div id="slider">
-            {{-- Statistik Items dengan Data Dinamis --}}
             <div class="item">
                 <img src="{{ asset('landing/images/icon-image/dusun.png') }}" alt="Dusun">
                 <p class="angka">{{ $stats['dusun'] ?? 0 }}</p>
@@ -2259,7 +2216,6 @@ if (!isset($stats)) {
     </div>
 </div>
 
-{{-- ---------------- Chart Section dengan Data Dinamis ---------------- --}}
 <div class="chart-section">
     <h2>Visualisasi Statistik Penduduk</h2>
     <div class="chart-wrapper">
@@ -2267,7 +2223,6 @@ if (!isset($stats)) {
     </div>
 </div>
 
-{{-- ---------------- Profil Desa Section ---------------- --}}
 <div class="profil">
     <div class="profil-text">
         <h2>Tentang Kelurahan</h2>
@@ -2278,12 +2233,10 @@ if (!isset($stats)) {
     </div>
 </div>
 
-{{-- ---------------- Jadwal Sholat Section ---------------- --}}
 <div class="jadwal-sholat-section">
     <div class="uniform-grid-container">
 
         <div class="jadwal-sholat-container">
-            {{-- Card Jadwal Sholat --}}
             <div class="jadwal-sholat-card">
                 <div class="jadwal-sholat-header">
                     <h3>Jadwal Sholat Hari Ini</h3>
@@ -2298,11 +2251,9 @@ if (!isset($stats)) {
                     </div>
                 </div>
                 <div class="jadwal-list" id="prayer-times">
-                    <!-- Jadwal sholat akan diisi oleh JavaScript -->
                 </div>
             </div>
 
-            {{-- Card Sholat Berikutnya --}}
             <div class="jadwal-sholat-card">
                 <div class="jadwal-next">
                     <div class="next-prayer-label">
@@ -2327,7 +2278,6 @@ if (!isset($stats)) {
     </div>
 </div>
 
-{{-- ---------------- APB Desa Section ---------------- --}}
 <div class="apb-desa">
     <div class="apb-container">
         <div class="apbdesa-img">
@@ -2362,7 +2312,6 @@ if (!isset($stats)) {
                     </div>
                 @endif
             @else
-                {{-- Fallback jika tidak ada data APBD di database --}}
                 <div class="apb-card pendapatan">
                     <span>Pendapatan Desa</span>
                     <h3>Rp4.802.205.800</h3>
@@ -2384,7 +2333,6 @@ if (!isset($stats)) {
     </div>
 </div>
 
-{{-- ---------------- Berita Section dengan Card Baru ---------------- --}}
 <div class="berita-section">
     <div class="container-main">
         <div class="text-center mb-4 mt-2 px-2 gallery-header">
@@ -2395,7 +2343,6 @@ if (!isset($stats)) {
 
         <div class="berita-grid">
             @php
-                // Ambil berita terbaru langsung dari database jika $latest_beritas tidak tersedia
                 $homepage_beritas = isset($latest_beritas) ? $latest_beritas : \App\Models\Berita::with('kategori')->latest()->take(6)->get();
             @endphp
             
@@ -2426,7 +2373,6 @@ if (!isset($stats)) {
     </div>
 </div>
 
-{{-- ---------------- Agenda Section dengan Card Baru ---------------- --}}
 <div class="agenda-section">
     <div class="container-main">
         <div class="text-center mb-4 mt-2 px-2 gallery-header">
@@ -2463,7 +2409,6 @@ if (!isset($stats)) {
     </div>
 </div>
 
-{{-- ---------------- PERBAIKAN UMKM Section ---------------- --}}
 <div class="umkm-section">
     <div class="container-main">
         <div class="text-center mb-4 mt-2 px-2 gallery-header">
@@ -2545,7 +2490,6 @@ if (!isset($stats)) {
     </div>
 </div>
 
-{{-- ---------------- PERBAIKAN Galeri Section - CARD SERAGAM ---------------- --}}
 <div class="galeri-section">
     <div class="container-main">
         <div class="text-center mb-4 mt-2 px-2 gallery-header">
@@ -2577,7 +2521,6 @@ if (!isset($stats)) {
     </div>
 </div>
 
-{{-- ---------------- Modal Popup Gambar ---------------- --}}
 <div id="galeriModal" class="galeri-modal">
     <div class="galeri-modal-content">
         <span class="galeri-close" onclick="closeModal()">&times;</span>
@@ -2589,11 +2532,9 @@ if (!isset($stats)) {
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-// ---------------- Chart Penduduk dengan Data Dinamis ----------------
 document.addEventListener('DOMContentLoaded', function() {
     const ctx = document.getElementById('chartPenduduk');
 
-    // Data dari controller (PHP akan meng-inject data ini)
     const chartData = {
         labels: ['Kepala Keluarga', 'Laki-laki', 'Perempuan', 'Disabilitas', 'Jumlah Penduduk'],
         datasets: [{
@@ -2627,7 +2568,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                 size: window.innerWidth < 768 ? 12 : 14
                             }
                         },
-                        // Menambahkan tooltip untuk legend
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
@@ -2649,7 +2589,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// ---------------- Slider Otomatis ----------------
 const slider = document.getElementById('slider');
 const leftBtn = document.getElementById('slideLeft');
 const rightBtn = document.getElementById('slideRight');
@@ -2659,7 +2598,7 @@ function updateItemWidth() {
     if (slider.children.length > 0) {
         return slider.children[0].offsetWidth + 20;
     }
-    return 300; // fallback width
+    return 300; 
 }
 
 let itemWidth = updateItemWidth();
@@ -2688,17 +2627,14 @@ function resetAutoSlide(){
     autoSlide();
 }
 
-// Initialize slider
 autoSlide();
 slider.addEventListener('mouseenter',()=>clearInterval(autoSlideInterval));
 slider.addEventListener('mouseleave', autoSlide);
 
-// Update item width on resize
 window.addEventListener('resize', () => {
     itemWidth = updateItemWidth();
 });
 
-// ---------------- Modal Galeri Functions ----------------
 function openModal(imageSrc) {
     const modal = document.getElementById('galeriModal');
     const modalImage = document.getElementById('modalImage');
@@ -2706,7 +2642,6 @@ function openModal(imageSrc) {
     modal.style.display = 'block';
     modalImage.src = imageSrc;
 
-    // Prevent body scroll when modal is open
     document.body.style.overflow = 'hidden';
 }
 
@@ -2714,11 +2649,9 @@ function closeModal() {
     const modal = document.getElementById('galeriModal');
     modal.style.display = 'none';
 
-    // Restore body scroll
     document.body.style.overflow = 'auto';
 }
 
-// Close modal when clicking outside the image
 window.addEventListener('click', function(event) {
     const modal = document.getElementById('galeriModal');
     if (event.target === modal) {
@@ -2726,14 +2659,12 @@ window.addEventListener('click', function(event) {
     }
 });
 
-// Close modal with Escape key
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         closeModal();
     }
 });
 
-// ---------------- Jadwal Sholat Functions ----------------
 function updateLiveClock() {
     const now = new Date();
     const options = {
@@ -2747,11 +2678,9 @@ function updateLiveClock() {
     document.getElementById('live-clock').textContent = timeString;
 }
 
-// Update jam setiap detik
 setInterval(updateLiveClock, 1000);
-updateLiveClock(); // Panggil sekali saat pertama kali load
+updateLiveClock(); 
 
-// Fungsi untuk format tanggal Indonesia
 function formatTanggalIndonesia(date) {
     const options = {
         weekday: 'long',
@@ -2764,13 +2693,11 @@ function formatTanggalIndonesia(date) {
 
 async function fetchPrayerTimes() {
     try {
-        // Koordinat Desa Manggalung, Kabupaten Pangkep
         const latitude = -4.8051;
         const longitude = 119.5542;
         const today = new Date();
         const dateString = today.toISOString().split('T')[0];
 
-        // Menggunakan API Aladhan
         const response = await fetch(`https://api.aladhan.com/v1/timings/${dateString}?latitude=${latitude}&longitude=${longitude}&method=2&timezonestring=Asia/Makassar`);
         const data = await response.json();
 
@@ -2786,14 +2713,12 @@ async function fetchPrayerTimes() {
         }
     } catch (error) {
         console.error('Error fetching prayer times:', error);
-        // Jika API gagal, coba lagi setelah 10 detik
         setTimeout(fetchPrayerTimes, 10000);
-        throw error; // Tetap throw error agar proses berhenti
+        throw error; 
     }
 }
 
 function convertToWITA(time24) {
-    // API sudah mengembalikan waktu dalam WITA karena timezone Asia/Makassar
     return time24;
 }
 
@@ -2801,10 +2726,8 @@ function updatePrayerTimesDisplay(prayerData) {
     const prayerTimesContainer = document.getElementById('prayer-times');
     const currentDateElement = document.getElementById('current-date');
 
-    // Update tanggal dengan format Indonesia
     currentDateElement.textContent = prayerData.date.readable;
 
-    // Daftar sholat dengan nama Indonesia dan icon
     const prayers = [
         { key: 'Fajr', name: 'Subuh', icon: 'fas fa-moon' },
         { key: 'Sunrise', name: 'Terbit', icon: 'fas fa-sun' },
@@ -2814,10 +2737,8 @@ function updatePrayerTimesDisplay(prayerData) {
         { key: 'Isha', name: 'Isya', icon: 'fas fa-moon' }
     ];
 
-    // Kosongkan container
     prayerTimesContainer.innerHTML = '';
 
-    // Tambahkan setiap waktu sholat
     prayers.forEach(prayer => {
         const time = convertToWITA(prayerData.timings[prayer.key]);
         const prayerElement = document.createElement('div');
@@ -2833,7 +2754,6 @@ function updatePrayerTimesDisplay(prayerData) {
         prayerTimesContainer.appendChild(prayerElement);
     });
 
-    // Update sholat berikutnya
     updateNextPrayer(prayerData.timings);
 }
 
@@ -2851,7 +2771,6 @@ function updateNextPrayer(timings) {
         { key: 'Isha', name: 'Isya', time: convertToWITA(timings.Isha) }
     ];
 
-    // Reset semua item
     document.querySelectorAll('.jadwal-item').forEach(item => {
         item.classList.remove('active', 'passed');
     });
@@ -2859,7 +2778,6 @@ function updateNextPrayer(timings) {
     let nextPrayer = null;
     let foundNext = false;
 
-    // Tandai sholat yang sudah lewat dengan warna abu-abu
     prayers.forEach(prayer => {
         const prayerElement = document.getElementById(`prayer-${prayer.key.toLowerCase()}`);
         if (currentTime >= prayer.time) {
@@ -2869,42 +2787,35 @@ function updateNextPrayer(timings) {
         }
     });
 
-    // Cari sholat berikutnya (yang belum datang)
     for (let i = 0; i < prayers.length; i++) {
         const prayer = prayers[i];
         const prayerTime = prayer.time;
 
         if (currentTime < prayerTime) {
-            // Waktu sholat belum datang - ini adalah sholat berikutnya
             nextPrayer = prayer;
             foundNext = true;
 
-            // Tandai sholat berikutnya dengan warna hijau
             const prayerElement = document.getElementById(`prayer-${prayer.key.toLowerCase()}`);
             if (prayerElement) {
                 prayerElement.classList.add('active');
             }
-            break; // Hentikan loop setelah menemukan sholat berikutnya
+            break; 
         }
     }
 
-    // Jika tidak ada sholat berikutnya (sudah lewat Isya), set ke Subuh besok
     if (!foundNext) {
-        nextPrayer = prayers[0]; // Subuh besok
+        nextPrayer = prayers[0]; 
 
-        // Tandai Subuh sebagai sholat berikutnya
         const subuhElement = document.getElementById('prayer-fajr');
         if (subuhElement) {
             subuhElement.classList.add('active');
         }
     }
 
-    // Update info sholat berikutnya
     if (nextPrayer) {
         document.getElementById('next-prayer-name').textContent = nextPrayer.name;
         document.getElementById('next-prayer-time').textContent = nextPrayer.time;
 
-        // Hitung countdown
         updateCountdown(nextPrayer.time);
     }
 }
@@ -2915,7 +2826,6 @@ function updateCountdown(nextPrayerTime) {
     const prayerTime = new Date();
     prayerTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
 
-    // Jika waktu sholat sudah lewat hari ini, set untuk besok
     if (prayerTime <= now) {
         prayerTime.setDate(prayerTime.getDate() + 1);
     }
@@ -2934,13 +2844,11 @@ function updateCountdown(nextPrayerTime) {
     }
 }
 
-// Inisialisasi jadwal sholat
 async function initializePrayerTimes() {
     try {
         const prayerData = await fetchPrayerTimes();
         updatePrayerTimesDisplay(prayerData);
 
-        // Update countdown setiap detik
         setInterval(() => {
             const nextPrayerTime = document.getElementById('next-prayer-time').textContent;
             if (nextPrayerTime && nextPrayerTime !== '--:--') {
@@ -2948,7 +2856,6 @@ async function initializePrayerTimes() {
             }
         }, 1000);
 
-        // Update jadwal setiap 5 menit
         setInterval(async () => {
             try {
                 const updatedData = await fetchPrayerTimes();
@@ -2956,20 +2863,17 @@ async function initializePrayerTimes() {
             } catch (error) {
                 console.error('Error updating prayer times:', error);
             }
-        }, 300000); // Update setiap 5 menit
+        }, 300000); 
     } catch (error) {
         console.error('Error initializing prayer times:', error);
-        // Coba lagi setelah 30 detik jika gagal
         setTimeout(initializePrayerTimes, 30000);
     }
 }
 
-// Panggil fungsi inisialisasi ketika halaman dimuat
 document.addEventListener('DOMContentLoaded', function() {
     initializePrayerTimes();
 });
 
-// ---------------- Search Functionality untuk Hero Search ----------------
 $(document).ready(function() {
     const $searchInput = $('.hero-search-input');
     const $searchBtn = $('.hero-search-btn');
@@ -2977,9 +2881,7 @@ $(document).ready(function() {
     const $resultsList = $('#resultsList');
     const $resultsCount = $('#resultsCount');
 
-    // Data untuk pencarian - SEMUA KONTEN WEBSITE
    const searchData = {
-    // Data Statistik Dinamis
     statistik: [
         {
             id: 'stat-dusun',
@@ -3055,7 +2957,6 @@ $(document).ready(function() {
         }
     ],
 
-        // Data dari controller
         beritas: [
             @foreach($beritas as $berita)
             {
@@ -3100,7 +3001,6 @@ $(document).ready(function() {
             @endforeach
         ],
 
-        // Data tambahan untuk APB Desa
         apb: [
             {
                 id: 'apb-pendapatan',
@@ -3120,7 +3020,6 @@ $(document).ready(function() {
             }
         ],
 
-        // Data profil desa
         profil: [
             {
                 id: 'profil-desa',
@@ -3132,7 +3031,6 @@ $(document).ready(function() {
         ]
     };
 
-    // Fungsi pencarian yang lebih komprehensif
     function performSearch(query) {
         if (!query.trim()) {
             hideSearchResults();
@@ -3142,37 +3040,30 @@ $(document).ready(function() {
         const results = [];
         const searchTerms = query.toLowerCase().split(' ').filter(term => term.length > 1);
 
-        // Cari di semua kategori
         Object.keys(searchData).forEach(category => {
             searchData[category].forEach(item => {
                 const searchableText = (item.title + ' ' + item.content + ' ' + (item.pemilik || '') + ' ' + (item.angka || '')).toLowerCase();
 
-                // Cek kecocokan dengan berbagai kriteria
                 let matches = false;
                 let relevance = 0;
 
                 searchTerms.forEach(term => {
-                    // Exact match di title
                     if (item.title.toLowerCase().includes(term)) {
                         matches = true;
                         relevance += 5;
                     }
-                    // Match di content
                     if (item.content.toLowerCase().includes(term)) {
                         matches = true;
                         relevance += 3;
                     }
-                    // Match di angka/statistik
                     if (item.angka && item.angka.toLowerCase().includes(term)) {
                         matches = true;
                         relevance += 4;
                     }
-                    // Match di pemilik UMKM
                     if (item.pemilik && item.pemilik.toLowerCase().includes(term)) {
                         matches = true;
                         relevance += 3;
                     }
-                    // Match di kategori
                     if (item.category.toLowerCase().includes(term)) {
                         matches = true;
                         relevance += 2;
@@ -3189,12 +3080,10 @@ $(document).ready(function() {
             });
         });
 
-        // Urutkan berdasarkan relevansi
         results.sort((a, b) => b.relevance - a.relevance);
         displaySearchResults(results, query);
     }
 
-    // Tampilkan hasil pencarian
     function displaySearchResults(results, query) {
         $resultsList.empty();
 
@@ -3229,7 +3118,6 @@ $(document).ready(function() {
         $searchResults.addClass('active');
     }
 
-    // Fungsi untuk highlight teks
     function highlightText(text, query) {
         const searchTerms = query.toLowerCase().split(' ').filter(term => term.length > 1);
         let highlightedText = text;
@@ -3242,12 +3130,10 @@ $(document).ready(function() {
         return highlightedText;
     }
 
-    // Sembunyikan hasil pencarian
     function hideSearchResults() {
         $searchResults.removeClass('active');
     }
 
-    // Event handlers
     $searchBtn.on('click', function() {
         const query = $searchInput.val().trim();
         performSearch(query);
@@ -3265,7 +3151,6 @@ $(document).ready(function() {
         if (query.length === 0) {
             hideSearchResults();
         } else if (query.length >= 2) {
-            // Debounce search
             clearTimeout($(this).data('timeout'));
             $(this).data('timeout', setTimeout(() => {
                 performSearch(query);
@@ -3273,22 +3158,18 @@ $(document).ready(function() {
         }
     });
 
-    // Klik di luar untuk menutup hasil pencarian
     $(document).on('click', function(e) {
         if (!$(e.target).closest('.hero-search').length) {
             hideSearchResults();
         }
     });
 
-    // Prevent hiding when clicking inside search results
     $searchResults.on('click', function(e) {
         e.stopPropagation();
     });
 });
 
-// Initialize everything when page loads
 document.addEventListener('DOMContentLoaded', function() {
-    // Bubble effect sudah dihapus sesuai permintaan
 });
 </script>
 @endpush

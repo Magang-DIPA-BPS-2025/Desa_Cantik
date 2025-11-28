@@ -12,7 +12,7 @@
     .rating-stars { display: inline-flex; align-items: center; }
     .rating-value { font-weight: 600; margin-right: 4px; }
     
-    /* Control Bar */
+    
     .control-bar {
         display: flex;
         justify-content: space-between;
@@ -238,13 +238,12 @@
                 </div>
             </div>
 
-            {{-- Card Tabel --}}
             <div class="row">
                 <div class="col-12">
                     <div class="card shadow-sm">
                         <div class="card-body">
 
-                            {{-- Notifikasi sukses --}}
+                       
                             @if (session('success'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     <i class="fas fa-check-circle mr-2"></i>{{ session('success') }}
@@ -254,14 +253,14 @@
                                 </div>
                             @endif
 
-                            <!-- Control Bar -->
+                        
                             <div class="control-bar">
                                 <div class="left-controls">
                                     <a href="{{ route('belanja.create') }}" class="btn btn-primary">
                                         <i class="fas fa-plus"></i> Tambah UMKM
                                     </a>
 
-                                    <!-- PERUBAHAN: Dropdown Export -->
+                                 
                                     <div class="export-dropdown">
                                         <button class="btn-export">
                                             <i class="fas fa-download"></i> Export Data
@@ -279,7 +278,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- Entri Data -->
+                            
                                     <form method="GET" action="{{ route('belanja.index') }}" id="filter-form">
                                         <div class="entries-control">
                                             <label for="per_page" class="mb-0">Tampilkan</label>
@@ -292,14 +291,14 @@
                                             </select>
                                             <span>entri</span>
                                         </div>
-                                        <!-- Simpan parameter search -->
+                                      
                                         @if(request('search'))
                                             <input type="hidden" name="search" value="{{ request('search') }}">
                                         @endif
                                     </form>
                                 </div>
 
-                                <!-- PERUBAHAN: Pencarian dengan reset di samping -->
+                             
                                 <form method="GET" action="{{ route('belanja.index') }}" id="search-form">
                                     <div class="right-controls">
                                         <div class="search-container">
@@ -310,7 +309,7 @@
                                                 </a>
                                             @endif
                                         </div>
-                                        <!-- Simpan parameter per_page -->
+                                      
                                         @if(request('per_page'))
                                             <input type="hidden" name="per_page" value="{{ request('per_page') }}">
                                         @endif
@@ -318,7 +317,6 @@
                                 </form>
                             </div>
 
-                            {{-- Tabel Data --}}
                             <div class="table-responsive">
                                 <table class="table table-striped" id="table-umkm">
                                     <thead>
@@ -449,7 +447,7 @@
                                 </table>
                             </div>
 
-                            {{-- Pagination --}}
+                         
                             @if($datas->hasPages())
                             <div class="pagination-container">
                                 <div class="pagination-info">
@@ -484,8 +482,8 @@
 <script>
 $(document).ready(function () {
     $('#table-umkm').DataTable({
-        paging: false, // karena kita pakai Laravel pagination
-        searching: false, // karena kita pakai custom search
+        paging: false,
+        searching: false, 
         ordering: true,
         responsive: true,
         language: { 
@@ -498,58 +496,58 @@ $(document).ready(function () {
         }
     });
 
-    // Disable tombol delete setelah klik
+   
     $('form').on('submit', function() {
         $(this).find('button[type=submit]').attr('disabled', true);
     });
 
     $('[data-toggle="tooltip"]').tooltip();
 
-    // Fungsi untuk handling form
+
     const filterForm = document.getElementById('filter-form');
     const searchForm = document.getElementById('search-form');
     const perPageSelect = document.getElementById('per_page');
     const searchInput = document.getElementById('search');
 
-    // Handle perubahan select box
+ 
     if (perPageSelect) {
         perPageSelect.addEventListener('change', function() {
             filterForm.submit();
         });
     }
 
-    // Pencarian otomatis tanpa tombol "Cari"
+ 
     if (searchInput) {
         let searchTimeout;
         searchInput.addEventListener('input', function() {
             clearTimeout(searchTimeout);
             searchTimeout = setTimeout(() => {
                 searchForm.submit();
-            }, 500); // Submit setelah 500ms tidak mengetik
+            }, 500); 
         });
     }
 });
 
-// Download Excel Function
+
 function downloadExcel(){ 
     const wb = XLSX.utils.table_to_book(document.querySelector("#table-umkm")); 
     XLSX.writeFile(wb, "Data_UMKM_Desa_Manggalung.xlsx"); 
 }
 
-// Download PDF Function
+
 function downloadPDF() {
-    // Tampilkan loading
+ 
     const exportButton = document.querySelector('.btn-export');
     const originalButtonText = exportButton.innerHTML;
     exportButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Membuat PDF...';
     exportButton.disabled = true;
 
     try {
-        // Buat elemen sementara untuk export
+      
         const element = document.createElement('div');
         element.style.padding = '20px';
         
-        // Header PDF
+    
         const header = `
             <div style="text-align: center; margin-bottom: 20px; border-bottom: 2px solid #333; padding-bottom: 10px;">
                 <h2 style="margin: 0; color: #333;">Data UMKM Desa Manggalung</h2>
@@ -557,21 +555,21 @@ function downloadPDF() {
             </div>
         `;
         
-        // Clone tabel tanpa kolom aksi
+       
         const originalTable = document.querySelector('#table-umkm');
         const table = originalTable.cloneNode(true);
         
-        // Hapus kolom aksi
+     
         const rows = table.querySelectorAll('tr');
         rows.forEach(row => {
             const cells = row.querySelectorAll('td, th');
             if (cells.length > 0) {
-                // Hapus kolom terakhir (aksi)
+               
                 row.removeChild(cells[cells.length - 1]);
             }
         });
 
-        // Style untuk tabel PDF
+        
         table.style.width = '100%';
         table.style.borderCollapse = 'collapse';
         table.style.fontSize = '10px';
@@ -594,11 +592,11 @@ function downloadPDF() {
             td.style.verticalAlign = 'middle';
         });
 
-        // Gabungkan konten
+   
         element.innerHTML = header;
         element.appendChild(table);
 
-        // Konfigurasi PDF
+   
         const options = {
             margin: [10, 10, 10, 10],
             filename: 'Data_UMKM_Desa_Manggalung.pdf',
@@ -615,14 +613,14 @@ function downloadPDF() {
             }
         };
 
-        // Generate PDF
+       
         html2pdf().set(options).from(element).save();
 
     } catch (error) {
         console.error('Error generating PDF:', error);
         alert('Terjadi kesalahan saat membuat PDF. Silakan coba lagi.');
     } finally {
-        // Kembalikan tombol ke keadaan semula
+    
         const exportButton = document.querySelector('.btn-export');
         exportButton.innerHTML = '<i class="fas fa-download"></i> Export Data <i class="fas fa-chevron-down" style="font-size: 12px; margin-left: 4px;"></i>';
         exportButton.disabled = false;

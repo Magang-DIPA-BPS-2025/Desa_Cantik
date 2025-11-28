@@ -17,7 +17,6 @@
                         <form action="{{ route('galeriDesa.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
-                            {{-- Judul --}}
                             <div class="form-group">
                                 <label for="judul">Judul</label>
                                 <input type="text"
@@ -31,7 +30,6 @@
                                 @enderror
                             </div>
 
-                            {{-- Gambar --}}
                             <div class="form-group">
                                 <label for="gambar">Upload Foto</label>
                                 <input type="file"
@@ -43,7 +41,6 @@
                                 @enderror
                             </div>
 
-                            {{-- Tombol --}}
                             <div class="d-flex justify-content-end mt-4">
                                 <a href="{{ route('galeriDesa.index') }}" class="btn btn-secondary mx-2">
                                     <i class="fas fa-arrow-left"></i> Kembali

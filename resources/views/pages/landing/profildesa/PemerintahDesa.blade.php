@@ -4,9 +4,6 @@
 <title>Desa Cantik - Pemerintah Desa</title>
 
 <style>
-/* TERAPKAN STYLING SAMA PERSIS DENGAN HALAMAN BERITA */
-
-/* Font modern sama seperti halaman berita */
 body, .container-main, .gallery-card, .card, .calendar-table, .modal-content, .table {
     font-family: 'Open Sans', sans-serif;
 }
@@ -27,7 +24,6 @@ body {
     padding: 20px; 
 }
 
-/* PERBAIKAN: Header - SAMA PERSIS dengan halaman berita */
 .gallery-header {
     margin-bottom: 2rem;
     margin-top: -1rem;
@@ -47,25 +43,22 @@ body {
     margin-bottom: 0;
 }
 
-/* Container utama */
 .pemerintah-section {
     margin-top: 2rem;
 }
 
-/* PERBAIKAN: Tambahkan jarak khusus antara TUPOKSI dan STRUKTUR */
 .tupoksi-section {
-    margin-bottom: 5rem; /* Jarak yang lebih besar antara TUPOKSI dan STRUKTUR */
+    margin-bottom: 5rem; 
 }
 
 .struktur-section {
-    margin-bottom: 4rem; /* Jarak antara STRUKTUR dan KALENDER */
+    margin-bottom: 4rem;
 }
 
 .kalender-section {
-    margin-top: 3rem; /* Jarak tambahan untuk kalender */
+    margin-top: 3rem; 
 }
 
-/* Card utama - SAMA PERSIS dengan card berita */
 .gallery-card {
     background: #fff;
     border-radius: 14px;
@@ -81,7 +74,6 @@ body {
     box-shadow: 0 12px 28px rgba(0,0,0,0.12);
 }
 
-/* PERBAIKAN: Card untuk perangkat desa - HILANGKAN EFEK HIJAU SAAT DIKLIK */
 .card {
     border-radius: 14px;
     transition: all 0.3s ease;
@@ -89,7 +81,7 @@ body {
     background: #fff;
     box-shadow: 0 8px 20px rgba(0,0,0,0.06);
     height: 100%;
-    cursor: pointer; /* Tambahkan pointer untuk gambar yang bisa diklik */
+    cursor: pointer; 
 }
 
 .card:hover {
@@ -107,16 +99,14 @@ body {
 .card img.rounded-circle {
     border: 3px solid #e5e7eb;
     transition: all 0.3s ease;
-    cursor: pointer; /* Pointer untuk gambar yang bisa diklik */
+    cursor: pointer; 
 }
 
-/* PERBAIKAN: Hilangkan efek hijau saat hover */
 .card:hover img.rounded-circle {
-    border-color: #e5e7eb; /* Tetap warna abu-abu, bukan hijau */
+    border-color: #e5e7eb; 
     transform: scale(1.05);
 }
 
-/* Grid untuk perangkat desa */
 .perangkat-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -124,7 +114,6 @@ body {
     margin-top: 1rem;
 }
 
-/* Kalender Styles */
 .calendar-table {
     border: none;
     background: white;
@@ -324,7 +313,6 @@ body {
     color: #d1d5db;
 }
 
-/* PERBAIKAN: Styling untuk input group dan icon dengan jarak yang tepat */
 .input-group {
     border-radius: 10px;
     display: flex;
@@ -350,13 +338,11 @@ body {
     padding: 8px 12px;
 }
 
-/* PERBAIKAN: Jarak yang tepat untuk icon di input group */
 .input-group .input-group-text i {
-    margin-right: 8px; /* Jarak antara icon dan teks */
+    margin-right: 8px; 
     color: #16a34a;
 }
 
-/* PERBAIKAN: Modal Styles dengan tombol close yang berfungsi */
 .modal-content {
     border-radius: 14px;
     border: none;
@@ -379,14 +365,12 @@ body {
     align-items: center;
 }
 
-/* PERBAIKAN: Jarak untuk icon di modal title */
 .modal-header .modal-title i {
-    margin-right: 12px; /* Jarak yang lebih besar antara icon dan teks */
+    margin-right: 12px;
 }
 
-/* PERBAIKAN: PERUBAHAN UTAMA - Tombol close modal warna hitam */
 .modal-header .btn-close {
-    filter: none; /* Hapus filter putih */
+    filter: none; 
     opacity: 0.8;
     background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
     border: none;
@@ -412,7 +396,6 @@ body {
     border-radius: 0 0 14px 14px;
 }
 
-/* PERBAIKAN: Tombol tutup di modal footer */
 .modal-footer .btn {
     padding: 10px 25px;
     border-radius: 8px;
@@ -438,12 +421,10 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-/* PERBAIKAN: Jarak untuk icon di tombol footer */
 .modal-footer .btn i {
     margin-right: 8px;
 }
 
-/* Struktur Image Styles */
 .struktur-img-fullwidth {
     width: 100%;
     height: auto;
@@ -452,7 +433,6 @@ body {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* PERBAIKAN: Jarak untuk semua icon di kalender */
 .calendar-header-icon {
     margin-right: 10px;
 }
@@ -465,7 +445,6 @@ body {
     margin-right: 10px;
 }
 
-/* PERBAIKAN: Styling untuk kalender control yang baru */
 .calendar-control {
     background: white;
     border-radius: 10px;
@@ -493,7 +472,6 @@ body {
     box-shadow: none;
 }
 
-/* PERBAIKAN: Styling untuk modal gambar TUPOKSI */
 .image-modal .modal-dialog {
     max-width: 90%;
     max-height: 90vh;
@@ -520,7 +498,6 @@ body {
     border-radius: 8px;
 }
 
-/* PERBAIKAN: PERUBAHAN UTAMA - Tombol X warna hitam untuk modal gambar */
 .image-modal .btn-close {
     position: absolute;
     top: 15px;
@@ -534,7 +511,7 @@ body {
     align-items: center;
     justify-content: center;
     opacity: 0.9;
-    filter: none; /* Hapus filter putih */
+    filter: none; 
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
     background-size: 1.2em;
     background-position: center;
@@ -548,7 +525,6 @@ body {
     border-color: rgba(0,0,0,0.2);
 }
 
-/* PERBAIKAN: Responsive design SAMA PERSIS dengan halaman berita */
 @media (max-width: 1200px) {
     .perangkat-grid {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -564,7 +540,6 @@ body {
         height: 90px;
     }
     
-    /* PERBAIKAN: Jarak yang lebih kecil di tablet */
     .tupoksi-section {
         margin-bottom: 4rem;
     }
@@ -623,7 +598,6 @@ body {
         gap: 20px;
     }
     
-    /* PERBAIKAN: Jarak icon di mobile */
     .modal-header .modal-title i {
         margin-right: 8px;
     }
@@ -632,7 +606,6 @@ body {
         margin-right: 6px;
     }
     
-    /* PERBAIKAN: Jarak yang lebih kecil di mobile */
     .tupoksi-section {
         margin-bottom: 3rem;
     }
@@ -645,7 +618,6 @@ body {
         margin-top: 2rem;
     }
     
-    /* PERBAIKAN: Kalender control di mobile */
     .calendar-control {
         flex-direction: column;
         gap: 8px;
@@ -686,7 +658,6 @@ body {
         margin-right: 15px;
     }
     
-    /* PERBAIKAN: Jarak icon di mobile kecil */
     .modal-header .modal-title i {
         margin-right: 6px;
     }
@@ -695,7 +666,6 @@ body {
         margin-right: 4px;
     }
     
-    /* PERBAIKAN: Jarak yang lebih kecil di mobile kecil */
     .tupoksi-section {
         margin-bottom: 2.5rem;
     }
@@ -708,7 +678,6 @@ body {
         margin-top: 1.5rem;
     }
     
-    /* PERBAIKAN: Modal gambar di mobile */
     .image-modal .modal-dialog {
         max-width: 95%;
     }
@@ -723,9 +692,6 @@ body {
 </style>
 
 <div class="container-main">
-    <!-- =======================
-         TUPOKSI PEMERINTAH DESA (DINAMIS)
-    ========================== -->
     <div class="text-start mb-4 mt-2 px-2 gallery-header">
         <h2 class="fw-semibold display-4 mb-2 gallery-title">
             TUGAS POKOK DAN FUNGSI PEMERINTAH DESA
@@ -735,7 +701,7 @@ body {
         </p>
     </div>
 
-    <!-- PERBAIKAN: Tambahkan class tupoksi-section di sini -->
+    
     <div class="pemerintah-section tupoksi-section">
         <div class="perangkat-grid">
             @foreach($pemerintahDesas as $pd)
@@ -763,9 +729,6 @@ body {
         </div>
     </div>
 
-    <!-- =======================
-         STRUKTUR DESA (STATIS, RESPONSIF)
-    ========================== -->
     <div class="pemerintah-section struktur-section">
         <div class="text-start mb-4 mt-2 px-2 gallery-header">
             <h2 class="fw-semibold display-4 mb-2 gallery-title">
@@ -785,9 +748,6 @@ body {
         </div>
     </div>
 
-    <!-- =======================
-         KALENDER AGENDA KEGIATAN (DINAMIS)
-    ========================== -->
     <div class="pemerintah-section kalender-section">
         <div class="text-start mb-4 mt-2 px-2 gallery-header">
             <h2 class="fw-semibold display-4 mb-2 gallery-title">
@@ -803,12 +763,10 @@ body {
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <h3 class="mb-0 fw-semibold">
-                            <!-- PERBAIKAN: Jarak icon dengan class khusus -->
                             <i class="fas fa-calendar-alt calendar-header-icon"></i>Kalender Kegiatan Desa
                         </h3>
                     </div>
                     <div class="col-md-6 text-md-end">
-                        <!-- PERBAIKAN: Ganti dengan kalender control yang baru -->
                         <form method="GET" class="d-flex justify-content-end">
                             <div class="calendar-control">
                                 <i class="fas fa-calendar"></i>
@@ -921,7 +879,6 @@ body {
                     </div>
                     <div class="col-md-6 text-md-end">
                         <small class="text-muted">
-                            <!-- PERBAIKAN: Jarak icon dengan class khusus -->
                             <i class="fas fa-info-circle calendar-info-icon"></i>
                             Klik pada tanggal untuk melihat detail kegiatan
                         </small>
@@ -931,24 +888,19 @@ body {
         </div>
     </div>
 
-    <!-- PERBAIKAN: Modal for Event Details dengan tombol close warna hitam -->
     <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header bg-gradient-success text-white">
                     <h5 class="modal-title fw-semibold" id="eventModalTitle">
-                        <!-- PERBAIKAN: Jarak icon dengan styling CSS -->
                         <i class="fas fa-calendar-day"></i>
                         <span>Detail Kegiatan</span>
                     </h5>
-                    <!-- PERBAIKAN: Tombol X warna hitam yang berfungsi dengan onclick -->
                     <button type="button" class="btn-close" onclick="closeEventModal()" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="eventModalBody">
-                    <!-- Content will be loaded via JavaScript -->
                 </div>
                 <div class="modal-footer">
-                    <!-- PERBAIKAN: Tombol tutup dengan onclick -->
                     <button type="button" class="btn btn-secondary" onclick="closeEventModal()">
                         <i class="fas fa-times"></i>
                         Tutup
@@ -958,7 +910,6 @@ body {
         </div>
     </div>
 
-    <!-- PERBAIKAN: Modal for Image Popup dengan tombol X warna hitam -->
     <div class="modal fade image-modal" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -972,20 +923,17 @@ body {
 </div>
 
 <script>
-// PERBAIKAN: Inisialisasi modal dengan cara yang benar
 let eventModal = null;
 let imageModal = null;
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM Content Loaded - Initializing modals...');
     
-    // Inisialisasi modal event
     const eventModalElement = document.getElementById('eventModal');
     if (eventModalElement) {
         eventModal = new bootstrap.Modal(eventModalElement);
         console.log('Event modal initialized successfully');
         
-        // PERBAIKAN: Tambahkan event listener untuk tombol close
         const closeButtons = eventModalElement.querySelectorAll('[data-bs-dismiss="modal"], .btn-close, .btn-secondary');
         closeButtons.forEach(button => {
             button.addEventListener('click', function() {
@@ -998,13 +946,11 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Event modal element not found');
     }
     
-    // Inisialisasi modal gambar
     const imageModalElement = document.getElementById('imageModal');
     if (imageModalElement) {
         imageModal = new bootstrap.Modal(imageModalElement);
         console.log('Image modal initialized successfully');
         
-        // PERBAIKAN: Tambahkan event listener untuk tombol close
         const closeImageButtons = imageModalElement.querySelectorAll('[data-bs-dismiss="modal"], .btn-close');
         closeImageButtons.forEach(button => {
             button.addEventListener('click', function() {
@@ -1021,7 +967,6 @@ document.addEventListener('DOMContentLoaded', function() {
 function showEvents(dateString, day, month, year, dayEvents) {
     console.log('Showing events for:', dateString);
     
-    // Format tanggal untuk ditampilkan
     const date = new Date(dateString);
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = date.toLocaleDateString('id-ID', options);
@@ -1038,7 +983,6 @@ function showEvents(dateString, day, month, year, dayEvents) {
         `;
         
         dayEvents.forEach(event => {
-            // Gunakan nama_kegiatan dari data event
             const eventName = event.nama_kegiatan || event.judul_kegiatan || 'Kegiatan';
             const eventDescription = event.deskripsi || event.keterangan || '';
             const eventTime = event.waktu || event.jam || 'Sepanjang Hari';
@@ -1076,18 +1020,15 @@ function showEvents(dateString, day, month, year, dayEvents) {
         `;
     }
     
-    // PERBAIKAN: Update modal title dengan jarak icon yang tepat
     document.getElementById('eventModalTitle').innerHTML = `
         <i class="fas fa-calendar-day"></i>
         <span>Kegiatan ${formattedDate}</span>
     `;
     document.getElementById('eventModalBody').innerHTML = eventContent;
     
-    // PERBAIKAN: Show modal dengan instance yang sudah diinisialisasi
     if (eventModal) {
         eventModal.show();
     } else {
-        // Fallback jika modal belum diinisialisasi
         const modalElement = document.getElementById('eventModal');
         if (modalElement) {
             eventModal = new bootstrap.Modal(modalElement);
@@ -1096,19 +1037,15 @@ function showEvents(dateString, day, month, year, dayEvents) {
     }
 }
 
-// PERBAIKAN: Fungsi untuk menampilkan modal gambar
 function showImageModal(name, imageSrc) {
     console.log('Showing image modal for:', name);
     
-    // Set gambar dan alt text
     document.getElementById('modalImage').src = imageSrc;
     document.getElementById('modalImage').alt = name;
     
-    // PERBAIKAN: Show modal dengan instance yang sudah diinisialisasi
     if (imageModal) {
         imageModal.show();
     } else {
-        // Fallback jika modal belum diinisialisasi
         const modalElement = document.getElementById('imageModal');
         if (modalElement) {
             imageModal = new bootstrap.Modal(modalElement);
@@ -1117,28 +1054,23 @@ function showImageModal(name, imageSrc) {
     }
 }
 
-// PERBAIKAN: Fungsi untuk menutup modal yang lebih robust
 function closeEventModal() {
     console.log('Closing event modal');
     
     if (eventModal) {
         eventModal.hide();
     } else {
-        // Fallback manual
         const modalElement = document.getElementById('eventModal');
         if (modalElement) {
-            // Tambahkan class untuk hide modal
             modalElement.classList.remove('show');
             modalElement.style.display = 'none';
             modalElement.style.background = 'transparent';
             
-            // Hapus backdrop jika ada
             const backdrop = document.querySelector('.modal-backdrop');
             if (backdrop) {
                 backdrop.remove();
             }
             
-            // Hapus class dari body
             document.body.classList.remove('modal-open');
             document.body.style.overflow = 'auto';
             document.body.style.paddingRight = '0';
@@ -1146,28 +1078,23 @@ function closeEventModal() {
     }
 }
 
-// PERBAIKAN: Fungsi untuk menutup modal gambar
 function closeImageModal() {
     console.log('Closing image modal');
     
     if (imageModal) {
         imageModal.hide();
     } else {
-        // Fallback manual
         const modalElement = document.getElementById('imageModal');
         if (modalElement) {
-            // Tambahkan class untuk hide modal
             modalElement.classList.remove('show');
             modalElement.style.display = 'none';
             modalElement.style.background = 'transparent';
             
-            // Hapus backdrop jika ada
             const backdrop = document.querySelector('.modal-backdrop');
             if (backdrop) {
                 backdrop.remove();
             }
             
-            // Hapus class dari body
             document.body.classList.remove('modal-open');
             document.body.style.overflow = 'auto';
             document.body.style.paddingRight = '0';
@@ -1175,7 +1102,6 @@ function closeImageModal() {
     }
 }
 
-// PERBAIKAN: Tambahkan event listener untuk escape key
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         closeEventModal();
@@ -1184,6 +1110,5 @@ document.addEventListener('keydown', function(event) {
 });
 </script>
 
-<!-- PERBAIKAN: Pastikan Bootstrap JS sudah dimuat -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 @endsection 

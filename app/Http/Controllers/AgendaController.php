@@ -14,7 +14,6 @@ use App\Exports\KalenderExport;
 
 class AgendaController extends Controller
 {
-    /* ======================= AGENDA DESA ======================= */
 
     public function index(Request $request)
     {
@@ -131,7 +130,7 @@ class AgendaController extends Controller
         return redirect()->route('AgendaDesa.index')->with('success', 'Agenda berhasil dihapus');
     }
 
-    /* ======================= KALENDER DESA ======================= */
+    
 
     public function kalenderIndex()
     {
@@ -202,13 +201,11 @@ class AgendaController extends Controller
         return redirect()->route('kalenderDesa.index')->with('success', 'Kegiatan berhasil dihapus.');
     }
 
-    // ✅ Export Excel
     public function kalenderExportExcel()
     {
         return Excel::download(new KalenderExport, 'kalender_desa.xlsx');
     }
 
-    /* ======================= UNTUK USER LANDING ======================= */
 
     public function userIndex(Request $request)
 {
@@ -225,7 +222,7 @@ class AgendaController extends Controller
         $query->where('nama_kegiatan', 'like', '%' . $search . '%');
     }
 
-    // Tampilkan SEMUA agenda tanpa pagination
+
     $agendas = $query->get();
 
     $latest_agendas = Agenda::orderBy('dilihat', 'desc')
@@ -248,7 +245,7 @@ class AgendaController extends Controller
         $agenda = Agenda::findOrFail($id);
         $agenda->increment('dilihat');
 
-        // PERBAIKAN: Untuk sidebar detail agenda, urutkan berdasarkan dilihat
+
         $latest_agendas = Agenda::where('id', '!=', $id)
                                ->orderBy('dilihat', 'desc')
                                ->take(6)
@@ -263,7 +260,7 @@ class AgendaController extends Controller
 
     public function userBeranda()
     {
-        // PERBAIKAN: Untuk homepage, tampilkan agenda dengan dilihat terbanyak
+    
         $latest_agendas = Agenda::orderBy('dilihat', 'desc')
                                ->take(6)
                                ->get();
