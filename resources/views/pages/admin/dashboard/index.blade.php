@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-    body { 
-        font-family: 'Segoe UI', Arial, sans-serif; 
+    body {
+        font-family: 'Segoe UI', Arial, sans-serif;
         background-color: #f8f9fa;
     }
 
@@ -36,18 +36,18 @@
         background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
         transform: rotate(30deg);
     }
-    .hero-card:hover { 
-        transform: translateY(-5px); 
+    .hero-card:hover {
+        transform: translateY(-5px);
         box-shadow: 0 15px 35px rgba(106, 17, 203, 0.4);
     }
-    .hero-card h2 { 
-        font-weight: 700; 
-        font-size: 28px; 
+    .hero-card h2 {
+        font-weight: 700;
+        font-size: 28px;
         margin-bottom: 10px;
         position: relative;
     }
-    .hero-card p { 
-        font-size: 16px; 
+    .hero-card p {
+        font-size: 16px;
         opacity: 0.9;
         max-width: 700px;
         margin: 0 auto;
@@ -64,23 +64,23 @@
         border: none;
         height: 100%;
     }
-    .stat-card:hover { 
-        transform: translateY(-8px); 
+    .stat-card:hover {
+        transform: translateY(-8px);
         box-shadow: 0 12px 25px rgba(0,0,0,0.15);
     }
-    .stat-card i { 
-        font-size: 2.8rem; 
-        margin-bottom: 15px; 
-        display: block; 
+    .stat-card i {
+        font-size: 2.8rem;
+        margin-bottom: 15px;
+        display: block;
         opacity: 0.9;
     }
-    .stat-card h3 { 
-        font-size: 2.2rem; 
-        font-weight: 700; 
+    .stat-card h3 {
+        font-size: 2.2rem;
+        font-weight: 700;
         margin: 10px 0 5px;
     }
-    .stat-card h6 { 
-        font-weight: 600; 
+    .stat-card h6 {
+        font-weight: 600;
         color: #6c757d;
         font-size: 15px;
     }
@@ -93,8 +93,8 @@
         transition: all 0.3s;
         overflow: hidden;
     }
-    .card:hover { 
-        transform: translateY(-5px); 
+    .card:hover {
+        transform: translateY(-5px);
         box-shadow: 0 10px 25px rgba(0,0,0,0.12);
     }
     .card-header {
@@ -119,7 +119,7 @@
         background: linear-gradient(145deg, #ffffff, #f8f9fa);
         border-radius: 12px;
     }
-    
+
     .chart-header {
         display: flex;
         justify-content: space-between;
@@ -127,20 +127,20 @@
         margin-bottom: 20px;
         padding: 0 10px;
     }
-    
+
     .chart-title {
         font-size: 1.4rem;
         font-weight: 700;
         color: #2c3e50;
         margin: 0;
     }
-    
+
     .chart-legend {
         display: flex;
         gap: 15px;
         align-items: center;
     }
-    
+
     .legend-item {
         display: flex;
         align-items: center;
@@ -148,7 +148,7 @@
         font-size: 0.9rem;
         color: #6c757d;
     }
-    
+
     .legend-color {
         width: 12px;
         height: 12px;
@@ -163,7 +163,7 @@
         box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         height: 100%;
     }
-    
+
     .calendar-header {
         display: flex;
         justify-content: space-between;
@@ -172,19 +172,19 @@
         padding-bottom: 15px;
         border-bottom: 1px solid #eaeaea;
     }
-    
+
     .calendar-title {
         font-size: 1.4rem;
         font-weight: 700;
         color: #2c3e50;
         margin: 0;
     }
-    
+
     .calendar-nav {
         display: flex;
         gap: 10px;
     }
-    
+
     .calendar-nav-btn {
         background: #f8f9fa;
         border: none;
@@ -197,13 +197,13 @@
         transition: all 0.3s;
         color: #6c757d;
     }
-    
+
     .calendar-nav-btn:hover {
         background: #007bff;
         color: white;
         transform: scale(1.1);
     }
-    
+
     .calendar-weekdays {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
@@ -211,20 +211,20 @@
         margin-bottom: 10px;
         text-align: center;
     }
-    
+
     .weekday {
         font-weight: 600;
         color: #6c757d;
         padding: 8px 0;
         font-size: 0.85rem;
     }
-    
+
     .calendar-days {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
         gap: 5px;
     }
-    
+
     .calendar-day {
         height: 40px;
         display: flex;
@@ -235,28 +235,28 @@
         transition: all 0.3s;
         position: relative;
     }
-    
+
     .calendar-day:hover {
         background: #f8f9fa;
         transform: translateY(-2px);
     }
-    
+
     .calendar-day.today {
         background: linear-gradient(135deg, #2575fc, #6a11cb);
         color: white;
         box-shadow: 0 4px 10px rgba(37, 117, 252, 0.3);
     }
-    
+
     .calendar-day.event {
         background: #e8f4ff;
         color: #007bff;
         font-weight: 600;
     }
-    
+
     .calendar-day.other-month {
         color: #dee2e6;
     }
-    
+
     .event-dot {
         position: absolute;
         bottom: 4px;
@@ -265,7 +265,7 @@
         background: #007bff;
         border-radius: 50%;
     }
-    
+
     .calendar-day.today .event-dot {
         background: white;
     }
@@ -274,8 +274,8 @@
     .table {
         margin-bottom: 0;
     }
-    .table td, .table th { 
-        vertical-align: middle; 
+    .table td, .table th {
+        vertical-align: middle;
         padding: 12px 15px;
     }
     .table thead th {
@@ -284,14 +284,14 @@
         font-weight: 600;
         color: #495057;
     }
-    .table-hover tbody tr:hover { 
-        background-color: rgba(37, 117, 252, 0.05); 
+    .table-hover tbody tr:hover {
+        background-color: rgba(37, 117, 252, 0.05);
     }
-    .badge { 
-        font-size: 0.8rem; 
-        font-weight: 500; 
-        padding: 0.5em 0.8em; 
-        border-radius: 12px; 
+    .badge {
+        font-size: 0.8rem;
+        font-weight: 500;
+        padding: 0.5em 0.8em;
+        border-radius: 12px;
     }
 
     /* Tautan Cepat */
@@ -312,8 +312,8 @@
         transform: translateY(-3px);
         box-shadow: 0 6px 15px rgba(0,0,0,0.12);
     }
-    .quick-links .btn i { 
-        font-size: 1.3rem; 
+    .quick-links .btn i {
+        font-size: 1.3rem;
         width: 24px;
         text-align: center;
     }
@@ -336,37 +336,37 @@
         .main-content {
             padding: 15px;
         }
-        
+
         .hero-card {
             padding: 20px 15px;
         }
-        
+
         .hero-card h2 {
             font-size: 24px;
         }
-        
+
         .stat-card {
             padding: 20px 10px;
         }
-        
+
         .stat-card i {
             font-size: 2.2rem;
         }
-        
+
         .stat-card h3 {
             font-size: 1.8rem;
         }
-        
+
         .table td, .table th {
             padding: 8px 10px;
         }
-        
+
         .chart-header {
             flex-direction: column;
             align-items: flex-start;
             gap: 10px;
         }
-        
+
         .calendar-header {
             flex-direction: column;
             gap: 15px;
@@ -551,19 +551,19 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     // === Ambil data dari controller ===
-    const kegiatanDates = {!! json_encode($agendaDates ?? []) !!}; 
+    const kegiatanDates = {!! json_encode($agendaDates ?? []) !!};
     const labelsPenduduk = {!! json_encode($labelsPenduduk ?? ['Sukamaju', 'Mihasa', 'Hannry', 'Antara']) !!};
     const dataPenduduk = {!! json_encode($dataPenduduk ?? [10, 8, 12, 9]) !!};
 
     // === Chart penduduk yang diperbarui ===
     const ctx = document.getElementById('populationChart').getContext('2d');
-    
+
     // Gradien untuk chart
     const gradient = ctx.createLinearGradient(0, 0, 0, 300);
     gradient.addColorStop(0, 'rgba(78, 115, 223, 0.8)');
     gradient.addColorStop(0.7, 'rgba(78, 115, 223, 0.4)');
     gradient.addColorStop(1, 'rgba(78, 115, 223, 0.1)');
-    
+
     const gradientHover = ctx.createLinearGradient(0, 0, 0, 300);
     gradientHover.addColorStop(0, 'rgba(28, 200, 138, 0.8)');
     gradientHover.addColorStop(0.7, 'rgba(28, 200, 138, 0.4)');
@@ -646,45 +646,45 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // === Kalender Modern ===
     let currentDate = new Date();
-    
+
     function renderCalendar(date) {
         const calendarDays = document.getElementById('calendarDays');
         const currentMonthYear = document.getElementById('currentMonthYear');
-        
+
         const year = date.getFullYear();
         const month = date.getMonth();
-        
+
         // Set month and year title
         const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
                            "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
         currentMonthYear.textContent = `${monthNames[month]} ${year}`;
-        
+
         // Get first and last day of month
         const firstDay = new Date(year, month, 1);
         const lastDay = new Date(year, month + 1, 0);
         const today = new Date();
-        
+
         // Clear previous calendar
         calendarDays.innerHTML = '';
-        
+
         // Add empty cells for days before the first day of month
         for (let i = 0; i < firstDay.getDay(); i++) {
             const emptyDay = document.createElement('div');
             emptyDay.className = 'calendar-day other-month';
             calendarDays.appendChild(emptyDay);
         }
-        
+
         // Add days of the month
         for (let day = 1; day <= lastDay.getDate(); day++) {
             const dayElement = document.createElement('div');
             dayElement.className = 'calendar-day';
             dayElement.textContent = day;
-            
+
             // Check if today
             if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
                 dayElement.classList.add('today');
             }
-            
+
             // Check if has event
             const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
             if (kegiatanDates.includes(dateString)) {
@@ -693,20 +693,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 eventDot.className = 'event-dot';
                 dayElement.appendChild(eventDot);
             }
-            
+
             calendarDays.appendChild(dayElement);
         }
     }
-    
+
     // Initialize calendar
     renderCalendar(currentDate);
-    
+
     // Navigation buttons
     document.getElementById('prevMonth').addEventListener('click', function() {
         currentDate.setMonth(currentDate.getMonth() - 1);
         renderCalendar(currentDate);
     });
-    
+
     document.getElementById('nextMonth').addEventListener('click', function() {
         currentDate.setMonth(currentDate.getMonth() + 1);
         renderCalendar(currentDate);

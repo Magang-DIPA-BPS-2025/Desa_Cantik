@@ -22,12 +22,6 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call(AdminSeeder::class);
-        $this->call(KelasSeeder::class);
-        $this->call(SiswaSeeder::class);
-        $this->call(GuruSeeder::class);
-        $this->call(AgendaSeeder::class);
-        // $this->call(BeritaSeeder::class);
-        $this->call(ModulSeeder::class);
         $this->call(JenisSuratSeeder::class);
     }
 }

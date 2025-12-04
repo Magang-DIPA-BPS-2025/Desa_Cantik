@@ -15,14 +15,14 @@
                 gap: 10px;
                 margin-top: 20px;
             }
-            
+
             .btn-primary {
                 background-color: #007bff;
                 border-color: #007bff;
                 min-width: 100px;
                 padding: 8px 20px;
             }
-            
+
             .btn-warning {
                 background-color: #ffc107;
                 border-color: #ffc107;
@@ -30,7 +30,7 @@
                 min-width: 100px;
                 padding: 8px 20px;
             }
-            
+
             /* Styling untuk dropdown agar font ditengah */
             .selectric .label {
                 display: flex;
@@ -64,7 +64,7 @@
                                             <ul>
                                                 @foreach ($errors->all() as $error)
                                                     <li>{{ $error }}</li>
-                                                @endforeach
+                                                @endforeach 
                                             </ul>
                                         </div>
                                     @endif
@@ -158,11 +158,11 @@
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-3">Desa</label>
                                         <div class="col-md-7">
-                                            <input 
-                                                type="text" 
-                                                name="keldesa" 
-                                                class="form-control" 
-                                                value="Manggalung" 
+                                            <input
+                                                type="text"
+                                                name="keldesa"
+                                                class="form-control"
+                                                value="Manggalung"
                                                 readonly>
                                         </div>
                                     </div>
@@ -311,7 +311,7 @@
             $(document).ready(function() {
                 // Inisialisasi semua select dengan selectric
                 $('select').selectric();
-                
+
                 // Styling untuk teks di tengah dropdown
                 $('.selectric .label').css({
                     'display': 'flex',
